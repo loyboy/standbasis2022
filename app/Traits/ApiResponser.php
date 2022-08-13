@@ -32,7 +32,7 @@ trait ApiResponser
     {
         $encrypt_method = "AES-256-CBC";
         $secret_key = 'AA74CDCC2BBRT935136HH7B63C27'; // user define private key
-        $secret_iv = 'plentiafricathewayhome'; // user define secret key
+        $secret_iv = 'standbasisthewayhome'; // user define secret key
         $key = hash('sha256', $secret_key);
         $iv = substr(hash('sha256', $secret_iv), 0, 16); // sha256 is hash_hmac_algo
         if ($action == 'encrypt') {
@@ -72,31 +72,15 @@ trait ApiResponser
             'message' => $message
         ], $code);
     }
-    
-    protected function pointEngine($store_setting_data, $amount_spent, $transaction=null)
-    {  
-        $settings =  2; 
-        $commision = $store_setting_data->store->daalu_commision/100;
-        $customer_earnings = ($store_setting_data->store->customers_earnings/100);
-        $engine_constant = 2;
-        $point = round(($transaction == 'burn')? ($engine_constant* $amount_spent) : ($commision* $amount_spent * $customer_earnings  * $engine_constant), 0);
-        return $point;
-    }
 
     public function getPersonalAccessToken()
     {
         if (request()->remember_me === 'true')
             Passport::personalAccessTokensExpireIn(now()->addMonths(6));
 
-        return Auth::user()->createToken('plenti');
+        return Auth::user()->createToken('standbasis');
     }
-    
-    protected function commission($store_setting_data, $amount_spent)
-    {  
-        $commision = $store_setting_data->Store->daalu_commision/100;
-        $commision = $commision* $amount_spent;
-        return $commision;
-    }
+
     
     protected function convertRecieptDate($receiptDate)
     {  
