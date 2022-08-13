@@ -1,0 +1,5 @@
+---
+deployment
+task:
+  - export DEPLOYMENT=/home/user/admin.plenti.africa
+  - /bin/cp server.php $DEPLOYMENT

@@ -1,0 +1,32 @@
+[{
+        "lga_name": "Akwanga",
+        "hts_tst": 92,
+        "hts_tst_pos": 4
+    },
+    {
+        "lga_name": "Awe",
+        "hts_tst": 4,
+        "hts_tst_pos": 0
+    },
+    {
+        "lga_name": "Doma",
+        "hts_tst": 96,
+        "hts_tst_pos": 4
+    },
+    {
+        "lga_name": "Karu",
+        "hts_tst": 197,
+        "hts_tst_pos": 15
+    },
+    {
+        "lga_name": "Keffi",
+        "hts_tst": 69,
+        "hts_tst_pos": 3
+    },
+    {
+        "lga_name": "Kokona",
+        "hts_tst": 6,
+        "hts_tst_pos": 1
+    }
+
+]

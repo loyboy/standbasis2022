@@ -1,0 +1,50 @@
+[
+  {
+    "lga": "Obio/Akpor",
+    "onart": 55613,
+    "eligible": 45812,
+    "Sample_collected": 45263,
+    "vl_result": 45263,
+    "supressed": 44417
+  },
+  {
+    "lga": "Khana",
+    "onart": 20269,
+    "eligible": 15600,
+    "Sample_collected": 15244,
+    "vl_result": 15244,
+    "supressed": 14552
+  },
+  {
+    "lga": "port harcourt",
+    "onart": 13273,
+    "eligible": 12025,
+    "Sample_collected": 11702,
+    "vl_result": 11702,
+    "supressed": 11246
+  },
+  {
+    "lga": "Ogba/Egbema/Ndoni",
+    "onart": 12575,
+    "eligible": 8998,
+    "Sample_collected": 8927,
+    "vl_result": 8927,
+    "supressed": 8851
+  },
+  {
+    "lga": "Gokana",
+    "onart": 12394,
+    "eligible": 6731,
+    "Sample_collected": 6568,
+    "vl_result": 6568,
+    "supressed": 6459
+  },
+  {
+    "lga": "Tai",
+    "onart": 11114,
+    "eligible": 8041,
+    "Sample_collected": 7851,
+    "vl_result": 7851,
+    "supressed": 7605
+  }
+]
