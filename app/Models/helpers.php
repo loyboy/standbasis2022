@@ -72,20 +72,6 @@ function unique_code($limit)
     return substr(base_convert(sha1(uniqid(mt_rand())), 16, 36), 0, $limit);
 }
 
-function getDistance($storelatitude, $storelongitude, $userlatitude, $userlongitude)
-{
-    $earth_radius = 6371;
-
-    $dLat = deg2rad($userlatitude - $storelatitude);
-    $dLon = deg2rad($userlongitude - $storelongitude);
-
-    $a = sin($dLat / 2) * sin($dLat / 2) + cos(deg2rad($storelatitude)) * cos(deg2rad($userlatitude)) * sin($dLon / 2) * sin($dLon / 2);
-    $c = 2 * asin(sqrt($a));
-    $d = $earth_radius * $c;
-
-    return $d;
-}
-
 function data_getcurl($url)
 {
     $ch = curl_init($url);
@@ -100,51 +86,3 @@ function data_getcurl($url)
     return $resp = json_decode($response, true);
 }
 
-function vas2net_curl($query, $url)
-{
-    $authStr = "tvioSolutions:v2nVtuTVio0On";
-    $authEncoded = base64_encode($authStr);
-    $auth = "Basic " . $authEncoded;
-    $bearer = 'Authorization:' . $auth;
-    $data_string = json_encode($query);
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Access-Control-Request-Method: POST', 'Access-Control-Allow-Origin: *', 'Content-Type: application/json', $bearer));
-    $response = curl_exec($ch);
-    curl_close($ch);
-    return $resp = json_decode($response, true);
-}
-
-function vas2net_biller_curl($request)
-{
-    $mac = hash('sha256', env('CLIENT_CODE') . '|' . env('API_KEY') . '|' . env('SECRET_KEY'));
-    $data_string = json_encode($request);
-    $ch = curl_init(env('BILLER_BASE_URL') . '/proxy');
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'CLIENT_CODE: TVIOS-SFVAW597CUUP', 'MAC: '.$mac, ));
-    $response = curl_exec($ch);
-    curl_close($ch);
-    return $resp = json_decode($response, true);
-
-}
-
-function vas2net_biller_exchange($request)
-{
-    $mac = hash('sha256', env('CLIENT_CODE') . '|' . env('API_KEY') . '|' . env('SECRET_KEY'));
-    $data_string = json_encode($request);
-    $ch = curl_init(env('BILLER_BASE_URL') . '/exchange');
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'CLIENT_CODE: TVIOS-SFVAW597CUUP', 'MAC: ' . $mac,));
-    $response = curl_exec($ch);
-    curl_close($ch);
-    return $resp = json_decode($response, true);
-}

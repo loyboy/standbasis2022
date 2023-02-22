@@ -30,7 +30,7 @@
               <h2 class="brand-text">
                    <b-img
                   :src="appLogoImageLight"
-                  alt="logo" style="width: 100px;"
+                  alt="logo" style="width: 150px;"
                 />
               </h2>
             </b-link>
@@ -53,6 +53,7 @@
               />
             </b-link>
           </li>
+          
         </ul>
       </slot>
     </div>

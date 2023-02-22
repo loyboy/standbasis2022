@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // Modules
-import dealsStoreModule from '@/views/pages/deals/dealsStoreModule'
 import app from './app'
 import appConfig from './app-config'
 import tableData from './table-data'
@@ -17,8 +16,7 @@ export default new Vuex.Store({
         appConfig,
         verticalMenu,
         tableData,
-        customer,
-        'app-ecommerce': dealsStoreModule,
+        customer
     },
     strict: process.env.DEV,
 })

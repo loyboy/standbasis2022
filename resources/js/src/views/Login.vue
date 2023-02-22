@@ -149,12 +149,13 @@ import {
   VBTooltip,
 } from "bootstrap-vue";
 import useJwt from "@/auth/jwt/useJwt";
+import { $themeConfig } from "@themeConfig";
 import { required, email } from "@validations";
 import { togglePasswordVisibility } from "@core/mixins/ui/forms";
 import store from "@/store/index";
 import { getHomeRouteForLoggedInUser } from "@/auth/utils";
 import ToastificationContent from "@core/components/toastification/ToastificationContent.vue";
-import { useShopRemoteData } from "./pages/deals/useDeals";
+
 
 export default {
   directives: {
@@ -205,73 +206,46 @@ export default {
   },
   methods: {
     validationForm() {
-      this.$refs.loginValidation.validate().then((success) => {
-        if (success) {
-          this.$loading(true);
-          useJwt
-            .login({
-              email: this.userEmail,
+      const sef = this;
+
+      let user = {
+              username: this.userEmail,
               password: this.password,
-            })
-            .then(async (response) => {
-              let { userData } = response;
-              console.log(userData)
-              useJwt.setToken(response.accessToken);
-              useJwt.setRefreshToken(response.refreshToken);
-             
+          };
+          const formPayload = { username: this.userEmail };
 
-            /*  if (userData.role === "merchant") {
-                let merchantId = await fetchMerchantId({
-                  merchantId: userData.id,
-                });
-                userData["merchantId"] = merchantId;
-                //just checking
-              }*/
- 
-              localStorage.setItem("userData", JSON.stringify(userData));
-              this.$ability.update(userData.ability);
+          const options = {
+              method: 'POST',
+              mode:'cors',
+              headers: {
+              'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formPayload),
+          };
 
-              this.$store.commit(
-                "appConfig/UPDATE_CATEGORY",
-                response.categories
-              );
-              this.$store.commit("appConfig/UPDATE_STORES", response.stores);
-              this.$loading(false);
-
-              this.$router
-                .replace(getHomeRouteForLoggedInUser(userData.role))
-                .then(() => {
-                  this.$toast({
-                    component: ToastificationContent,
-                    position: "top-right",
-                    props: {
-                      title: `Welcome ${
-                        userData.fullName || userData.username
-                      }`,
-                      icon: "CoffeeIcon",
-                      variant: "success",
-                      text: `You have successfully logged in as ${userData.role}. Now you can start to explore!`,
-                    },
-                  });
-                });
-            })
-            .catch((error) => {
-              this.$toast({
-                component: ToastificationContent,
-                position: "top-right",
-                props: {
-                  title: `Oops Something went wrong`,
-                  icon: "CoffeeIcon",
-                  variant: "danger",
-                  text: `Username or pasword miss match`,
-                },
-              });
-              this.$loading(false);
-            });
-        }
-      });
+          fetch(this.baseURL + "/auth/checkUsername", options)
+          .then(data => {
+              if (!data.ok) {
+                throw Error(data.status);
+              }
+              console.log("Json: "+ data.json())
+              return data.json();
+              }).then(update => {
+              console.log(update);
+              }).catch(e => {
+              console.log(e);
+          });
+       
     },
   },
+
+  setup(_, { emit }) {    
+    const { baseURL } = $themeConfig.app;
+
+    return {    
+        baseURL
+    }
+  }
 };
 </script>
 

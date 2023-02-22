@@ -81,9 +81,7 @@ export default {
   },
   setup() {
    
-    const userData = ref(null)
-
-    
+    const userData = ref(null)     
 
     const CUSTOMER_STORE_MODULE_NAME = 'customer-store'
 

@@ -3,8 +3,8 @@ import { $themeConfig } from '@themeConfig'
 export default {
     namespaced: true,
     state: {
-        category: JSON.parse(localStorage.getItem('category')),
-        stores: JSON.parse(localStorage.getItem('stores')),
+        //category: JSON.parse(localStorage.getItem('category')),
+        //stores: JSON.parse(localStorage.getItem('stores')),
         layout: {
             isRTL: $themeConfig.layout.isRTL,
             skin: localStorage.getItem('vuexy-skin') || $themeConfig.layout.skin,
@@ -57,7 +57,7 @@ export default {
         UPDATE_FOOTER_CONFIG(state, obj) {
             Object.assign(state.layout.footer, obj)
         },
-        UPDATE_CATEGORY(state, val) {
+        /*UPDATE_CATEGORY(state, val) {
             localStorage.setItem("category", JSON.stringify(val));
             let categories = JSON.parse(localStorage.getItem('category'))
             state.category = categories
@@ -66,7 +66,7 @@ export default {
             localStorage.setItem("stores", JSON.stringify(val));
             let stores = JSON.parse(localStorage.getItem('stores'))
             state.stores = stores
-        }
+        }*/
     },
     actions: {},
 }

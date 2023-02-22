@@ -1,89 +1,118 @@
-export default [{
+export default [
+    {
         title: 'Dashboard',
-        route: 'home',
+        route: 'superadmin-home',
         icon: 'HomeIcon',
-        permission: ["admin"]
+        permission: ["admin", "proprietor"]
     },
     {
-        title: 'Dasboard',
-        route: 'merchant-dasboard',
-        icon: 'HomeIcon',
-        permission: ["merchant"]
-    },
-    {
-        title: 'Stores',
-        route: 'stores',
-        icon: 'AirplayIcon',
-        permission: ["merchant"]
-    },
-    {
-        title: 'Customers',
-        route: 'customers',
-        icon: 'UserIcon',
-        permission: ["admin"]
-    },
-    {
-        title: 'Merchants',
-        route: 'merchants',
-        icon: 'UsersIcon',
-        permission: ["admin"]
-    },
-    {
-        title: 'Gift Cards',
-        route: 'gift-cards',
-        icon: 'GiftIcon',
-        permission: ["admin"]
-    },
-    {
-        title: 'Deals',
-        route: 'deals',
-        icon: 'BriefcaseIcon',
-        permission: ["admin", "merchant"]
-    },
-    {
-        title: 'Bills',
-        route: 'bills',
-        icon: 'BriefcaseIcon',
-        permission: ["admin"]
-    },
-    {
-        title: 'Transactions',
-        route: 'transactions',
-        icon: 'TrelloIcon',
-        permission: ["admin", "merchant"]
-    },
-    {
-        title: 'Deal Transactions',
-        route: 'deals-transactions',
-        icon: 'TrelloIcon',
-        permission: ["admin", "merchant"]
-    },
-    {
-        title: 'PlentiCredit',
-        route: 'plenticreditloan',
-        icon: 'GiftIcon',
-        permission: ["admin"]
-    },
-    {
-        title: 'Vouchers',
-        route: 'vouchers',
-        icon: 'GiftIcon',
-        permission: ["admin"]
-    },
-    {
-        title: 'Accounting',
-        route: 'accounting',
-        icon: 'FileIcon',
-        permission: ["admin"]
-    },
-    {
-        title: 'Miscellaneous',
+        title: 'School Data',
         icon: 'CircleIcon',
-        permission: ["admin"],
-        children: [{
-            title: 'Not Authorized',
-            route: 'misc-not-authorized',
-            target: '_blank',
-        }],
+        permission: ["admin", "proprietor"],
+        children: [
+            {
+                title: 'Schools',
+                route: 'schools-home'              
+            },
+            {
+                title: 'Group of Schools',
+                route: 'groupschools-home'
+              
+            },
+            {
+                title: 'Teachers',
+                route: 'teachers-home'
+              
+            },
+            {
+                title: 'Enrollments',
+                route: 'enrollments-home'
+            },
+            {
+                title: 'Classrooms',
+                route: 'classrooms-home'
+            },
+            {
+                title: 'Calendars',
+                route: 'calendars-home'
+            },
+            {
+                title: 'Users',
+                route: 'users-home'
+            },
+            {
+                title: 'Timetables',
+                route: 'timetables-home'
+            },
+        ],
     },
+    {
+        title: 'School Performance Data',
+        icon: 'CommandIcon',
+        permission: ["admin", "proprietor"],
+        children: [
+            {
+                title: 'Teacher Attendance Data',
+                route: 'attendances-home'
+          
+            }, 
+            {
+                title: 'Student Attendance Data',
+                route: 'attendances-student-home'
+                
+            },
+            {
+                title: 'Attendance Activity Data',
+                route: 'attendances-activity-home'
+         
+            },
+            {
+                title: 'Teacher Lessonnote Data',
+                route: 'lessonnotes-home'
+            },
+            {
+                title: 'Student Assessment Data',
+                route: 'lessonnotes-student-home'
+                
+            },
+            {
+                title: 'Lessonnote Activity Data',
+                route: 'lessonnotes-activity-home'
+         
+            }
+           
+        ],
+    },
+
+    {
+        title: 'School M&E Data',
+        icon: 'CommandIcon',
+        permission: ["admin", "proprietor"],
+        children: [
+            {
+                title: 'Attendance M&E Data',
+                route: 'mne-attendances-home'
+          
+            },
+            {
+                title: 'Lessonnote M&E Data',
+                route: 'mne-lessonnotes-home'
+                
+            }           
+        ]
+    },
+
+    {
+        title: 'Settings',
+        route: 'settings-home',
+        icon: 'SettingsIcon',
+        permission: ["admin"]
+    },
+    {
+        title: 'Events',
+        route: 'events-home',
+        icon: 'RssIcon',
+        permission: ["admin"]
+    },
+    
 ]

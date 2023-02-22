@@ -4,57 +4,98 @@ const data = {
   congratulations: {
     name: 'John',
     saleToday: '57.6',
+    role: 'superadmin'
   },
-  subscribersGained: {
+
+  groupschoolsGained: {
     series: [
       {
-        name: 'Subscribers',
-        data: [28, 40, 36, 52, 38, 60, 55],
+        name: 'Group of Schools',
+        data: [2, 0, 0, 1, 2, 5, 1],
       },
     ],
     analyticsData: {
-      subscribers: 92600,
+      groupschools: 10,
     },
   },
-  ordersRecevied: {
+
+  schoolsGained: {
     series: [
       {
-        name: 'Orders',
-        data: [10, 15, 8, 15, 7, 12, 8],
+        name: 'Schools',
+        data: [3, 3, 1, 0, 0, 1, 8],
       },
     ],
     analyticsData: {
-      orders: 38400,
+      schools: 20,
     },
   },
-  avgSessions: {
-    sessions: 2700,
-    lastDays: ['Last 28 Days', 'Last Month', 'Last Year'],
-    growth: '+5.2%',
-    goal: 100000,
-    users: 100000,
-    retention: 90,
-    duration: 1,
-    salesBar: {
-      series: [
-        {
-          name: 'Sessions',
-          data: [75, 125, 225, 175, 125, 75, 25],
+
+  attendance:{
+      name: "Attendance",
+      avgSessions: {
+        sessions: 2700,
+        lastDays: ['Last 28 Days', 'Last Month', 'Last Year'],
+       // growth: '+4.2%',// check last 28 days against this present 
+        goal: 9000, // timetable classes that are available for this period
+        teachers: 5000, // teachers that have done the attendance for real
+        retention: 90, // % participation
+        duration: 1, // duration of search in years
+        salesBar: {
+          series: [
+            {
+              name: 'Sessions',
+              data: [75, 125, 225, 175, 125, 75, 25],
+            },
+          ],
         },
-      ],
-    },
+      },
+      supportTracker: {
+        title: 'Attendance M & E',
+        lastDays: ['Last 28 Days', 'Last Month', 'Last Year'],
+        totalFlags: 163,
+        late: 48,
+        noAttachment: 53,
+        responseTime: 1,
+        supportTrackerRadialBar: {//total attended to by the principal or assigned principal
+          series: [65],
+        },
+      }
   },
-  supportTracker: {
-    title: 'Support Tracker',
-    lastDays: ['Last 28 Days', 'Last Month', 'Last Year'],
-    totalTicket: 163,
-    newTicket: 29,
-    openTicket: 63,
-    responseTime: 1,
-    supportTrackerRadialBar: {
-      series: [83],
+
+  lessonnote:{
+    name:"Lessonnote",
+    avgSessions: {
+      sessions: 300,
+      lastDays: ['Last 28 Days', 'Last Month', 'Last Year'],
+      goal: 9000, // Expected lessonnotes within this period
+      teachers: 5000, // teachers that have done the lessonnote per subject and week for real
+      retention: 90, // % participation
+      duration: 1, // duration of search in years
+      salesBar: {
+        series: [
+          {
+            name: 'Sessions',
+            data: [14, 30, 43, 45, 49, 58, 60],
+          },
+        ],
+      },
     },
+    supportTracker: {
+      title: 'Lessonnote M & E',
+      lastDays: ['Last 28 Days', 'Last Month', 'Last Year'],
+      totalFlags: 110,
+      late: 59,
+      noAttachment: 13,
+      responseTime: 1,
+      supportTrackerRadialBar: {//total attended to by the principal or assigned principal
+        series: [63],
+      },
+    }
   },
+
+
+  // Unused ------------------------------------------------------
   timeline: {
     step1: {
       title: '12 Invoices have been paid',
@@ -121,7 +162,10 @@ const data = {
       { title: 'Budget', subtitle: '$49251.91' },
       { title: 'Cost', subtitle: '$840.99' },
     ],
-  },
+  }
+  // End Unused --------------------------------------------------
+
+
 }
 /* eslint-disable global-require */
 mock.onGet('/analytics/data').reply(() => [200, data])

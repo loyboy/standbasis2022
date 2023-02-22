@@ -21,7 +21,7 @@
           variant="primary"
           class="mb-1 btn-sm-block"
           :to="loginRoute()"
-        >Back to Home</b-button>
+        >Back to Home again</b-button>
         <b-img
           fluid
           :src="imgUrl"

@@ -26,22 +26,17 @@ class HomeController extends Controller
     {
         if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin') {
             return redirect()->route('admin.dashboard');
-        } elseif (auth()->user()->role == 'merchant') {
-            return redirect()->route('merchant.dashboard');
+        } elseif (auth()->user()->role == 'principal') {
+            return redirect()->route('principal.dashboard');
         } elseif (auth()->user()->role == 'user') {
             return redirect()->route('user.dashboard');
+        } elseif (auth()->user()->role == 'government') {
+            return redirect()->route('government.dashboard');
+        }elseif (auth()->user()->role == 'proprietor') {
+            return redirect()->route('proprietor.dashboard');
         }
         // return view('home');
     }
 
-    public function dashboard()
-    {
-        if (auth()->user()->role == 'admin' || auth()->user()->role == 'superadmin') {
-            return redirect()->route('admin.dashboard');
-        } elseif (auth()->user()->role == 'merchant') {
-            return redirect()->route('merchant.dashboard');
-        } elseif (auth()->user()->role == 'user') {
-            return redirect()->route('user.dashboard');
-        }
-    }
+    
 }

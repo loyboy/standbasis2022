@@ -29,10 +29,14 @@
       >
         <template #button-content>
           <div class="d-sm-flex d-none user-nav">
+
             <p class="user-name font-weight-bolder mb-0">
-              {{userData.fullName}}
+              {{userData.username}}
             </p>
-            <span class="user-status">{{userData.role}}</span>
+
+            <span class="user-status" v-if="userData.role == 'admin' "> Super Admin </span>
+            <span class="user-status" v-if="userData.role != 'admin' "> {{ userData.role }} </span>
+
           </div>
           <b-avatar
             size="40"
@@ -40,11 +44,11 @@
             badge
             :src="require('@/assets/images/avatars/13-small.png')"
             class="badge-minimal"
-            badge-variant="success"
+            badge-variant="info"
           />
         </template>
 
-        <b-dropdown-item link-class="d-flex align-items-center" :to="{ name: 'profile-user'}" v-if=" isMerchant === true || isAdmin === true ">
+        <b-dropdown-item link-class="d-flex align-items-center" :to="{ name: 'profile-user'}">
           <feather-icon
             size="16"
             icon="UserIcon"
@@ -53,36 +57,9 @@
           <span>Profile</span>
         </b-dropdown-item>
 
-        <b-dropdown-item link-class="d-flex align-items-center" v-if=" isMerchant === false  ">
-          <feather-icon
-            size="16"
-            icon="MailIcon"
-            class="mr-50"
-          />
-          <span>Inbox</span>
-        </b-dropdown-item>
-
-        <b-dropdown-item link-class="d-flex align-items-center" v-if=" isMerchant === false  ">
-          <feather-icon
-            size="16"
-            icon="CheckSquareIcon"
-            class="mr-50"
-          />
-          <span>Task</span>
-        </b-dropdown-item>
-
-        <b-dropdown-item link-class="d-flex align-items-center" v-if=" isMerchant === false  ">
-          <feather-icon
-            size="16"
-            icon="MessageSquareIcon"
-            class="mr-50"
-          />
-          <span>Chat</span>
-        </b-dropdown-item>
-
         <b-dropdown-divider />
 
-        <b-dropdown-item link-class="d-flex align-items-center"   @click="logout">
+        <b-dropdown-item link-class="d-flex align-items-center"  @click="logout">
           <feather-icon
             size="16"
             icon="LogOutIcon"
@@ -90,6 +67,7 @@
           />
           <span>Logout</span>
         </b-dropdown-item>
+
       </b-nav-item-dropdown>
     </b-navbar-nav>
   </div>
@@ -126,12 +104,10 @@ export default {
     return {
       userData: JSON.parse(localStorage.getItem('userData')),
       avatarText,
-      isMerchant: false,
       isAdmin: false
     }
   },
   mounted(){
-    this.isMerchant = this.userData.merchantId ? true : false;   
     this.isAdmin = this.userData.role === "admin" ? true : false;
   },
   methods: {

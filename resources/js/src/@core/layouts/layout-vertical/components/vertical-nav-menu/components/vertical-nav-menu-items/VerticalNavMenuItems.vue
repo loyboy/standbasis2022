@@ -7,7 +7,7 @@
       :key="item.header || item.title"
       :item="item"
     />
-  </ul>
+  </ul> 
 </template>
 
 <script>

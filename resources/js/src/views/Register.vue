@@ -4,7 +4,7 @@
       <!-- Brand logo-->
       <b-link class="brand-logo">
         <img
-          src="/images/_/_/_/_/plenti/resources/js/src/assets/images/logo/plenti_logo_dark.png"
+          src="/images/_/_/_/_/plenti/resources/js/src/assets/images/logo/vuexy-logo.png"
           alt="logo"
           class=""
           style="width: 100px"

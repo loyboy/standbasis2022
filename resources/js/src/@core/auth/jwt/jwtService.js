@@ -1,7 +1,5 @@
 import jwtDefaultConfig from './jwtDefaultConfig'
 import AuthService from '@core/services/auth.service';
-import DashboardService from '@core/services/dashboard.service';
-import CustomerService from '@core/services/customer.service';
 
 export default class JwtService {
     // Will be used by this service for making API calls
@@ -74,14 +72,6 @@ export default class JwtService {
            ) */
     }
 
-    onAccessTokenFetched(accessToken) {
-        this.subscribers = this.subscribers.filter(callback => callback(accessToken))
-    }
-
-    addSubscriber(callback) {
-        this.subscribers.push(callback)
-    }
-
     getToken() {
         return localStorage.getItem(this.jwtConfig.storageTokenKeyName)
     }
@@ -100,50 +90,6 @@ export default class JwtService {
 
     login(...args) {
         return AuthService.login(...args)
-    }
-
-    monthlyAccountSummary(datesInterval = null) {
-        return DashboardService.monthlyAccountSummary(datesInterval)
-    }
-
-    getUnclaimedVoucher(datesInterval = null) {
-        return DashboardService.getUnclaimedVoucher(datesInterval)
-    }
-
-    getUnVerifiedEarnings(transactionId = null) {
-        return DashboardService.getUnVerifiedEarnings(transactionId)
-    }
-
-    getUnclaimedGiftcards(datesInterval = null) {
-        return DashboardService.getUnclaimedGiftcards(datesInterval)
-    }
-
-    getDashboardCharts(datesInterval = null) {
-        return DashboardService.getDashboardCharts(datesInterval)
-    }
-
-    getVTUProfits(datesInterval = null) {
-        return DashboardService.getVTUProfits(datesInterval)
-    }
-
-    getCustomTransactions(datesInterval = null) {
-        return CustomerService.getCustomTransactions(datesInterval)
-    }
-
-    updateUserAccount(userData) {
-        return CustomerService.updateUserAccount(userData)
-    }
-
-    updateUserProfileAccount(userData) {
-        return CustomerService.updateUserProfileAccount(userData)
-    }
-
-    updateMerchantAccount(userData) {
-        return DashboardService.setProfileMerchant(userData)
-    }
-
-    register(...args) {
-        return AuthService.register(...args)
     }
 
     refreshToken() {

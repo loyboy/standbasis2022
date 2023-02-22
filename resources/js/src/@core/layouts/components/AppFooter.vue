@@ -4,9 +4,9 @@
       COPYRIGHT  © {{ new Date().getFullYear() }}
       <b-link
         class="ml-25"
-        href="https://plenti.africa"
+        href="https://standbasis.africa"
         target="_blank"
-      >Plenti Africa</b-link>
+      >standbasis</b-link>
       <span class="d-none d-sm-inline-block">, All rights Reserved</span>
     </span>
   </p>
