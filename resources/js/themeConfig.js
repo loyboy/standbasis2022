@@ -9,17 +9,17 @@ export const $themeBreakpoints = {}
 // APP CONFIG
 export const $themeConfig = {
     app: {
-        appName: 'Plenti', // Will update name in navigation menu (Branding)
-        // baseURL: "https://plenti.africa/api/v1",
-        // baseURL: "https://admin.plenti.africa/api/v1",
+        appName: 'Standbasis', // Will update name in navigation menu (Branding)      
 
-        //baseURL: "http://127.0.0.1:8000/api/v1",
-        baseURL: "https://plenti-staging.tvioafrica.co/api/v1",
-        dealAdThumbnailsURL: "/deals_ads/thumb_nail/",
-        dealAdCoverURL: "/deals_ads/cover/",
+        baseURL: "http://127.0.0.1:8084/api",
+
+        backendURL: "http://127.0.0.1:8084",
+      
+        // dealAdThumbnailsURL: "/deals_ads/thumb_nail/",
+        // dealAdCoverURL: "/deals_ads/cover/",
         // eslint-disable-next-line global-require
-        appLogoImage: require('@/assets/images/logo/plenti_logo_dark.png'), // Will update logo in navigation menu (Branding)
-        appLogoImageLight: require('@/assets/images/logo/plenti_logo_light.png'), // Will update logo in navigation menu (Branding)
+        appLogoImage: require('@/assets/images/logo/standbasis.png'), // Will update logo in navigation menu (Branding)
+        appLogoImageLight: require('@/assets/images/logo/standbasis.png'), // Will update logo in navigation menu (Branding)
         wellcomeImageUrl: require('@/assets/images/elements/welcome.png') // Will update logo in navigation menu (Branding)
     },
     layout: {
