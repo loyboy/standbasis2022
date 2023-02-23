@@ -11,9 +11,9 @@ export const $themeConfig = {
     app: {
         appName: 'Standbasis', // Will update name in navigation menu (Branding)      
 
-        baseURL: "http://127.0.0.1:8084/api",
+        baseURL: "http://46.101.98.226:8084/api",
 
-        backendURL: "http://127.0.0.1:8084",
+        backendURL: "http://46.101.98.226:8084",
       
         // dealAdThumbnailsURL: "/deals_ads/thumb_nail/",
         // dealAdCoverURL: "/deals_ads/cover/",
