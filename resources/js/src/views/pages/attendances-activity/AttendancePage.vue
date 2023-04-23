@@ -5,7 +5,7 @@
           <b-sidebar
             id="add-new-user-sidebar-2"
             :visible="isManagementSidebarActive"
-            bg-variant="gray"
+            bg-variant="white"
             sidebar-class="sidebar-md"
             shadow
             backdrop
@@ -435,7 +435,7 @@
                 :variant="`light-${resolveAttendancestatusVariant(data.item.slip)}`"
                 class="text-capitalize"
               >
-              {{ data.item.slip === 1 ? "Late" : data.item.slip === 0 ? "On-time" : "Nil"  }}
+              {{ data.item.actual === null ? "Not Done Yet" : (data.item.slip === 1 ? "Late" : data.item.slip === 0 ? "On-time" : "Nil")  }}
               </b-badge>
             </template>
     
@@ -617,8 +617,7 @@
         { value: null, text: "Please select Slip Status" }
       ]
 
-      return {  
-
+      return { 
          timing: "",
          classperf: "",
          completeness: "",
@@ -637,6 +636,14 @@
             slip: "nil"
          }     
       }
+    },
+
+    mounted(){
+        if(this.userData.role !== "proprietor"){
+            setTimeout(() => {
+                this.loadOtherValues( this.teacherData.school.schId );
+            },2000);        
+        }
     },
 
     setup() {
@@ -706,7 +713,7 @@
       } = useAttendanceList();
 
       if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
-          filters.value.teacherid = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
+          filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.school = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent)  && teacherData.value ? teacherData.value.school.owner.id : null;
       }
@@ -760,6 +767,7 @@
         resolveAttendanceactionVariant,
 
         userData,
+        teacherData,
         schoolOptions,
         
         filters,
@@ -771,31 +779,33 @@
     },
     methods: {
       reset(){
-         this.isAttendanceSidebarActive = false;
+        this.isAttendanceSidebarActive = false;
 
-         this.teacherOptions = [
-        { value: null, text: "Please select Teacher" }
-        ]
+        if (this.userData.role !== "teacher"){
+            this.teacherOptions = [
+              { value: null, text: "Please select Teacher" }
+            ]
 
-        this.classOptions = [
-          { value: null, text: "Please select Class" }
-        ]
+            this.classOptions = [
+              { value: null, text: "Please select Class" }
+            ]
 
-        this.calendarOptions = [
-          { value: null, text: "Please select Calendar" }
-        ]
+            this.calendarOptions = [
+              { value: null, text: "Please select Calendar" }
+            ]
 
-        this.subjectOptions = [
-          { value: null, text: "Please select A Subject" }
-        ]
+            this.subjectOptions = [
+              { value: null, text: "Please select A Subject" }
+            ]
 
-        this.statusOptions = [
-          { value: null, text: "Please select A Status" }
-        ]
+            this.statusOptions = [
+              { value: null, text: "Please select A Status" }
+            ]
 
-        this.slipOptions = [
-          { value: null, text: "Please select Slip Status" }
-        ]
+            this.studentOptions = [
+              { value: null, text: "Please select A Student" }
+            ]
+        }
 
          this.searchValuesCurrent.teacher = ""
          this.searchValuesCurrent.class = ""
@@ -807,7 +817,9 @@
 
          this.filters.schoolId = null;
          this.filters.classId = null;
-         this.filters.teacherId = null;
+        if (this.userData.role !== "teacher"){
+            this.filters.teacherId = null;
+         }
          this.filters.calendarId = null;
          this.filters.subjectId = null;
          this.filters.status = null;
@@ -823,7 +835,9 @@
             this.searchValues = [];
 
             this.filters.classId = null;
-            this.filters.teacherId = null;
+            if (this.userData.role !== "teacher"){
+              this.filters.teacherId = null;
+            }
             this.filters.calendarId = null;
             this.filters.subjectId = null;
             this.filters.status = null;
@@ -859,7 +873,7 @@
             });
 
             sef.classOptions = [];     
-            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value })
+            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value, teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null } )
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
@@ -877,7 +891,7 @@
             });
 
             sef.subjectOptions = [];     
-            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSubjects`)
+            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null } )
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {

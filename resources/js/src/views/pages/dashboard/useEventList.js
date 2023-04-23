@@ -18,7 +18,7 @@ export default function useEventsList() {
     { key: 'module', sortable: true },
     { key: 'comment', sortable: true },
     { key: 'user', label: 'User role', sortable: true },
-    { key: 'dateofevent', label: 'Date of event', sortable: true }
+    { key: 'dateofevent', label: 'Date of event', sortable: true, formatter: val => val !== null ? `${val} %` : "nil" }
   ] 
   const perPage = ref(10)
   const totalEvents = ref(0)
@@ -27,8 +27,10 @@ export default function useEventsList() {
   const searchQuery = ref('')
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)
+
   const schoolVal = ref(null)
   const schoolgroupVal = ref(null)
+  const teacherVal = ref(null)
   const moduleFilter = ref(null)
   const searchStatus = ref(false)
 
@@ -57,6 +59,7 @@ export default function useEventsList() {
         q: searchQuery.value,
         school: schoolVal.value,
         schoolgroup: schoolgroupVal.value,
+        teacher: teacherVal.value,
         module: moduleFilter.value
       })
       .then(response => {
@@ -110,7 +113,7 @@ export default function useEventsList() {
     sortBy,
     isSortDirDesc,
     refEventListTable,
-
+    teacherVal,
     schoolVal,
     schoolgroupVal,
     moduleFilter,

@@ -170,8 +170,8 @@
 
       </b-form>
   
-        <!-- Table Container Card -->
-        <b-card
+      <!-- Table Container Card -->
+      <b-card
           no-body
           class="mb-0"
         >  
@@ -208,7 +208,7 @@
     
           </b-table>
 
-        </b-card>
+      </b-card>
 
     </div>
 

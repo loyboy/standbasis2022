@@ -15,12 +15,12 @@ export default function useAttendanceList() {
 
   // Table Handlers
   const tableColumns = [    
-    { key: 'student.school.name', label: 'School Name', sortable: true },
-    { key: 'student.pupil_fullname',label: 'Student Full Name',  sortable: true },
+    { key: 'student.school.name', label: 'School Name', sortable: true , thStyle: { width: "20%" } },
+    { key: 'student.name',label: 'Student Full Name',  sortable: true },
     { key: 'attendance.timetable.class_stream.title',label: 'Class Name',  sortable: true },
     { key: 'attendance.timetable.class_stream.ext',label: 'Class Arm',  sortable: true },
     { key: 'attendance.timetable.subject.name',label: 'Subject Name',  sortable: true },
-    { key: 'attendance._date',label: 'Date of Submission',  sortable: true },
+    { key: 'attendance.attId',label: 'Attendance ID',  sortable: true , thStyle: { width: "10%" } },
     { key: 'status',label: 'Status',  sortable: true },
     { key: 'remark',label: 'Remark',  sortable: true },
     { key: 'actions' }
@@ -125,7 +125,7 @@ export default function useAttendanceList() {
   // *--------- UI ---------------------------------------*
   // *===============================================---*
 
-  const resolveAttendanceStatusVariant = status => {
+  const resolveVariant = status => {
     if (status === 0) return 'warning'
     if (status === -1) return 'danger'
     if (status === 1) return 'success'
@@ -153,7 +153,7 @@ export default function useAttendanceList() {
 
     refAttendanceListTable,
 
-    resolveAttendanceStatusVariant,
+    resolveVariant,
     isAttendanceSidebarActive,
     isLoading,
 

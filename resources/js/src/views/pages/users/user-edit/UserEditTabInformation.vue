@@ -147,8 +147,7 @@
                       class="custom-control-success"               
                       unchecked-value="0"                     
                       :disabled="userlocalData.permissions.user.edit === false"
-                    >
-                   
+                    >                 
 
                     </b-form-checkbox>  
                     <b-form-invalid-feedback>
@@ -310,7 +309,7 @@
           "STUDENT":1,
           "PRINCIPAL":2,
           "GUARDIAN":3,
-          "PROPRIETOR": 4,
+          "PROPRIETOR": 4, 
           "OWNER":5,
           "SUPERADMIN":6
         };

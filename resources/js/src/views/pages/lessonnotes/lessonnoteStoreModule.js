@@ -40,18 +40,10 @@ export default {
                     .catch(error => reject(error))
             })
         }, 
-        fetchClassrooms(ctx, {id}) {
+        fetchClassrooms(ctx, {id,teacher}) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/classstream/school/' + id)
-                    .then(response => resolve(response))
-                    .catch(error => reject(error))
-            })
-        },
-        fetchSubjects(ctx) {
-            return new Promise((resolve, reject) => {
-                axios
-                    .get($themeConfig.app.baseURL + '/misc/allSubjects' )
+                    .get($themeConfig.app.baseURL + '/classstream/school/' + id + '/teacher/'+ teacher)
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
@@ -63,11 +55,27 @@ export default {
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
+        },
+        fetchSubjects(ctx, {teacher}) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/misc/allSubjects/' + teacher )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
         },        
         updateLessonnote(ctx, {id}) {
             return new Promise((resolve, reject) => {
                 axios
                     .put($themeConfig.app.baseURL + '/lessonnote/'+ id )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
+        approveLessonnote(ctx, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .put($themeConfig.app.baseURL + '/lessonnote/approve/'+ payload.lsnid , payload )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })

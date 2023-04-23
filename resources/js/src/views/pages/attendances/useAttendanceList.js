@@ -15,12 +15,12 @@ export default function useAttendanceList() {
 
   // Table Handlers
   const tableColumns = [    
-    { key: 'teacher.school.name', label: 'School Name', sortable: true },
+    { key: 'teacher.school.name', label: 'School Name', sortable: true, thStyle: { width: "20%" } },
     { key: 'teacher.fname',label: 'Teacher First Name',  sortable: true },
     { key: 'timetable.class_stream.title',label: 'Class Name',  sortable: true },
     { key: 'timetable.class_stream.ext',label: 'Class Arm',  sortable: true },
     { key: 'timetable.subject.name',label: 'Subject Name',  sortable: true },
-    { key: '_date',label: 'Date of Submission',  sortable: true },
+    { key: '_date',label: 'Date of Submission',  sortable: true, thStyle: { width: "20%" } },
     { key: 'done',label: 'Status',  sortable: true },
     { key: 'actions' }
   ]

@@ -3,12 +3,38 @@ export default [
         title: 'Dashboard',
         route: 'superadmin-home',
         icon: 'HomeIcon',
-        permission: ["admin", "proprietor"]
+        permission: ["admin"]
     },
+
     {
+        title: 'Teacher Dashboard',
+        route: 'home',
+        icon: 'HomeIcon',
+        permission: ["teacher", "principal", "proprietor"]
+    },
+
+    {
+        title: 'Your Activities',
+        icon: 'CommandIcon',
+        permission: ["teacher"],
+        children: [
+            {
+                title: 'Teacher Attendance',
+                route: 'attendances-teacher-home'
+          
+            },
+            {
+                title: 'Teacher Lessonnote',
+                route: 'lessonnotes-teacher-home'
+          
+            }
+        ]
+    },
+
+    { 
         title: 'School Data',
         icon: 'CircleIcon',
-        permission: ["admin", "proprietor"],
+        permission: ["admin", "proprietor", "principal"],
         children: [
             {
                 title: 'Schools',
@@ -49,7 +75,7 @@ export default [
     {
         title: 'School Performance Data',
         icon: 'CommandIcon',
-        permission: ["admin", "proprietor"],
+        permission: ["admin", "proprietor", "principal", "teacher" ],
         children: [
             {
                 title: 'Teacher Attendance Data',

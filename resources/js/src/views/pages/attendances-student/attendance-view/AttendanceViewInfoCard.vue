@@ -50,7 +50,7 @@
                 <span class="font-weight-bold">Date of Attendance</span>
               </th>
               <td class="pb-50 text-capitalize">
-                {{ String( attendanceData.created_at ).replace(".000+00:00","")  }}
+                {{ String( attendanceData.attendance._date ).replace(".000+00:00","")  }}
               </td>
             </tr>
 

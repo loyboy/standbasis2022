@@ -40,14 +40,14 @@ export default {
                     .catch(error => reject(error))
             })
         },
-        fetchSubjects(ctx) {
+        fetchSubjects(ctx, {teacher}) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/misc/allSubjects' )
+                    .get($themeConfig.app.baseURL + '/misc/allSubjects/' + teacher )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
-        },
+        },   
         fetchClassrooms(ctx, {id}) {
             return new Promise((resolve, reject) => {
                 axios
