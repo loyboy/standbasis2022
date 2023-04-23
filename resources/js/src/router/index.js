@@ -48,6 +48,21 @@ const router = new VueRouter({
         },
 
         {
+            path: '/teacher-dashboard',
+            name: 'teacher-home',
+            component: () =>
+                import ('@/views/pages/dashboard/Home.vue'),
+            meta: {
+                pageTitle: 'Teacher Dashboard',
+                breadcrumb: [{
+                        text: 'Dashboard',
+                        active: true,
+                    },
+                ]
+            },
+        },
+
+        {
             path: '/proprietor-dashboard',
             name: 'proprietor-home',
             component: () =>
@@ -71,7 +86,7 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Home',
                 breadcrumb: [{
-                        text: 'SuperAdmin Dashboard',
+                        text: 'Dashboard',
                         active: true,
                     },
 
@@ -502,6 +517,23 @@ const router = new VueRouter({
             }
         },
 
+        //Attendances teacher begin here
+        {
+            path: '/attendances-teacher-single',
+            name: 'attendances-teacher-home',
+            component: () =>
+                import ('@/views/pages/attendances-teacher/TakeAttendance.vue'),
+            meta: {
+                pageTitle: 'Teacher Take Attendance',
+                breadcrumb: [{
+                        text: 'Take Attendance',
+                        active: true
+                    }
+                ]
+            },
+        },
+       
+
          //Attendances student begin here
          {
             path: '/attendances-student-list/:attendance?',
@@ -560,6 +592,22 @@ const router = new VueRouter({
                 pageTitle: 'Lessonnotes',
                 breadcrumb: [{
                         text: 'List Lessonnotes',
+                        active: true
+                    }
+                ]
+            },
+        },
+
+        //Teacher only
+        {
+            path: '/lessonnotes-teacher',
+            name: 'lessonnotes-teacher-home',
+            component: () =>
+                import ('@/views/pages/lessonnotes-teacher/SubmitLessonnote.vue'),
+            meta: {
+                pageTitle: 'Submit Lessonnotes',
+                breadcrumb: [{
+                        text: 'Submit Lessonnotes',
                         active: true
                     }
                 ]

@@ -47,6 +47,7 @@
     import router from '@/router'
     import store from '@/store'
     import AttendanceViewInfoCard from './AttendanceViewInfoCard.vue'
+    import EventList from '../../dashboard/EventList.vue'
 
     export default {
         components: {

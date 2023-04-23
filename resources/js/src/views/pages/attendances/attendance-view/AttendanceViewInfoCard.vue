@@ -72,6 +72,38 @@
                   icon="StarIcon"
                   class="mr-75"
                 />
+                <span class="font-weight-bold">Time Taken</span>
+              </th>
+              <td class="pb-50 text-capitalize">
+                {{ String(attendanceData._date).replace(".000+00:00","") }}  
+              </td>
+            </tr>
+
+            <tr>
+              <th>
+                <feather-icon
+                  icon="StarIcon"
+                  class="mr-75" 
+                />
+                <span class="font-weight-bold">Picture Taken</span>
+              </th>
+              <td>               
+                  <b-avatar
+                    ref="previewEl"
+                    :src="new String(baseURL).replace('/api','') + attendanceData.photoPath"
+                    :text="avatarText(attendanceData._desc)"
+                    size="200px"
+                    rounded
+                  />       
+              </td>
+            </tr>
+
+            <tr>
+              <th>
+                <feather-icon
+                  icon="StarIcon"
+                  class="mr-75"
+                />
                 <span class="font-weight-bold">Status</span>
               </th>
               <td class="pb-50 text-capitalize">
@@ -90,14 +122,14 @@
   
   <script>
   import {
-    BCard, BButton, BAvatar, BRow, BCol,
+    BCard, BButton, BAvatar, BRow, BCol
   } from 'bootstrap-vue'
   import { avatarText } from '@core/utils/filter'
-
+  import { $themeConfig } from "@themeConfig";
   
   export default {
     components: {
-      BCard, BButton, BRow, BCol, BAvatar,
+      BCard, BButton, BRow, BCol, BAvatar
     },
     props: {
       attendanceData: {
@@ -106,8 +138,10 @@
       },
     },
     setup() {
+      const { baseURL } = $themeConfig.app; 
       return {
-        avatarText
+        avatarText,
+        baseURL
       }
     },
   }

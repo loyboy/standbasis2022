@@ -358,14 +358,14 @@
               </b-badge>
             </template>
 
-             <!-- Column: Slip -->
-             <template #cell(slip)="data">
+            <!-- Column: Slip -->
+            <template #cell(slip)="data">
               <b-badge
                 pill
                 :variant="`light-${resolveLessonnotestatusVariant(data.item.slip)}`"
                 class="text-capitalize"
-              >
-              {{ data.item.slip === 1 ? "Late" : data.item.slip === 0 ? "On-time" : "Nil"  }}
+              >              
+               {{ data.item.actual === null ? "Not Done Yet" : (data.item.slip === 1 ? "Late" : data.item.slip === 0 ? "On-time" : "Nil")  }}
               </b-badge>
             </template>
     
@@ -519,27 +519,27 @@
     data() {
       
       let teacherOptions = [
-        { value: null, text: "Please select Teacher" }
+        //{ value: null, text: "Please select Teacher" }
       ]
 
       let classOptions = [
-        { value: null, text: "Please select Class" }
+        //{ value: null, text: "Please select Class" }
       ]
 
       let calendarOptions = [
-        { value: null, text: "Please select Calendar" }
+        //{ value: null, text: "Please select Calendar" }
       ]
 
       let subjectOptions = [
-        { value: null, text: "Please select A Subject" }
+       // { value: null, text: "Please select A Subject" }
       ]
 
       let statusOptions = [
-        { value: null, text: "Please select A Status" }
+        //{ value: null, text: "Please select A Status" }
       ]
 
       let slipOptions = [
-        { value: null, text: "Please select Slip Status" }
+        //{ value: null, text: "Please select Slip Status" }
       ]
 
       return {  
@@ -562,10 +562,18 @@
       }
     },
 
+     mounted(){
+        if(this.userData.role !== "proprietor"){
+            setTimeout(() => {
+                this.loadOtherValues( this.teacherData.school.schId );
+            },2000);        
+        }
+    },
+
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
       const Lessonnote_APP_STORE_MODULE_NAME = 'app-LessonnoteActivity';
-      const lessonnote =  router.currentRoute.params.lessonnote ? router.currentRoute.params.lessonnote : null;
+      const lessonnote =  router.currentRoute.params.id ? router.currentRoute.params.id : null;
 
       // Register module
       if (!store.hasModule(Lessonnote_APP_STORE_MODULE_NAME)) store.registerModule(Lessonnote_APP_STORE_MODULE_NAME, lessonnoteStoreModule)
@@ -629,7 +637,7 @@
       } = useLessonnoteList(); 
 
       if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
-          filters.value.teacherid = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
+          filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.school = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent)  && teacherData.value ? teacherData.value.school.owner.id : null;
       }
@@ -682,6 +690,7 @@
         resolveLessonnotestatusVariant,
         resolveLessonnoteactionVariant,
 
+        teacherData,
         userData,
         schoolOptions,
         
@@ -696,29 +705,31 @@
       reset(){
          this.isLessonnoteSidebarActive = false;
 
-         this.teacherOptions = [
-        { value: null, text: "Please select Teacher" }
-        ]
+          if (this.userData.role !== "teacher"){
+            this.teacherOptions = [
+            { value: null, text: "Please select Teacher" }
+            ]
 
-        this.classOptions = [
-          { value: null, text: "Please select Class Type" }
-        ]
+            this.classOptions = [
+              { value: null, text: "Please select Class Type" }
+            ]
 
-        this.calendarOptions = [
-          { value: null, text: "Please select Calendar" }
-        ]
+            this.calendarOptions = [
+              { value: null, text: "Please select Calendar" }
+            ]
 
-        this.subjectOptions = [
-          { value: null, text: "Please select A Subject" }
-        ]
+            this.subjectOptions = [
+              { value: null, text: "Please select A Subject" }
+            ]
 
-        this.statusOptions = [
-          { value: null, text: "Please select A Status" }
-        ]
+            this.statusOptions = [
+              { value: null, text: "Please select A Status" }
+            ]
 
-        this.slipOptions = [
-          { value: null, text: "Please select Slip Status" }
-        ]
+            this.slipOptions = [
+              { value: null, text: "Please select Slip Status" }
+            ]
+         }
 
          this.searchValuesCurrent.teacher = ""
          this.searchValuesCurrent.class = ""
@@ -730,7 +741,9 @@
 
          this.filters.schoolId = null;
          this.filters.classIndex = null;
-         this.filters.teacherId = null;
+         if (this.userData.role !== "teacher"){
+            this.filters.teacherId = null;
+         }
          this.filters.calendarId = null;
          this.filters.subjectId = null;
          this.filters.status = null;
@@ -744,7 +757,9 @@
             this.searchValues = [];
 
             this.filters.classIndex = null;
-            this.filters.teacherId = null;
+            if (this.userData.role !== "teacher"){
+              this.filters.teacherId = null;
+            }
             this.filters.calendarId = null;
             this.filters.subjectId = null;
             this.filters.status = null;
@@ -779,7 +794,7 @@
             });
 
             sef.subjectOptions = [];     
-            store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSubjects`)
+            store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null } )
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {

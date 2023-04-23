@@ -784,31 +784,31 @@
     data() {
       
       let teacherOptions = [
-        { value: null, text: "Please select Teacher" }
+       // { value: null, text: "Please select Teacher" }
       ]
 
       let classOptions = [
-        { value: null, text: "Please select Class" }
+      //  { value: null, text: "Please select Class" }
       ]
 
       let calendarOptions = [
-        { value: null, text: "Please select Calendar" }
+      //  { value: null, text: "Please select Calendar" }
       ]
 
       let subjectOptions = [
-        { value: null, text: "Please select A Subject" }
+      //  { value: null, text: "Please select A Subject" }
       ]
 
       let studentOptions = [
-        { value: null, text: "Please select A Student" }
+       // { value: null, text: "Please select A Student" }
       ]
 
       let typeOptions = [
-        { value: null, text: "Please select An Assessment Type" }
+       // { value: null, text: "Please select An Assessment Type" }
       ]
 
       let scoreOptions = [
-        { value: null, text: "Please select A Score Range" }
+       // { value: null, text: "Please select A Score Range" }
       ]
 
       let modalTitleClasswork, modalTitleHomework, modalTitleTest, modalTitleMid, modalTitleFinal = "";
@@ -854,10 +854,18 @@
       }
     },
 
+    mounted(){
+        if(this.userData.role !== "proprietor"){
+            setTimeout(() => {
+                this.loadOtherValues( this.teacherData.school.schId );
+            },2000);        
+        }
+    },
+
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
       const Lessonnote_APP_STORE_MODULE_NAME = 'app-LessonnoteStudent';
-      const lessonnote =  router.currentRoute.params.lessonnote ? router.currentRoute.params.lessonnote : null;
+      const lessonnote =  router.currentRoute.params.id ? router.currentRoute.params.id : null;
 
       // Register module
       if (!store.hasModule(Lessonnote_APP_STORE_MODULE_NAME)) store.registerModule(Lessonnote_APP_STORE_MODULE_NAME, lessonnoteStoreModule)
@@ -921,7 +929,7 @@
       } = useLessonnoteList();
 
       if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
-          filters.value.teacherid = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
+          filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.school = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent)  && teacherData.value ? teacherData.value.school.owner.id : null;
       }
@@ -974,6 +982,7 @@
         resolveLessonnotestatusVariant,
         resolveLessonnoteactionVariant,
 
+        teacherData,
         userData,
         schoolOptions,
         
@@ -988,33 +997,35 @@
       reset(){
          this.isLessonnoteSidebarActive = false;
 
-         this.teacherOptions = [
-        { value: null, text: "Please select Teacher" }
-        ]
+        if (this.userData.role !== "teacher"){
+          this.teacherOptions = [
+          { value: null, text: "Please select Teacher" }
+          ]
 
-        this.classOptions = [
-          { value: null, text: "Please select Class Type" }
-        ]
+          this.classOptions = [
+            { value: null, text: "Please select Class Type" }
+          ]
 
-        this.calendarOptions = [
-          { value: null, text: "Please select Calendar" }
-        ]
+          this.calendarOptions = [
+            { value: null, text: "Please select Calendar" }
+          ]
 
-        this.subjectOptions = [
-          { value: null, text: "Please select A Subject" }
-        ]
+          this.subjectOptions = [
+            { value: null, text: "Please select A Subject" }
+          ]
 
-        this.studentOptions = [
-          { value: null, text: "Please select A Student" }
-        ]
+          this.studentOptions = [
+            { value: null, text: "Please select A Student" }
+          ]
 
-        this.typeOptions = [
-          { value: null, text: "Please select An Assessment Type" }
-        ]
+          this.typeOptions = [
+            { value: null, text: "Please select An Assessment Type" }
+          ]
 
-        this.scoreOptions = [
-          { value: null, text: "Please select A Score Range" }
-        ]
+          this.scoreOptions = [
+            { value: null, text: "Please select A Score Range" }
+          ]
+        }
 
          this.searchValuesCurrent.teacher = ""
          this.searchValuesCurrent.class = ""
@@ -1028,7 +1039,9 @@
 
          this.filters.schoolId = null;
          this.filters.classIndex = null;
-         this.filters.teacherId = null;
+         if (this.userData.role !== "teacher"){
+            this.filters.teacherId = null;
+         }
          this.filters.calendarId = null;
          this.filters.subjectId = null;
          this.filters.studentId = null;
@@ -1045,7 +1058,9 @@
             this.searchValues = [];
 
             this.filters.classIndex = null;
-            this.filters.teacherId = null;
+            if (this.userData.role !== "teacher"){
+              this.filters.teacherId = null;
+            }
             this.filters.calendarId = null;
             this.filters.subjectId = null;
             this.filters.studentId = null;
@@ -1081,7 +1096,7 @@
             });
 
             sef.subjectOptions = [];     
-            store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSubjects`)
+            store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null } )
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {

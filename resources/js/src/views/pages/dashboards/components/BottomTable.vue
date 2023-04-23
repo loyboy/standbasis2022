@@ -1,5 +1,6 @@
 <template>
   <b-card-code title="Transaction Summary for last month">
+    
     <button
       type="button"
       class="btn btn-outline-secondary waves-effect waves-float waves-light"
@@ -32,6 +33,7 @@
     >
       Unclaimed Gift cards
     </button>
+
     <!-- search input -->
     <div class="custom-search d-flex justify-content-end">
       <b-form-group>
@@ -46,6 +48,7 @@
         </div>
       </b-form-group>
     </div>
+
     <!-- table -->
     {{ $store.state.tableData.loadingMsg }}
     <vue-good-table
@@ -153,6 +156,7 @@
         </div>
       </template>
     </vue-good-table>
+
   </b-card-code>
 </template>
 

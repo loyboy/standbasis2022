@@ -1,15 +1,28 @@
 <template>
-  <b-card v-if="data" body-class="pb-50">
-    <h6>Total Airtime commission</h6>
+  <b-card body-class="pb-50">
+    <h6> {{ label }}</h6>
+    
     <h2 class="font-weight-bolder mb-1">
-     ₦{{ vueNumberFormat(airTimeProfit, {}) }}
+       <!-- ₦{{ vueNumberFormat(airTimeProfit, {}) }} -->
+       
+      <span class="green" v-if=" Number(value) >= 70 && lowIsBad === true "> {{ value }} % </span>
+      <span class="red" v-if=" Number(value) >= 70 && lowIsBad === false "> {{ value }} % </span>
+
+      <span class="orange" v-if=" Number(value) <= 70 && Number(value) >= 50  && lowIsBad === true "> {{ value }}  % </span>
+      <span class="orange" v-if=" Number(value) <= 70 && Number(value) >= 50 && lowIsBad === false "> {{ value }}  % </span>
+
+       <span class="red" v-if="  Number(value) < 50  && lowIsBad === true "> {{ value }}  % </span>
+      <span class="green" v-if=" Number(value) < 50 && lowIsBad === false "> {{ value }}  % </span>
+
     </h2>
     <!-- chart -->
+
     <vue-apex-charts
       height="70"
       :options="statisticsOrder.chartOptions"
       :series="data.series"
     />
+
   </b-card>
 </template>
 
@@ -17,35 +30,32 @@
 import { BCard } from "bootstrap-vue";
 import VueApexCharts from "vue-apexcharts";
 import { $themeColors } from "@themeConfig";
-
 const $barColor = "#f3f3f3";
 
 export default {
   components: {
     BCard,
-    VueApexCharts,
+    VueApexCharts
   },
   props: {
     data: {
       type: Object,
       default: () => {},
     },
-    stats: {
-      type: [],
-      default: () => {},
+    value: {
+      type: Number,
+      default: () => 0,
     },
-  },
-  computed: {
-    airTimeProfit() {
-      var airtime = this.stats.filter(function (elem) {
-        if (elem.request_type === "airtime") return elem.profit;
-      })[0];
-      const list = { ...airtime };
-      return list.profit;
+    label: {
+      type: String,
+      default: () => "",
     },
+    lowIsBad: {
+      type: Boolean,
+      default: () => false
+    }
   },
   data() {
-    console.log(this.airtime);
     return {
       statisticsOrder: {
         chartOptions: {
@@ -109,9 +119,21 @@ export default {
               show: false,
             },
           },
-        },
+        }
       },
     };
   },
 };
 </script>
+
+<style lang="scss">
+.green{
+  color: green;
+}
+.red{
+  color: red;
+}
+.orange{
+  color: orange
+}
+</style>

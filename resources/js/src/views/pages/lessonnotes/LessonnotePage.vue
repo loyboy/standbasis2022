@@ -483,17 +483,17 @@
                   <span class="align-middle ml-50"> View Activities </span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item @click="openfile(data.item.lessonnoteId, data.item._file)" >
+                <b-dropdown-item @click="openfile(data.item.lsnPath, data.item.title)" >
                   <feather-icon icon="FileTextIcon"  />
                   <span class="align-middle ml-50">View Lessonnote File</span>
                 </b-dropdown-item>  
                 
-                <b-dropdown-item  @click= " triggerApprove( data.item.title , data.item.lessonnoteId, data.item.teacher.teaId  ) "   >
+                <b-dropdown-item v-if=" userData.role === 'principal' "  @click= " triggerApprove( data.item.title , data.item.lessonnoteId, data.item.teacher.teaId  ) "   >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">Approve lessonnote</span>
                 </b-dropdown-item>   
 
-                <b-dropdown-item @click= " triggerDisapprove( data.item.title, data.item.lessonnoteId  ) "   >
+                <b-dropdown-item v-if=" userData.role === 'principal' " @click= " triggerDisapprove( data.item.title, data.item.lessonnoteId  ) "   >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">Revert lessonnote</span>
                 </b-dropdown-item>   
@@ -565,30 +565,9 @@
           no-close-on-backdrop
           content-class="shadow"
         >      
-          <b-form>      
-
-            <b-form-group
-              label="Choose The Grammar Percentage"
-              label-for="grammar-select"
-            >             
-              <b-form-select
-                        v-model="grammar"
-                        :options="grammarOptions"
-                        id="grammar-select"
-                      />
-            </b-form-group>
-            <b-form-group
-              label="Choose The Arrangement Percentage"
-              label-for="arrangement-select"
-            >
-              <b-form-select
-                        id="arrangement-select"
-                        v-model="arrangement"
-                        :options="arrangementOptions"                       
-                      />
-            </b-form-group>
-           
-          </b-form>
+          <span> <b>
+            Are you sure you are satisfied with this Lessonnote?
+             </b> </span>
           <b-button
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-3"
@@ -608,6 +587,63 @@
             Approve Lessonnote
           </b-button>
         </b-modal>
+
+         <!-- modal Disapprove -->
+        <b-modal
+          ref="my-modal-disapprove-lessonnote"
+          hide-footer
+          :title="modalTitle2"
+          no-close-on-backdrop
+          content-class="shadow"
+        >      
+            <b-row>
+                  <b-col cols="6" md="12">
+                    <b-form-group label="Grammar Faulty?" label-for="">
+                     <b-form-checkbox
+                      v-model="grammar"
+                      switch
+                    />
+                    </b-form-group>
+                  </b-col>
+
+                  <b-col cols="6" md="12">
+                    <b-form-group label="Arrangement faulty?" label-for="">
+                     <b-form-checkbox
+                      v-model="arrangement"
+                      switch
+                    />
+                    </b-form-group>
+                  </b-col>
+
+                  <b-col cols="6" md="12">
+                    <b-form-group label="Subject Matter Not Understood?" label-for="">
+                     <b-form-checkbox
+                      v-model="subjectmatter"
+                      switch
+                    />
+                    </b-form-group>
+                  </b-col>
+            </b-row>
+          <b-button
+            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+            class="mt-3"
+            variant="outline-warning"
+            block
+            @click="hideModal2"
+          >
+            Cancel
+          </b-button>
+          <b-button
+            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+            class="mt-2"
+            variant="outline-danger"
+            block
+            @click="principalActionDisapprove( LessonnotePicked )"
+          >
+            Revert Lessonnote
+          </b-button>
+        </b-modal>
+
     </div>
   </template>
   
@@ -616,6 +652,7 @@
     BCard,
     BRow,
     BCol,
+    BFormCheckbox,
     BFormInput,
     BFormGroup,
     BModal,
@@ -640,6 +677,9 @@
   import StatisticCardHorizontal from "@core/components/statistics-cards/StatisticCardHorizontal.vue";
   import vSelect from 'vue-select'
   //import router from '@/router'
+
+  import axios from "axios";
+  import jwtHeader from "@core/services/jwt-header";
   import store from '@/store'
   import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
   import { $themeConfig } from "@themeConfig";
@@ -657,6 +697,7 @@
       BCard,
       BRow,
       BCol,
+      BFormCheckbox,
       BFormInput,
       BFormGroup,
       BModal,
@@ -687,27 +728,27 @@
     data() {
       
       let teacherOptions = [
-        { value: null, text: "Please select Teacher" }
+       // { value: null, text: "Please select Teacher" }
       ]
 
       let classOptions = [
-        { value: null, text: "Please select Class" }
+       // { value: null, text: "Please select Class" }
       ]
 
       let calendarOptions = [
-        { value: null, text: "Please select Calendar" }
+       // { value: null, text: "Please select Calendar" }
       ]
 
       let weekOptions = [
-        { value: null, text: "Please select a Week" }
+       // { value: null, text: "Please select a Week" }
       ]
 
       let subjectOptions = [
-        { value: null, text: "Please select a Subject" }
+        //{ value: null, text: "Please select a Subject" }
       ]
 
       let statusOptions = [
-        { value: null, text: "Please select a Status" }
+       // { value: null, text: "Please select a Status" }
       ]
 
       let grammarOptions = [
@@ -738,9 +779,9 @@
         { value: 100, text: "100%" }
       ]
 
-      let modalTitle = "";
+      let modalTitle,modalTitle2  = "";
 
-      let grammar, arrangement = 0;
+      let grammar, arrangement, subjectmatter = false;
 
       let teacherPicked , LessonnotePicked = null;
 
@@ -753,8 +794,10 @@
 
          grammar,
          arrangement,
+         subjectmatter,
 
-         modalTitle,
+         modalTitle, 
+         modalTitle2,
          teacherOptions,
          classOptions,
          calendarOptions,
@@ -777,10 +820,18 @@
       }
     },
 
+     mounted(){
+        if(this.userData.role !== "proprietor"){
+            setTimeout(() => {
+                this.loadOtherValues( this.teacherData.school.schId );
+            },2000);        
+        }
+    },
+
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
       const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
-      const { backendURL } = $themeConfig.app;
+      const { baseURL, backendURL } = $themeConfig.app;
 
       // Register module
       if (!store.hasModule(Lessonnote_APP_STORE_MODULE_NAME)) store.registerModule(Lessonnote_APP_STORE_MODULE_NAME, lessonnoteStoreModule)
@@ -843,7 +894,7 @@
       } = useLessonnoteList();
 
       if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
-          filters.value.teacherid = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
+          filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.school = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
       }
@@ -857,10 +908,7 @@
       })();
 
       onMounted(async () => {
-        fetchLessonnotes();
-        if (!findIfPropisPresent){
-           await loadOtherValues( teacherData.value.school.schId );
-        }
+        fetchLessonnotes();        
       })
       
       return {
@@ -895,43 +943,47 @@
         resolveLessonnotestatusVariant,
 
         userData,
+        teacherData,
         schoolOptions,
         
         filters,
         LessonnoteItems,
 
         searchValues,
-        backendURL
+        backendURL,
+        baseURL
 
       }
     },
     methods: {
       reset(){
-         this.isLessonnoteSidebarActive = false;
+          this.isLessonnoteSidebarActive = false;
+          
+          if (this.userData.role !== "teacher"){
+            this.teacherOptions = [
+              { value: null, text: "Please select Teacher" }
+            ]
 
-        this.teacherOptions = [
-          { value: null, text: "Please select Teacher" }
-        ]
+            this.classOptions = [
+              { value: null, text: "Please select Class Type" }
+            ]
 
-        this.classOptions = [
-          { value: null, text: "Please select Class Type" }
-        ]
+            this.calendarOptions = [
+              { value: null, text: "Please select Calendar" }
+            ]
 
-        this.calendarOptions = [
-          { value: null, text: "Please select Calendar" }
-        ]
+            this.weekOptions = [
+              { value: null, text: "Please select a Week" }
+            ]
 
-        this.weekOptions = [
-          { value: null, text: "Please select a Week" }
-        ]
+            this.subjectOptions = [
+              { value: null, text: "Please select a Subject" }
+            ]
 
-        this.subjectOptions = [
-          { value: null, text: "Please select a Subject" }
-        ]
-
-        this.statusOptions = [
-          { value: null, text: "Please select a Status" }
-        ]
+            this.statusOptions = [
+              { value: null, text: "Please select a Status" }
+            ]
+          }
 
          this.searchValuesCurrent.teacher = ""
          this.searchValuesCurrent.class = ""
@@ -944,7 +996,9 @@
 
          this.filters.schoolId = null;
          this.filters.classIndex = null;
-         this.filters.teacherId = null;
+         if (this.userData.role !== "teacher"){
+            this.filters.teacherId = null;
+         } 
          this.filters.calendarId = null;
          this.filters.subjectId = null;
          this.filters.week = null;
@@ -954,11 +1008,15 @@
 
          this.fetchLessonnotes();
       },
+
       async loadOtherValues(value){
+
             this.searchValues = [];
 
             this.filters.classIndex = null; 
-            this.filters.teacherId = null;
+            if (this.userData.role !== "teacher"){
+              this.filters.teacherId = null;
+            }
             this.filters.calendarId = null;
             this.filters.subjectId = null;
             this.filters.week = null;
@@ -993,7 +1051,7 @@
             });
 
             sef.subjectOptions = [];     
-            store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSubjects`)
+            store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null } )
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
@@ -1031,7 +1089,7 @@
               sef.statusOptions.push( { value: "revert" , text: "Revert" } ) 
               sef.statusOptions.push( { value: "approved" , text: "Approved" } ) 
 
-            /*store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value })
+            /*store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value, teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
@@ -1166,20 +1224,11 @@
         }       
       },
 
-      principalActionApprove(id){
-         if (this.grammar == 0 || this.grammar == null){
-          alert("Please pick the score Grammar for this lessonnote ");
-          return;
-         }
-
-         if (this.arrangement == 0 || this.arrangement == null){
-          alert("Please pick the score Arrangement for this lessonnote ");
-          return;
-         }
-         const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
+      principalActionApprove(id){       
+        const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
          
             const sef = this;          
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteManagement`, { lessonnote: { arrangement: this.arrangement, grammar: this.grammar, action: "approval", lessonnoteId: id  },  management: { action : "approved" }, activity: { action: "approved", owner: this.teacherPicked  } } )
+            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "approval", lessonnoteId: id  },  management: { action : "approved" }, activity: { action: "approved", owner: this.teacherPicked, principal_query_arrangement: 1, principal_query_grammar: 1, principal_query_subjectmatter: 1  } } )
             .then(response => { 
                 sef.modalTitle = "";
                 sef.grammar = 0;
@@ -1194,6 +1243,9 @@
                   variant: 'success',
                   },
                 });  
+
+                sef.hideModal()
+
             }).catch((exception) => { 
                 sef.modalTitle = "";
                 sef.grammar = 0;
@@ -1208,17 +1260,25 @@
                     variant: 'danger'
                   }
                 }); 
+                sef.hideModal()
+
 		        }); 
          
       },
 
-      principalActionDisapprove(id, name){
+      principalActionDisapprove(id){
          const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
-         let confirmQuery = window.prompt("Type in a comment to add to this Query for this Lessonnote with Name: " + name)
-         if (confirmQuery){
+         let set_grammar = this.grammar ? 0 : 1;
+         let set_arrangement = this.arrangement ? 0 : 1;
+         let set_subjectmatter = this.subjectmatter ? 0 : 1;
+
             const sef = this;          
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteManagement`, { lessonnote: { action: "revert", lessonnoteId: id }, management: { action : "revert" }, activity: { action: "revert", comment_query: confirmQuery, owner: this.teacherPicked } } )
+            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "revert", lessonnoteId: id  },  management: { action : "revert" }, activity: { action: "revert", owner: this.teacherPicked, principal_query_arrangement: set_arrangement , principal_query_grammar: set_grammar, principal_query_subjectmatter: set_subjectmatter } } )
             .then(response => { 
+                sef.modalTitle2 = "";
+                sef.grammar = false;
+                sef.arrangement = false;
+                sef.subjectmatter = false;
                 sef.teacherPicked = null;
                 sef.LessonnotePicked = null;
                 sef.$toast({
@@ -1226,45 +1286,55 @@
                   props: {
                   title: 'Lessonnote has been reverted.',
                   icon: 'AlertTriangleIcon',
-                  variant: 'warning'
-                  },
-                });  
-                sef.fetchLessonnotes();
-            });
-         }
-         else {
-            const sef = this;          
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteManagement`, { lessonnote: { action: "revert", lessonnoteId: id }, management: { action : "revert" }, activity: { action: "revert", comment_query: "No comment", owner: this.teacherPicked  } } )
-            .then(response => { 
-                sef.teacherPicked = null;
-                sef.LessonnotePicked = null;
-                sef.$toast({
-                  component: ToastificationContent,
-                  props: {
-                  title: 'Lessonnote has been queried but without any comments.',
-                  icon: 'AlertTriangleIcon',
-                  variant: 'warning'
+                  variant: 'warning',
                   },
                 }); 
-                sef.fetchLessonnotes(); 
+
+                sef.hideModal2() 
+
             }).catch((exception) => { 
+                sef.modalTitle2 = "";
+                sef.grammar = false;
+                sef.arrangement = false;
+                sef.subjectmatter = false;
                 sef.teacherPicked = null;
                 sef.LessonnotePicked = null;
                 sef.$toast({
                   component: ToastificationContent,
                   props: {
-                    title: 'There is an issue with the disapproval process',
+                    title: 'There is an issue with the reverting process',
                     icon: 'AlertTriangleIcon',
                     variant: 'danger'
                   }
-                });
-            }); 
-         }
-      
+                }); 
+                
+                sef.hideModal2()
+		        });
       },
 
-      openfile(id, name){          
-        window.open( this.backendURL + "/teacher-lessonnote/" + id + "/" + name , '_blank');
+      forceFileDownload(response, title) {
+        console.log(title)
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', title + ".docx" )
+        document.body.appendChild(link)
+        link.click()
+      },
+
+      openfile(path, title){        
+              const sef = this;
+              axios({
+                method: 'get',
+                url: new String(this.baseURL).replace('/api','') + path,
+                responseType: 'blob',
+                headers: jwtHeader()
+              })
+                .then(function (response) {
+                    sef.forceFileDownload(response, title)
+              }).catch(error => {
+                console.log(error.response)
+              });
       },
 
       showModal() {
@@ -1273,25 +1343,40 @@
       hideModal() {
         this.$refs['my-modal-approve-lessonnote'].hide()
       },
+
+      showModal2() {
+        this.$refs['my-modal-disapprove-lessonnote'].show()
+      },
+      hideModal2() {
+        this.$refs['my-modal-disapprove-lessonnote'].hide()
+      },
+
       triggerApprove(name, lsn, teacher){
         this.modalTitle = "Approve this Lessonnote: "+ name;
         this.teacherPicked = teacher;
         this.LessonnotePicked = lsn;
         this.showModal();
       },
-      triggerDisapprove(name, lsn){
-        principalActionDisapprove(lsn, name)       
+
+      triggerDisapprove(name, lsn, teacher){
+        this.modalTitle2 = "Revert this Lessonnote: "+ name;
+        this.teacherPicked = teacher;
+        this.LessonnotePicked = lsn;
+        this.showModal2();     
       },
+
       loadManagement(item){
             const sef = this;    
             const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';      
             store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchLessonnoteManagement`, { id : item.lessonnoteId })
             .then(response => { 
               let myval = response.data.data;
-              sef.quality = myval.quality;
-              sef.sub_perf_classwork = myval.sub_perf_homework;
-              sef.sub_perf_test = myval.sub_perf_test;
-              sef.score = myval.score;
+
+              sef.quality = myval[0].quality;
+              sef.sub_perf_classwork = myval[0].sub_perf_classwork;
+              sef.sub_perf_homework = myval[0].sub_perf_homework;
+              sef.sub_perf_test = myval[0].sub_perf_test;
+              sef.score = myval[0].score;
             });
       }
 

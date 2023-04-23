@@ -16,17 +16,22 @@ export default function useLessonnoteList() {
 
   // Table Handlers
   const tableColumns = [    
-    { key: 'teacher.school.name', label: 'School Name', sortable: true },
+    { key: 'lessonnoteId', label: 'Lessonnote ID', sortable: true },
     { key: 'teacher.fname', label: 'Teacher First Name',  sortable: true },
     { key: 'class_index', label: 'Class Name',  sortable: true },
     { key: 'subject.name',label: 'Subject Name',  sortable: true },
+
     { key: 'grammar',label: 'Grammar',  sortable: true, formatter: val => val !== null ? `${val} %` : "nil" },
     { key: 'arrangement',label: 'Arrangement',  sortable: true, formatter: val => val !== null ? `${val} %` : "nil" },
+    { key: 'subjectmatter',label: 'Subject Matter',  sortable: true, formatter: val => val !== null ? `${val} %` : "nil" },
+
     { key: 'week', label: 'Week',  sortable: true },
-    { key: 'submission', label: 'Date of Submission',  sortable: true },
+    { key: 'submission', label: 'Date of Submission',  sortable: true, formatter: val => val !== null ? `${val} ` : "No date yet" },
     { key: 'status', label: 'Status',  sortable: true },
+
     { key: 'calendar.session', label: 'Session',  sortable: true },
     { key: 'calendar.term', label: 'Term',  sortable: true },
+
     { key: 'actions' } 
   ]
 

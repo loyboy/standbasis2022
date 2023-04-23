@@ -161,9 +161,9 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalAttendances === undefined ? 0 : totalAttendances "
-              statistic-title="Total Attendances"
+              statistic-title="Total Rowcall Data"
             />
-          </b-col>
+          </b-col> 
 
           <b-col lg="3" sm="6">
             <statistic-card-horizontal
@@ -172,7 +172,7 @@
               :statistic="
                 totalPresentAttendances === undefined ? 0 :totalPresentAttendances
               "
-              statistic-title="Active Attendances"
+              statistic-title="Present Rowcall"
             />
           </b-col>
 
@@ -183,7 +183,7 @@
               :statistic="
                 totalAbsentAttendances === undefined ? 0 : totalAbsentAttendances
               "
-              statistic-title="Inactive Attendances"
+              statistic-title="Absent Rowcall"
             />
           </b-col>
 
@@ -194,7 +194,7 @@
               :statistic="
                 totalExcusedAttendances === undefined ? 0 : totalExcusedAttendances
               "
-              statistic-title="Excused Attendances"
+              statistic-title="Excused Rowcall"
             />
           </b-col>
 
@@ -295,7 +295,7 @@
               <template #table-busy>
                 <div class="text-center text-danger my-2">
                   <b-spinner class="align-middle"></b-spinner>
-                  <strong>Loading...</strong>
+                  <strong>Loading...,,</strong>
                 </div>
               </template>
     
@@ -332,24 +332,24 @@
                 />
                 <span class="align-text-top text-capitalize">{{ data.item.role }}</span>
               </div>
-            </template>-->
-    
-            <!-- Column: Status -->
-            <template #cell(status)="data">
-              <b-badge
-                pill
-                :variant="`light-${resolveAttendancestatusVariant(data.item.status)}`"
-                class="text-capitalize"
-              >
-                {{ data.item.status === 1 ? "Present" : data.item.status === 0 ? "Absent" : "Excused"  }}
-              </b-badge>
-            </template>
+            </template>--> 
 
             <!-- Column: Date -->
             <template #cell(attendance._date)="data">
                <div>
                 {{ String( data.item.attendance._date ).replace(".000+00:00","") }}
                </div>               
+            </template>
+
+             <!-- Column: Status -->
+            <template #cell(status)="data">
+              <b-badge
+                pill
+                :variant="`light-${resolveVariant(data.item.status)}`"
+                class="text-capitalize"
+              >
+                {{ data.item.status === 1 ? "Present" : data.item.status === 0 ? "Absent" : "Excused"  }}
+              </b-badge>
             </template>
     
             <!-- Column: Actions -->
@@ -500,27 +500,27 @@
     data() {
 
       let teacherOptions = [
-        { value: null, text: "Please select a Teacher" }
+     //   { value: null, text: "Please select a Teacher" }
       ]
 
       let classOptions = [
-        { value: null, text: "Please select a Class" }
+      //  { value: null, text: "Please select a Class" }
       ]
 
       let calendarOptions = [
-        { value: null, text: "Please select a Calendar" }
+     //   { value: null, text: "Please select a Calendar" }
       ]
 
       let subjectOptions = [
-        { value: null, text: "Please select A Subject" }
+     //   { value: null, text: "Please select A Subject" }
       ]
 
       let statusOptions = [
-        { value: null, text: "Please select A Status" }
+      //  { value: null, text: "Please select A Status" }
       ]
 
       let studentOptions = [
-        { value: null, text: "Please select A Student" }
+      //  { value: null, text: "Please select A Student" }
       ]
 
       return {         
@@ -540,6 +540,15 @@
          }  
       } 
 
+    },
+
+    mounted(){
+        if(this.userData.role !== "proprietor"){
+            setTimeout(() => {
+                        this.loadOtherValues( this.teacherData.school.schId );
+                      //  console.log("run mounted")
+            },2000);        
+        }
     },
 
     setup() {
@@ -595,8 +604,8 @@
         handleChange,
 
         // UI       
-        resolveAttendancestatusVariant,
-        isAttendanceSidebarActive,
+        resolveVariant,
+        isAttendanceSidebarActive, 
         isLoading,
 
         filters,
@@ -659,39 +668,42 @@
         schoolOptions,
 
         userData,
+        teacherData,
   
         // UI
-        resolveAttendancestatusVariant        
+        resolveVariant        
       
       }
     },
     methods: {
       reset(){
-         this.isAttendanceSidebarActive = false;
+        this.isAttendanceSidebarActive = false;
+        
+        if (this.userData.role !== "teacher"){
+            this.teacherOptions = [
+              { value: null, text: "Please select Teacher" }
+            ]
 
-         this.teacherOptions = [
-        { value: null, text: "Please select Teacher" }
-        ]
+            this.classOptions = [
+              { value: null, text: "Please select Class" }
+            ]
 
-        this.classOptions = [
-          { value: null, text: "Please select Class" }
-        ]
+            this.calendarOptions = [
+              { value: null, text: "Please select Calendar" }
+            ]
 
-        this.calendarOptions = [
-          { value: null, text: "Please select Calendar" }
-        ]
+            this.subjectOptions = [
+              { value: null, text: "Please select A Subject" }
+            ]
 
-        this.subjectOptions = [
-          { value: null, text: "Please select A Subject" }
-        ]
+            this.statusOptions = [
+              { value: null, text: "Please select A Status" }
+            ]
 
-        this.statusOptions = [
-          { value: null, text: "Please select A Status" }
-        ]
-
-        this.studentOptions = [
-          { value: null, text: "Please select A Student" }
-        ]
+            this.studentOptions = [
+              { value: null, text: "Please select A Student" }
+            ]
+        }
 
          this.searchValuesCurrent.teacher = ""
          this.searchValuesCurrent.class = ""
@@ -704,7 +716,9 @@
 
          this.filters.schoolId = null;
          this.filters.classId = null;
-         this.filters.teacherId = null;
+         if (this.userData.role !== "teacher"){
+            this.filters.teacherId = null;
+         }
          this.filters.calendarId = null;
          this.filters.subjectId = null;
          this.filters.status = null;
@@ -720,7 +734,9 @@
             this.searchValues = []; 
 
             this.filters.classId = null;
-            this.filters.teacherId = null;
+            if (this.userData.role !== "teacher"){
+              this.filters.teacherId = null;
+            }
             this.filters.calendarId = null;
             this.filters.subjectId = null;
             this.filters.status = null;
@@ -755,7 +771,7 @@
             });
 
             sef.classOptions = [];     
-            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value })
+            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value, teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null } )
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
@@ -773,7 +789,7 @@
             });
 
             sef.subjectOptions = [];     
-            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSubjects`)
+            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null } )
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {

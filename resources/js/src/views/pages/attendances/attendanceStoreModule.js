@@ -40,10 +40,10 @@ export default {
                     .catch(error => reject(error))
             })
         },
-        fetchClassrooms(ctx, {id}) {
+        fetchClassrooms(ctx, {id,teacher}) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/classstream/school/' + id)
+                    .get($themeConfig.app.baseURL + '/classstream/school/' + id + '/teacher/'+ teacher)
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
@@ -56,10 +56,10 @@ export default {
                     .catch(error => reject(error))
             })
         },
-        fetchSubjects(ctx) {
+        fetchSubjects(ctx, {teacher}) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/misc/allSubjects' )
+                    .get($themeConfig.app.baseURL + '/misc/allSubjects/' + teacher )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
@@ -83,7 +83,7 @@ export default {
         updateAttendanceManagement(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
-                    .put($themeConfig.app.baseURL + '/attendance/management/attendance/'+ id , payload )
+                    .put($themeConfig.app.baseURL + '/attendance/management/attendance/'+ payload.id , payload )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })

@@ -367,12 +367,12 @@
                   <span class="align-middle ml-50">View Activity</span>
                 </b-dropdown-item>  
                 
-                <b-dropdown-item v-if=" userData.role === 'principal' " @click="principalActionApprove">
+                <b-dropdown-item v-if=" userData.role === 'principal' " @click="principalActionApprove(data.item.attId)">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">Approve Attendance</span>
                 </b-dropdown-item>  
 
-                <b-dropdown-item v-if=" userData.role === 'principal' " @click="principalActionDisapprove">
+                <b-dropdown-item v-if=" userData.role === 'principal' " @click="principalActionDisapprove(data.item.attId)">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">Query Attendance</span>
                 </b-dropdown-item>  
@@ -455,7 +455,7 @@
     BMedia,
     BAvatar,
     BFormSelect,
-    BFormTags,
+    BFormTags, 
     BCardText,
     BFormDatepicker,
     BLink,
@@ -509,23 +509,23 @@
     data() {
       
       let teacherOptions = [
-        { value: null, text: "Please select Teacher" }
+     //   { value: null, text: "Please select Teacher" }
       ]
 
       let classOptions = [
-        { value: null, text: "Please select Class" }
+    //    { value: null, text: "Please select Class" }
       ]
 
       let calendarOptions = [
-        { value: null, text: "Please select Calendar" }
+   //    { value: null, text: "Please select Calendar" }
       ]
 
       let subjectOptions = [
-        { value: null, text: "Please select a Subject" }
+   //     { value: null, text: "Please select a Subject" }
       ]
 
       let statusOptions = [
-        { value: null, text: "Please select a Status" }
+     //  { value: null, text: "Please select a Status" }
       ]
 
       return {  
@@ -542,6 +542,14 @@
             status: "nil"
          }     
       }
+    },
+
+    mounted(){
+        if(this.userData.role !== "proprietor"){
+            setTimeout(() => {
+                this.loadOtherValues( this.teacherData.school.schId );
+            },2000);        
+        }
     },
 
     setup() {
@@ -611,22 +619,18 @@
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
-      }
+      } 
 
       (async function () {
         const resp = await store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSchools`, { id : filters.value.schoolgroup });
         let myval = resp.data.data;
-        myval.forEach(obj => {
+        myval.forEach(obj => { 
           schoolOptions.value.push( { value: obj.schId , text: obj.name } )
         });
       })();
 
       onMounted(async () => {
         fetchAttendances();
-
-        if (!findIfPropisPresent){
-           await loadOtherValues( teacherData.value.school.schId );
-        }
       })
       
       return {
@@ -661,6 +665,7 @@
 
         userData,
         schoolOptions,
+        teacherData,
         
         filters,
         attendanceItems,
@@ -675,25 +680,23 @@
       reset(){
         this.isAttendanceSidebarActive = false;
 
-        this.teacherOptions = [
-        { value: null, text: "Please select Teacher" }
-        ]
-
-        this.classOptions = [
-          { value: null, text: "Please select Class" }
-        ]
-
-        this.calendarOptions = [
-          { value: null, text: "Please select Calendar" }
-        ]
-
-        this.subjectOptions = [
-          { value: null, text: "Please select a Subject" }
-        ]
-
-        this.statusOptions = [
-          { value: null, text: "Please select a Status" }
-        ]
+        if (this.userData.role !== "teacher"){
+          this.teacherOptions = [
+            { value: null, text: "Please select Teacher" }
+          ]
+          this.classOptions = [
+            { value: null, text: "Please select Class" }
+          ]
+          this.calendarOptions = [
+            { value: null, text: "Please select Calendar" }
+          ]
+          this.subjectOptions = [
+            { value: null, text: "Please select a Subject" }
+          ]
+          this.statusOptions = [
+            { value: null, text: "Please select a Status" }
+          ]
+        }        
 
          this.searchValuesCurrent.teacher = ""
          this.searchValuesCurrent.class = ""
@@ -705,7 +708,9 @@
 
          this.filters.schoolId = null;
          this.filters.classId = null;
-         this.filters.teacherId = null;
+         if (this.userData.role !== "teacher"){
+            this.filters.teacherId = null;
+         }         
          this.filters.calendarId = null;
          this.filters.subjectId = null;
          this.filters.status = null;
@@ -717,10 +722,12 @@
 
       loadOtherValues(value){
 
-            this.searchValues = [];
+            this.searchValues = [];            
 
             this.filters.classId = null;
-            this.filters.teacherId = null;
+            if (this.userData.role !== "teacher"){
+              this.filters.teacherId = null;
+            } 
             this.filters.calendarId = null;
             this.filters.subjectId = null;
             this.filters.status = null;
@@ -752,9 +759,9 @@
                 sef.teacherOptions.push( { value: obj.teaId , text: obj.fname + ' ' + obj.lname} )
               });             
             });
-
+//
             sef.classOptions = [];     
-            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value })
+            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value, teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
@@ -763,7 +770,7 @@
             });
 
             sef.subjectOptions = [];     
-            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSubjects`)
+            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
@@ -884,12 +891,12 @@
         }       
       },
 
-      principalActionApprove(){
+      principalActionApprove(attId){
          const Attendance_APP_STORE_MODULE_NAME = 'app-Attendance';
          let confirmApproval = window.confirm("Do you wish to Approve this Attendance?");
          if (confirmApproval){
             const sef = this;          
-            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, {  management: { action : 1 }, activity: { action: "approved" } } )
+            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId),  management: { action : 1 }, activity: { action: "approved" } } )
             .then(response => { 
                 sef.$toast({
                   component: ToastificationContent,
@@ -914,12 +921,12 @@
          }
       },
 
-      principalActionDisapprove(){
+      principalActionDisapprove(attId){
          const Attendance_APP_STORE_MODULE_NAME = 'app-Attendance';
          let confirmQuery = window.prompt("Type in a comment to add to this Query for this Attendance:")
          if (confirmQuery){
             const sef = this;          
-            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, {  management: { action : 2 }, activity: { action: "queried", comment_query: confirmQuery  } } )
+            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId), management: { action : 2 }, activity: { action: "queried", comment_query: confirmQuery  } } )
             .then(response => { 
                 sef.$toast({
                   component: ToastificationContent,
@@ -934,7 +941,7 @@
          }
          else {
             const sef = this;          
-            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, {  management: { action : 2 }, activity: { action: "queried", comment_query: "No comment"  } } )
+            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId), management: { action : 2 }, activity: { action: "queried", comment_query: "No comment"  } } )
             .then(response => { 
                 sef.$toast({
                   component: ToastificationContent,

@@ -1,11 +1,9 @@
 <template>
 
     <!-- Table Container Card -->
-    <b-card
-      no-body
-    >
+    <b-card-code title="Events in your School">
   
-      <div class="m-2">
+      <div class="mx-2 my-2">
   
         <!-- Table Top -->
         <b-row>
@@ -135,7 +133,7 @@
         <!-- Column: Issued Date -->
         <template #cell(dateofevent)="data">
           <span class="text-nowrap">
-            {{ data.item.dateofevent }}
+            {{ String(data.item.dateofevent).replace(".000+00:00","") }}
           </span>
         </template> 
       
@@ -187,7 +185,7 @@
         </b-row>
       </div>
 
-    </b-card>
+    </b-card-code>
   
   </template>
   
@@ -210,6 +208,7 @@
   } from 'bootstrap-vue'
   import { avatarText } from '@core/utils/filter'
   import vSelect from 'vue-select'
+  import BCardCode from "@core/components/b-card-code/BCardCode.vue";
   import { onUnmounted, reactive } from '@vue/composition-api'
   import store from '@/store'
   import useEventList from './useEventList'  
@@ -231,10 +230,14 @@
       BDropdownItem,
       BPagination,
       BTooltip,
-  
+      BCardCode,
       vSelect,
     },
     props: {
+      teacherId: {
+        type: Number,
+        required: false
+      },
       schoolId: {
         type: Number,
         required: false
@@ -265,7 +268,7 @@
         if (store.hasModule(EVENT_APP_STORE_MODULE_NAME)) store.unregisterModule(EVENT_APP_STORE_MODULE_NAME)
       })
   
-      const moduleOptions = ['school', 'schoolgroup', 'teacher', 'student', 'user', 'timetable', 'lessonnoteactivity', 'attendance' ,'lessonnote', 'enrollment', 'classstream', 'calendar', 'attendanceactivity' , 'assessment' ]
+      const moduleOptions = ['school', 'schoolgroup', 'teacher', 'student', 'user', 'timetable', 'lessonnoteactivity', 'attendance' ,'lessonnote', 'enrollment', 'classstream', 'calendar', 'attendanceactivity' , 'attendancemanagement' , 'assessment' ]
   
       const {
         fetchEvents,
@@ -280,6 +283,7 @@
         isSortDirDesc,
         refEventListTable,
 
+        teacherVal,
         schoolVal,
         schoolgroupVal,
   
@@ -292,6 +296,7 @@
 
       } = useEventList()
 
+      teacherVal.value = state.teacherId
       schoolVal.value = state.schoolId
       schoolgroupVal.value = state.schoolgroupId
       searchQuery.value = (state.username != null && state.username != "") ? state.username : "";
@@ -310,7 +315,8 @@
         sortBy,
         isSortDirDesc,
         refEventListTable,
-  
+        
+        teacherVal,
         schoolVal,
         schoolgroupVal,
 

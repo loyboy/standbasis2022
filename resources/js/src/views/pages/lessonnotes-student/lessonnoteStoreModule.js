@@ -11,7 +11,7 @@ export default {
         fetchLessonnotes(ctx, queryParams) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/lessonnote/paginateLessonnoteStudent', { params: queryParams })
+                    .get($themeConfig.app.baseURL + '/lessonnote/paginateStudents', { params: queryParams })
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
