@@ -7,6 +7,7 @@ export default {
     state: {},
     getters: {},
     mutations: {},
+    //changes
     actions: {
         fetchMne(ctx, queryParams) {
             return new Promise((resolve, reject) => {
