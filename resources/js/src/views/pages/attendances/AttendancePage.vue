@@ -163,7 +163,7 @@
             />
           </b-col>
 
-          <b-col lg="4" sm="6">
+          <b-col lg="4" sm="6" v-if=" userData.role === 'teacher' ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
@@ -174,7 +174,7 @@
             />
           </b-col>
 
-          <b-col lg="4" sm="6">
+          <b-col lg="4" sm="6" v-if=" userData.role === 'teacher' ">
             <statistic-card-horizontal
               icon="UserMinusIcon"
               color="danger"
@@ -264,6 +264,7 @@
           </div>
     
           <b-table
+            v-if=" userData.role === 'teacher' "
             ref="refAttendanceListTable"
             class="position-relative"
             :items="attendanceItems"
@@ -326,14 +327,125 @@
                </div>               
              </template>
 
-            <!-- Column: Done -->
-            <template #cell(done)="data">
+           <!-- <template #head(done)="data">
+              <th class="vertical-header">{{ data.label }}</th>
+            </template>-->
+
+            <!-- Column: Done cc -->
+           <template #cell(done)="data">
               <b-badge
                 pill
                 :variant="`light-${resolveAttendancestatusVariant(data.item.done)}`"
                 class="text-capitalize"
               >
                 {{ data.item.done === 1 ? "Done" : data.item.done === 0 ? "Not Done" : data.item.done === 2 ? "Late" : data.item.done === -1 ? "Voided" : "Nil"  }}
+              </b-badge>
+            </template>
+    
+            <!-- Column: Actions -->
+            <template #cell(actions)="data" >
+              <b-dropdown
+                variant="link"
+                no-caret
+                :right="$store.state.appConfig.isRTL"
+              >    
+                <template #button-content>
+                  <feather-icon
+                    icon="MoreVerticalIcon"
+                    size="16"
+                    class="align-middle text-body"
+                  />
+                </template>
+
+                <b-dropdown-item :to="{ name: 'attendances-home-view', params: { id: data.item.attId } }" v-if=" data.item.done === 1 ">
+                  <feather-icon icon="BookOpenIcon" />
+                  <span class="align-middle ml-50">View Details</span>
+                </b-dropdown-item> 
+
+                <b-dropdown-item :to="{ name: 'attendances-student-home', params: { attendance: data.item.attId } }" v-if=" data.item.done === 1 ">
+                  <feather-icon icon="BookOpenIcon" />
+                  <span class="align-middle ml-50">View Rowcall</span>
+                </b-dropdown-item>  
+
+                <b-dropdown-item :to="{ name: 'attendances-activity-home', params: { attendance: data.item.attId } }" v-if=" data.item.done === 1 ">
+                  <feather-icon icon="LayersIcon" />
+                  <span class="align-middle ml-50">View Activity</span>
+                </b-dropdown-item>           
+                
+                <b-dropdown-item :to="{ name: 'schools-home-view', params: { id: data.item.teacher.school.schId } }" v-if=" data.item.done === 1 ">
+                  <feather-icon icon="Maximize2Icon" />
+                  <span class="align-middle ml-50"> View School </span>
+                </b-dropdown-item>  
+
+              </b-dropdown>
+            </template>
+    
+          </b-table>
+
+          <b-table
+            v-if=" userData.role === 'principal' "
+            ref="refAttendanceListTable"
+            class="position-relative"
+            :items="attendanceItems"
+            :busy="isLoading"
+            responsive
+            :fields="tableColumnsPrincipal"
+            primary-key="id"
+            :sort-by.sync="sortBy"
+            show-empty
+            empty-text="No matching records found"
+            :sort-desc.sync="isSortDirDesc"
+          >
+
+              <template #table-busy>
+                <div class="text-center text-danger my-2">
+                  <b-spinner class="align-middle"></b-spinner>
+                  <strong>Loading...</strong>
+                </div>
+              </template>
+    
+                <!-- Column: Date -->
+             <template #cell(att_id._date)="data">
+               <div>
+                <span> <b> {{ String( data.item.att_id._date ).replace(".000+00:00","") }}  </b> </span>
+               </div>               
+             </template>
+
+             <!-- Column: Teacher -->
+             <template #cell(att_id.teacher)="data">
+               <div>
+                {{ data.item.att_id.teacher.fname + " " + data.item.att_id.teacher.lname }}
+               </div>               
+             </template>
+
+            <!-- Column: Timing -->
+            <template #cell(timing)="data">
+              <span> <b> {{ data.item.timing }} </b> </span>
+            </template>
+
+            <!-- Column: Class Performance -->
+            <template #cell(class_perf)="data">
+              <span> <b> {{ data.item.class_perf }} </b> </span>
+            </template>
+
+            <!-- Column: Completeness -->
+            <template #cell(completeness)="data">
+              <span> <b> {{ data.item.completeness }} </b> </span>
+            </template>
+
+              <!-- Column: Score -->
+            <template #cell(score)="data">
+              <span> <b> {{ data.item.score }} </b> </span>
+            </template>
+
+             <!-- Column: Action -->
+            <template #cell(action)="data">
+              <b-badge
+                pill
+                :variant="`light-${resolveAttendancestatusVariant(data.item.action)}`"
+                class="text-capitalize"
+              >
+                {{ data.item.action === 1 ? "Approved" : data.item.action === 0 ? "Unattended" : data.item.action === 2 ? "Queried" : data.item.done === -1 ? "Voided" : "Nil"  }}
               </b-badge>
             </template>
     
@@ -352,35 +464,30 @@
                   />
                 </template>
 
-                <b-dropdown-item :to="{ name: 'attendances-home-view', params: { id: data.item.attId } }">
-                  <feather-icon icon="BookOpenIcon" />
-                  <span class="align-middle ml-50">View Details</span>
+                <b-dropdown-item v-if=" data.item.action === 0 " @click="principalActionApprove(data.item.att_id.attId)">
+                  <feather-icon icon="FileTextIcon" />
+                  <span class="align-middle">Approve Attendance</span>
+                </b-dropdown-item>  
+
+                <b-dropdown-item v-if=" data.item.action === 0 " @click="principalActionDisapprove(data.item.att_id.attId)">
+                  <feather-icon icon="FileTextIcon" />
+                  <span class="align-middle">Query Attendance</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item :to="{ name: 'attendances-student-home', params: { attendance: data.item.attId } }">
+                <b-dropdown-item :to="{ name: 'attendances-home-view', params: { id: data.item.att_id.attId } }">
                   <feather-icon icon="BookOpenIcon" />
-                  <span class="align-middle ml-50">View Rowcall</span>
+                  <span class="align-middle">View Details</span>
+                </b-dropdown-item> 
+
+                <b-dropdown-item :to="{ name: 'attendances-student-home', params: { attendance: data.item.att_id.attId } }">
+                  <feather-icon icon="BookOpenIcon" />
+                  <span class="align-middle ">View Rowcall</span>
                 </b-dropdown-item>  
 
-                <b-dropdown-item :to="{ name: 'attendances-activity-home', params: { attendance: data.item.attId } }">
+                <b-dropdown-item :to="{ name: 'attendances-activity-home', params: { attendance: data.item.att_id.attId } }">
                   <feather-icon icon="LayersIcon" />
-                  <span class="align-middle ml-50">View Activity</span>
-                </b-dropdown-item>  
-                
-                <b-dropdown-item v-if=" userData.role === 'principal' " @click="principalActionApprove(data.item.attId)">
-                  <feather-icon icon="FileTextIcon" />
-                  <span class="align-middle ml-50">Approve Attendance</span>
-                </b-dropdown-item>  
-
-                <b-dropdown-item v-if=" userData.role === 'principal' " @click="principalActionDisapprove(data.item.attId)">
-                  <feather-icon icon="FileTextIcon" />
-                  <span class="align-middle ml-50">Query Attendance</span>
-                </b-dropdown-item>  
-                
-                <b-dropdown-item :to="{ name: 'schools-home-view', params: { id: data.item.teacher.school.schId } }">
-                  <feather-icon icon="Maximize2Icon" />
-                  <span class="align-middle ml-50"> View School </span>
-                </b-dropdown-item>  
+                  <span class="align-middle ">View Activity</span>
+                </b-dropdown-item>
 
               </b-dropdown>
             </template>
@@ -546,6 +653,7 @@
 
     mounted(){
         if(this.userData.role !== "proprietor"){
+            console.log("School id " + this.teacherData.school.schId )
             setTimeout(() => {
                 this.loadOtherValues( this.teacherData.school.schId );
             },2000);        
@@ -585,6 +693,7 @@
       const {
         fetchAttendances,
         tableColumns,
+        tableColumnsPrincipal,
         perPage,
         currentPage,
         
@@ -640,6 +749,7 @@
   
         fetchAttendances,
         tableColumns,
+        tableColumnsPrincipal,
         perPage,
         currentPage,
 
@@ -761,22 +871,42 @@
             });
 //
             sef.classOptions = [];     
-            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value, teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })
-            .then(response => { 
-              let myval = response.data.data;
-              myval.forEach(obj => {
-                sef.classOptions.push( { value: obj.clsId , text: obj.title + ' ' + obj.ext} )
-              });             
-            });
+            if ( this.userData.role === 'teacher' ){
+              store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value, teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })
+              .then(response => { 
+                let myval = response.data.data;
+                myval.forEach(obj => {
+                  sef.classOptions.push( { value: obj.clsId , text: obj.title + ' ' + obj.ext} )
+                });             
+              });
 
-            sef.subjectOptions = [];     
-            store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })
-            .then(response => { 
-              let myval = response.data.data;
-              myval.forEach(obj => {
-                sef.subjectOptions.push( { value: obj.subId , text: obj.name } )
-              });            
-            });
+              sef.subjectOptions = [];     
+              store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })
+              .then(response => { 
+                let myval = response.data.data;
+                myval.forEach(obj => {
+                  sef.subjectOptions.push( { value: obj.subId , text: obj.name } )
+                });            
+              });
+            }
+            else if (this.userData.role === 'principal'){
+              store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassroomsOther`, { id : value })
+              .then(response => { 
+                let myval = response.data.data;
+                myval.forEach(obj => {
+                  sef.classOptions.push( { value: obj.clsId , text: obj.title + ' ' + obj.ext} )
+                });             
+              });
+
+              sef.subjectOptions = [];     
+              store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSubjectsOther`, { })
+              .then(response => { 
+                let myval = response.data.data;
+                myval.forEach(obj => {
+                  sef.subjectOptions.push( { value: obj.subId , text: obj.name } )
+                });            
+              });
+            }
 
             sef.statusOptions = [];     
             sef.statusOptions.push( { value: 1 , text: "Done" } )  
@@ -893,7 +1023,7 @@
 
       principalActionApprove(attId){
          const Attendance_APP_STORE_MODULE_NAME = 'app-Attendance';
-         let confirmApproval = window.confirm("Do you wish to Approve this Attendance?");
+         let confirmApproval = window.confirm("Do you really wish to Approve this Attendance?");
          if (confirmApproval){
             const sef = this;          
             store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId),  management: { action : 1 }, activity: { action: "approved" } } )
@@ -926,7 +1056,7 @@
          let confirmQuery = window.prompt("Type in a comment to add to this Query for this Attendance:")
          if (confirmQuery){
             const sef = this;          
-            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId), management: { action : 2 }, activity: { action: "queried", comment_query: confirmQuery  } } )
+            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId), management: { action : 2, comment: confirmQuery === "" ? "No comment" : confirmQuery }, activity: { action: "queried", comment_query: confirmQuery === "" ? "No comment" : confirmQuery  } } )
             .then(response => { 
                 sef.$toast({
                   component: ToastificationContent,
@@ -939,9 +1069,10 @@
                 sef.fetchAttendances();
             });
          }
-         else {
+       /*  
+       else {
             const sef = this;          
-            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId), management: { action : 2 }, activity: { action: "queried", comment_query: "No comment"  } } )
+            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId), management: { action : 2, comment: confirmQuery }, activity: { action: "queried", comment_query: "No comment"  } } )
             .then(response => { 
                 sef.$toast({
                   component: ToastificationContent,
@@ -962,7 +1093,7 @@
                   }
                 });
             }); 
-         }
+         }*/
       
       }
 
@@ -973,9 +1104,15 @@
   </script>
   
   <style lang="scss" scoped>
-  .per-page-selector {
-    width: 90px;
-  }
+    .per-page-selector {
+      width: 90px;
+    }
+
+    .vertical-header{
+      writing-mode: vertical-rl;
+      white-space: nowrap;
+      width: 10px !important; /* Adjust the width as per your requirement */
+    }
   </style>
   
   <style lang="scss">

@@ -7,11 +7,34 @@ export default [
     },
 
     {
-        title: 'Teacher Dashboard',
+        title: 'Your Dashboard',
         route: 'home',
         icon: 'HomeIcon',
         permission: ["teacher", "principal", "proprietor"]
     },
+
+    //evaluator
+    {
+        title: 'Evaluator Dashboard',
+        route: 'evaluation-home',
+        icon: 'HomeIcon',
+        permission: ["evaluator"]
+    },
+  
+    {
+        title: 'Evaluation List',
+        route: 'evaluation-list',
+        icon: 'ListIcon',
+        permission: ["evaluator"]
+    },
+
+   /* {
+        title: 'Evaluation Trends',
+        route: 'evaluation-trending',
+        icon: 'TrendingUpIcon',
+        permission: ["evaluator"]
+    },*/
+
 
     {
         title: 'Your Activities',
@@ -72,6 +95,7 @@ export default [
             },
         ],
     },
+
     {
         title: 'School Performance Data',
         icon: 'CommandIcon',
@@ -111,17 +135,24 @@ export default [
     },
 
     {
-        title: 'School M&E Data',
+        title: 'Capacity Development',
+        route: 'capacity-home',
+        icon: 'CodepenIcon',
+        permission: ["teacher"]
+    },
+
+    {
+        title: 'School M&E',
         icon: 'CommandIcon',
-        permission: ["admin", "proprietor"],
+        permission: ["teacher" ,"principal"],
         children: [
             {
-                title: 'Attendance M&E Data',
+                title: 'Attendance M&E',
                 route: 'mne-attendances-home'
           
             },
             {
-                title: 'Lessonnote M&E Data',
+                title: 'Lessonnote M&E',
                 route: 'mne-lessonnotes-home'
                 
             }           

@@ -16,6 +16,14 @@ export default {
                     .catch(error => reject(error))
             })
         },
+        fetchAttendanceManagements(ctx, queryParams) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/attendance/paginateAttendanceManagement', { params: queryParams })
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
         fetchAttendance(ctx, {id}) {
             return new Promise((resolve, reject) => {
                 axios
@@ -48,6 +56,14 @@ export default {
                     .catch(error => reject(error))
             })
         },
+        fetchClassroomsOther(ctx, {id}) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/classstream/school/' + id )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
         fetchCalendars(ctx, {id}) {
             return new Promise((resolve, reject) => {
                 axios
@@ -60,6 +76,14 @@ export default {
             return new Promise((resolve, reject) => {
                 axios
                     .get($themeConfig.app.baseURL + '/misc/allSubjects/' + teacher )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
+        fetchSubjectsOther(ctx) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/misc/allSubjects' )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })

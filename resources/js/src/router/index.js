@@ -667,7 +667,7 @@ const router = new VueRouter({
             path: '/mne-attendances-list',
             name: 'mne-attendances-home',
             component: () =>
-                import ('@/views/pages/mne-attendance/AttendancePage.vue'),
+                import ('@/views/pages/mne-attendance/ListPage.vue'),
             meta: {
                 pageTitle: 'Measurement and Evaluation Attendances',
                 breadcrumb: [{
@@ -683,7 +683,7 @@ const router = new VueRouter({
             path: '/mne-lessonnotes-list',
             name: 'mne-lessonnotes-home',
             component: () =>
-                import ('@/views/pages/mne-lessonnote/LessonnotePage.vue'),
+                import ('@/views/pages/mne-lessonnote/ListPage.vue'),
             meta: {
                 pageTitle: 'Measurement and Evaluation Lessonnotes',
                 breadcrumb: [{
@@ -693,7 +693,86 @@ const router = new VueRouter({
                 ]
             }
         },
+
+         //Evaluation begin here
+        {
+            path: '/evaluation-home',
+            name: 'evaluation-home',
+            component: () =>
+                import ('@/views/pages/evaluation/HomePage.vue'),
+            meta: {
+                pageTitle: 'School Evaluation',
+                breadcrumb: [{
+                        text: 'Home',
+                        active: true
+                    }
+                ]
+            }
+        },
+
+        //Evaluation Round begin here
+        {
+            path: '/evaluation-round/:evaluation',
+            name: 'evaluation-round',
+            component: () =>
+                import ('@/views/pages/evaluation/RoundPage.vue'),
+            meta: {
+                pageTitle: 'School Evaluation',
+                breadcrumb: [{
+                        text: 'Evaluation Round',
+                        active: true
+                    }
+                ]
+            }
+        },
+
+        //Evaluation List begin here
+        {
+            path: '/evaluation-list',
+            name: 'evaluation-list',
+            component: () =>
+                import ('@/views/pages/evaluation/ListPage.vue'),
+            meta: {
+                pageTitle: 'School Evaluation',
+                breadcrumb: [{
+                        text: 'Evaluation List',
+                        active: true
+                    }
+                ]
+            }
+        },
+
+        //Evaluation Trending begin here
+        {
+            path: '/evaluation-trending/:evaluation',
+            name: 'evaluation-trending',
+            component: () =>
+                import ('@/views/pages/evaluation/TrendingPage.vue'),
+            meta: {
+                pageTitle: 'School Evaluation',
+                breadcrumb: [{
+                        text: 'Evaluation Trends',
+                        active: true
+                    }
+                ]
+            }
+        },
         
+        //Capacity Development begin here
+        {
+            path: '/capacity-home',
+            name: 'capacity-home',
+            component: () =>
+                import ('@/views/pages/capacitydevelopment/HomePage.vue'),
+            meta: {
+                pageTitle: 'School Capacity Development',
+                breadcrumb: [{
+                        text: 'Home',
+                        active: true
+                    }
+                ]
+            }
+        },
       
         {
             path: '/login',

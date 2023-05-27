@@ -179,19 +179,20 @@ export default {
                             permissions: JSON.parse(res.permissions),
                             email: res.email,
                             data_id: res.data_id,
+                            sch_id: res.school_id ? res.school_id : null,
                             school_date: res.school_date,
                             role: res.role,
                             ability: [{
                                 action: "manage",
                                 subject: 'all',
                             }]
-                        };
-
-                        const resp = await axios.get( sef.baseURL + "/teacher/"+ res.data_id )
+                        };                        
+                        const resp =  res.data_id !== null ? (await axios.get( sef.baseURL + "/teacher/"+ res.data_id )) : null                        
+                       
                         const responseData = {
                             userData,                          
                             accessToken,
-                            teacherData: resp.data.data                        
+                            teacherData: resp !== null ? resp.data.data  : null                      
                         };
 
                         return responseData;

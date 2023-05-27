@@ -1,6 +1,6 @@
 <template>
     <div>
-
+      <!-- Excused should be a toggle and Added ----- 26th May, 2023 --->
       <b-form
                 v-if=" takeAttendance === false "
                 class="p-2"
@@ -257,6 +257,7 @@
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
       const Attendance_APP_STORE_MODULE_NAME = 'app-AttendanceTake';
+      const LATE_TIME_IN_MINUTES = 10;
       const { baseURL } = $themeConfig.app; 
 
       // Register module
@@ -305,15 +306,40 @@
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
       }
 
+      const isWithinOneHour = (date1, date2) => {
+        if (date2 < date1) {
+          return false;
+        }  
+        let diffInMilliseconds = Math.round(date2 - date1);
+        console.log("DiffinMilliseconds: "+ diffInMilliseconds);
+        return diffInMilliseconds <= 7200000; // 2700000 milliseconds = 45 minutes
+      }
+
+      //
+       const isWithinTenMinutes = (date1, date2) => {
+        if (date2 < date1) {
+          return false;
+        }  
+        let diffInMilliseconds = Math.round(date2 - date1);        
+        return diffInMilliseconds <= 600000;
+      }
+
       onMounted(() => {
           fetchAttendances();
 
           setTimeout(() => {
             attendanceItems.value.forEach(obj => {
-                let done = obj.done === 0 ? "NOT DONE" : "CONCLUDED"
-                let labeltosee = obj.timetable.subject.name + "-" + obj.timetable.time_of + "-" + done
-                let valuetosee = obj.timetable.class_stream.clsId + "!" + obj.attId + "!" + obj.timetable.class_stream.title
-                attendanceOptions.value.push( { value: valuetosee , text: labeltosee } )
+                let splitTime = String(obj.timetable.time_of).split(":")
+                let targetTime = new Date();
+                targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );
+                if ( isWithinOneHour( targetTime, new Date() ) ) {                    
+                    let done = obj.done === 0 ? "NOT DONE" : "CONCLUDED"
+                    let labeltosee = obj.timetable.subject.name + "-" + obj.timetable.time_of + "-" + done
+                    let valuetosee = obj.timetable.class_stream.clsId + "!" + obj.attId + "!" + obj.timetable.class_stream.title + "!" + obj.timetable.time_of
+                    attendanceOptions.value.push( { value: valuetosee , text: labeltosee } )
+                } else {
+                  return;
+                }                
             });
           }, 2000)          
       })
@@ -325,6 +351,10 @@
         fetchAttendances,
 
         handleChange,
+
+        isWithinOneHour,
+
+        isWithinTenMinutes,
         
         filters,
        
@@ -335,6 +365,8 @@
         attendanceOptions,
 
         Attendance_APP_STORE_MODULE_NAME,
+
+        LATE_TIME_IN_MINUTES,
 
         baseURL
 
@@ -348,10 +380,20 @@
           this.isLoading = true
           let attId = String(this.filters.attId).split("!");
 
+          let splitTime = String( attId[3] ).split(":"); // Timing from Database
+          let targetTime = new Date();
+          targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );
+       
+
+          let the_timing =  this.isWithinTenMinutes( targetTime, new Date() ) ? 100 : 50; 
+          let the_completeness = (this.imageFile !== null) ? 100 : 50;
+
           let newRowData = this.rowcallData.map((row) => { 
             row.status = row.status === true ? 1 : 0;
             return row;  
           })
+
+          let the_classperf = (newRowData.filter((row) => row.status === 0 ).length / newRowData.length ) * 100 ;
 
           if( this.imageFile !== null ){
               const fd = new FormData();
@@ -361,16 +403,19 @@
                     console.log( "Attendance File has been uploaded --> " + attId[1] );
                 })
           }          
-
-          store.dispatch(`${ this.Attendance_APP_STORE_MODULE_NAME }/updateAttendance`, { 
-              id: Number(attId[1]),
+         
+           setTimeout(() => {      
+              store.dispatch(`${ this.Attendance_APP_STORE_MODULE_NAME }/updateAttendance`, { 
               attendance : { period : "", done: 1 },
-              management : { timing: 0, class_perf: 0, completeness: 0, score: 0, action: 0 },
+              id: Number(attId[1]),              
+              management : { timing: the_timing, class_perf: the_classperf, completeness: the_completeness, score:  Math.round( (the_timing + the_classperf + the_completeness) / 3 ) , action: 0 },
               activity: { activity: "Expected to approve/query Attendance", slip: 0 }
-          })
-          .then(response => { 
-              console.log("Attendance 1st Phase done: " + response.data.success );                         
-          });
+              })
+              .then(response => { 
+                  console.log("Attendance 1st Phase done: " + response.data.success );                         
+              });
+           },1200);
+         
 
           store.dispatch(`${ this.Attendance_APP_STORE_MODULE_NAME }/updateAttendanceRowcall`, newRowData )
             .then(response => { 

@@ -36,7 +36,7 @@
                 :value="att.submitted"
               />
               <order-chart
-                v-if=" userData.role === 'prinicipal' "
+                v-if=" userData.role === 'principal' "
                 :data="sampleDataSeries"
                 label='Total Attendance Submitted by Teachers Today'
                 :lowIsBad="true"
@@ -113,173 +113,173 @@
   </section>
 </template>
 
-<script>
-import { BRow, BCol } from "bootstrap-vue";
-import Statistics from "./components/Statistics.vue";
-import OrderChart from "./components/OrderChart.vue";
-import ProfitChart from "./components/ProfitChart.vue";
-import BillComissionCard from "./components/BillComissionCard.vue";
-import TranstionsTrend from "./components/TranstionsTrend.vue";
-import RevenueReport from "./components/RevenueReport.vue";
-import BottomTable from "./components/BottomTable.vue";
-import EventList from '../dashboard/EventList.vue'
-import flatPickr from "vue-flatpickr-component";
-import { Skeleton } from "vue-loading-skeleton";
-import store from '@/store'
-import useHomeList from './useHomeList'
-import homeStoreModule from './homeStoreModule'
-import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
+  <script>
+  import { BRow, BCol } from "bootstrap-vue";
+  import Statistics from "./components/Statistics.vue";
+  import OrderChart from "./components/OrderChart.vue";
+  import ProfitChart from "./components/ProfitChart.vue";
+  import BillComissionCard from "./components/BillComissionCard.vue";
+  import TranstionsTrend from "./components/TranstionsTrend.vue";
+  import RevenueReport from "./components/RevenueReport.vue";
+  import BottomTable from "./components/BottomTable.vue";
+  import EventList from '../dashboard/EventList.vue'
+  import flatPickr from "vue-flatpickr-component";
+  import { Skeleton } from "vue-loading-skeleton";
+  import store from '@/store'
+  import useHomeList from './useHomeList'
+  import homeStoreModule from './homeStoreModule'
+  import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
 
-export default {
-  components: {
-    BRow,
-    BCol,
-    Skeleton,
-    flatPickr,
-    Statistics,
-    OrderChart,
-    ProfitChart,
-    BillComissionCard,
-    TranstionsTrend,
-    RevenueReport,
-    BottomTable,
-    EventList
-  },
-  data() {
-    return {
-      rangeDate: null,
-      userData: {},
-      data: {},
-      stats: {},
-      charts: {},
-      transactions: {},
-      sampleDataSeries:{
-        series: [
+  export default {
+    components: {
+      BRow,
+      BCol,
+      Skeleton,
+      flatPickr,
+      Statistics,
+      OrderChart,
+      ProfitChart,
+      BillComissionCard,
+      TranstionsTrend,
+      RevenueReport,
+      BottomTable,
+      EventList
+    },
+    data() {
+      return {
+        rangeDate: null,
+        userData: {},
+        data: {},
+        stats: {},
+        charts: {},
+        transactions: {},
+        sampleDataSeries:{
+          series: [
+              {
+                data: [0, 20, 5, 30, 15, 45],
+              }
+          ]
+        },
+        sampleLineDataSeries: {
+          series: [
             {
               data: [0, 20, 5, 30, 15, 45],
-            }
-        ]
+            },
+          ],
+        },
+      };
+    },
+    mounted() {
+    // this.$store.dispatch("tableData/getVTUProfits");
+      const storedItems = JSON.parse(localStorage.getItem('userData'));
+      if (storedItems){
+        this.userData = storedItems;
+      }
+    },
+  
+  /*
+    watch: {
+      rangeDate: function (value, mutation) {
+        this.$store.dispatch("tableData/getVTUProfits", value);
+        useJwt
+          .getDashboardCharts(value)
+          .then((response) => {
+            this.charts = response;
+            this.stats = response.data;
+          })
+          .catch((error) => {
+            // TODO
+          });
       },
-      sampleLineDataSeries: {
-        series: [
-          {
-            data: [0, 20, 5, 30, 15, 45],
-          },
-        ],
-      },
-    };
-  },
-  mounted() {
-   // this.$store.dispatch("tableData/getVTUProfits");
-    const storedItems = JSON.parse(localStorage.getItem('userData'));
-    if (storedItems){
-      this.userData = storedItems;
-    }
-  },
- 
- /*
-  watch: {
-    rangeDate: function (value, mutation) {
-      this.$store.dispatch("tableData/getVTUProfits", value);
+    },*/
+
+    created() {
+      // data
+      /*this.$http.get("/ecommerce/data").then((response) => {
+        this.data = response.data;
+        const userData = getUserData();
+      });
+
       useJwt
-        .getDashboardCharts(value)
+        .getDashboardCharts()
         .then((response) => {
           this.charts = response;
           this.stats = response.data;
         })
         .catch((error) => {
           // TODO
-        });
+        });*/
     },
-  },*/
 
-  created() {
-    // data
-    /*this.$http.get("/ecommerce/data").then((response) => {
-      this.data = response.data;
-      const userData = getUserData();
-    });
+    setup() {
+        const Home_APP_STORE_MODULE_NAME = 'app-Home';
 
-    useJwt
-      .getDashboardCharts()
-      .then((response) => {
-        this.charts = response;
-        this.stats = response.data;
-      })
-      .catch((error) => {
-        // TODO
-      });*/
-  },
+        // Register module
+        if (!store.hasModule(Home_APP_STORE_MODULE_NAME)) store.registerModule(Home_APP_STORE_MODULE_NAME, homeStoreModule)
+    
+        // UnRegister on leave
+        onUnmounted(() => {
+          if (store.hasModule(Home_APP_STORE_MODULE_NAME)) store.unregisterModule(Home_APP_STORE_MODULE_NAME)
+        })  
+        
+        const userData = ref({});
+        const teacherData = ref({});
 
-  setup() {
-      const Home_APP_STORE_MODULE_NAME = 'app-Home';
+        const storedItems = JSON.parse(localStorage.getItem('userData'));
+        if (storedItems){
+          userData.value = storedItems;
+        }
 
-      // Register module
-      if (!store.hasModule(Home_APP_STORE_MODULE_NAME)) store.registerModule(Home_APP_STORE_MODULE_NAME, homeStoreModule)
-  
-      // UnRegister on leave
-      onUnmounted(() => {
-        if (store.hasModule(Home_APP_STORE_MODULE_NAME)) store.unregisterModule(Home_APP_STORE_MODULE_NAME)
-      })  
-      
-      const userData = ref({});
-      const teacherData = ref({});
+        const storedItems2 = JSON.parse(localStorage.getItem('teacherData'));
+        if (storedItems2){
+          teacherData.value = storedItems2;
+        }
 
-      const storedItems = JSON.parse(localStorage.getItem('userData'));
-      if (storedItems){
-        userData.value = storedItems;
-      }
+        const findIfPropisPresent = ( userData.value.role === "proprietor"  );      
+        const findIfPrinisPresent = ( userData.value.role === "principal" ); 
+        const findIfTeacherisPresent = ( userData.value.role === "teacher" );
 
-      const storedItems2 = JSON.parse(localStorage.getItem('teacherData'));
-      if (storedItems2){
-        teacherData.value = storedItems2;
-      }
+        const {  
+          isLoading, 
+          filters,   
+          fetchHomeDetails,
+          att,
+          lsn,
+          mne
+        } = useHomeList();
 
-      const findIfPropisPresent = ( userData.value.role === "proprietor"  );      
-      const findIfPrinisPresent = ( userData.value.role === "principal" ); 
-      const findIfTeacherisPresent = ( userData.value.role === "teacher" );
+        if( findIfPropisPresent ){        
+            filters.value.schoolgroup = teacherData.value ? teacherData.value.school.owner.id : null;
+        } 
+        if ( findIfPrinisPresent ){         
+            filters.value.schoolId = teacherData.value ? teacherData.value.school.schId : null;
+        }
+        if( findIfTeacherisPresent ){
+          filters.value.teacherId = teacherData.value ? teacherData.value.teaId : null;
+        }
 
-      const {  
-        isLoading, 
-        filters,   
-        fetchHomeDetails,
-        att,
-        lsn,
-        mne
-      } = useHomeList();
+        onMounted(async () => {
+        // fetchHomeDetails();
+        })
 
-      if( findIfPropisPresent ){        
-          filters.value.schoolgroup = teacherData.value ? teacherData.value.school.owner.id : null;
-      } 
-      if ( findIfPrinisPresent ){         
-          filters.value.schoolId = teacherData.value ? teacherData.value.school.schId : null;
-      }
-      if( findIfTeacherisPresent ){
-         filters.value.teacherId = teacherData.value ? teacherData.value.teaId : null;
-      }
-
-      onMounted(async () => {
-       // fetchHomeDetails();
-      })
-
-      return {
-        isLoading, 
-        filters,   
-        fetchHomeDetails,
-        att,
-        lsn,
-        mne
-      }
-  }
+        return {
+          isLoading, 
+          filters,   
+          fetchHomeDetails,
+          att,
+          lsn,
+          mne
+        }
+    }
 
 
-};
-</script>
+  };
+  </script>
 
-<style lang="scss">
-@import "~@core/scss/vue/pages/dashboard-ecommerce.scss";
-@import "~@core/scss/vue/libs/chart-apex.scss";
-@import "~@core/scss/vue/libs/vue-good-table.scss";
-@import "~@core/scss/vue/libs/vue-flatpicker.scss";
-</style>
+  <style lang="scss">
+  @import "~@core/scss/vue/pages/dashboard-ecommerce.scss";
+  @import "~@core/scss/vue/libs/chart-apex.scss";
+  @import "~@core/scss/vue/libs/vue-good-table.scss";
+  @import "~@core/scss/vue/libs/vue-flatpicker.scss";
+  </style>
 

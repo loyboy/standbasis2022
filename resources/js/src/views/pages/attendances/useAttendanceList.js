@@ -12,6 +12,11 @@ export default function useAttendanceList() {
   const refAttendanceListTable = ref(null)
   const isAttendanceSidebarActive = ref(false)
   const isLoading = ref(false)
+  const userData = ref({});
+  const storedItems = JSON.parse(localStorage.getItem('userData'));
+  if (storedItems){
+    userData.value = storedItems;
+  }
 
   // Table Handlers
   const tableColumns = [    
@@ -24,6 +29,22 @@ export default function useAttendanceList() {
     { key: 'done',label: 'Status',  sortable: true },
     { key: 'actions' }
   ]
+
+  const tableColumnsPrincipal = [    
+    { key: 'att_id.teacher',label: 'Teacher Name',  sortable: true },
+    { key: 'att_id.timetable.class_stream.title',label: 'Class Name',  sortable: true },
+    { key: 'att_id.timetable.class_stream.ext',label: 'Class Arm',  sortable: true },
+    { key: 'att_id.timetable.subject.name',label: 'Subject Name',  sortable: true },
+    { key: 'timing',label: 'Timing(%)',  sortable: true },
+    { key: 'class_perf',label: 'Class Performance(%)',  sortable: true },
+    { key: 'completeness',label: 'Completeness(%)',  sortable: true },
+    { key: 'score',label: 'Performance(%)',  sortable: true },
+    { key: 'att_id._date',label: 'Date of Submission',  sortable: true, thStyle: { width: "20%" } },
+    { key: 'action',label: 'Your Action',  sortable: true },
+    { key: 'comment',label: 'Your Comment',  sortable: true },
+    { key: 'actions' }
+  ]
+
   const perPage = ref(10)
   const totalAttendances = ref(0)
   const currentPage = ref(1)
@@ -66,12 +87,43 @@ export default function useAttendanceList() {
   })
 
   const fetchAttendances = (ctx) => {
-  
+    let _DONE = 1;
     let dateF = filters.value.dateFrom !== null ? String(filters.value.dateFrom) + " 00:00:00" : null;
     let dateT = filters.value.dateTo !== null ? String(filters.value.dateTo) + " 00:00:00" : null;
     isLoading.value = true;
-    store
-      .dispatch('app-Attendance/fetchAttendances', {
+    
+    if ( userData.value.role === "teacher" ){          
+          store.dispatch('app-Attendance/fetchAttendances', {
+            size: perPage.value,
+            page: currentPage.value - 1,
+            q: searchQuery.value,
+            schoolgroup: filters.value.schoolgroup,
+            school: filters.value.schoolId,
+            class: filters.value.classId,
+            calendar: filters.value.calendarId,
+            teacher: filters.value.teacherId,
+            subject:  filters.value.subjectId,
+            status: filters.value.status,
+            datefrom: dateF,
+            dateto: dateT
+          })
+          .then(response => {
+            const { attendances, totalItems, totalDone, totalNotDone } = response.data
+        
+            attendanceItems.value = attendances
+            totalAttendances.value = totalItems
+            totalActiveAttendances.value = totalDone
+            totalInactiveAttendances.value = totalNotDone    
+            isLoading.value = false;   
+
+          })
+          .catch((e) => {
+            console.log("Fetch Attendances error: " + e);
+            isLoading.value = false;   
+          })
+    }
+    else if (userData.value.role === "principal") {
+      store.dispatch('app-Attendance/fetchAttendanceManagements', {
         size: perPage.value,
         page: currentPage.value - 1,
         q: searchQuery.value,
@@ -80,25 +132,22 @@ export default function useAttendanceList() {
         class: filters.value.classId,
         calendar: filters.value.calendarId,
         teacher: filters.value.teacherId,
-        subject:  filters.value.subjectId,
-        status: filters.value.status,
+        attendancedone: _DONE,
         datefrom: dateF,
         dateto: dateT
       })
       .then(response => {
-        const { attendances, totalItems, totalDone, totalNotDone } = response.data
-     
-        attendanceItems.value = attendances
-        totalAttendances.value = totalItems
-        totalActiveAttendances.value = totalDone
-        totalInactiveAttendances.value = totalNotDone    
+        const { attendancemanagement } = response.data
+    
+        attendanceItems.value = attendancemanagement       
         isLoading.value = false;   
 
       })
       .catch((e) => {
-        console.log("Fetch Attendances error: " + e);
+        console.log("Fetch Attendances Managenment error: " + e);
         isLoading.value = false;   
       })
+    }
   }
 
   const handlePageChange = (value) => {
@@ -134,6 +183,7 @@ export default function useAttendanceList() {
     totalInactiveAttendances,
 
     tableColumns,
+    tableColumnsPrincipal,
     perPage,
     currentPage,
     dataMeta,
