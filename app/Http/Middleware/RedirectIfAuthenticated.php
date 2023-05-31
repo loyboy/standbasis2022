@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
-    /** 
+    /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -20,22 +20,13 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
+
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if (Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin') {
-                    return redirect()->route('admin.dashboard');
-                } elseif (Auth::user()->role == 'user') {
-                    return redirect()->route('user.dashboard');
-                } elseif (Auth::user()->role == 'principal') {
-                    return redirect()->route('principal.dashboard');
-                } elseif (Auth::user()->role == 'government') {
-                    return redirect()->route('government.dashboard');
-                } elseif (Auth::user()->role == 'proprietor') {
-                    return redirect()->route('proprietor.dashboard');
-                }
-                
+                return redirect(RouteServiceProvider::HOME);
             }
         }
+
         return $next($request);
     }
 }

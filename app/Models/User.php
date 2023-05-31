@@ -1,36 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens;
-
-    public function teacher()
-    {
-        return $this->belongsTo(Teacher::class, 'teacher_id', 'id');
-    }
-
-    public function pupil()
-    {
-        return $this->belongsTo(Pupil::class, 'pupil_id', 'id');
-    }
-
-    public function principal()
-    {
-        return $this->belongsTo(Teacher::class, 'principal_id', 'id');
-    }
-
-    public function proprietor()
-    {
-        return $this->belongsTo(School::class, 'proprietor_id', 'id');
-    }
+    use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -38,8 +17,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'name', 'password', 'type_of', 'status', 
-        'teacher_id','pupil_id','principal_id','proprietor_id','role'
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -48,7 +28,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -56,5 +37,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }

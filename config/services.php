@@ -30,15 +30,4 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'ses' => [
-        'apiKey' => env('FIRE_BASE_API_KEY'),
-        'authDomain' => env('API_DOMAIN'),
-        'projectId' => env('PROJECT_ID'),
-        'storageBucket' => env('STORGE_BUCKET'),
-        'messagingSenderId' => env('MESSAGE_ID'),
-        'appId' => env('API_ID'),
-        'measurementId' => env('MEASUREMENT_ID'),
-    ],
-
-
 ];
