@@ -6,12 +6,12 @@ export default function useEvaluation() {
   const mnelistItems = ref([]) 
   const isLoading = ref(false)
   const changeFieldsStudents = ref(false)
-  const dyFieldsStudents = ref([
- 
-  ])
+  const dyFieldsStudents = ref([])
 
   const changeFieldsTeacher = ref(false)
   const dyFieldsTeacher = ref([])
+
+  const tableKey = ref(1)
 
   const filters = ref({  
     schoolId: null,
@@ -37,7 +37,7 @@ export default function useEvaluation() {
 
       else if(changeFieldsTeacher.value === true) {
         fields = dyFieldsTeacher.value
-      }
+      }    
 
       return fields;
   })
@@ -48,13 +48,14 @@ export default function useEvaluation() {
       store.dispatch('app-MneAttendance/fetchMne', {enrol: filters.value.typetwo_student, calendar: filters.value.typefour, week: filters.value.typethree  })
       .then(response => {
         
-        const { mnecolumndata, mnecolumns } = response.data;
+        const { mnecolumndata, mnecolumn } = response.data;
 
-        dyFieldsStudents.value = mnecolumns
+        dyFieldsStudents.value = mnecolumn
 
         mnelistItems.value = mnecolumndata;
 
         isLoading.value = false;
+        tableKey.value = tableKey.value++;
         changeFieldsStudents.value = true;
         changeFieldsTeacher.value = false;
       })
@@ -70,13 +71,14 @@ export default function useEvaluation() {
     store.dispatch('app-MneAttendance/fetchMneTeacher', {teacher: filters.value.typetwo_teacher, calendar: filters.value.typefour, week: filters.value.typethree  })
     .then(response => {
       
-      const { mnecolumndata, mnecolumns } = response.data;
+      const { mnecolumndata, mnecolumn } = response.data;
 
-      dyFieldsTeacher.value = mnecolumns
+      dyFieldsTeacher.value = mnecolumn;
 
       mnelistItems.value = mnecolumndata;
 
       isLoading.value = false;
+      tableKey.value = tableKey.value++;
       changeFieldsTeacher.value = true;
       changeFieldsStudents.value = false;
     })
@@ -88,15 +90,20 @@ export default function useEvaluation() {
  
 
   const handleChange = (ctx) => {
-    if (  filters.value.typeone && filters.value.typetwo_student && filters.value.typethree && filters.value.typefour ) {
+    //console.log(  filters.value.typeone + " >>  " + filters.value.typetwo_teacher + " >> " + filters.value.typethree + " >> " + filters.value.typefour);
+    if (  filters.value.typeone === "student" && filters.value.typetwo_student && filters.value.typethree && filters.value.typefour ) {
       fetchMneVariant();
     }
     
-    else if (  filters.value.typeone && filters.value.typetwo_teacher && filters.value.typethree && filters.value.typefour ) {
+    else if ( filters.value.typeone === "teacher" && filters.value.typetwo_teacher && filters.value.typethree && filters.value.typefour ) {
       fetchMneVariant2();
     }
 
-    else if (  filters.value.typeone && filters.value.typetwo_principal && filters.value.typethree && filters.value.typefour ) {
+    else if ( filters.value.typeone === "teacher_me" && filters.value.typetwo_teacher && filters.value.typethree && filters.value.typefour ) {
+      fetchMneVariant2();
+    }
+
+    else if (  filters.value.typeone === "principal" && filters.value.typetwo_principal && filters.value.typethree && filters.value.typefour ) {
       fetchMneVariant3();
     }
 
@@ -174,7 +181,9 @@ export default function useEvaluation() {
 
     handleChange,
 
-    mnelistItems
+    mnelistItems,
+
+    tableKey
 
   }
 }

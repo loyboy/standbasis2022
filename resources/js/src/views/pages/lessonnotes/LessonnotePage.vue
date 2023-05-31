@@ -358,6 +358,7 @@
     
           <b-table
             ref="refLessonnoteListTable"
+            v-if=" userData.role === 'teacher' "
             class="position-relative"
             :items="LessonnoteItems"
             :busy="isLoading"
@@ -412,7 +413,7 @@
               </div>
             </template>-->
     
-             <!-- Column: Date -->
+             <!-- Column: Submission -->
              <template #cell(submission)="data">
                <div>
                 {{ String( data.item.submission ).replace(".000+00:00","") }}
@@ -430,14 +431,14 @@
                 </b-badge>
              </template>
 
-              <!-- Column: Class -->
+              <!-- Column: Class Index -->
               <template #cell(class_index)="data">
                <div>
                 <b> {{   data.item.class_index === 7 ? "JSS1" : data.item.class_index === 8 ? "JSS2" : data.item.class_index === 9 ? "JSS3" : data.item.class_index === 10 ? "SS1" : data.item.class_index === 11 ? "SS2" : data.item.class_index === 12 ? "SS3" : "Nil"  }} </b>
                </div>               
              </template>
 
-            <!-- Column: Done -->
+            <!-- Column: Term -->
             <template #cell(calendar.term)="data">
               <b-badge
                 pill
@@ -463,6 +464,11 @@
                   />     
                 </template>
 
+                <b-dropdown-item @click="openfile(data.item.lsnPath, data.item.title)" >
+                  <feather-icon icon="FileTextIcon"  />
+                  <span class="align-middle ml-50">View Lessonnote File</span>
+                </b-dropdown-item>
+
                 <b-dropdown-item :to="{ name: 'lessonnotes-home-view', params: { id: data.item.lessonnoteId } }">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">View Details</span>
@@ -470,7 +476,7 @@
 
                 <b-dropdown-item :to="{ name: 'lessonnotes-student-home', params: { id: data.item.lessonnoteId } }">
                   <feather-icon icon="FileTextIcon" />
-                  <span class="align-middle ml-50">View Student Performance</span>
+                  <span class="align-middle ml-50">View Student's Performance</span>
                 </b-dropdown-item> 
 
                 <b-dropdown-item @click="isManagementSidebarActive = true; loadManagement(data.item); ">
@@ -480,28 +486,121 @@
                 
                 <b-dropdown-item :to="{ name: 'lessonnotes-activity-home', params: { id: data.item.lessonnoteId } }">
                   <feather-icon icon="FileTextIcon" />
-                  <span class="align-middle ml-50"> View Activities </span>
+                  <span class="align-middle ml-50"> View its Activities </span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item @click="openfile(data.item.lsnPath, data.item.title)" >
-                  <feather-icon icon="FileTextIcon"  />
-                  <span class="align-middle ml-50">View Lessonnote File</span>
-                </b-dropdown-item>  
-                
+              </b-dropdown>
+            </template>
+    
+          </b-table>
+
+          <b-table
+            ref="refLessonnoteListTable"
+            v-if=" userData.role === 'principal' "
+            class="position-relative"
+            :items="LessonnoteItems"
+            :busy="isLoading"
+            responsive
+            :fields="tableColumns"
+            primary-key="id"
+            :sort-by.sync="sortBy"
+            show-empty
+            empty-text="No matching records found"
+            :sort-desc.sync="isSortDirDesc"
+          >
+
+              <template #table-busy>
+                <div class="text-center text-danger my-2">
+                  <b-spinner class="align-middle"></b-spinner>
+                  <strong>Loading...</strong>
+                </div>
+              </template>
+    
+             <!-- Column: Submission -->
+             <template #cell(submission)="data">
+               <div>
+                {{ String( data.item.submission ).replace(".000+00:00","") }}
+               </div>               
+             </template>
+
+              <!-- Column: Status -->
+              <template #cell(status)="data">
+                <b-badge
+                pill
+                :variant="`light-${resolveLessonnotestatusVariant( data.item.resubmission != null ? 2 : data.item.revert != null ? -1 : data.item.approval != null ? 1 : data.item.closure != null ? 3 : data.item.launch != null ? 0 : 2  )}`"
+                class="text-capitalize"
+                >      
+                   {{  data.item.submission != null && data.item.approval == null ? "Submitted" : data.item.resubmission != null ? "Re-Submitted" : data.item.revert != null ? "Reverted" : data.item.approval != null ? "Approved" : data.item.closure != null ? "Closed" : data.item.launch != null ? "Launched" : "Queued" }}
+                </b-badge>
+             </template>
+
+              <!-- Column: Class Index -->
+              <template #cell(class_index)="data">
+               <div>
+                <b> {{   data.item.class_index === 7 ? "JSS1" : data.item.class_index === 8 ? "JSS2" : data.item.class_index === 9 ? "JSS3" : data.item.class_index === 10 ? "SS1" : data.item.class_index === 11 ? "SS2" : data.item.class_index === 12 ? "SS3" : "Nil"  }} </b>
+               </div>               
+             </template>
+
+            <!-- Column: Term -->
+            <template #cell(calendar.term)="data">
+              <b-badge
+                pill
+                :variant="`light-${resolveLessonnotestatusVariant(data.item.calendar.term)}`"
+                class="text-capitalize"
+              >
+                {{ data.item.calendar.term === 1 ? "1st Term" : data.item.calendar.term === 2 ? "2nd Term" : data.item.calendar.term === 3 ? "3rd Term" : " "  }}
+              </b-badge>
+            </template>
+    
+            <!-- Column: Actions -->
+            <template #cell(actions)="data">
+              <b-dropdown
+                variant="link"
+                no-caret
+                :right="$store.state.appConfig.isRTL"
+              >    
+                <template #button-content>
+                  <feather-icon
+                    icon="MoreVerticalIcon"
+                    size="16"
+                    class="align-middle text-body"
+                  />     
+                </template>
+
                 <b-dropdown-item v-if=" userData.role === 'principal' "  @click= " triggerApprove( data.item.title , data.item.lessonnoteId, data.item.teacher.teaId  ) "   >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">Approve lessonnote</span>
                 </b-dropdown-item>   
 
-                <b-dropdown-item v-if=" userData.role === 'principal' " @click= " triggerDisapprove( data.item.title, data.item.lessonnoteId  ) "   >
+                <b-dropdown-item v-if=" userData.role === 'principal' " @click= " triggerDisapprove( data.item.title, data.item.lessonnoteId, data.item.teacher.teaId ) "   >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">Revert lessonnote</span>
+                </b-dropdown-item> 
+
+                <b-dropdown-item @click="openfile(data.item.lsnPath, data.item.title)" >
+                  <feather-icon icon="FileTextIcon"  />
+                  <span class="align-middle ml-50">View Lessonnote File</span>
+                </b-dropdown-item>
+
+                <b-dropdown-item :to="{ name: 'lessonnotes-home-view', params: { id: data.item.lessonnoteId } }">
+                  <feather-icon icon="FileTextIcon" />
+                  <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>   
+
+                <b-dropdown-item :to="{ name: 'lessonnotes-student-home', params: { id: data.item.lessonnoteId } }">
+                  <feather-icon icon="FileTextIcon" />
+                  <span class="align-middle ml-50">View Student's Performance</span>
+                </b-dropdown-item> 
+
+                <b-dropdown-item @click="isManagementSidebarActive = true; loadManagement(data.item); ">
+                  <feather-icon icon="FileTextIcon" />
+                  <span class="align-middle ml-50">View Management Details</span>
+                </b-dropdown-item>
                 
-                <b-dropdown-item :to="{ name: 'schools-home-view', params: { id: data.item.teacher.school.schId } }">
-                  <feather-icon icon="Maximize2Icon" />
-                  <span class="align-middle ml-50"> View School </span>
-                </b-dropdown-item>  
+                <b-dropdown-item :to="{ name: 'lessonnotes-activity-home', params: { id: data.item.lessonnoteId } }">
+                  <feather-icon icon="FileTextIcon" />
+                  <span class="align-middle ml-50"> View its Activities </span>
+                </b-dropdown-item> 
 
               </b-dropdown>
             </template>
@@ -565,9 +664,60 @@
           no-close-on-backdrop
           content-class="shadow"
         >      
-          <span> <b>
-            Are you sure you are satisfied with this Lessonnote?
-             </b> </span>
+          <span> 
+            <h3> <b>
+              Are you sure you are satisfied with this Lessonnote?
+             </b> 
+            </h3> 
+          </span>
+
+              <b-row>
+                  <b-col cols="4" md="12">
+                    <b-form-group label=" This lesson note has classwork included?" label-for="">
+                     <b-form-checkbox
+                      v-model="filters.hasClasswork"
+                      switch
+                    />
+                    </b-form-group>
+                  </b-col>
+
+                  <b-col cols="4" md="12">
+                    <b-form-group label=" This lesson note has homework included?" label-for="">
+                     <b-form-checkbox
+                      v-model="filters.hasHomework"
+                      switch
+                    />
+                    </b-form-group>
+                  </b-col>
+
+                  <b-col cols="4" md="12">
+                    <b-form-group label=" This lesson note has test included?" label-for="">
+                     <b-form-checkbox
+                      v-model="filters.hasTest"
+                      switch
+                    />
+                    </b-form-group>
+                  </b-col>
+
+                  <b-col cols="4" md="12">
+                    <b-form-group label=" This lesson Note has MidTerm included?" label-for="">
+                     <b-form-checkbox
+                      v-model="filters.hasMidTerm"
+                      switch
+                    />
+                    </b-form-group>
+                  </b-col>
+
+                   <b-col cols="4" md="12">
+                    <b-form-group label="This Lesson Note has Final Exam included?" label-for="">
+                     <b-form-checkbox
+                      v-model="filters.hasFinalExam"
+                      switch
+                    />
+                    </b-form-group>
+                  </b-col>
+              </b-row>
+
           <b-button
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-3"
@@ -577,6 +727,7 @@
           >
             Cancel
           </b-button>
+
           <b-button
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-2"
@@ -595,10 +746,16 @@
           :title="modalTitle2"
           no-close-on-backdrop
           content-class="shadow"
-        >      
+        >    
+         <span> 
+            <h3> <b>
+              Please select the problems of this Lessonnote:
+             </b> 
+            </h3> 
+          </span>  
             <b-row>
                   <b-col cols="6" md="12">
-                    <b-form-group label="Grammar Faulty?" label-for="">
+                    <b-form-group label="Grammar is Faulty? (Select YES if faulty)" label-for="">
                      <b-form-checkbox
                       v-model="grammar"
                       switch
@@ -607,7 +764,7 @@
                   </b-col>
 
                   <b-col cols="6" md="12">
-                    <b-form-group label="Arrangement faulty?" label-for="">
+                    <b-form-group label="Arrangement is faulty? (Select YES if faulty)" label-for="">
                      <b-form-checkbox
                       v-model="arrangement"
                       switch
@@ -616,14 +773,24 @@
                   </b-col>
 
                   <b-col cols="6" md="12">
-                    <b-form-group label="Subject Matter Not Understood?" label-for="">
+                    <b-form-group label="Subject Matter is not fully understood? (Select YES if in agreement)" label-for="">
                      <b-form-checkbox
                       v-model="subjectmatter"
                       switch
                     />
                     </b-form-group>
-                  </b-col>
+                  </b-col> 
+
+                   <b-col cols="6" md="12">
+                    <b-form-group label="Either Classwork/Test/Homework not included? (Select YES if not included and is a priority)" label-for="">
+                     <b-form-checkbox
+                      v-model="incomplete"
+                      switch
+                    />
+                    </b-form-group>
+                  </b-col>                  
             </b-row>
+
           <b-button
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-3"
@@ -642,6 +809,7 @@
           >
             Revert Lessonnote
           </b-button>
+
         </b-modal>
 
     </div>
@@ -781,7 +949,7 @@
 
       let modalTitle,modalTitle2  = "";
 
-      let grammar, arrangement, subjectmatter = false;
+      let grammar, arrangement, subjectmatter, incomplete = false;
 
       let teacherPicked , LessonnotePicked = null;
 
@@ -795,9 +963,11 @@
          grammar,
          arrangement,
          subjectmatter,
+         incomplete,
 
          modalTitle, 
          modalTitle2,
+
          teacherOptions,
          classOptions,
          calendarOptions,
@@ -806,6 +976,7 @@
          statusOptions,
          grammarOptions,
          arrangementOptions,
+
          teacherPicked,
          LessonnotePicked,
 
@@ -862,6 +1033,7 @@
       const {
         fetchLessonnotes,
         tableColumns,
+        tableColumnsPrincipal,
         perPage,
         currentPage,
         
@@ -919,6 +1091,7 @@
   
         fetchLessonnotes,
         tableColumns,
+        tableColumnsPrincipal,
         perPage,
         currentPage,
 
@@ -951,7 +1124,8 @@
 
         searchValues,
         backendURL,
-        baseURL
+        baseURL,
+        Lessonnote_APP_STORE_MODULE_NAME
 
       }
     },
@@ -1039,10 +1213,10 @@
               this.searchValues.push(choiceText);
             }   
 
-            const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
+           // const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
             const sef = this;     
             sef.teacherOptions = [];     
-            store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchTeachers`, { id : value })
+            store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchTeachers`, { id : value })
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
@@ -1051,7 +1225,7 @@
             });
 
             sef.subjectOptions = [];     
-            store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null } )
+            store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null } )
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
@@ -1089,7 +1263,7 @@
               sef.statusOptions.push( { value: "revert" , text: "Revert" } ) 
               sef.statusOptions.push( { value: "approved" , text: "Approved" } ) 
 
-            /*store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value, teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })
+            /*store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value, teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
@@ -1098,7 +1272,7 @@
             });*/
 
             sef.calendarOptions = [];     
-            store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : value })
+            store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : value })
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
@@ -1359,7 +1533,7 @@
       },
 
       triggerDisapprove(name, lsn, teacher){
-        this.modalTitle2 = "Revert this Lessonnote: "+ name;
+        this.modalTitle2 = "Query this Lessonnote: "+ name;
         this.teacherPicked = teacher;
         this.LessonnotePicked = lsn;
         this.showModal2();     

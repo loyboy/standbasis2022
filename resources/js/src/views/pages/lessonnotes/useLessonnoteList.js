@@ -13,6 +13,11 @@ export default function useLessonnoteList() {
   const isLessonnoteSidebarActive = ref(false)
   const isManagementSidebarActive = ref(false)
   const isLoading = ref(false)
+  const userData = ref({});
+  const storedItems = JSON.parse(localStorage.getItem('userData'));
+  if (storedItems){
+    userData.value = storedItems;
+  }
 
   // Table Handlers
   const tableColumns = [    
@@ -21,13 +26,13 @@ export default function useLessonnoteList() {
     { key: 'class_index', label: 'Class Name',  sortable: true },
     { key: 'subject.name',label: 'Subject Name',  sortable: true },
 
-    { key: 'grammar',label: 'Grammar',  sortable: true, formatter: val => val !== null ? `${val} %` : "nil" },
-    { key: 'arrangement',label: 'Arrangement',  sortable: true, formatter: val => val !== null ? `${val} %` : "nil" },
-    { key: 'subjectmatter',label: 'Subject Matter',  sortable: true, formatter: val => val !== null ? `${val} %` : "nil" },
-
     { key: 'week', label: 'Week',  sortable: true },
     { key: 'submission', label: 'Date of Submission',  sortable: true, formatter: val => val !== null ? `${val} ` : "No date yet" },
     { key: 'status', label: 'Status',  sortable: true },
+
+    { key: 'grammar',label: 'Grammar',  sortable: true },
+    { key: 'arrangement',label: 'Arrangement',  sortable: true },
+    { key: 'subjectmatter',label: 'Subject Matter',  sortable: true },   
 
     { key: 'calendar.session', label: 'Session',  sortable: true },
     { key: 'calendar.term', label: 'Term',  sortable: true },
@@ -35,27 +40,58 @@ export default function useLessonnoteList() {
     { key: 'actions' } 
   ]
 
+    // Table Handlers
+    const tableColumnsPrincipal = [    
+      { key: 'lsn_id.lessonnoteId', label: 'Lessonnote ID', sortable: true },
+      { key: 'lsn_id.teacher.fname', label: 'Teacher First Name',  sortable: true },
+      { key: 'lsn_id.class_index', label: 'Class Name',  sortable: true },
+      { key: 'lsn_id.subject.name',label: 'Subject Name',  sortable: true },
+
+      { key: 'calendar.session', label: 'Session',  sortable: true },
+      { key: 'calendar.term', label: 'Term',  sortable: true },
+
+      { key: 'quality',label: 'Quality',  sortable: true },
+      { key: 'management',label: 'Management',  sortable: true },
+      { key: 'sub_perf_classwork',label: 'Classwork Perf.',  sortable: true },   
+      { key: 'sub_perf_homework',label: 'Homework Perf.',  sortable: true },
+      { key: 'sub_perf_test',label: 'Test Perf.',  sortable: true },  
+
+      { key: 'lsn_id.week', label: 'Week',  sortable: true },
+      { key: 'lsn_id.submission', label: 'Date of Submission',  sortable: true, formatter: val => val !== null ? `${val} ` : "No date yet" },
+      { key: 'action', label: 'Status',  sortable: true },    
+     
+      { key: 'actions' } 
+    ]
+
   const perPage = ref(10)
   const totalLessonnotes = ref(0)
   const currentPage = ref(1)
   const perPageOptions = [10, 25, 50, 100]
   const searchQuery = ref('')
   const sortBy = ref('id')
-  const isSortDirDesc = ref(true)
-  
+  const isSortDirDesc = ref(true)   
   const LessonnoteItems = ref([])
+
   const filters = ref({
     schoolgroup: null,
     schoolId: null,
     classIndex: null,
+
     calendarId: null,
     teacherId:null,
     subjectId: null,
     week: null,
     status: null,    
     dateFrom: null,
-    dateTo: null
+    dateTo: null,
+
+    hasClasswork: true,
+    hasHomework: true,
+    hasTest: true,
+    hasMidTerm: false,
+    hasFinalExam: false
   });
+
   const totalActiveLessonnotes = ref(0)
   const totalInactiveLessonnotes = ref(0)
   const searchValues = ref([])
@@ -82,8 +118,39 @@ export default function useLessonnoteList() {
     let dateF = filters.value.dateFrom !== null ? String(filters.value.dateFrom) + " 00:00:00" : null;
     let dateT = filters.value.dateTo !== null ? String(filters.value.dateTo) + " 00:00:00" : null;
     isLoading.value = true;
-    store
-      .dispatch('app-lessonnote/fetchLessonnotes', {
+    if ( userData.value.role === "teacher" ){  
+      store.dispatch('app-lessonnote/fetchLessonnotes', {
+          size: perPage.value,
+          page: currentPage.value - 1,
+          q: searchQuery.value,
+          schoolgroup: filters.value.schoolgroup,
+          school: filters.value.schoolId,
+          class: filters.value.classIndex,
+          calendar: filters.value.calendarId,
+          teacher: filters.value.teacherId,
+          subject:  filters.value.subjectId,
+          week: filters.value.week,
+          status: filters.value.status,
+          datefrom: dateF,
+          dateto: dateT
+        })
+        .then(response => {
+          const { lessonnotes, totalItems, totalSubmitted, totalNotSubmitted } = response.data
+      
+          LessonnoteItems.value = lessonnotes
+          totalLessonnotes.value = totalItems
+          totalActiveLessonnotes.value = totalSubmitted
+          totalInactiveLessonnotes.value = totalNotSubmitted    
+          isLoading.value = false;   
+
+        })
+        .catch((e) => {
+          console.log("Fetch teacher Lessonnotes error: " + e);
+          isLoading.value = false;   
+        })
+    }
+    else if ( userData.value.role === "principal" ) {
+      store.dispatch('app-lessonnote/fetchLessonnoteManagements', {
         size: perPage.value,
         page: currentPage.value - 1,
         q: searchQuery.value,
@@ -94,24 +161,22 @@ export default function useLessonnoteList() {
         teacher: filters.value.teacherId,
         subject:  filters.value.subjectId,
         week: filters.value.week,
-        status: filters.value.status,
+        status: filters.value.status,//management status o!
         datefrom: dateF,
         dateto: dateT
       })
       .then(response => {
-        const { lessonnotes, totalItems, totalSubmitted, totalNotSubmitted } = response.data
-     
-        LessonnoteItems.value = lessonnotes
-        totalLessonnotes.value = totalItems
-        totalActiveLessonnotes.value = totalSubmitted
-        totalInactiveLessonnotes.value = totalNotSubmitted    
+        const { lessonnotemanagement } = response.data
+    
+        LessonnoteItems.value = lessonnotemanagement   
         isLoading.value = false;   
 
       })
       .catch((e) => {
-        console.log("Fetch Lessonnotes error: " + e);
-        isLoading.value = false;   
+          console.log("Fetch principal lessonnotes error: " + e);
+          isLoading.value = false;   
       })
+    }
   }
 
   const handlePageChange = (value) => {
@@ -148,6 +213,7 @@ export default function useLessonnoteList() {
     totalInactiveLessonnotes,
 
     tableColumns,
+    tableColumnsPrincipal,
     perPage,
     currentPage,
     dataMeta,

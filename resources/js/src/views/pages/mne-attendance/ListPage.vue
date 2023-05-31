@@ -55,9 +55,15 @@
                     </b-form-group>
                   </b-col>
 
-                  <b-col cols="12" md="3">
+                   <b-col cols="12" md="3" v-if="  userData.role === 'teacher' ">
+                    <b-form-group label="Select Teacher" label-for="teacherpick2">
+                      <b-form-radio v-model="filters.typeone" @change="changeType" name="teacherpick2" value="teacher_me">Me</b-form-radio>
+                    </b-form-group>
+                  </b-col>
+
+                  <b-col cols="12" md="3" v-else>
                     <b-form-group label="Select Teacher" label-for="teacherpick">
-                      <b-form-radio v-model="filters.typeone" @change="changeType" name="teacherpick" value="teahcer">Teacher</b-form-radio>
+                      <b-form-radio v-model="filters.typeone" @change="changeType" name="teacherpick" value="teacher">Teacher</b-form-radio>
                     </b-form-group>
                   </b-col>
 
@@ -129,6 +135,7 @@
               :busy="isLoading"
               responsive
               :fields="dynamicFields"
+              :key="tableKey"
             >
                 <template #table-busy>
                   <div class="text-center text-danger my-2">
@@ -345,6 +352,8 @@
 
         handleChange,
 
+        tableKey
+
       } = useMne();
 
       if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
@@ -390,7 +399,9 @@
 
         handleChange,
 
-        calendarOptions
+        calendarOptions,
+
+        tableKey
 
       }
     },
@@ -412,6 +423,11 @@
                     }); 
                     sef.isLoading = false;
                 });
+            }
+
+            else if (value === "teacher_me"){
+              //  console.log("Teacher ID " + this.filters.teacherId );
+                this.filters.typetwo_teacher =  this.filters.teacherId;
             }
             
             else if (value === "teacher"){
@@ -441,15 +457,21 @@
 
         changeStudent(value){
             this.filters.enrolId = value;
+            this.filters.typetwo_teacher = null
+            this.filters.typetwo_principal = null
         },
 
         changeTeacher(value){
             this.filters.teacherId = value;
+            this.filters.typetwo_student = null
+            this.filters.typetwo_principal = null
         },
 
         changePrincipal(value){
             const sef = this;              
             this.filters.schoolId = value;
+            this.filters.typetwo_student = null
+            this.filters.typetwo_teacher = null
         },
 
         changeSchoolCalendar(value){

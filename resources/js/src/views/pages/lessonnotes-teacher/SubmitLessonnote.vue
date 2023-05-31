@@ -5,7 +5,7 @@
                 class="p-2"
                 @submit.prevent="submitLessonnote()"
               >
-        <b-card-body> 
+        <b-card-body>
         
           <b-row>
                   <b-col cols="6" md="12">
@@ -30,7 +30,7 @@
                   </b-col>
           </b-row> 
 
-           <b-row>
+         <!--  <b-row>
                   <b-col cols="4" md="12">
                     <b-form-group label=" Lesson Note has Classwork?" label-for="">
                      <b-form-checkbox
@@ -75,7 +75,7 @@
                     />
                     </b-form-group>
                   </b-col>
-          </b-row> 
+          </b-row> -->
        
           <b-row class="filter-padding">
             <b-col
@@ -353,7 +353,7 @@
 
              store.dispatch(`${ this.Lessonnote_APP_STORE_MODULE_NAME }/updateLessonnote`, { 
                 id: Number(sef.filters.lsn),
-                lessonnote : { classwork : clswk, homework: hwk, test: tst, midterm: mid, finalexam: final, action: "submit" },
+                lessonnote : { action: "submit" },
                 management : { quality: 0, sub_perf_classwork: 0, sub_perf_homework: 0, sub_perf_test: 0, management: 0 },
                 activity: { activity: "Expected to approve/query Lessonnote", slip: 0 }
               })

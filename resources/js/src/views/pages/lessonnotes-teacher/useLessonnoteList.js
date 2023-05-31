@@ -17,6 +17,7 @@ export default function useLessonnoteList() {
     week: null,
     startdate: null,
     lsn: null,
+    
     hasClasswork: null,
     hasHomework: null,
     hasTest: null,

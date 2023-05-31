@@ -250,7 +250,7 @@
                     <span class="text-nowrap">Advanced Filter</span>
                   </b-button>
 
-                  <b-button
+                  <b-button 
                     variant="danger"
                     @click="reset"
                   >
