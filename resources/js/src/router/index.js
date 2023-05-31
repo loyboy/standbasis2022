@@ -392,7 +392,7 @@ const router = new VueRouter({
             path: '/timetables-list/:school?/teacher/:teacher?',
             name: 'timetables-home',     
             component: () =>
-                import ('@/views/pages/timetables/timetablesPage.vue'),
+                import ('@/views/pages/timetables/TimetablesPage.vue'),
             meta: {
                 pageTitle: 'Timetables',
                 breadcrumb: [{
