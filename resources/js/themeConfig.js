@@ -10,10 +10,10 @@ export const $themeBreakpoints = {}
 export const $themeConfig = {
     app: {
         appName: 'Standbasis', // Will update name in navigation menu (Branding)      
-        // 46.101.98.226
-        baseURL: "http://127.0.0.1:8084/api",
+        // 153.92.214.114
+        baseURL: "http://153.92.214.114:8084/api",
 
-        backendURL: "http://127.0.0.1:8084",
+        backendURL: "http://153.92.214.114:8084",
       
         // dealAdThumbnailsURL: "/deals_ads/thumb_nail/",
         // dealAdCoverURL: "/deals_ads/cover/",
