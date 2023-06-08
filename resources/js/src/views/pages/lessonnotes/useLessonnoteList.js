@@ -40,7 +40,7 @@ export default function useLessonnoteList() {
     { key: 'actions' } 
   ]
 
-    // Table Handlers
+    // Table Handlers 
     const tableColumnsPrincipal = [    
       { key: 'lsn_id.lessonnoteId', label: 'Lessonnote ID', sortable: true },
       { key: 'lsn_id.teacher.fname', label: 'Teacher First Name',  sortable: true },

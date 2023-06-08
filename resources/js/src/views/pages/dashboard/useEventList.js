@@ -44,7 +44,7 @@ export default function useEventsList() {
   })
 
   const refetchData = () => {
-    refEventListTable.value.refresh()
+    refEventListTable.value.refresh() 
   }
  
   watch([currentPage, perPage, searchQuery], () => {

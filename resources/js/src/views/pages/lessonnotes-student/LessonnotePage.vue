@@ -104,7 +104,7 @@
                                     :clearable="false"
                                     @change="studentGrab"
                                   />
-                      </b-form-group>
+                      </b-form-group> 
                   </b-col>
                   <br/>
 
@@ -179,7 +179,7 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalLessonnotes === undefined ? 0 : totalLessonnotes "
-              statistic-title="Total Lessonnote Submitted & Approved"
+              statistic-title="Total Assessment Available"
             />
           </b-col>
 

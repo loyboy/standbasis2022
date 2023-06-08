@@ -253,7 +253,7 @@
       module: {
         type: String,
         required: false
-      }
+      } 
     },
     setup(props) {
       const EVENT_APP_STORE_MODULE_NAME = 'app-event'
@@ -296,6 +296,9 @@
 
       } = useEventList()
 
+      console.log("Event list Teacher seen : " + state.teacherId)
+      console.log("Event list School seen : " + state.schoolId)
+      
       teacherVal.value = state.teacherId
       schoolVal.value = state.schoolId
       schoolgroupVal.value = state.schoolgroupId

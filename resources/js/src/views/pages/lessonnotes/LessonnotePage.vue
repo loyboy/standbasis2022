@@ -1426,7 +1426,7 @@
                 sef.arrangement = 0;
                 sef.teacherPicked = null;
                 sef.LessonnotePicked = null;
-                sef.$toast({
+                sef.$toast({ 
                   component: ToastificationContent,
                   props: {
                     title: 'There is an issue with the approval process',

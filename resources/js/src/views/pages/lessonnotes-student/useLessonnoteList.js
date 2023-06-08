@@ -74,7 +74,7 @@ export default function useLessonnoteList() {
     refetchData()
   })
 
-  const fetchLessonnotes = (ctx) => {
+  const fetchLessonnotes = (ctx) => { 
   
     let dateF = filters.value.dateFrom !== null ? String(filters.value.dateFrom) + " 00:00:00" : null;
     let dateT = filters.value.dateTo !== null ? String(filters.value.dateTo) + " 00:00:00" : null;

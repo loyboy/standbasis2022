@@ -16,6 +16,14 @@ export default {
                     .catch(error => reject(error))
             })
         },
+        fetchLessonnoteManagements(ctx, queryParams) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/lessonnote/management/paginateTeachers', { params: queryParams })
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
         fetchLessonnote(ctx, {id}) {
             return new Promise((resolve, reject) => {
                 axios
