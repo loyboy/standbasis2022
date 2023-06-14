@@ -21,27 +21,27 @@ export default function useAttendanceList() {
   // Table Handlers
   const tableColumns = [    
     { key: 'teacher.school.name', label: 'School Name', sortable: true, thStyle: { width: "20%" } },
-    { key: 'teacher.fname',label: 'Teacher First Name',  sortable: true },
-    { key: 'timetable.class_stream.title',label: 'Class Name',  sortable: true },
-    { key: 'timetable.class_stream.ext',label: 'Class Arm',  sortable: true },
-    { key: 'timetable.subject.name',label: 'Subject Name',  sortable: true },
+    { key: 'teacher',label: 'Teacher',  sortable: true },
+    { key: 'timetable.class_stream.title',label: 'Class',  sortable: true },
+    { key: 'timetable.class_stream.ext',label: 'Extension',  sortable: true },
+    { key: 'timetable.subject.name',label: 'Subject',  sortable: true },
     { key: '_date',label: 'Date of Submission',  sortable: true, thStyle: { width: "20%" } },
     { key: 'done',label: 'Status',  sortable: true },
     { key: 'actions' }
   ]
 
   const tableColumnsPrincipal = [    
-    { key: 'att_id.teacher',label: 'Teacher Name',  sortable: true },
-    { key: 'att_id.timetable.class_stream.title',label: 'Class Name',  sortable: true },
-    { key: 'att_id.timetable.class_stream.ext',label: 'Class Arm',  sortable: true },
-    { key: 'att_id.timetable.subject.name',label: 'Subject Name',  sortable: true },
-    { key: 'timing',label: 'Timing(%)',  sortable: true },
-    { key: 'class_perf',label: 'Class Performance(%)',  sortable: true },
-    { key: 'completeness',label: 'Completeness(%)',  sortable: true },
+    { key: 'att_id.teacher',label: 'Teacher',  sortable: true },
+    { key: 'att_id.timetable.class_stream.title',label: 'Class',  sortable: true },
+    { key: 'att_id.timetable.class_stream.ext',label: 'Extension',  sortable: true },
+    { key: 'att_id.timetable.subject.name',label: 'Subject',  sortable: true },
+    { key: 'timing',label: 'Submission',  sortable: true }, //Late , Voided, None
+    { key: 'class_perf',label: 'Class Attendance(%)',  sortable: true },
+    { key: 'completeness',label: 'Completeness',  sortable: true },
     { key: 'score',label: 'Performance(%)',  sortable: true },
-    { key: 'att_id._date',label: 'Date of Submission',  sortable: true, thStyle: { width: "20%" } },
-    { key: 'action',label: 'Your Action',  sortable: true },
-    { key: 'comment',label: 'Your Comment',  sortable: true },
+    { key: 'att_id._date',label: 'Date',  sortable: true, thStyle: { width: "20%" } },
+    { key: 'action',label: 'Action',  sortable: true },
+    { key: 'comment',label: 'Comment',  sortable: true },
     { key: 'actions' }
   ]
 

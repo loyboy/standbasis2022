@@ -161,7 +161,7 @@ export default function useLessonnoteList() {
         teacher: filters.value.teacherId,
         subject:  filters.value.subjectId,
         week: filters.value.week,
-        status: filters.value.status,//management status o!
+        status: filters.value.status, //management status o!
         datefrom: dateF,
         dateto: dateT
       })

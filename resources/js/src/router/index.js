@@ -582,6 +582,17 @@ const router = new VueRouter({
             },
         },
 
+        //Attendances Live View 
+        {
+            path: '/attendances-principal-home',
+            name: 'attendances-principal-home',
+            component: () =>
+                import ('@/views/pages/attendances-principal/AttendancePage.vue'),
+            meta: {
+                pageTitle: 'Attendances Live View'
+            },
+        },
+
         //Lessonnotes begin here
         {
             path: '/lessonnotes-list',

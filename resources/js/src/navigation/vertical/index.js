@@ -54,6 +54,19 @@ export default [
         ]
     },
 
+    {
+        title: 'Main Activities',
+        icon: 'CommandIcon',
+        permission: ["principal"],
+        children: [
+            {
+                title: 'Live Attendance View',
+                route: 'attendances-principal-home'
+          
+            }
+        ]
+    },
+
     { 
         title: 'School Data',
         icon: 'CircleIcon',

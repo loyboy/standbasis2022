@@ -327,6 +327,13 @@
                </div>               
              </template>
 
+              <!-- Column: Teacher -->
+             <template #cell(teacher)="data">
+               <div>
+                {{ data.item.teacher.fname + " " + data.item.teacher.lname }}
+               </div>               
+             </template>
+
            <!-- <template #head(done)="data">
               <th class="vertical-header">{{ data.label }}</th>
             </template>-->
@@ -464,7 +471,7 @@
                   />
                 </template>
 
-                <b-dropdown-item v-if=" data.item.action === 0 " @click="principalActionApprove(data.item.att_id.attId)">
+             <!--   <b-dropdown-item v-if=" data.item.action === 0 " @click="principalActionApprove(data.item.att_id.attId)">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle">Approve Attendance</span>
                 </b-dropdown-item>  
@@ -472,14 +479,14 @@
                 <b-dropdown-item v-if=" data.item.action === 0 " @click="principalActionDisapprove(data.item.att_id.attId)">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle">Query Attendance</span>
-                </b-dropdown-item> 
+                </b-dropdown-item> -->
 
                 <b-dropdown-item :to="{ name: 'attendances-home-view', params: { id: data.item.att_id.attId } }">
                   <feather-icon icon="BookOpenIcon" />
                   <span class="align-middle">View Details</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item :to="{ name: 'attendances-student-home', params: { attendance: data.item.att_id.attId } }">
+                <b-dropdown-item v-if=" data.item.att_id.done === 1 " :to="{ name: 'attendances-student-home', params: { attendance: data.item.att_id.attId } }">
                   <feather-icon icon="BookOpenIcon" />
                   <span class="align-middle ">View Rowcall</span>
                 </b-dropdown-item>  

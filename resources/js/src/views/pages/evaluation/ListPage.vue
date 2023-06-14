@@ -309,8 +309,7 @@
             { value: null, label: "Please select An Evaluation" }
         ]
             
-        return {           
-          
+        return {          
            schoolOptions,
            evaluationOptions
         }
