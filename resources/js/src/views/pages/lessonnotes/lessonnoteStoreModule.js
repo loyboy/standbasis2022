@@ -72,10 +72,10 @@ export default {
                     .catch(error => reject(error))
             })
         },        
-        updateLessonnote(ctx, {id}) {
+        updateLessonnote(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
-                    .put($themeConfig.app.baseURL + '/lessonnote/'+ id )
+                    .put($themeConfig.app.baseURL + '/lessonnote/' + payload.id , payload , { headers: jwtHeader() } )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })

@@ -43,17 +43,18 @@ export default function useLessonnoteList() {
       { key: 'lsn_id.class_index', label: 'Class Name',  sortable: true },
       { key: 'lsn_id.subject.name',label: 'Subject Name',  sortable: true },
 
-      { key: 'calendar.session', label: 'Session',  sortable: true },
-      { key: 'calendar.term', label: 'Term',  sortable: true },
+      { key: 'lsn_id.calendar.session', label: 'Session',  sortable: true },
+      { key: 'lsn_id.calendar.term', label: 'Term',  sortable: true },
+
+      { key: 'lsn_id.week', label: 'Week',  sortable: true },
+      { key: 'lsn_id.submission', label: 'Date',  sortable: true, formatter: val => val !== null ? `${val} ` : "No date yet" },
 
       { key: 'management',label: 'Management',  sortable: true }, //Quality
       { key: 'sub_perf_classwork',label: 'Classwork Perf.',  sortable: true },   
       { key: 'sub_perf_homework',label: 'Homework Perf.',  sortable: true },
       { key: 'sub_perf_test',label: 'Test Perf.',  sortable: true },  
 
-      { key: 'lsn_id.week', label: 'Week',  sortable: true },
-      { key: 'lsn_id.submission', label: 'Date',  sortable: true, formatter: val => val !== null ? `${val} ` : "No date yet" },
-      { key: 'action', label: 'Status',  sortable: true },    
+      { key: 'lsn_id.action', label: 'Status',  sortable: true },    
      
       { key: 'actions' } 
     ]
