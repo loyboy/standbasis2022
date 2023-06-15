@@ -416,7 +416,7 @@
              <!-- Column: Submission -->
              <template #cell(submission)="data">
                <div>
-                {{ String( data.item.submission ).replace(".000+00:00","") }}
+                  <b> {{  data.item.submission != null ? String( data.item.submission ).replace(".000+00:00","") : "Not yet submitted" }} </b>
                </div>               
              </template>
 
@@ -464,27 +464,27 @@
                   />     
                 </template>
 
-                <b-dropdown-item @click="openfile(data.item.lsnPath, data.item.title)" >
+                <b-dropdown-item @click="openfile(data.item.lsnPath, data.item.title)" v-if = " data.item.submission != null " >
                   <feather-icon icon="FileTextIcon"  />
                   <span class="align-middle ml-50">View Lessonnote File</span>
                 </b-dropdown-item>
 
-                <b-dropdown-item :to="{ name: 'lessonnotes-home-view', params: { id: data.item.lessonnoteId } }">
+                <b-dropdown-item :to="{ name: 'lessonnotes-home-view', params: { id: data.item.lessonnoteId } }" v-if = " data.item.submission != null " >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>   
 
-                <b-dropdown-item :to="{ name: 'lessonnotes-student-home', params: { id: data.item.lessonnoteId } }">
+                <b-dropdown-item :to="{ name: 'lessonnotes-student-home', params: { id: data.item.lessonnoteId } }" v-if = " data.item.approval != null ">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">View Student's Performance</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item @click="isManagementSidebarActive = true; loadManagement(data.item); ">
+                <b-dropdown-item @click="isManagementSidebarActive = true; loadManagement(data.item); "  v-if = " data.item.approval != null ">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">View Management Details</span>
                 </b-dropdown-item>
                 
-                <b-dropdown-item :to="{ name: 'lessonnotes-activity-home', params: { id: data.item.lessonnoteId } }">
+                <b-dropdown-item :to="{ name: 'lessonnotes-activity-home', params: { id: data.item.lessonnoteId } }" v-if = " data.item.submission != null ">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50"> View its Activities </span>
                 </b-dropdown-item> 
@@ -567,37 +567,37 @@
                   />     
                 </template>
 
-                <b-dropdown-item v-if=" userData.role === 'principal' "  @click= " triggerApprove( data.item.title , data.item.lessonnoteId, data.item.teacher.teaId  ) "   >
+                <b-dropdown-item v-if=" userData.role === 'principal' && ( data.item.resubmission != null || data.item.submission != null ) && data.item.approval == null "  @click= " triggerApprove( data.item.title , data.item.lessonnoteId, data.item.teacher.teaId  ) "     >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">Approve lessonnote</span>
                 </b-dropdown-item>   
 
-                <b-dropdown-item v-if=" userData.role === 'principal' " @click= " triggerDisapprove( data.item.title, data.item.lessonnoteId, data.item.teacher.teaId ) "   >
+                <b-dropdown-item v-if=" userData.role === 'principal' && ( data.item.resubmission != null || data.item.submission != null ) && data.item.revert == null  " @click= " triggerDisapprove( data.item.title, data.item.lessonnoteId, data.item.teacher.teaId ) "   >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">Revert lessonnote</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item @click="openfile(data.item.lsnPath, data.item.title)" >
+                <b-dropdown-item @click="openfile(data.item.lsnPath, data.item.title)" v-if=" ( data.item.resubmission != null || data.item.submission != null ) " >
                   <feather-icon icon="FileTextIcon"  />
                   <span class="align-middle ml-50">View Lessonnote File</span>
                 </b-dropdown-item>
 
-                <b-dropdown-item :to="{ name: 'lessonnotes-home-view', params: { id: data.item.lessonnoteId } }">
+                <b-dropdown-item :to="{ name: 'lessonnotes-home-view', params: { id: data.item.lessonnoteId } }" v-if=" ( data.item.resubmission != null || data.item.submission != null ) " >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>   
 
-                <b-dropdown-item :to="{ name: 'lessonnotes-student-home', params: { id: data.item.lessonnoteId } }">
+                <b-dropdown-item :to="{ name: 'lessonnotes-student-home', params: { id: data.item.lessonnoteId } }" v-if=" ( data.item.approval != null ) ">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">View Student's Performance</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item @click="isManagementSidebarActive = true; loadManagement(data.item); ">
+                <b-dropdown-item @click="isManagementSidebarActive = true; loadManagement(data.item); " v-if=" ( data.item.approval != null ) ">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">View Management Details</span>
                 </b-dropdown-item>
                 
-                <b-dropdown-item :to="{ name: 'lessonnotes-activity-home', params: { id: data.item.lessonnoteId } }">
+                <b-dropdown-item :to="{ name: 'lessonnotes-activity-home', params: { id: data.item.lessonnoteId } }" v-if=" ( data.item.submission != null ) " >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50"> View its Activities </span>
                 </b-dropdown-item> 

@@ -30,16 +30,12 @@ export default function useLessonnoteList() {
     { key: 'submission', label: 'Date of Submission',  sortable: true, formatter: val => val !== null ? `${val} ` : "No date yet" },
     { key: 'status', label: 'Status',  sortable: true },
 
-    { key: 'grammar',label: 'Grammar',  sortable: true },
-    { key: 'arrangement',label: 'Arrangement',  sortable: true },
-    { key: 'subjectmatter',label: 'Subject Matter',  sortable: true },   
-
     { key: 'calendar.session', label: 'Session',  sortable: true },
     { key: 'calendar.term', label: 'Term',  sortable: true },
 
     { key: 'actions' } 
   ]
-
+ 
     // Table Handlers 
     const tableColumnsPrincipal = [    
       { key: 'lsn_id.lessonnoteId', label: 'Lessonnote ID', sortable: true },
@@ -50,14 +46,13 @@ export default function useLessonnoteList() {
       { key: 'calendar.session', label: 'Session',  sortable: true },
       { key: 'calendar.term', label: 'Term',  sortable: true },
 
-      { key: 'quality',label: 'Quality',  sortable: true },
-      { key: 'management',label: 'Management',  sortable: true },
+      { key: 'management',label: 'Management',  sortable: true }, //Quality
       { key: 'sub_perf_classwork',label: 'Classwork Perf.',  sortable: true },   
       { key: 'sub_perf_homework',label: 'Homework Perf.',  sortable: true },
       { key: 'sub_perf_test',label: 'Test Perf.',  sortable: true },  
 
       { key: 'lsn_id.week', label: 'Week',  sortable: true },
-      { key: 'lsn_id.submission', label: 'Date of Submission',  sortable: true, formatter: val => val !== null ? `${val} ` : "No date yet" },
+      { key: 'lsn_id.submission', label: 'Date',  sortable: true, formatter: val => val !== null ? `${val} ` : "No date yet" },
       { key: 'action', label: 'Status',  sortable: true },    
      
       { key: 'actions' } 

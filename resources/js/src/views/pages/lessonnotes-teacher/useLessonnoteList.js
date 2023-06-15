@@ -17,12 +17,11 @@ export default function useLessonnoteList() {
     week: null,
     startdate: null,
     lsn: null,
+
+    revertedGrammar: false,
+    revertedArrangement: false,
+    revertedSubject: false
     
-    hasClasswork: null,
-    hasHomework: null,
-    hasTest: null,
-    hasMidTerm: null,
-    hasFinalExam: null
   });
 
   const fetchLessonnotes = (ctx) => {

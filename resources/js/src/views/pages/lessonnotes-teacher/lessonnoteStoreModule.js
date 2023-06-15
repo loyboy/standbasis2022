@@ -16,6 +16,14 @@ export default {
                     .catch(error => reject(error))
             }) 
         },
+        fetchLessonnoteActivity(ctx, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/lessonnote/activity/lessonnote/' + payload.id)
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            }) 
+        },
         updateLessonnote(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
