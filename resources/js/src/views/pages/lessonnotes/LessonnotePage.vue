@@ -424,10 +424,10 @@
               <template #cell(status)="data">
                 <b-badge
                 pill
-                :variant="`light-${resolveLessonnotestatusVariant( data.item.resubmission != null ? 2 : data.item.revert != null ? -1 : data.item.approval != null ? 1 : data.item.closure != null ? 3 : data.item.launch != null ? 0 : 2  )}`"
+                :variant="`light-${resolveLessonnotestatusVariant( data.item.resubmission != null && data.item.revert == null && data.item.approval == null ? 2 : data.item.revert != null ? -1 : data.item.approval != null ? 1 : data.item.closure != null ? 3 : data.item.launch != null ? 0 : 2  )}`"
                 class="text-capitalize"
                 >      
-                   {{  data.item.submission != null && data.item.approval == null ? "Submitted" : data.item.resubmission != null ? "Re-Submitted" : data.item.revert != null ? "Reverted" : data.item.approval != null ? "Approved" : data.item.closure != null ? "Closed" : data.item.launch != null ? "Launched" : "Queued" }}
+                   {{  data.item.resubmission != null && data.item.approval == null && data.item.revert == null ? "Re-submitted" : data.item.submission != null && data.item.revert == null && data.item.approval == null ? "Submitted" : data.item.revert != null ? "Reverted" : data.item.approval != null ? "Approved" : data.item.closure != null ? "Closed" : data.item.launch != null ? "Launched" : "Queued" }}
                 </b-badge>
              </template>
 
@@ -469,7 +469,7 @@
                   <span class="align-middle ml-50">View Lessonnote File</span>
                 </b-dropdown-item>
 
-                <b-dropdown-item v-if=" data.item.approval !== null && data.item.closure == null " @click="triggerClosure( 'teacher', data.item.lsn_id.title, data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId ) "   >
+                <b-dropdown-item v-if=" data.item.approval !== null && data.item.closure == null " @click="triggerClosure( 'teacher', data.item.title, data.item.lessonnoteId, data.item.teacher.teaId ) "   >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">Close this lessonnote</span>
                 </b-dropdown-item>
@@ -502,7 +502,7 @@
           <b-table
             ref="refLessonnoteListTable"
             v-if=" userData.role === 'principal' "
-            class="position-relative"
+            class="my-class"
             :items="LessonnoteItems"
             :busy="isLoading"
             responsive
@@ -529,13 +529,13 @@
              </template>
 
               <!-- Column: Status -->
-              <template #cell(lsn_id.status)="data">
+              <template #cell(action)="data">
                 <b-badge
                 pill
-                :variant="`light-${resolveLessonnotestatusVariant( data.item.lsn_id.resubmission != null ? 2 : data.item.lsn_id.revert != null ? -1 : data.item.lsn_id.approval != null ? 1 : data.item.lsn_id.closure != null ? 3 : data.item.lsn_id.launch != null ? 0 : 2  )}`"
+                :variant="`light-${resolveLessonnoteactionVariant(data.item.action)}`"
                 class="text-capitalize"
                 >      
-                   {{  data.item.lsn_id.submission != null && data.item.lsn_id.approval == null ? "Submitted" : data.item.lsn_id.resubmission != null ? "Re-Submitted" : data.item.lsn_id.revert != null ? "Reverted" : data.item.lsn_id.approval != null ? "Approved" : data.item.lsn_id.closure != null ? "Closed" : data.item.lsn_id.launch != null ? "Launched" : "Queued" }}
+                   {{  data.item.action }}
                 </b-badge>
              </template>
 
@@ -556,30 +556,51 @@
                 {{ data.item.lsn_id.calendar.term === 1 ? "1st Term" : data.item.lsn_id.calendar.term === 2 ? "2nd Term" : data.item.lsn_id.calendar.term === 3 ? "3rd Term" : " "  }}
               </b-badge>
             </template>
-    
-            <!-- Column: Actions -->
+
+            <!-- Column: Management Quality -->
+            <template #cell(management)="data">
+              <b-badge
+                pill
+                :variant="`light-${resolveLessonnotemagVariant(data.item.management)}`"
+                class="text-capitalize"
+              >
+                {{ data.item.management === 0 ? "Good" : data.item.management === 100 ? "Excellent" : data.item.management === 60 ? "Satisfactory" : data.item.management === 50 ? "Bad" : data.item.management === 30 ? "Terrible" : "Not available"  }}
+              </b-badge>
+            </template>
+
             <template #cell(actions)="data">
-              <b-dropdown
+              <div class="d-flex flex-column">
+                <b-button size="sm" variant="success" class="mb-1" v-if=" ( data.item.lsn_id.resubmission != null || data.item.lsn_id.submission != null ) && data.item.lsn_id.revert == null && data.item.lsn_id.approval == null "  @click= " triggerApprove( data.item.lsn_id.title , data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId  ) " >Approve</b-button>
+                <b-button size="sm" variant="danger"  class="mb-1"  v-if=" ( data.item.lsn_id.resubmission != null || data.item.lsn_id.submission != null ) && data.item.lsn_id.revert == null && data.item.lsn_id.approval == null " @click= " triggerDisapprove( data.item.lsn_id.title, data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId ) " >Revert</b-button>
+                <b-button size="sm" variant="primary" class="mb-1" v-if=" data.item.lsn_id.approval !== null && data.item.lsn_id.closure != null  " @click= " triggerClosure( 'principal', data.item.lsn_id.title, data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId ) "  >Close</b-button>
+                
+                <b-button size="sm" variant="info" @click="openfile(data.item.lsn_id.lsnPath, data.item.lsn_id.title)" > View File </b-button>
+              </div>
+            </template>
+
+            <!-- Column: Actions -->
+           <!-- <template #cell(actions)="data">
+              <b-dropdown               
                 variant="link"
-                no-caret
-                :right="$store.state.appConfig.isRTL"
-              >    
+                no-caret  
+                left=true        
+              >       
                 <template #button-content>
                   <feather-icon
                     icon="MoreVerticalIcon"
-                    size="16"
+                    size="20"
                     class="align-middle text-body"
                   />     
                 </template>
 
-                <b-dropdown-item v-if=" ( data.item.lsn_id.resubmission != null || data.item.lsn_id.submission != null ) && data.item.lsn_id.approval == null "  @click= " triggerApprove( data.item.lsn_id.title , data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId  ) "     >
+                <b-dropdown-item v-if=" ( data.item.lsn_id.resubmission != null || data.item.lsn_id.submission != null ) && data.item.lsn_id.revert == null && data.item.lsn_id.approval == null "  @click= " triggerApprove( data.item.lsn_id.title , data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId  ) " >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">Approve lessonnote</span>
                 </b-dropdown-item>   
 
-                <b-dropdown-item v-if=" ( data.item.lsn_id.resubmission != null || data.item.lsn_id.submission != null ) && data.item.lsn_id.revert == null  " @click= " triggerDisapprove( data.item.lsn_id.title, data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId ) "   >
+                <b-dropdown-item v-if=" ( data.item.lsn_id.resubmission != null || data.item.lsn_id.submission != null ) && data.item.lsn_id.revert == null && data.item.lsn_id.approval == null " @click= " triggerDisapprove( data.item.lsn_id.title, data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId ) " >
                   <feather-icon icon="FileTextIcon" />
-                  <span class="align-middle ml-50">Revert lessonnote</span>
+                  <span class="align-middle ml-50">Revert lessonnote </span>
                 </b-dropdown-item> 
 
                 <b-dropdown-item v-if=" data.item.lsn_id.approval !== null && data.item.lsn_id.closure != null  " @click= " triggerClosure( 'principal', data.item.lsn_id.title, data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId ) "   >
@@ -613,7 +634,7 @@
                 </b-dropdown-item> 
 
               </b-dropdown>
-            </template>
+            </template>-->
     
           </b-table>
 
@@ -739,6 +760,7 @@
           </b-button>
 
           <b-button
+            v-if=" !isLoading "
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-2"
             variant="outline-success"
@@ -746,6 +768,17 @@
             @click="principalActionApprove( LessonnotePicked )"
           >
             Approve Lessonnote
+          </b-button>
+          <b-button  
+            v-else
+            class="mt-2"
+            variant="outline-danger"
+            block
+          >
+              <div class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+              </div>
           </b-button>
         </b-modal>
 
@@ -811,6 +844,7 @@
             Cancel
           </b-button>
           <b-button
+            v-if=" !isLoading "
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-2"
             variant="outline-danger"
@@ -818,6 +852,17 @@
             @click="principalActionDisapprove( LessonnotePicked )"
           >
             Revert Lessonnote
+          </b-button>
+          <b-button  
+            v-else
+            class="mt-2"
+            variant="outline-danger"
+            block
+          >
+              <div class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+              </div>
           </b-button>
 
         </b-modal>
@@ -847,6 +892,7 @@
             Cancel
           </b-button>
           <b-button
+            v-if=" !isLoading "
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-2"
             variant="outline-danger"
@@ -854,6 +900,17 @@
             @click="teacherActionClosure( LessonnotePicked )"
           >
             Close Lessonnote
+          </b-button>
+          <b-button  
+            v-else
+            class="mt-2"
+            variant="outline-danger"
+            block
+          >
+              <div class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+              </div>
           </b-button>
 
         </b-modal>
@@ -882,7 +939,9 @@
           >
             Cancel
           </b-button>
+
           <b-button
+            v-if=" !isLoading "
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-2"
             variant="outline-danger"
@@ -890,6 +949,17 @@
             @click="principalActionClosure( LessonnotePicked )"
           >
             Close this Lessonnote
+          </b-button>
+          <b-button  
+            v-else
+            class="mt-2"
+            variant="outline-danger"
+            block
+          >
+              <div class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+              </div>
           </b-button>
 
         </b-modal>
@@ -1139,6 +1209,8 @@
 
         // UI       
         resolveLessonnotestatusVariant,
+        resolveLessonnotemagVariant,
+        resolveLessonnoteactionVariant,
 
         filters,
         LessonnoteItems,
@@ -1196,6 +1268,8 @@
   
         // UI
         resolveLessonnotestatusVariant,
+        resolveLessonnotemagVariant,
+        resolveLessonnoteactionVariant,
 
         userData,
         teacherData,
@@ -1483,9 +1557,15 @@
 
       principalActionApprove(id){       
         const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
-         
+
+            let classwork = this.filters.hasClasswork ? 1 : 0;
+            let homework = this.filters.hasHomework ? 1 : 0;
+            let test = this.filters.hasTest ? 1 : 0;
+            let midterm = this.filters.hasMidTerm ? 1 : 0;
+            let finalexam = this.filters.hasFinalExam ? 1 : 0;
+
             const sef = this;          
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "approval", lessonnoteId: id  },  management: { action : "approved" }, activity: { action: "approved", owner: this.teacherPicked, principal_query_arrangement: 1, principal_query_grammar: 1, principal_query_subjectmatter: 1  } } )
+            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "approval", lessonnoteId: id, classwork, homework, test, midterm, finalexam },  management: { action : "approved" }, activity: { action: "approved", owner: this.teacherPicked, principal_query_arrangement: 1, principal_query_grammar: 1, principal_query_subjectmatter: 1  } } )
             .then(response => { 
                 sef.modalTitle = "";
                 sef.grammar = 0;
@@ -1502,6 +1582,7 @@
                 });  
 
                 sef.hideModal()
+                sef.handleChange()
 
             }).catch((exception) => { 
                 sef.modalTitle = "";
@@ -1548,7 +1629,8 @@
                   },
                 }); 
 
-                sef.hideModal2() 
+                sef.hideModal2() ;
+                sef.handleChange()
 
             }).catch((exception) => { 
                 sef.modalTitle2 = "";
@@ -1588,8 +1670,9 @@
                   variant: 'warning',
                   },
                 }); 
-
+s
                 sef.hideModal4() 
+                sef.handleChange()
 
             }).catch((exception) => { 
                 sef.modalTitle4 = "";
@@ -1613,7 +1696,7 @@
          const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
 
             const sef = this;          
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnote`, { id: Number(id), lessonnote: { action: "closure", lessonnoteId: id  }, activity: { action : "closure" }  } )
+            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnote`, { id: Number(id), lessonnote: { action: "closure", lessonnoteId: id  }, activity: { action : "closure" }, management: { action : "closure" }  } )
             .then(response => { 
                 sef.modalTitle3 = "";
                
@@ -1628,7 +1711,8 @@
                   },
                 }); 
 
-                sef.hideModal3() 
+                sef.hideModal3()
+                sef.handleChange() 
 
             }).catch((exception) => { 
                 sef.modalTitle3 = "";
@@ -1759,6 +1843,9 @@
   .per-page-selector {
     width: 90px;
   }
+
+
+  
   </style>
   
   <style lang="scss">

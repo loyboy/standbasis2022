@@ -20,7 +20,8 @@ export default function useLessonnoteList() {
 
     revertedGrammar: false,
     revertedArrangement: false,
-    revertedSubject: false
+    revertedSubject: false,
+    revertedIncomplete: false
     
   });
 

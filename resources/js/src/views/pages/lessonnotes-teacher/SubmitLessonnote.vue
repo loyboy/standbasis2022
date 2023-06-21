@@ -31,43 +31,38 @@
                   </b-col>
           </b-row> 
 
-          <b-row v-if="selectedLessonnoteOption === true">
-                   <b-col cols="4" md="12">
-                    <span> <h2> The Lessonnote reverted back with these observations: </h2> </span>
+          <b-row class="mt-2 mx-1"  v-if="selectedLessonnoteOption === true">
+                  
+                  <b-col cols="4" md="12">
+                    <span> <h2>  The Lessonnote reverted back with these observations: </h2> </span>
                    </b-col>
                   <b-col cols="4" md="12">
                     <b-form-group label=" Reverted Lesson Note had bad grammar?" label-for="">
-                     <b-form-checkbox
-                      v-model="filters.revertedGrammar"
-                      switch
-                     disabled
-                    />
+                       <span> <b> {{ filters.revertedGrammar === true ? " Yes, please re-check " : "No, it' fine"}} </b> </span>
                     </b-form-group>
                   </b-col>
 
                   <b-col cols="4" md="12">
                     <b-form-group label=" Reverted Lesson Note had bad Arrangement? " label-for="">
-                     <b-form-checkbox
-                      v-model="filters.revertedArrangement"
-                      switch
-                      disabled
-                    />
+                      <span> <b> {{ filters.revertedArrangement === true ? " Yes, please re-check " : "No, it' fine" }} </b> </span>
                     </b-form-group>
                   </b-col>
 
                   <b-col cols="4" md="12">
-                    <b-form-group label=" Reverted Lesson Note no subject matter? " label-for="">
-                     <b-form-checkbox
-                      v-model="filters.revertedSubject"
-                      switch
-                      disabled
-                    />
+                    <b-form-group label=" Reverted Lesson Note had lack of understanding of the subject matter? " label-for="">
+                     <span> <b> {{ filters.revertedSubject === true ? "  Yes, please re-check " : "No, it' fine" }} </b> </span>
+                    </b-form-group>
+                  </b-col>
+
+                  <b-col cols="4" md="12">
+                    <b-form-group label=" Reverted Lesson Note was incomplete with either a missing classwork/test/homework? " label-for="">
+                     <span> <b> {{ filters.revertedIncomplete === true ? " Yes, please re-check" : "No, it' fine" }} </b> </span>
                     </b-form-group>
                   </b-col>
 
           </b-row>
        
-          <b-row class="filter-padding">
+          <b-row class="filter-padding" v-if=" isLoading == false ">
             <b-col
               cols="12"
               md="12"
@@ -77,6 +72,19 @@
                     Submit Lessonnote
                   </b-button>                  
             </b-col>
+          </b-row>
+
+          <b-row class="filter-padding" v-else>
+            <b-col
+              cols="12"
+              md="12"
+              class="mb-md-0 mb-2"
+            >
+              <div class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+              </div>
+           </b-col>
           </b-row>
 
         </b-card-body>
@@ -171,6 +179,7 @@
     computed: {
       selectedLessonnoteOption: function() {
           const lsnoption = this.lessonnoteOptions.find(option => option.value === this.filters.lsn);
+          
           return String(lsnoption.text).toLowerCase().includes("reverted");  
       },
     },
@@ -242,7 +251,7 @@
 
           setTimeout(() => {
               LessonnoteItems.value.forEach(obj => {
-                  let done = obj.submission === null ? "NOT DONE" : obj.revert !== null ? "REVERTED" : "SUBMITTED"
+                  let done = obj.submission === null ? "NOT DONE" : obj.resubmission !== null ? "RE-SUBMITTED" : obj.revert !== null ? "REVERTED" : "SUBMITTED"
                   let delayed = obj.delaythis === 1 ? done + "-DELAYED" : done;
                   let labeltosee = obj.subject.name + "-" + "Week-" + obj.week + "-" + obj.calendar.session + "-" + delayed
                   let valuetosee =  obj.lessonnoteId 
@@ -309,14 +318,7 @@
         submitLessonnote(){
            const sef = this; 
            if (this.filters.lsn !== null && this.filters.lsn !== "" && this.file !== null){  
-              this.isLoading = true;
-
-              const fd = new FormData();
-              fd.set("lsn", this.file );             
-              axios.put( this.baseURL + "/lessonnote/file/" + this.filters.lsn, fd, { headers: jwtHeader() })
-                    .then(async function (response) {                    
-                      console.log( "Lesonnote File has been uploaded --> " + this.filters.lsn )
-              })
+              this.isLoading = true;            
 
              /* axios.put( this.baseURL + "/lessonnote/" + this.filters.lsn, 
                 { 
@@ -331,7 +333,7 @@
                                 component: ToastificationContent,
                                 position: "top-right",
                                 props: {
-                                  title: 'Thanks, your Lssonnote has been submitted successfully.',
+                                  title: 'Thanks, your Lessonnote has been submitted successfully.',
                                   icon: "CoffeeIcon",
                                   variant: "success",
                                   text: `You have successfully submitted lessonnote with name ${ this.file.name }`,
@@ -346,7 +348,7 @@
                     store.dispatch(`${ this.Lessonnote_APP_STORE_MODULE_NAME }/updateLessonnote`, { 
                       id: Number(sef.filters.lsn),
                       lessonnote : { action: "submit" },
-                      management : { quality: 0, sub_perf_classwork: 0, sub_perf_homework: 0, sub_perf_test: 0, management: 0 },
+                      management : { quality: 0, sub_perf_classwork: 0, sub_perf_homework: 0, sub_perf_test: 0, management: 0, action: "submit" },
                       activity: { activity: "Expected to approve/query Lessonnote", slip: 0 }
                     })
                       .then(response => {
@@ -357,14 +359,20 @@
                                         title: 'Thanks, your Lessonnote has been submitted successfully.',
                                         icon: "CoffeeIcon",
                                         variant: "success",
-                                        text: `You have successfully submitted lessonnote with name ${ this.file.name }`,
+                                        text: `You have successfully submitted lessonnote with name ${ sef.file.name }`,
                                       },
-                                    });                           
-                                    sef.isLoading = false; 
+                                    });                        
 
-                          setTimeout(() => {
-                              window.location.reload();
-                          },1200);
+                                    const fd = new FormData();
+                                    fd.set("lsn", sef.file );             
+                                    axios.put( sef.baseURL + "/lessonnote/file/" + sef.filters.lsn, fd, { headers: jwtHeader() })
+                                          .then(function (response) {                    
+                                            console.log( "Lesonnote File has been uploaded --> " + sef.filters.lsn )
+                                            sef.isLoading = false; 
+                                              setTimeout(() => {
+                                                  window.location.reload();
+                                              },1200);
+                                    })                        
                         
                     });
               }
@@ -372,7 +380,8 @@
 
                   store.dispatch(`${ this.Lessonnote_APP_STORE_MODULE_NAME }/updateLessonnote`, { 
                       id: Number(sef.filters.lsn),
-                      lessonnote : { action: "resubmit" },                      
+                      lessonnote : { action: "resubmit" },  
+                      management: { action: "re-submitted" },                    
                       activity: { action: "re-submitted" }
                     })
                       .then(response => {
@@ -383,14 +392,19 @@
                                         title: 'Thanks, your Lessonnote has been re-submitted successfully.',
                                         icon: "CoffeeIcon",
                                         variant: "success",
-                                        text: `You have successfully re-submitted lessonnote with name ${ this.file.name }`,
+                                        text: `You have successfully re-submitted lessonnote with name ${ sef.file.name }`,
                                       },
                                     });                           
-                                    sef.isLoading = false; 
-
-                          setTimeout(() => {
-                              window.location.reload();
-                          },1200);
+                                   const fd = new FormData();
+                                    fd.set("lsn", sef.file );             
+                                    axios.put( sef.baseURL + "/lessonnote/file/" + sef.filters.lsn, fd, { headers: jwtHeader() })
+                                          .then(function (response) {                    
+                                            console.log( "Lesonnote File has been uploaded --> " + sef.filters.lsn )
+                                            sef.isLoading = false; 
+                                              setTimeout(() => {
+                                                  window.location.reload();
+                                              },1200);
+                                    }) 
                         
                     });
               }
@@ -403,13 +417,14 @@
         checkIfRevert(lsnchange){
           if (this.selectedLessonnoteOption){
                store.dispatch(`${ this.Lessonnote_APP_STORE_MODULE_NAME }/fetchLessonnoteActivity`, { 
-                id: Number(sef.filters.lsn)
+                id: Number(this.filters.lsn)
               })
                 .then(response => {
                       let lsnactivity = response.data.data;   
                       this.filters.revertedGrammar =  lsnactivity.principal_query_grammar === 0 ? true : false;  
                       this.filters.revertedArrangement =  lsnactivity.principal_query_arrangement === 0 ? true : false; 
-                      this.filters.revertedSubject =  lsnactivity.principal_query_subject === 0 ? true : false;            
+                      this.filters.revertedSubject =  lsnactivity.principal_query_subject === 0 ? true : false;
+                      this.filters.revertedIncomplete =  lsnactivity.principal_query_incomplete === 0 ? true : false;            
               });
           }
         }

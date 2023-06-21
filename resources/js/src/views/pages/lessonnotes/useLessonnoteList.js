@@ -54,9 +54,9 @@ export default function useLessonnoteList() {
       { key: 'sub_perf_homework',label: 'Homework Perf.',  sortable: true },
       { key: 'sub_perf_test',label: 'Test Perf.',  sortable: true },  
 
-      { key: 'lsn_id.action', label: 'Status',  sortable: true },    
+      { key: 'action', label: 'Status',  sortable: true },    
      
-      { key: 'actions' } 
+      { key: 'actions', label: 'Actions',  sortable: true , thStyle: { width: "20%" } } 
     ]
 
   const perPage = ref(10)
@@ -199,6 +199,25 @@ export default function useLessonnoteList() {
     return 'primary'
   }
 
+  const resolveLessonnoteactionVariant = status => {
+    if (status === "submit") return 'secondary'
+    if (status === "re-submitted") return 'primary'
+    if (status === "resubmit") return 'primary'
+    if (status === "approved") return 'success'
+    if (status === "revert") return 'danger'
+    if (status === "closure") return 'success'
+    if (status === "closed") return 'info'
+    return 'primary'
+  }
+
+  const resolveLessonnotemagVariant = status => {
+    if (status === 100) return 'success'
+    if (status === 60) return 'primary'
+    if (status === 50) return 'warning'
+    if (status === 30) return 'danger'
+    return 'primary'
+  }
+
   return {
     fetchLessonnotes,
     handlePageChange,
@@ -224,6 +243,8 @@ export default function useLessonnoteList() {
     isLoading,
 
     resolveLessonnotestatusVariant,
+    resolveLessonnotemagVariant,
+    resolveLessonnoteactionVariant,
     refetchData,
 
     filters,

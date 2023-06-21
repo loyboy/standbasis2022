@@ -630,7 +630,8 @@ export default {
               { value: "udung uko", text: "UDUNG UKO" },
               { value: "ukana fun", text: "UKANA FUN" },
               { value: "uruan", text: "URUAN" },
-              { value: "urue offong oruko", text: "URUE OFFONG ORUKO" }
+              { value: "urue offong oruko", text: "URUE OFFONG ORUKO" },
+              { value: "uyo", text: "UYO" }
           ]
        };
 
