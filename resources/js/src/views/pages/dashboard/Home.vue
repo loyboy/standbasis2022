@@ -116,24 +116,33 @@ export default {
     AnalyticsAppDesign    
   },
 
-  data() {
-    return {
-      userData: JSON.parse(localStorage.getItem('userData')),
-     
-      plugins: [
-        // to add spacing between legends and chart
-        {
-          beforeInit(chart) {
-            /* eslint-disable func-names, no-param-reassign */
-            chart.legend.afterFit = function () {
-              this.height += 20
-            }
-            /* eslint-enable */
-          },
-        },
-      ],
-    }
-  },
+      data() {
+        return {
+          userData: JSON.parse(localStorage.getItem('userData')),
+        
+          plugins: [
+            // to add spacing between legends and chart
+            {
+              beforeInit(chart) {
+                /* eslint-disable func-names, no-param-reassign */
+                chart.legend.afterFit = function () {
+                  this.height += 20
+                }
+                /* eslint-enable */
+              },
+            },
+          ],
+        }
+      },
+
+      mounted() {
+          this.fetchTeacher();
+          this.fetchSchool();
+          this.fetchAttendances();
+          this.fetchAttendanceManagements();
+          this.fetchLessonnotes();
+          this.fetchLessonnoteManagements();
+      },
  
      setup() {
         const Home_APP_STORE_MODULE_NAME = 'app-AdminHome';
@@ -181,7 +190,9 @@ export default {
           fetchTeacher,
           fetchSchool,
           fetchAttendances,
-          fetchAttendanceManagements
+          fetchAttendanceManagements,
+          fetchLessonnotes,
+          fetchLessonnoteManagements
         }
     },
 
