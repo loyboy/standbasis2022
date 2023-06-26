@@ -55,11 +55,11 @@ export default function useAttendanceList() {
         teachers: 0, // teachers that have done the attendance for real
         retention: 0, // % participation
         duration: 1, // duration of search in years
-        attBar: {
+        Bar: {
           series: [
             {
               name: 'Attendances',
-              data: null,
+              data: [],
             },
           ],
         },
@@ -80,16 +80,16 @@ export default function useAttendanceList() {
     lessonnote:{
       name:"Lessonnote",
       avgSessions: {
-        sessions: 300,
+        sessions: 0,
         lastDays: ['Last 7 Days'],
-        goal: 9000, // Expected lessonnotes within this period
-        teachers: 5000, // teachers that have done the lessonnote per subject and week for real
-        retention: 90, // % participation
+        goal: 0, // Expected lessonnotes within this period
+        teachers: 0, // teachers that have done the lessonnote per subject and week for real
+        retention: 0, // % participation
         duration: 1, // duration of search in years
-        lsnBar: {
+        Bar: {
           series: [
             {
-              name: 'Sessions',
+              name: 'Lessonnotes',
               data: [14, 30, 43, 45, 49, 58, 60],
             },
           ],
@@ -122,7 +122,7 @@ export default function useAttendanceList() {
         const { sessions, sessionsData, goals, teachers, retention } = response.data
      
         filters.value.attendance.avgSessions.sessions = sessions
-        filters.value.attendance.avgSessions.attBar.series[0].data = sessionsData
+        filters.value.attendance.avgSessions.Bar.series[0].data = sessionsData
         filters.value.attendance.avgSessions.goal = goals
         filters.value.attendance.avgSessions.teachers = teachers
         filters.value.attendance.avgSessions.retention = retention
@@ -175,7 +175,7 @@ export default function useAttendanceList() {
         const { sessions, sessionsData, goals, teachers, retention } = response.data
      
         filters.value.lessonnote.avgSessions.sessions = sessions
-        filters.value.lessonnote.avgSessions.lsnBar.series[0].data = sessionsData
+        filters.value.lessonnote.avgSessions.Bar.series[0].data = sessionsData
         filters.value.lessonnote.avgSessions.goal = goals
         filters.value.lessonnote.avgSessions.teachers = teachers
         filters.value.lessonnote.avgSessions.retention = retention

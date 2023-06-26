@@ -63,8 +63,8 @@
         <vue-apex-charts
           type="bar"
           height="200"
-          :options="attBar.chartOptions"
-          :series="data.attBar.series"
+          :options="Bar.chartOptions"
+          :series="data.Bar.series"
         />
       </b-col>
     </b-row>
@@ -165,7 +165,7 @@ export default {
   },
   data() {
     return {
-      attBar: {
+      Bar: {
         chartOptions: {
           chart: {
             sparkline: { enabled: true },
