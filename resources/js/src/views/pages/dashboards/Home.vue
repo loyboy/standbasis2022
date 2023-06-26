@@ -27,61 +27,52 @@
           <b-row class="match-height">
             
             <!-- Bar Chart - Orders -->
-            <b-col lg="4" md="4" cols="12">
+            <b-col lg="4" md="6" cols="12">
               <order-chart
                 v-if=" userData.role === 'teacher' "
-                :data="sampleDataSeries"
-                label="Total Attendance Submitted Today"
+                :data="filters.sampleDataSeries"
+                label="Total Attendance Submitted in the Last 7 days"
                 :lowIsBad="true"
-                :value="att.submitted"
+                :value="filters.att"
               />
               <order-chart
                 v-if=" userData.role === 'principal' "
-                :data="sampleDataSeries"
-                label='Total Attendance Submitted by Teachers Today'
+                :data="filters.sampleDataSeries"
+                label='Total Attendance Submitted by Teachers in the Last 7 days' 
                 :lowIsBad="true"
-                :value="att.submitted"
+                :value="filters.att"
               />
               <order-chart
                 v-if=" userData.role === 'proprietor' "
-                :data="sampleDataSeries"
-                label='Total Attendance Reported by Principal Today'
+                :data="filters.sampleDataSeries"
+                label='Total Attendance Reported by Principal in the Last 7 days'
                 :lowIsBad="true"
-                :value="att.reported"
+                :value="filters.att"
               />
             </b-col>
             <!--/ Bar Chart - Orders -->
 
-            <b-col lg="4" md="4" cols="12">
+            <b-col lg="4" md="6" cols="12">
               <profit-chart
                 v-if=" userData.role === 'teacher' "
-                :data="sampleLineDataSeries"
-                label="Total Lessonnote Submitted This Week"
+                :data="filters.sampleLineDataSeries"
+                label="Total Lessonnote Submitted in the Last 7 days"
                 :lowIsBad="true"
-                :value="lsn.submitted"
+                :value="filters.lsn"
               />
               <profit-chart
                 v-if=" userData.role === 'principal' "
-                :data="sampleLineDataSeries"
-                label="Total Lessonnote Approved This Week"
+                :data="filters.sampleLineDataSeries"
+                label="Total Lessonnote Approved in the Last 7 days"
                 :lowIsBad="true"
-                :value="lsn.submitted"
+                :value="filters.lsn"
               />
               <profit-chart
                v-if=" userData.role === 'proprietor' "
-                :data="sampleLineDataSeries"
-                label="Total Lessonnote Approved By Principal This Week"
+                :data="filters.sampleLineDataSeries"
+                label="Total Lessonnote Approved By Principal in the Last 7 days"
                 :lowIsBad="true"
-                :value="lsn.reported"
-              />
-            </b-col>
-
-            <b-col lg="4" md="4" cols="12">
-              <profit-chart
-                :data="sampleLineDataSeries"  
-                label="M&E Flags Average"
-                :lowIsBad="false"
-                :value="mne.flags"              
+                :value="filters.lsn"
               />
             </b-col>
            
@@ -175,6 +166,9 @@
       if (storedItems){
         this.userData = storedItems;
       }
+
+      this.fetchAttendances();
+      this.fetchLessonnotes();
     },
   
   /*
@@ -192,24 +186,6 @@
           });
       },
     },*/
-
-    created() {
-      // data
-      /*this.$http.get("/ecommerce/data").then((response) => {
-        this.data = response.data;
-        const userData = getUserData();
-      });
-
-      useJwt
-        .getDashboardCharts()
-        .then((response) => {
-          this.charts = response;
-          this.stats = response.data;
-        })
-        .catch((error) => {
-          // TODO
-        });*/
-    },
 
     setup() {
         const Home_APP_STORE_MODULE_NAME = 'app-Home';
@@ -242,10 +218,8 @@
         const {  
           isLoading, 
           filters,   
-          fetchHomeDetails,
-          att,
-          lsn,
-          mne
+          fetchAttendances,
+          fetchLessonnotes
         } = useHomeList();
 
         if( findIfPropisPresent ){        
@@ -255,20 +229,14 @@
             filters.value.schoolId = teacherData.value ? teacherData.value.school.schId : null;
         }
         if( findIfTeacherisPresent ){
-          filters.value.teacherId = teacherData.value ? teacherData.value.teaId : null;
+            filters.value.teacherId = teacherData.value ? teacherData.value.teaId : null;
         }
-
-        onMounted(async () => {
-        // fetchHomeDetails();
-        })
 
         return {
           isLoading, 
           filters,   
-          fetchHomeDetails,
-          att,
-          lsn,
-          mne
+          fetchAttendances,
+          fetchLessonnotes
         }
     }
 

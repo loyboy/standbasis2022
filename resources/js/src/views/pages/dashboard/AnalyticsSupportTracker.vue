@@ -60,7 +60,28 @@
       </b-row>
 
       <!-- chart info -->
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between" v-if=" name === 'Lessonnote' ">
+        <div class="text-center">
+          <b-card-text class="mb-50">
+            Reverted {{name}}
+          </b-card-text>
+          <span class="font-large-1 font-weight-bold">{{ data.reverted }}</span>
+        </div>
+        <div class="text-center">
+          <b-card-text class="mb-50">
+            Bad Management {{name}}
+          </b-card-text>
+          <span class="font-large-1 font-weight-bold">{{ data.management }}</span>
+        </div>
+        <div class="text-center">
+          <b-card-text class="mb-50">
+            Response Time
+          </b-card-text>
+          <span class="font-large-1 font-weight-bold">{{ data.responseTime }}d</span>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between" v-else >
         <div class="text-center">
           <b-card-text class="mb-50">
             Late submission {{name}}
@@ -80,6 +101,8 @@
           <span class="font-large-1 font-weight-bold">{{ data.responseTime }}d</span>
         </div>
       </div>
+
+
     </b-card-body>
   </b-card>
 </template>

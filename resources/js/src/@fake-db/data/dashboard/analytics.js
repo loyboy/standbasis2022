@@ -7,7 +7,7 @@ const data = {
     role: 'superadmin'
   },
 
-  groupschoolsGained: {
+ teachersGained: {
     series: [
       {
         name: 'Group of Schools',
@@ -15,11 +15,11 @@ const data = {
       },
     ],
     analyticsData: {
-      groupschools: 10,
+      teachers: 10,
     },
   },
 
-  schoolsGained: {
+  schoolsGained: { 
     series: [
       {
         name: 'Schools',
@@ -36,7 +36,6 @@ const data = {
       avgSessions: {
         sessions: 2700,
         lastDays: ['Last 28 Days', 'Last Month', 'Last Year'],
-       // growth: '+4.2%',// check last 28 days against this present 
         goal: 9000, // timetable classes that are available for this period
         teachers: 5000, // teachers that have done the attendance for real
         retention: 90, // % participation

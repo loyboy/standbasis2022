@@ -6,7 +6,7 @@
         lg="6"
         md="12"
       >
-        <analytics-congratulation :data="data.congratulations" v-if=" userData.role === 'admin' || userData.role === 'proprietor' "/>
+        <analytics-congratulation :data="filters.congratulations" v-if=" userData.role === 'admin' "/>
       </b-col>
  
       <b-col
@@ -15,12 +15,12 @@
         v-if=" userData.role === 'admin' || userData.role === 'proprietor' "
       >
         <statistic-card-with-area-chart
-          v-if="data.groupschoolsGained"
+          v-if="filters.teachersGained"
           icon="UserIcon"
           color="danger"
-          :statistic="kFormatter(data.groupschoolsGained.analyticsData.groupschools)"
-          statistic-title="Group of Schools"
-          :chart-data="data.groupschoolsGained.series"
+          :statistic="kFormatter(filters.teachersGained.analyticsData.teachers)"
+          statistic-title="Teachers"
+          :chart-data="filters.teachersGained.series"
         />
       </b-col>
 
@@ -30,12 +30,12 @@
         v-if=" userData.role === 'admin' || userData.role === 'proprietor' "
       >
         <statistic-card-with-area-chart
-          v-if="data.schoolsGained"
-          icon="UsersIcon"
+          v-if="filters.schoolsGained"
+          icon="UsersIcon" 
           color="warning"
-          :statistic="kFormatter(data.schoolsGained.analyticsData.schools)"
+          :statistic="kFormatter(filters.schoolsGained.analyticsData.schools)"
           statistic-title="Schools Available"
-          :chart-data="data.schoolsGained.series"
+          :chart-data="filters.schoolsGained.series"
         />
       </b-col>
     </b-row>
@@ -43,20 +43,20 @@
     <!-- Attendance data and M&E -->
     <b-row class="match-height" v-if=" userData.role === 'admin' || userData.role === 'proprietor' ">
       <b-col lg="6">
-        <analytics-avg-sessions  :data="data.attendance.avgSessions" :name="data.attendance.name"  />
+        <analytics-avg-sessions  :data="filters.attendance.avgSessions" :name="filters.attendance.name"  />
       </b-col>
       <b-col lg="6">
-        <analytics-support-tracker :data="data.attendance.supportTracker" :name="data.attendance.name" />
+        <analytics-support-tracker :data="filters.attendance.supportTracker" :name="filters.attendance.name" />
       </b-col>
     </b-row>
 
    <!-- Lessonnote data and M&E -->
     <b-row class="match-height" v-if=" userData.role === 'admin' || userData.role === 'proprietor'">
       <b-col lg="6">
-        <analytics-avg-sessions :data="data.lessonnote.avgSessions" :name="data.lessonnote.name" />
+        <analytics-avg-sessions :data="filters.lessonnote.avgSessions" :name="filters.lessonnote.name" />
       </b-col>
       <b-col lg="6">
-        <analytics-support-tracker :data="data.lessonnote.supportTracker" :name="data.lessonnote.name" />
+        <analytics-support-tracker :data="filters.lessonnote.supportTracker" :name="filters.lessonnote.name" />
       </b-col>
     </b-row>
 
@@ -95,6 +95,7 @@ import AnalyticsSupportTracker from './AnalyticsSupportTracker.vue'
 import AnalyticsTimeline from './AnalyticsTimeline.vue'
 import AnalyticsSalesRadarChart from './AnalyticsSalesRadarChart.vue'
 import AnalyticsAppDesign from './AnalyticsAppDesign.vue'
+import homeStoreModule from './homeStoreModule'
 
 export default {
   components: {
@@ -115,7 +116,7 @@ export default {
   data() {
     return {
       userData: JSON.parse(localStorage.getItem('userData')),
-      data: {},
+     
       plugins: [
         // to add spacing between legends and chart
         {
@@ -131,13 +132,56 @@ export default {
     }
   },
  
-  created() {
-    // data
-    this.$http.get('/analytics/data')
-      .then(response => { 
-        this.data = response.data; 
-      })
-  },
+     setup() {
+        const Home_APP_STORE_MODULE_NAME = 'app-AdminHome';
+
+        // Register module
+        if (!store.hasModule(Home_APP_STORE_MODULE_NAME)) store.registerModule(Home_APP_STORE_MODULE_NAME, homeStoreModule)
+    
+        // UnRegister on leave
+        onUnmounted(() => {
+          if (store.hasModule(Home_APP_STORE_MODULE_NAME)) store.unregisterModule(Home_APP_STORE_MODULE_NAME)
+        })  
+        
+        const userData = ref({});
+        const teacherData = ref({});
+
+        const storedItems = JSON.parse(localStorage.getItem('userData'));
+        if (storedItems){
+          userData.value = storedItems;
+        }
+
+        const storedItems2 = JSON.parse(localStorage.getItem('teacherData'));
+        if (storedItems2){
+          teacherData.value = storedItems2;
+        }
+
+        const findIfAdminisPresent = ( userData.value.role === "admin"  );     
+        const findIfPropisPresent  = ( userData.value.role === "proprietor" );      
+        
+        const {  
+          isLoading, 
+          filters,   
+          fetchTeacher,
+          fetchSchool,
+          fetchAttendances,
+          fetchAttendanceManagements
+        } = useHomeList();
+
+        if( findIfPropisPresent ){        
+            filters.value.schoolgroup = teacherData.value ? teacherData.value.school.owner.id : null;
+        }       
+
+        return {
+          isLoading, 
+          filters,   
+          fetchTeacher,
+          fetchSchool,
+          fetchAttendances,
+          fetchAttendanceManagements
+        }
+    },
+
   methods: {
     kFormatter,
   },

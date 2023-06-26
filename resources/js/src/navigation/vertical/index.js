@@ -19,7 +19,7 @@ export default [
         route: 'evaluation-home',
         icon: 'HomeIcon',
         permission: ["evaluator"]
-    },
+    }, 
   
     {
         title: 'Evaluation List',
