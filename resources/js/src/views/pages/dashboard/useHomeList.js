@@ -72,7 +72,7 @@ export default function useAttendanceList() {
         noAttachment: 0,
         responseTime: 0,
         supportTrackerRadialBar: {//total attended to by the principal or assigned principal
-          series: null, //[65]
+          series: [0], //[65]
         },
       }
     },
@@ -90,7 +90,7 @@ export default function useAttendanceList() {
           series: [
             {
               name: 'Lessonnotes',
-              data: [14, 30, 43, 45, 49, 58, 60],
+              data: [],
             },
           ],
         },
@@ -103,7 +103,7 @@ export default function useAttendanceList() {
         management: 0,
         responseTime: 0,
         supportTrackerRadialBar: {//total attended to by the principal or assigned principal
-          series: [63],
+          series: [0],
         },
       }
     }

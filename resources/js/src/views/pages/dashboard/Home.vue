@@ -177,7 +177,9 @@ export default {
           fetchTeacher,
           fetchSchool,
           fetchAttendances,
-          fetchAttendanceManagements
+          fetchAttendanceManagements,
+          fetchLessonnotes,
+          fetchLessonnoteManagements
         } = useHomeList();
 
         if( findIfPropisPresent ){        
