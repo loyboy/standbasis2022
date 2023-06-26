@@ -86,7 +86,7 @@ export default function useAttendanceList() {
         teachers: 5000, // teachers that have done the lessonnote per subject and week for real
         retention: 90, // % participation
         duration: 1, // duration of search in years
-        salesBar: {
+        lsnBar: {
           series: [
             {
               name: 'Sessions',
@@ -122,7 +122,7 @@ export default function useAttendanceList() {
         const { sessions, sessionsData, goals, teachers, retention } = response.data
      
         filters.value.attendance.avgSessions.sessions = sessions
-        filters.value.attendance.avgSessions.attBar.series = sessionsData
+        filters.value.attendance.avgSessions.attBar.series[0].data = sessionsData
         filters.value.attendance.avgSessions.goal = goals
         filters.value.attendance.avgSessions.teachers = teachers
         filters.value.attendance.avgSessions.retention = retention
@@ -175,7 +175,7 @@ export default function useAttendanceList() {
         const { sessions, sessionsData, goals, teachers, retention } = response.data
      
         filters.value.lessonnote.avgSessions.sessions = sessions
-        filters.value.lessonnote.avgSessions.attBar.series = sessionsData
+        filters.value.lessonnote.avgSessions.lsnBar.series[0].data = sessionsData
         filters.value.lessonnote.avgSessions.goal = goals
         filters.value.lessonnote.avgSessions.teachers = teachers
         filters.value.lessonnote.avgSessions.retention = retention
