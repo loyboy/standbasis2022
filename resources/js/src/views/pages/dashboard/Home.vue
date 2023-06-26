@@ -98,6 +98,7 @@ import AnalyticsAppDesign from './AnalyticsAppDesign.vue'
 import homeStoreModule from './homeStoreModule'
 import store from '@/store'
 import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
+import useHomeList from './useHomeList'
 
 export default {
   components: {
