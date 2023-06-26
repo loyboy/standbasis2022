@@ -96,6 +96,7 @@ import AnalyticsTimeline from './AnalyticsTimeline.vue'
 import AnalyticsSalesRadarChart from './AnalyticsSalesRadarChart.vue'
 import AnalyticsAppDesign from './AnalyticsAppDesign.vue'
 import homeStoreModule from './homeStoreModule'
+import store from '@/store'
 
 export default {
   components: {
