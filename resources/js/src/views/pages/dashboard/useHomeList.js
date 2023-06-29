@@ -223,7 +223,7 @@ export default function useAttendanceList() {
       })
       .then(response => {
         const { schools, schoolsData } = response.data
-     
+       // console.log("Schools: >> "+ schools );
         filters.value.schoolsGained.analyticsData.schools = schools
         filters.value.schoolsGained.series[0].data = schoolsData
         isLoading.value = false;   
@@ -244,7 +244,7 @@ export default function useAttendanceList() {
       })
       .then(response => {
         const { teachers, teachersData } = response.data
-     
+       // console.log("Teacher: >> "+ teachers );
         filters.value.teachersGained.analyticsData.schools = teachers
         filters.value.teachersGained.series[0].data = teachersData
         isLoading.value = false;   

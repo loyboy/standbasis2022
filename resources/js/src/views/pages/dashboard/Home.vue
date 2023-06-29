@@ -135,15 +135,6 @@ export default {
         }
       },
 
-      mounted() {
-          this.fetchTeacher();
-          this.fetchSchool();
-          this.fetchAttendances();
-          this.fetchAttendanceManagements();
-          this.fetchLessonnotes();
-          this.fetchLessonnoteManagements();
-      },
- 
      setup() {
         const Home_APP_STORE_MODULE_NAME = 'app-AdminHome';
 
@@ -184,7 +175,16 @@ export default {
 
         if( findIfPropisPresent ){        
             filters.value.schoolgroup = teacherData.value ? teacherData.value.school.owner.id : null;
-        }       
+        }    
+        
+        onMounted(() => {
+            fetchTeacher();
+            fetchSchool();
+            fetchAttendances();
+            fetchAttendanceManagements();
+            fetchLessonnotes();
+            fetchLessonnoteManagements();
+        })           
 
         return {
           isLoading, 
