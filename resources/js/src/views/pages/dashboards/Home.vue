@@ -166,9 +166,6 @@
       if (storedItems){
         this.userData = storedItems;
       }
-
-      this.fetchAttendances();
-      this.fetchLessonnotes();
     },
   
   /*
@@ -231,6 +228,11 @@
         if( findIfTeacherisPresent ){
             filters.value.teacherId = teacherData.value ? teacherData.value.teaId : null;
         }
+
+         onMounted(() => {
+            fetchAttendances();
+            fetchLessonnotes();
+         })
 
         return {
           isLoading, 
