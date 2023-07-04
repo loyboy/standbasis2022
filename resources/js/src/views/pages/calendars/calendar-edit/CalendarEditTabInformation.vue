@@ -44,7 +44,7 @@
                             id="calendar-session"
                             v-model="calendarData.session"
                             :options="sessionOptions"
-                            :disabled="true"
+                            :disabled=" (userData.permissions.calendar.edit === false) || ( calendarData.term !== -99 && userData.permissions.calendar.edit === true ) "
                         />
 
                     <b-form-invalid-feedback>
@@ -72,10 +72,10 @@
                   > 
 
                   <b-form-select
-                            id="calendar-term"
+                            id="calendar-term" 
                             v-model="calendarData.term"
                             :options="termOptions"
-                            :disabled="true"
+                            :disabled=" (userData.permissions.calendar.edit === false) || ( calendarData.term !== -99 && userData.permissions.calendar.edit === true ) "
                         />
   
                     <b-form-invalid-feedback>
@@ -100,22 +100,88 @@
                         label-for="calendar-holiday"
                         class="mb-2 bolden"
                       >
-
-                    <b-form-input
+                        <b-form-input
                           id="calendar-holiday"
                           v-model="calendarData.holiday"
                           placeholder="use date formats like YYYY-MM-DD, YYYY-MM-DD, YYYY-MM-DD"
                           :state="getValidationState(validationContext)"
                           :readonly="userData.permissions.calendar.edit === false"
                           trim
-                        />                        
+                        />                       
       
                         <b-form-invalid-feedback>
                           {{ validationContext.errors[0] }}
                         </b-form-invalid-feedback>
+
                       </b-form-group>
                     </validation-provider> 
               </b-col>  
+
+              <!-- Calendar Start Date -->
+              <b-col
+                cols="12"
+                md="12"
+                class="mb-2"
+                v-if=" calendarData.term === -99 "
+              >            
+                  <validation-provider
+                      #default="validationContext"
+                      name="Start Date"
+                    >
+                      <b-form-group
+                        label="Start Date"
+                        label-for="calendar-startdate"
+                        class="mb-2 bolden"
+                      >
+                        <b-form-datepicker
+                          id="calendar-startdate"
+                          v-model="calendarData.startdate"
+                          placeholder="Choose a start date for your Session"
+                          local="en"
+                          initial-date="2023-01-01"
+                          
+                        />                    
+      
+                        <b-form-invalid-feedback>
+                          {{ validationContext.errors[0] }}
+                        </b-form-invalid-feedback>
+
+                      </b-form-group>
+                    </validation-provider> 
+              </b-col>  
+
+              <!-- Calendar End Date -->
+              <b-col
+                cols="12"
+                md="12"
+                class="mb-2"
+                v-if=" calendarData.term === -99 "
+              >            
+                  <validation-provider
+                      #default="validationContext"
+                      name="End Date"
+                    >
+                      <b-form-group
+                        label="End Date"
+                        label-for="calendar-enddate"
+                        class="mb-2 bolden"
+                      >
+                        <b-form-datepicker
+                          id="calendar-enddate"
+                          v-model="calendarData.enddate"
+                          placeholder="Choose an end date for your Session"
+                          local="en"
+                          initial-date="2023-01-01"
+                          
+                        />                    
+      
+                        <b-form-invalid-feedback>
+                          {{ validationContext.errors[0] }}
+                        </b-form-invalid-feedback>
+
+                      </b-form-group>
+                    </validation-provider> 
+              </b-col> 
               
                <!-- Status -->
               <b-col
@@ -133,11 +199,12 @@
                   >
                     <b-form-checkbox
                       id="calendar-status"
-                      v-model="calendarData.status"
+                      v-model="calendarData.status"                      
                       value="1"
                       class="custom-control-success"               
                       unchecked-value="0"
                       switch
+                      :disabled="true"
                     >                     
                     </b-form-checkbox>  
                     <b-form-invalid-feedback>
@@ -173,8 +240,9 @@
     BCard,
     BCardHeader,
     BCardTitle,
-    BCardText,
+    BCardText,    
     BCardBody,
+    BFormDatepicker,
     BRow,
     BCol,
     BFormGroup,
@@ -202,6 +270,7 @@
       BCardHeader,
       BCardTitle,
       BCardText,
+      BFormDatepicker,
       BCardBody,
       BRow,
       BCol,
@@ -229,9 +298,15 @@
       }
     },
 
-    created(){
-     // console.log("Mounted: " + this.calendarData )
-    },
+    mounted: function () {
+        let vm = this;    
+        setTimeout(() => {
+          if(this.calendarData.term === -99){
+            this.calendarData.status = 1;
+          }         
+        }, 500);
+    }, 
+
     data() {
   
         let termOptions = [

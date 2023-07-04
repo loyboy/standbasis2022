@@ -19,7 +19,7 @@
           icon="UserIcon"
           color="danger"
           :statistic="kFormatter(filters.teachersGained.analyticsData.teachers)"
-          statistic-title="Teachers"
+          statistic-title="Added Teachers (Last 7 days)"
           :chart-data="filters.teachersGained.series"
         />
       </b-col>
@@ -34,7 +34,7 @@
           icon="UsersIcon" 
           color="warning"
           :statistic="kFormatter(filters.schoolsGained.analyticsData.schools)"
-          statistic-title="Schools Available"
+          statistic-title="Added Schools (Last 7 days)"
           :chart-data="filters.schoolsGained.series"
         />
       </b-col>

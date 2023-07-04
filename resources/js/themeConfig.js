@@ -10,7 +10,7 @@ export const $themeBreakpoints = {}
 export const $themeConfig = {
     app: {
         appName: 'Standbasis', // Will update name in navigation menu (Branding)      
-        // 153.92.214.114
+        //https://www.school-digital-transformation.com
         baseURL: "https://www.school-digital-transformation.com/api",
 
         backendURL: "https://www.school-digital-transformation.com",

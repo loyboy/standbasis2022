@@ -99,6 +99,7 @@ export default function useEnrollmentList(School = null) {
     if (status === 0) return 'warning'
     if (status === -1) return 'danger'    
     if (status === 1) return 'success'
+    if (status === -99) return 'link'
     return 'primary'
   }
 

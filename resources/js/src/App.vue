@@ -1,19 +1,20 @@
 <template>
+
   <div
     id="app"
-    class="h-100"
+    class="h-100 custom-zoom"
     :class="[skinClasses]"
   >
     <component :is="layout">
       <router-view />
     </component>
-
   </div>
+
 </template>
 
 <script>
 
-// This will be populated in `beforeCreate` hook
+// This will be populated in `beforeCreate` hook ---
 import { $themeColors, $themeBreakpoints, $themeConfig } from '@themeConfig'
 import { provideToast } from 'vue-toastification/composition'
 import { watch } from '@vue/composition-api'
@@ -29,12 +30,10 @@ const LayoutFull = () => import('@/layouts/full/LayoutFull.vue')
 
 export default {
   components: {
-
     // Layouts
     LayoutHorizontal,
     LayoutVertical,
-    LayoutFull,
-
+    LayoutFull
   },
   // ! We can move this computed: layout & contentLayoutType once we get to use Vue 3
   // Currently, router.currentRoute is not reactive and doesn't trigger any change
@@ -101,3 +100,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+  .custom-zoom {
+    zoom: 0.9;
+  }   
+</style>

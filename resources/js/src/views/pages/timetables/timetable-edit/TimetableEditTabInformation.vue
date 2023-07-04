@@ -146,7 +146,7 @@
               </b-col> 
               
                <!-- timetable Term -->
-               <b-col
+              <b-col
                 cols="12"
                 md="10"
               >
@@ -175,6 +175,68 @@
                 </validation-provider>
               </b-col> 
 
+              <!-- timetable Time -->
+              <b-col
+                cols="12"
+                md="10"
+              >
+                <validation-provider
+                  #default="validationContext"
+                  name="Time"
+                  
+                >
+                  <b-form-group
+                    label="Time"
+                    label-for="timetable-time"
+                    class="mb-2 bolden"
+                  >
+                        <b-form-input
+                          id="timetable-time"
+                          v-model="timetableData.time_of"
+                          type="time"
+                          :disabled=" userData.permissions.timetable.edit === false "                          
+                        /> 
+
+                       <!-- <datalist id="timetable-time">
+                          <option>Manual Option</option>
+                          <option v-for="size in sizes">{{ size }}</option>
+                        </datalist>-->
+  
+                    <b-form-invalid-feedback>
+                      {{ validationContext.errors[0] }}
+                    </b-form-invalid-feedback>
+                  </b-form-group>
+                </validation-provider>
+              </b-col> 
+
+               <!-- timetable Day -->
+              <b-col
+                cols="12"
+                md="10"
+              >
+                <validation-provider
+                  #default="validationContext"
+                  name="Day"
+                  
+                >
+                  <b-form-group
+                    label="Day of Week"
+                    label-for="timetable-day"
+                    class="mb-2 bolden"
+                  >
+                        <b-form-select
+                            id="timetable-day"
+                            v-model="timetableData.day_of"
+                            :options="dayOptions"
+                            :disabled=" userData.permissions.timetable.edit === false "
+                        />  
+  
+                    <b-form-invalid-feedback>
+                      {{ validationContext.errors[0] }}
+                    </b-form-invalid-feedback>
+                  </b-form-group>
+                </validation-provider>
+              </b-col> 
               
               <!-- Status -->
               <b-col
@@ -312,8 +374,24 @@
           {
             value: 3, text: "3rd Term"
           }
+        ],
+        dayOptions: [
+          {
+            value: 1, text: "Monday"
+          },
+          {
+            value: 2, text: "Tuesday"
+          },
+          {
+            value: 3, text: "Wednesday"
+          },
+          {
+            value: 4, text: "Thursday"
+          },
+          {
+            value: 5, text: "Friday"
+          }
         ]
-
       }
     },
    
@@ -345,7 +423,7 @@
 
                     if (content && status){
                         sef.$loading(false);        
-                        sef.$forceUpdate();
+                       // sef.$forceUpdate();
                         sef.$toast({
                             component: ToastificationContent,
                             position: "bottom-right",

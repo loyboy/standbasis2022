@@ -155,7 +155,7 @@
                 :variant="`light-${resolveUserStatusVariant(data.item.student.status)}`"
                 class="text-capitalize"
               >
-                {{ data.item.student.status === 1 ? "Active" : data.item.student.status === 0 ? "Inactive" : "Deleted"  }}
+                {{ data.item.status === 1 ? "Active" : data.item.status === 0 ? "Inactive" : data.item.status === -99 ? "Rolled Over" : "Deleted"  }}
               </b-badge>
             </template>
     
