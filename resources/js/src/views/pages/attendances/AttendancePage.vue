@@ -427,22 +427,50 @@
 
             <!-- Column: Timing -->
             <template #cell(timing)="data">
-              <span> <b> {{ data.item.timing }} </b> </span>
+             
+               <b-badge
+                pill
+                :variant="`light-${resolveAttendancetimingVariant(data.item.timing)}`"
+                class="text-capitalize"
+              >
+                {{ data.item.timing === 100 ? "Excellent" : data.item.timing === 50 ? "Late" : data.item.action === 0 ? "Absymal" : "Nil"  }}
+              </b-badge>
             </template>
 
             <!-- Column: Class Performance -->
             <template #cell(class_perf)="data">
-              <span> <b> {{ data.item.class_perf }} </b> </span>
+            
+              <b-badge
+                pill
+                :variant="`light-${resolveAttendanceclassPerfVariant(data.item.class_perf)}`"
+                class="text-capitalize"
+              >
+                {{ data.item.class_perf === 100 ? "Excellent" : data.item.class_perf > 80 ? "Excellent" : ( data.item.class_perf > 50 && data.item.class_perf <= 79 ) ? "Average" : "Nil"  }}
+              </b-badge>
             </template>
 
             <!-- Column: Completeness -->
             <template #cell(completeness)="data">
-              <span> <b> {{ data.item.completeness }} </b> </span>
+              
+              <b-badge
+                pill
+                :variant="`light-${resolveAttendancecompleteVariant(data.item.completeness)}`"
+                class="text-capitalize"
+              >
+                {{ data.item.completeness === 100 ? "Complete" : data.item.completeness === 50 ? "Incomplete" : "Nil"  }}
+              </b-badge>
             </template>
 
               <!-- Column: Score -->
             <template #cell(score)="data">
               <span> <b> {{ data.item.score }} </b> </span>
+              <b-badge
+                pill
+                :variant="`light-${resolveAttendancescoreVariant(data.item.score)}`"
+                class="text-capitalize"
+              >
+                 {{ data.item.score === 100 ? "Excellent" : data.item.score > 80 ? "Excellent" : ( data.item.score > 50 && data.item.score <= 79 ) ? "Average" : "Nil"  }}
+              </b-badge>
             </template>
 
              <!-- Column: Action -->
@@ -723,7 +751,10 @@
 
         // UI       
         resolveAttendancestatusVariant,
-
+        resolveAttendancetimingVariant,
+        resolveAttendanceclassPerfVariant,
+        resolveAttendancecompleteVariant,
+        resolveAttendancescoreVariant,
         filters,
         attendanceItems,
 
@@ -779,6 +810,10 @@
   
         // UI
         resolveAttendancestatusVariant,
+        resolveAttendancetimingVariant,
+        resolveAttendanceclassPerfVariant,
+        resolveAttendancecompleteVariant,
+        resolveAttendancescoreVariant,
 
         userData,
         schoolOptions,

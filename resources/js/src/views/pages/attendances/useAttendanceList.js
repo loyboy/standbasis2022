@@ -173,6 +173,37 @@ export default function useAttendanceList() {
     return 'primary'
   }
 
+  const resolveAttendancetimingVariant = status => {
+    if (status === 50) return 'warning'
+    if (status === 100) return 'success'
+    if (status === 0) return 'danger'   
+    return 'link'
+  }
+  
+  const resolveAttendanceclassPerfVariant = status => {
+    if (status === 100) return 'success'
+    if (status > 80 ) return 'success'
+    if ( status > 50 && status <= 79 ) return 'warning'
+    if (status < 50) return 'danger'
+    return 'link'
+  }
+  
+  const resolveAttendancecompleteVariant = status => {
+    if (status === 50) return 'warning'
+    if (status === 0) return 'danger'
+    if (status === 100) return 'success'
+    
+    return 'link'
+  }
+
+  const resolveAttendancescoreVariant = status => {
+    if (status === 100) return 'success'
+    if (status > 80 ) return 'success'
+    if ( status > 50 && status <= 79 ) return 'warning'
+    if (status < 50) return 'danger'
+    return 'link'
+  }
+
   return {
     fetchAttendances,
     handlePageChange,
@@ -197,6 +228,10 @@ export default function useAttendanceList() {
     isLoading,
 
     resolveAttendancestatusVariant,
+    resolveAttendancetimingVariant,
+    resolveAttendanceclassPerfVariant,
+    resolveAttendancecompleteVariant,
+    resolveAttendancescoreVariant,
     refetchData,
 
     filters,

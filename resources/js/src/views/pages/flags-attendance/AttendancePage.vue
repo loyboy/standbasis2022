@@ -74,7 +74,7 @@
 
             <b-col
               cols="12"
-              md="4"
+              md="6"
               class="mb-md-0 mb-2"
               v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
             >
@@ -90,7 +90,7 @@
 
             <b-col
               cols="12"
-              md="4"
+              md="6"
               class="mb-md-0 mb-2"
               v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
             >
@@ -309,6 +309,15 @@
       }
     },
 
+    async mounted(){
+        if(this.userData.role !== "proprietor"){
+            console.log("School id " + this.teacherData.school.schId )
+            setTimeout(() => {
+                this.loadOtherValues( this.teacherData.school.schId );
+            },2000);        
+        }
+    },
+
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
       const Attendance_APP_STORE_MODULE_NAME = 'app-AttendanceMNE';
@@ -383,9 +392,7 @@
       onMounted(async () => {
         fetchAttendances();
 
-        if (!findIfPropisPresent){
-           await loadOtherValues( teacherData.value.school.schId );
-        }
+       
       })
       
       return {
@@ -405,7 +412,8 @@
 
         attendanceItems,
 
-        userData
+        userData,
+        teacherData
 
       }
     },

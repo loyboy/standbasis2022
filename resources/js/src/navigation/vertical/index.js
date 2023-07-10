@@ -173,6 +173,25 @@ export default [
     },
 
     {
+        title: 'School Flags',
+        icon: 'CommandIcon',
+        permission: ["proprietor" ,"principal"],
+        children: [
+            {
+                title: 'Attendance Flags',
+                route: 'flag-attendances-home'
+          
+            },
+            {
+                title: 'Lessonnote M&E',
+                route: 'flag-lessonnotes-home'
+                
+            }           
+        ]
+    },
+
+
+    {
         title: 'Settings',
         route: 'settings-home',
         icon: 'SettingsIcon',

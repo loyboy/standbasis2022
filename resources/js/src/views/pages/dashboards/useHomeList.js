@@ -67,7 +67,7 @@ export default function useAttendanceList() {
   
     isLoading.value = true;
     store
-      .dispatch('app-Home/fetchAttendances', {
+      .dispatch('app-Home/fetchLessonnotes', {
         schoolgroup: filters.value.schoolgroup,
         school: filters.value.schoolId,
         teacher: filters.value.teacherId

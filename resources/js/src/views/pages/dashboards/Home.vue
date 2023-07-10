@@ -38,14 +38,14 @@
               <order-chart
                 v-if=" userData.role === 'principal' "
                 :data="filters.sampleDataSeries"
-                label='Total Attendance Submitted by Teachers in the Last 7 days' 
+                label="Teacher's Performance: Attendance Submission (in the Last 7 days)" 
                 :lowIsBad="true"
                 :value="filters.att"
               />
               <order-chart
                 v-if=" userData.role === 'proprietor' "
                 :data="filters.sampleDataSeries"
-                label='Total Attendance Reported by Principal in the Last 7 days'
+                label="Teacher's Performance: Attendance Endorsement (in the Last 7 days)"
                 :lowIsBad="true"
                 :value="filters.att"
               />
@@ -63,14 +63,14 @@
               <profit-chart
                 v-if=" userData.role === 'principal' "
                 :data="filters.sampleLineDataSeries"
-                label="Total Lessonnote Approved in the Last 7 days"
+                label="Teacher's Performance: Lessonnote Submission (in the Last 7 days)"
                 :lowIsBad="true"
                 :value="filters.lsn"
               />
               <profit-chart
                v-if=" userData.role === 'proprietor' "
                 :data="filters.sampleLineDataSeries"
-                label="Total Lessonnote Approved By Principal in the Last 7 days"
+                label="Teacher's Performance: Lessonnote Submission (in the Last 7 days)"
                 :lowIsBad="true"
                 :value="filters.lsn"
               />

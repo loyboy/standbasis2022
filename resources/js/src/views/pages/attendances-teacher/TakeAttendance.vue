@@ -393,7 +393,7 @@
             return row;  
           })
 
-          let the_classperf = (newRowData.filter((row) => row.status === 0 ).length / newRowData.length ) * 100 ;
+          let the_classperf = (newRowData.filter((row) => row.status === 1 ).length / newRowData.length ) * 100 ;
 
           if( this.imageFile !== null ){
               const fd = new FormData();
@@ -408,7 +408,7 @@
               store.dispatch(`${ this.Attendance_APP_STORE_MODULE_NAME }/updateAttendance`, { 
               attendance : { period : "", done: 1 },
               id: Number(attId[1]),              
-              management : { timing: the_timing, class_perf: the_classperf, completeness: the_completeness, score:  Math.round( (the_timing + the_classperf + the_completeness) / 3 ) , action: 0 },
+              management : { timing: the_timing, class_perf: the_classperf, completeness: the_completeness, score:  Math.round( (the_timing + the_completeness) / 2 ) , action: 0 },
               activity: { activity: "Expected to approve/query Attendance", slip: 0 }
               })
               .then(response => { 

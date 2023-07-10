@@ -673,14 +673,14 @@ const router = new VueRouter({
             },
         },
         
-         //Attendances M&E begin here
+         //Attendances Flags begin here
          {
-            path: '/mne-attendances-list',
-            name: 'mne-attendances-home',
+            path: '/flag-attendances-list',
+            name: 'flag-attendances-home',
             component: () =>
-                import ('@/views/pages/mne-attendance/ListPage.vue'),
+                import ('@/views/pages/flags-attendance/AttendancePage.vue'),
             meta: {
-                pageTitle: 'Measurement and Evaluation Attendances',
+                pageTitle: 'Flags Attendances',
                 breadcrumb: [{
                         text: 'Filter & View',
                         active: true
@@ -689,14 +689,14 @@ const router = new VueRouter({
             }
         },
 
-        //Lessonnotes M&E begin here
+        //Lessonnotes Flags begin here
         {
-            path: '/mne-lessonnotes-list',
-            name: 'mne-lessonnotes-home',
+            path: '/flag-lessonnotes-list',
+            name: 'flag-lessonnotes-home',
             component: () =>
-                import ('@/views/pages/mne-lessonnote/ListPage.vue'),
+                import ('@/views/pages/flags-lessonnote/LessonnotePage.vue'),
             meta: {
-                pageTitle: 'Measurement and Evaluation Lessonnotes',
+                pageTitle: 'Flags Lessonnotes',
                 breadcrumb: [{
                         text: 'Filter & View',
                         active: true
