@@ -6,7 +6,7 @@
       'open': isOpen,
       'disabled': item.disabled,
       'sidebar-group-active': isActive,
-    }"
+    }" 
   >
     <b-link
       class="d-flex align-items-center"
@@ -29,11 +29,12 @@
       tag="ul"
     >
       <component
-        :is="resolveNavItemComponent(child)"
+        :is="resolveNavItemComponent(child)"       
         v-for="child in item.children"
         :key="child.header || child.title"
         ref="groupChild"
         :item="child"
+        v-show="checkPermmission( child.permission )"
       />
     </b-collapse>
   </li>
@@ -41,7 +42,7 @@
 
 <script>
 import { BLink, BBadge, BCollapse } from 'bootstrap-vue'
-import { resolveVerticalNavMenuItemComponent as resolveNavItemComponent } from '@core/layouts/utils'
+import { resolveVerticalNavMenuItemComponent as resolveNavItemComponent, checkPermmission } from '@core/layouts/utils'
 import { useUtils as useI18nUtils } from '@core/libs/i18n'
 import { useUtils as useAclUtils } from '@core/libs/acl'
 import VerticalNavMenuHeader from '../vertical-nav-menu-header'
@@ -87,7 +88,7 @@ export default {
 
       // ACL
       canViewVerticalNavMenuGroup,
-
+      checkPermmission,
       // i18n
       t,
     }

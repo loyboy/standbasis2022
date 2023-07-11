@@ -8,7 +8,7 @@
               >
         <b-card-body> 
           <b-row>
-                  <b-col cols="12" md="12" v-if=" userData.role === 'supervisor' ">
+                  <b-col cols="12" md="12"  class="mb-md-0 mb-2" v-if=" userData.role === 'supervisor' ">
                     <b-form-group label="Select School Group" label-for="schoolgroup">
                       <b-form-select
                         v-model="filters.schoolgroup"
@@ -20,97 +20,29 @@
           </b-row>
 
           <b-row>
-
             <b-col
               cols="12"
-              md="4"
-              class="mb-md-0 mb-2"
+              md="12"
+              class="mb-md-0 mb-2 "
               v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' "
             >
               <label>School</label>
               <v-select
                 :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                 v-model="filters.schoolId"
-                :options="schoolOptions"
-                @input="loadOtherValues"
+                :options="schoolOptions"                
                 class="w-100"
                 :reduce="(val) => val.value"            
               />
-            </b-col>
+            </b-col>      
 
             <b-col
               cols="12"
-              md="4"
-              class="mb-md-0 mb-2"
-              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' || userData.role === 'supervisor' "
-            >
-              <label>Teacher</label>
-              <v-select
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                v-model="filters.teacherId"
-                :options="teacherOptions"
-                class="w-100"
-                :reduce="(val) => val.value"
-              />
-            </b-col>
-
-            <b-col
-              cols="12"
-              md="4"
-              class="mb-md-0 mb-2"
+              md="12"
+              class="mb-md-0 mb-2 mx-4"
               v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
             >
-              <label>Class</label>
-              <v-select
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                v-model="filters.classId"
-                :options="classOptions"
-                class="w-100"      
-                :reduce="(val) => val.value"        
-              />
-            </b-col>
-
-            <hr /> <!-------------------------->
-
-            <b-col
-              cols="12"
-              md="6"
-              class="mb-md-0 mb-2"
-              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
-            >
-              <label>Calendar</label>
-              <v-select
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                v-model="filters.calendarId"
-                :options="calendarOptions"               
-                class="w-100" 
-                :reduce="(val) => val.value"                            
-              />
-            </b-col>
-
-            <b-col
-              cols="12"
-              md="6"
-              class="mb-md-0 mb-2"
-              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
-            >
-              <label>Subject</label>
-              <v-select
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                v-model="filters.subjectId"
-                :options="subjectOptions"
-                class="w-100"  
-                :reduce="(val) => val.value"             
-              />
-            </b-col>
-
-            <b-col
-              cols="12"
-              md="6"
-              class="mb-md-0 mb-2"
-              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
-            >
-              <label>Date To</label>
+              <label>Date in School</label>
               <b-form-datepicker
                         id="to"
                         v-model="filters.dateTo"
@@ -118,53 +50,8 @@
                         local="en"
                         initial-date="2023-01-01"
                       />
-            </b-col> 
-
-            <b-col
-              cols="12"
-              md="6"
-              class="mb-md-0 mb-2"
-              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
-            >
-              <label>Date From </label>
-              <b-form-datepicker
-                        id="to"
-                        v-model="filters.dateFrom"
-                        placeholder="Choose a date"
-                        local="en"
-                        initial-date="2023-01-01"
-                      />
             </b-col>
-
-          </b-row>        
-
-          <b-row class="filter-padding">
-            <b-col
-              cols="12"
-              md="6"
-              class="mb-md-0 mb-2"
-            >
-                  <b-button variant="success" class="mr-2 col-md-12" type="submit">
-                    Filter M & E Page
-                  </b-button>                  
-            </b-col>
-
-            <b-col
-              cols="12"
-              md="6"
-              class="mb-md-0 mb-2"
-            >
-                  <b-button
-                        type="button"
-                        class="mr-2 col-md-12"
-                        variant="dark"
-                        @click="reset"
-                      >
-                        Reset
-                  </b-button>
-
-            </b-col>
-          </b-row>
+          </b-row>      
 
         </b-card-body>
 
@@ -174,7 +61,7 @@
       <b-card
           no-body
           class="mb-0"
-        >  
+        >
         
           <b-table
             ref="refAttendanceListTable"
@@ -202,7 +89,7 @@
               <!-- Column: Parameter -->
               <template #cell(parameter)="data">
                 <div>
-                  <b style=" font-size: 16px; "  > {{ String( data.item.parameter ) }} : </b>
+                  <b style=" font-size: 16px;"> {{ String( data.item.parameter ) }} : </b>
                 </div> 
               </template>
     
@@ -309,15 +196,6 @@
       }
     },
 
-    async mounted(){
-        if(this.userData.role !== "proprietor"){
-            console.log("School id " + this.teacherData.school.schId )
-            setTimeout(() => {
-                this.loadOtherValues( this.teacherData.school.schId );
-            },2000);        
-        }
-    },
-
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
       const Attendance_APP_STORE_MODULE_NAME = 'app-AttendanceMNE';
@@ -390,9 +268,7 @@
       })();
 
       onMounted(async () => {
-        fetchAttendances();
-
-       
+        fetchAttendances();       
       })
       
       return {
@@ -528,6 +404,14 @@
   .per-page-selector {
     width: 90px;
   }
+
+  .tdBlue {
+    background: #17375e repeat;
+    width: 40%;
+    color: #fff;
+    text-align: center;
+  }
+
   </style>
   
   <style lang="scss">

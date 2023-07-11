@@ -74,7 +74,8 @@ export default [
         children: [
             {
                 title: 'Schools',
-                route: 'schools-home'              
+                route: 'schools-home'  ,
+                permission: [ "admin" , "proprietor" ]            
             },
             {
                 title: 'Group of Schools',

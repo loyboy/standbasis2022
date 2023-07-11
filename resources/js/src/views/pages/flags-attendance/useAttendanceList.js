@@ -9,28 +9,23 @@ export default function useAttendanceList() {
 
   // Table Handlers
   const tableColumns = [    
-    { key: 'parameter', label: 'Parameter', sortable: true },
-    { key: 'value',label: 'Value',  sortable: true }
+    { key: 'parameter', label: 'Flag Type', sortable: true, tdClass: "tdBlue" },
+    { key: 'expected',label: 'Expected Count',  sortable: true },
+    { key: 'value',label: 'Actual Count',  sortable: true }
   ]  
   
   const filters = ref({
+    dateTo: null,
     schoolgroup: null, 
-    schoolId: null,
-    classId: null,
-    calendarId: null,
-    teacherId:null,
-    subjectId: null,
-    dateFrom: null,
-    dateTo: null
+    schoolId: null
   });
 
   const refetchData = () => {
     refAttendanceListTable.value.refresh()
   }
 
-  const fetchAttendances = (ctx) => {
-  
-    let dateF = filters.value.dateFrom !== null ? String(filters.value.dateFrom) + " 00:00:00" : null;
+  const fetchAttendances = (ctx) => { 
+   
     let dateT = filters.value.dateTo !== null ? String(filters.value.dateTo) + " 00:00:00" : null;
     isLoading.value = true;
     store
@@ -38,18 +33,16 @@ export default function useAttendanceList() {
         q: "",
         schoolgroup: filters.value.schoolgroup,
         school: filters.value.schoolId,
-        class: filters.value.classId,
-        calendar: filters.value.calendarId,
-        teacher: filters.value.teacherId,
-        subject:  filters.value.subjectId,
-        datefrom: dateF,
         dateto: dateT
       })
       .then(response => {
-        const { teacher_attendance, class_attendance, late_attendance, completeness_attendance } = response.data;
+        const { student_absence, incomplete_submission, approval_delays, late_attendance, teacher_absent, teacher_expected } = response.data;
      
-        attendanceItems.value = [ { parameter: "Teacher Attendance", value: teacher_attendance }, { parameter: "Class Attendance", value: class_attendance }, 
-        { parameter: "Late Attendance", value: late_attendance },{ parameter: "Attendance Completeness", value: completeness_attendance }   ];
+        attendanceItems.value = [ 
+          { parameter: "Student Absence", value: student_absence, expected: "0 %" }, { parameter: "Incomplete Submission", value: incomplete_submission, expected: "0 %" }, 
+          { parameter: "Attendance Approval Delays", value: approval_delays, expected: "0 %" },{ parameter: "Late Attendance(s)", value: late_attendance, expected: "0 %" }, 
+          { parameter: "Teacher Subject-Class Absence", value: teacher_absent, expected: teacher_expected } 
+        ];
         
         isLoading.value = false;   
 

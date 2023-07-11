@@ -24,7 +24,10 @@ export const resolveHorizontalNavMenuItemComponent = item => {
 
 export const checkPermmission = item => {
     const user = getUserData()
-    return item.includes(user.role)
+    if (item && item.length > 0){
+        return item.includes(user.role)
+    }    
+    return true
 }
 
 

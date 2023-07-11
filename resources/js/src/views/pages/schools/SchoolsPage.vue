@@ -369,9 +369,9 @@
       } = useSchoolList( schoolOwner );
 
       if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
-          filters.value.schoolgroup = findIfTeacherisPresent && teacherData.value ? null : null;
-          filters.value.schoolgroup = findIfPrinisPresent && teacherData.value ? null : null;
-          filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
+          //filters.value.schoolgroup = findIfTeacherisPresent && teacherData.value ? null : null;
+          filters.value.schoolid = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
+          filters.value.schoolgroup = (findIfPropisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
       }
   
       return {
