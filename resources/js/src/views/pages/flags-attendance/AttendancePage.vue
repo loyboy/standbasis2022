@@ -7,8 +7,8 @@
                 @reset.prevent="resetForm"
               >
         <b-card-body> 
-          <b-row>
-                  <b-col cols="12" md="12"  class="mb-md-0 mb-2" v-if=" userData.role === 'supervisor' ">
+          <b-row  v-if=" userData.role === 'supervisor' ">
+                  <b-col cols="12" md="12"  class="mb-md-0 mb-2">
                     <b-form-group label="Select School Group" label-for="schoolgroup">
                       <b-form-select
                         v-model="filters.schoolgroup"
@@ -39,10 +39,10 @@
             <b-col
               cols="12"
               md="12"
-              class="mb-md-0 mb-2 mx-4"
+              class="mb-md-0 mb-2 mx-6"
               v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
             >
-              <label>Date in School</label>
+              <label>Date Of Attendance</label>
               <b-form-datepicker
                         id="to"
                         v-model="filters.dateTo"
@@ -52,6 +52,34 @@
                       />
             </b-col>
           </b-row>      
+
+          <b-row class="filter-padding">
+            <b-col
+              cols="12"
+              md="6"
+              class="mb-md-0 mb-2"
+            >
+                  <b-button variant="success" class="mr-2 col-md-12" type="submit">
+                    Filter Flags Page
+                  </b-button>                  
+            </b-col>
+
+            <b-col
+              cols="12"
+              md="6"
+              class="mb-md-0 mb-2"
+            >
+                  <b-button
+                        type="button"
+                        class="mr-2 col-md-12"
+                        variant="dark"
+                        @click="reset"
+                      >
+                        Reset
+                  </b-button>
+
+            </b-col>
+          </b-row>
 
         </b-card-body>
 
@@ -400,7 +428,7 @@
   }
   </script>
   
-  <style lang="scss" scoped>
+  <style lang="scss">
   .per-page-selector {
     width: 90px;
   }

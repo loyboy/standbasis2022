@@ -15,9 +15,14 @@ export default function useAttendanceList() {
   ]  
   
   const filters = ref({
-    dateTo: null,
+    dateTo: new Date().toISOString().slice(0, 10),
     schoolgroup: null, 
-    schoolId: null
+    schoolId: null,
+    classId: null,//unused
+    calendarId: null,
+    teacherId:null,//unused
+    subjectId: null,//unused
+    dateFrom: null//unused
   });
 
   const refetchData = () => {
@@ -25,7 +30,7 @@ export default function useAttendanceList() {
   }
 
   const fetchAttendances = (ctx) => { 
-   
+    let dateF = filters.value.dateFrom !== null ? String(filters.value.dateFrom) + " 00:00:00" : null;
     let dateT = filters.value.dateTo !== null ? String(filters.value.dateTo) + " 00:00:00" : null;
     isLoading.value = true;
     store
@@ -33,6 +38,11 @@ export default function useAttendanceList() {
         q: "",
         schoolgroup: filters.value.schoolgroup,
         school: filters.value.schoolId,
+        class: filters.value.classId,
+        calendar: filters.value.calendarId,
+        teacher: filters.value.teacherId,
+        subject:  filters.value.subjectId,
+        datefrom: null,
         dateto: dateT
       })
       .then(response => {
@@ -41,14 +51,14 @@ export default function useAttendanceList() {
         attendanceItems.value = [ 
           { parameter: "Student Absence", value: student_absence, expected: "0 %" }, { parameter: "Incomplete Submission", value: incomplete_submission, expected: "0 %" }, 
           { parameter: "Attendance Approval Delays", value: approval_delays, expected: "0 %" },{ parameter: "Late Attendance(s)", value: late_attendance, expected: "0 %" }, 
-          { parameter: "Teacher Subject-Class Absence", value: teacher_absent, expected: teacher_expected } 
+          { parameter: "Teacher Subject-Class Absence", value: teacher_absent, expected: teacher_expected + " Classes" } 
         ];
         
         isLoading.value = false;   
 
       })
       .catch((e) => {
-        console.log("Fetch Attendances M&E error: " + e);
+        console.log("Fetch Attendances Flags error: " + e);
         isLoading.value = false;   
       })
   }

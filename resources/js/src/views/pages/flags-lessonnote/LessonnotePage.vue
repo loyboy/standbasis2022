@@ -20,11 +20,11 @@
                   </b-col>
           </b-row>
  
-          <b-row>
+          <b-row> 
 
             <b-col
               cols="12"
-              md="4"
+              md="12"
               class="mb-md-0 mb-2"
               v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' "
             >
@@ -37,45 +37,13 @@
                 class="w-100"               
                 :reduce="(val) => val.value"      
               />
-            </b-col>
-
-            <b-col
-              cols="12"
-              md="4"
-              class="mb-md-0 mb-2"
-              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' || userData.role === 'supervisor' "
-            >
-              <label>Teacher</label>
-              <v-select
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                v-model="filters.teacherId"
-                :options="teacherOptions"
-                class="w-100"              
-                :reduce="(val) => val.value"
-              />
-            </b-col>
-
-            <b-col
-              cols="12"
-              md="4"
-              class="mb-md-0 mb-2"
-              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
-            >
-              <label>Class</label>
-              <v-select
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                v-model="filters.classId"
-                :options="classOptions"
-                class="w-100"
-                :reduce="(val) => val.value"
-              />
-            </b-col>
+            </b-col>      
 
             <hr /> 
 
             <b-col
               cols="12"
-              md="4"
+              md="12"
               class="mb-md-0 mb-2"
               v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
             >
@@ -89,25 +57,11 @@
               />
             </b-col>
 
-            <b-col
-              cols="12"
-              md="4"
-              class="mb-md-0 mb-2"
-              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
-            >
-              <label>Subject</label>
-              <v-select
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                v-model="filters.subjectId"
-                :options="subjectOptions"
-                class="w-100"
-                :reduce="(val) => val.value"
-              />
-            </b-col>
+            <hr /> 
 
             <b-col
               cols="12"
-              md="4"
+              md="12"
               class="mb-md-0 mb-2"
               v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
             >
@@ -119,39 +73,7 @@
                 class="w-100"
                 :reduce="(val) => val.value"
               />
-            </b-col>
-
-            <b-col
-              cols="12"
-              md="6"
-              class="mb-md-0 mb-2"
-              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
-            >
-              <label>Date To</label>
-              <b-form-datepicker
-                        id="to"
-                        v-model="filters.dateTo"
-                        placeholder="Choose a date"
-                        local="en"
-                        initial-date="2023-01-01"
-                      />
-            </b-col>
-
-            <b-col
-              cols="12"
-              md="6"
-              class="mb-md-0 mb-2"
-              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
-            >
-              <label>Date From</label>
-              <b-form-datepicker
-                        id="to"
-                        v-model="filters.dateFrom"
-                        placeholder="Choose a date"
-                        local="en"
-                        initial-date="2023-01-01"
-                      />
-            </b-col>
+            </b-col>          
 
           </b-row>
 
@@ -162,7 +84,7 @@
               class="mb-md-0 mb-2"
             >
                   <b-button variant="success" class="mr-2 col-md-12" type="submit">
-                    Filter M & E Page
+                    Filter Flags Page
                   </b-button>                  
             </b-col>
 
@@ -330,6 +252,15 @@
       }
     },
 
+    mounted(){
+        if(this.userData.role !== "proprietor"){
+            console.log("School id " + this.teacherData.school.schId )
+            setTimeout(() => {
+                this.loadOtherValues( this.teacherData.school.schId );
+            },900);        
+        }
+    },
+
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
       const Lessonnote_APP_STORE_MODULE_NAME = 'app-LessonnoteMNE';
@@ -405,10 +336,6 @@
 
       onMounted(async () => {
         fetchLessonnotes();
-
-        if (!findIfPropisPresent){
-           await loadOtherValues( teacherData.value.school.schId );
-        }
       })
       
       return {
@@ -427,6 +354,7 @@
         schoolGroupOptions,
 
         userData,
+        teacherData,
 
         lessonnoteItems
 
@@ -526,9 +454,13 @@
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
-                sef.calendarOptions.push( { value: obj.CalendarId , label: obj.session + ' ' + obj.term + ' Term'} )
+                if (obj.term !== -99){
+                  sef.calendarOptions.push( { value: obj.CalendarId , label: obj.session + ' ' + obj.term + ' Term'} );
+                }
               });             
             });
+
+
     
       },
 
@@ -554,15 +486,23 @@
         });
 
       }
+
     }
 
 
   }
   </script>
   
-  <style lang="scss" scoped>
+  <style lang="scss">
   .per-page-selector {
     width: 90px;
+  }
+
+  .tdBlue {
+    background: #17375e repeat;
+    width: 40%;
+    color: #fff;
+    text-align: center;
   }
   </style>
   
