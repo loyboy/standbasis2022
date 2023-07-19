@@ -67,42 +67,44 @@ export default function useLessonnoteList() {
         
         isLoading.value = false;   
 
+        store
+        .dispatch('app-LessonnoteMNE/fetchLessonnotesStudents', {
+          q: "",
+          schoolgroup: filters.value.schoolgroup,
+          school: filters.value.schoolId,
+          class: filters.value.classId,
+          week: filters.value.week,
+          calendar: filters.value.calendarId,
+          student: null,
+          subject:  filters.value.subjectId,
+          datefrom: dateF,
+          dateto: dateT
+        })
+        .then(response => {
+          const { student_homework, student_classwork , student_test , students } = response.data;
+       
+          lessonnoteItems.value = [
+            { parameter: "LN assessment bad performance < 50% (Classwork)", value: student_classwork , expected: "0" }, 
+            { parameter: "LN assessment bad performance < 50% (Homework)", value: student_homework , expected: " 0"},
+            { parameter: "LN assessment performance < 50% (Test)", value: student_test, expected: " 0"},
+            ...lessonnoteItems.value
+          ];
+          
+          isLoading.value = false;   
+  
+        })
+        .catch((e) => {
+          console.log("Fetch Lessonnotes M&E error: " + e);
+          isLoading.value = false;   
+        })
+
       })
       .catch((e) => {
         console.log("Fetch Lessonnotes M&E error: " + e);
         isLoading.value = false;   
       })
 
-      store
-      .dispatch('app-LessonnoteMNE/fetchLessonnotesStudents', {
-        q: "",
-        schoolgroup: filters.value.schoolgroup,
-        school: filters.value.schoolId,
-        class: filters.value.classId,
-        week: filters.value.week,
-        calendar: filters.value.calendarId,
-        student: null,
-        subject:  filters.value.subjectId,
-        datefrom: dateF,
-        dateto: dateT
-      })
-      .then(response => {
-        const { student_homework, student_classwork , student_test , students } = response.data;
      
-        lessonnoteItems.value = [
-          { parameter: "LN assessment bad performance < 50% (Classwork)", value: student_classwork , expected: "0" }, 
-          { parameter: "LN assessment bad performance < 50% (Homework)", value: student_homework , expected: " 0"},
-          { parameter: "LN assessment performance < 50% (Test)", value: student_test, expected: " 0"},
-          ...lessonnoteItems.value
-        ];
-        
-        isLoading.value = false;   
-
-      })
-      .catch((e) => {
-        console.log("Fetch Lessonnotes M&E error: " + e);
-        isLoading.value = false;   
-      })
   }
 
   const handleChange = () => {
