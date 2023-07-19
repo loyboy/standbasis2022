@@ -110,7 +110,7 @@
               <!-- Column: Value -->
               <template #cell(value)="data">
                 <div>
-                  {{ String( data.item.value ) }} %
+                  {{ String( data.item.value ) }}
                 </div>               
               </template>
 

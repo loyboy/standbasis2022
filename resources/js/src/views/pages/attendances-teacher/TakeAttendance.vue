@@ -271,6 +271,7 @@
       const userData = ref({});
     //  const camera = ref(null);
       const teacherData = ref({});
+      const dayData = ref([ "Monday", "Tuesday" , "Wednesday" , "Thursday" , "Friday" ]);
       const attendanceOptions = ref([  { value: null, text: "Please select Attendance for you" } ]);
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
@@ -312,7 +313,16 @@
         }  
         let diffInMilliseconds = Math.round(date2 - date1);
         console.log("DiffinMilliseconds: "+ diffInMilliseconds);
-        return diffInMilliseconds <= 7200000; // 2700000 milliseconds = 45 minutes
+        return diffInMilliseconds <= 7200000; 
+      }
+
+      const isWithinfourfiveMinutes = (date1, date2) => {
+        if (date2 < date1) {
+          return false;
+        }  
+        let diffInMilliseconds = Math.round(date2 - date1);
+        console.log("DiffinMilliseconds: "+ diffInMilliseconds);
+        return diffInMilliseconds <= 2700000; // 2700000 milliseconds = 45 minutes
       }
 
       //
@@ -329,19 +339,19 @@
 
           setTimeout(() => {
             attendanceItems.value.forEach(obj => {
-                let splitTime = String(obj.timetable.time_of).split(":")
-                let targetTime = new Date();
-                targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );
-                if ( isWithinOneHour( targetTime, new Date() ) ) {                    
+              //  let splitTime = String(obj.timetable.time_of).split(":")
+              //  let targetTime = new Date();
+               // targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );
+               // if ( isWithinOneHour( targetTime, new Date() ) ) {                    
                     let done = obj.done === 0 ? "NOT DONE" : "CONCLUDED"
-                    let labeltosee = obj.timetable.subject.name + "-" + obj.timetable.time_of + "-" + done
-                    let valuetosee = obj.timetable.class_stream.clsId + "!" + obj.attId + "!" + obj.timetable.class_stream.title + "!" + obj.timetable.time_of
+                    let labeltosee = obj.timetable.subject.name + "-" + obj.timetable.time_of + String().toUpperCase( dayData.value[ obj.timetable.day_of ] ) + "-" + done
+                    let valuetosee = obj.timetable.class_stream.clsId + "!" + obj.attId + "!" + obj.timetable.class_stream.title + "!" + obj.timetable.time_of +  "!"  + obj._date
                     attendanceOptions.value.push( { value: valuetosee , text: labeltosee } )
-                } else {
+              /*  } else {
                   return;
-                }                
+                }  */              
             });
-          }, 2000)          
+          }, 900)          
       })
       
       return {
@@ -382,10 +392,9 @@
 
           let splitTime = String( attId[3] ).split(":"); // Timing from Database
           let targetTime = new Date();
-          targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );
-       
+          targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );       
 
-          let the_timing =  this.isWithinTenMinutes( targetTime, new Date() ) ? 100 : 50; 
+          let the_timing =  this.isWithinTenMinutes( targetTime, new Date() ) ? 100 : this.isWithinfourfiveMinutes( targetTime, new Date() ) ? 50 : 0; 
           let the_completeness = (this.imageFile !== null) ? 100 : 50;
 
           let newRowData = this.rowcallData.map((row) => { 
@@ -445,24 +454,42 @@
       
       beginAttendance() {      
         const sef = this; 
-        if (this.filters.attId !== null && this.filters.attId !== ""){            
-            this.takeAttendance = true;
+        if (this.filters.attId !== null && this.filters.attId !== ""){    
+
+           //
             let classId = String(this.filters.attId).split("!");
+
+            let timeOfAtt = classId[3];  
+            let dateOfAtt = classId[4]; 
+            let splitTime = String( timeOfAtt ).split(":");
+
+            let targetTime = new Date( dateOfAtt );
+            targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );
+
+            if ( this.isWithinOneHour( targetTime, new Date() ) ) { 
+
+                this.takeAttendance = true;
+                this.isLoading = true
+                //im using only Class ID
+                store.dispatch(`${ this.Attendance_APP_STORE_MODULE_NAME }/fetchEnrollments`, { id : Number(classId[0]) })
+                .then(response => { 
+                  let myval = response.data.data;
+                  myval.forEach( (obj,i) => {
+                    let index = i;
+                    sef.rowcallData.push( { index: Number(index+1) , pupil_fullname: obj.student.name, status: true, remark: "", stu_id: obj.student.pupId, att_id: Number(classId[1])  } )
+                  }); 
+                  sef.isLoading = false            
+                });  
+
+            }
             
-            this.isLoading = true
-            //im using only Class ID
-            store.dispatch(`${ this.Attendance_APP_STORE_MODULE_NAME }/fetchEnrollments`, { id : Number(classId[0]) })
-            .then(response => { 
-              let myval = response.data.data;
-              myval.forEach( (obj,i) => {
-                let index = i;
-                sef.rowcallData.push( { index: Number(index+1) , pupil_fullname: obj.student.name, status: true, remark: "", stu_id: obj.student.pupId, att_id: Number(classId[1])  } )
-              }); 
-              sef.isLoading = false            
-            });          
+            else{
+              alert("Sorry 🙁, you do not have any class this period!! ")
+            }
+                   
         }
         else{
-          alert("You have not selected an Attendance!")
+            alert("You have not selected an Attendance!")
         }
       },
 

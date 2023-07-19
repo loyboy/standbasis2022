@@ -46,12 +46,16 @@ export default function useAttendanceList() {
         dateto: dateT
       })
       .then(response => {
-        const { student_absence, incomplete_submission, approval_delays, late_attendance, teacher_absent, teacher_expected } = response.data;
+        const { student_absence, queried_attendance, approval_delays, approval_done, late_attendance, void_attendance, student_excused_absence, endorsement_expected, teacher_absent, teacher_expected, student_expected } = response.data;
      
         attendanceItems.value = [ 
-          { parameter: "Student Absence", value: student_absence, expected: "0 %" }, { parameter: "Incomplete Submission", value: incomplete_submission, expected: "0 %" }, 
-          { parameter: "Attendance Approval Delays", value: approval_delays, expected: "0 %" },{ parameter: "Late Attendance(s)", value: late_attendance, expected: "0 %" }, 
-          { parameter: "Teacher Subject-Class Absence", value: teacher_absent, expected: teacher_expected + " Classes" } 
+         
+          { parameter: "Total number of classes", value: ( Number(teacher_expected) - Number(teacher_absent) ), expected: teacher_expected } ,
+          { parameter: "Student Attendance", value: student_absence, expected: student_expected }, { parameter: "Late Attendance", value: late_attendance, expected: "0" }, 
+          { parameter: "Voided Attendance", value: void_attendance, expected: "0" }, { parameter: "No Attendance Submission", value: teacher_absent, expected: "0" }, 
+          { parameter: "Excused Absence", value: student_excused_absence, expected: "0" }, { parameter: "Attendance Endorsement", value: approval_done, expected: endorsement_expected },
+          { parameter: "Late Attendance Endorsement", value: approval_delays, expected: "0" },  { parameter: "Queried Attendance", value: queried_attendance, expected: "0" }
+        
         ];
         
         isLoading.value = false;   

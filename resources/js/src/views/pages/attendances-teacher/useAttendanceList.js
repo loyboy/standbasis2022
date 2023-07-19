@@ -22,7 +22,7 @@ export default function useAttendanceList() {
         })
         .then(response => {
           
-          const { attendances, amount } = response.data;
+          const { attendances, amount } = response.data; 
       
           attendanceItems.value = attendances
           

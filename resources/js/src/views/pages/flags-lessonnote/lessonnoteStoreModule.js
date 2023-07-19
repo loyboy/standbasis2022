@@ -16,6 +16,14 @@ export default {
                     .catch(error => reject(error))
             }) 
         },
+        fetchLessonnotesStudents(ctx, queryParams) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/lessonnote/mneStudents', { params: queryParams })
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            }) 
+        },
         fetchSchoolGroups(ctx) {
             return new Promise((resolve, reject) => {
                 axios

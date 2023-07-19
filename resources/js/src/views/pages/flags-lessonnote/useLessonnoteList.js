@@ -49,15 +49,52 @@ export default function useLessonnoteList() {
         dateto: dateT
       })
       .then(response => {
-        const { teacher_submitted, teacher_late_closure , teacher_bad_cycles , principal_no_approval , principal_late_approval } = response.data;
+        const { total_lessonnotes, teacher_submitted, teacher_late_submitted , 
+                teacher_late_approval , teacher_no_approval , teacher_queried , 
+                teacher_bad_cycles , teacher_late_closure , teacher_no_closure
+              } = response.data;
      
-        lessonnoteItems.value = [ 
-        { parameter: "Total Submitted Lessonnote", value: teacher_submitted , expected: " 100 %" }, 
-        { parameter: "Lessonnote Late Closure", value: teacher_late_closure,expected: " 0 %" }, 
-        { parameter: "Lessonnote Bad Cycles", value: teacher_bad_cycles , expected: " 0 %"},
-        { parameter: "Lessonnote No Approvals (Principal)", value: principal_no_approval, expected: " 0 %"},
-        { parameter: "Lessonnote Late Approvals (Principal)", value: principal_late_approval, expected: " 0 %"}
+      lessonnoteItems.value = [ 
+        { parameter: "LN Submitted", value: teacher_submitted  , expected: total_lessonnotes }, 
+        { parameter: "LN Late Submission", value: teacher_late_submitted , expected: "0" }, 
+        { parameter: "LN Late Approval", value: teacher_late_approval , expected: "0"},
+        { parameter: "LN No Approval", value: teacher_no_approval , expected: "0"},
+        { parameter: "LN Queried", value: teacher_queried, expected: "0"},
+        { parameter: "LN With Quality Issues", value: teacher_bad_cycles, expected: "0"},
+        { parameter: "LN Late Closure", value: teacher_late_closure, expected: "0"},
+        { parameter: "LN No Closure", value: teacher_no_closure, expected: "0"}
       ];
+        
+        isLoading.value = false;   
+
+      })
+      .catch((e) => {
+        console.log("Fetch Lessonnotes M&E error: " + e);
+        isLoading.value = false;   
+      })
+
+      store
+      .dispatch('app-LessonnoteMNE/fetchLessonnotesStudents', {
+        q: "",
+        schoolgroup: filters.value.schoolgroup,
+        school: filters.value.schoolId,
+        class: filters.value.classId,
+        week: filters.value.week,
+        calendar: filters.value.calendarId,
+        student: null,
+        subject:  filters.value.subjectId,
+        datefrom: dateF,
+        dateto: dateT
+      })
+      .then(response => {
+        const { student_homework, student_classwork , student_test , students } = response.data;
+     
+        lessonnoteItems.value = [
+          { parameter: "LN assessment bad performance < 50% (Classwork)", value: student_classwork , expected: "0" }, 
+          { parameter: "LN assessment bad performance < 50% (Homework)", value: student_homework , expected: " 0"},
+          { parameter: "LN assessment performance < 50% (Test)", value: student_test, expected: " 0"},
+          ...lessonnoteItems.value
+        ];
         
         isLoading.value = false;   
 
