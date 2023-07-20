@@ -73,7 +73,7 @@
                         type="button"
                         class="mr-2 col-md-12"
                         variant="dark"
-                        @click="reset"
+                      
                       >
                         Reset
                   </b-button>
