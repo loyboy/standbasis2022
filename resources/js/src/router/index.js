@@ -705,6 +705,38 @@ const router = new VueRouter({
             }
         },
 
+         //Attendances M&E begin here
+         {
+            path: '/mne-attendances-list',
+            name: 'mne-attendances-home',
+            component: () =>
+                import ('@/views/pages/mne-attendance/ListPage.vue'),
+            meta: {
+                pageTitle: 'MNE Attendances',
+                breadcrumb: [{
+                        text: 'Filter & View',
+                        active: true
+                    }
+                ]
+            }
+        },
+
+        //Lessonnotes M&E begin here
+        {
+            path: '/mne-lessonnotes-list',
+            name: 'mne-lessonnotes-home',
+            component: () =>
+                import ('@/views/pages/mne-lessonnote/ListPage.vue'),
+            meta: {
+                pageTitle: 'MNE Lessonnotes',
+                breadcrumb: [{
+                        text: 'Filter & View',
+                        active: true
+                    }
+                ]
+            }
+        },
+
          //Evaluation begin here
         {
             path: '/evaluation-home',
