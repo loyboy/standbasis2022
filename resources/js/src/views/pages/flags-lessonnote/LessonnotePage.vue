@@ -97,7 +97,7 @@
                         type="button"
                         class="mr-2 col-md-12"
                         variant="dark"
-                        @click="reset"
+                       
                       >
                         Reset
                   </b-button>
@@ -260,11 +260,11 @@
             },900);  
             
             setTimeout(() => {
-               this.filters.calendarId = this.calendarOptions[0];  
-               this.filters.week =   this.weekOptions[0];
+               this.filters.calendarId = this.calendarOptions[0].value;  
+               this.filters.week =   this.weekOptions[0].value;
                this.handleChange()
                
-            },1200); 
+            },1500); 
               
         }
     },
@@ -373,9 +373,7 @@
 
       reset(){
 
-        this.teacherOptions = [
-          { value: null, label: "Please select Teacher" }
-        ]
+       
 
         this.classOptions = [
           { value: null, label: "Please select Class" }
@@ -396,7 +394,7 @@
          this.filters.schoolgroup = null;
          this.filters.schoolId = null;
          this.filters.classId = null;
-         this.filters.teacherId = null;
+       
          this.filters.calendarId = null;
          this.filters.subjectId = null;
          this.filters.week = null;        
