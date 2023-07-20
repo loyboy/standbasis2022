@@ -119,9 +119,9 @@
         </b-card-body>
 
       </b-form>
-  
+        
       <!-- Table Container Card -->
-     <b-card-code title="Filtered M&E Results" class="my-4 mx-1">
+      <b-card-code title="Filtered M&E Results" class="my-4 mx-1">
 
             <b-table            
               class="position-relative"
@@ -453,7 +453,6 @@
         },
 
         changeSchoolCalendar(value){
-
             const sef = this;
             sef.isLoading = true;
 

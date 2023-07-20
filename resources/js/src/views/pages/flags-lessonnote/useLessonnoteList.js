@@ -55,7 +55,7 @@ export default function useLessonnoteList() {
               } = response.data;
      
       lessonnoteItems.value = [ 
-        { parameter: "LN Submitted", value: teacher_submitted  , expected: total_lessonnotes }, 
+        { parameter: "Total Lessonsnote (LN) Submission", value: teacher_submitted  , expected: total_lessonnotes }, 
         { parameter: "LN Late Submission", value: teacher_late_submitted , expected: "0" }, 
         { parameter: "LN Late Approval", value: teacher_late_approval , expected: "0"},
         { parameter: "LN No Approval", value: teacher_no_approval , expected: "0"},
@@ -85,9 +85,9 @@ export default function useLessonnoteList() {
        
           lessonnoteItems.value = [
             ...lessonnoteItems.value,
-            { parameter: "LN assessment bad performance < 50% (Classwork)", value: student_classwork , expected: "0" }, 
-            { parameter: "LN assessment bad performance < 50% (Homework)", value: student_homework , expected: "0"},
-            { parameter: "LN assessment performance < 50% (Test)", value: student_test, expected: "0"}            
+            { parameter: "LN assessment performance: < 50% (Classwork)", value: student_classwork , expected: "0" }, 
+            { parameter: "LN assessment performance: < 50% (Homework)", value: student_homework , expected: "0"},
+            { parameter: "LN assessment performance: < 50% (Test)", value: student_test, expected: "0"}            
           ];
           
           isLoading.value = false;   
