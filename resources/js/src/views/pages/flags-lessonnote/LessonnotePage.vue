@@ -256,8 +256,16 @@
         if(this.userData.role !== "proprietor"){
             console.log("School id " + this.teacherData.school.schId )
             setTimeout(() => {
-                this.loadOtherValues( this.teacherData.school.schId );
-            },900);        
+                this.loadOtherValues( this.teacherData.school.schId );              
+            },900);  
+            
+            setTimeout(() => {
+               this.filters.calendarId = this.calendarOptions[0];  
+               this.filters.week =   this.weekOptions[0];
+               this.handleChange()
+               
+            },1200); 
+              
         }
     },
 
