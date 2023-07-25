@@ -34,7 +34,7 @@
 
       </b-form>
 
-      <div class="row" v-if=" takeAttendance === true ">
+      <div class="row" v-if=" takeAttendance === true "> 
         <b-col lg="8" sm="12">
 
               <b-table
@@ -415,7 +415,7 @@
          
            setTimeout(() => {      
               store.dispatch(`${ this.Attendance_APP_STORE_MODULE_NAME }/updateAttendance`, { 
-              attendance : { period : "", done: 1 },
+              attendance : { period : "", done: the_timing === 100 ? 1 : the_timing === 50 ? 2 : the_timing === 0 ? -1 : 0 },
               id: Number(attId[1]),              
               management : { timing: the_timing, class_perf: the_classperf, completeness: the_completeness, score:  Math.round( (the_timing + the_completeness) / 2 ) , action: 0 },
               activity: { activity: "Expected to approve/query Attendance", slip: 0 }
