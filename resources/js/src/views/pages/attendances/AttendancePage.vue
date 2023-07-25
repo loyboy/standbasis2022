@@ -347,7 +347,7 @@
               >
                 {{ data.item.done === 1 ? "Done" : data.item.done === 0 ? "Not Done" : data.item.done === 2 ? "Late" : data.item.done === -1 ? "Voided" : "Nil"  }}
               </b-badge>
-            </template>
+            </template> 
     
             <!-- Column: Actions -->
             <template #cell(actions)="data" >

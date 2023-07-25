@@ -199,6 +199,7 @@
       
       const userData = ref({});
       const teacherData = ref({});
+      const classIndexData = ref({ 7 : "JSS1" , 8: "JSS2" , 9 : "JSS3" , 10 : "SS1" , 11: "SS2", 12: "SS3" });
       const lessonnoteOptions = ref([  { value: null, text: "Please select Lessonnote you wish to submit" } ]);
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
@@ -253,7 +254,7 @@
               LessonnoteItems.value.forEach(obj => {
                   let done = obj.submission === null ? "NOT DONE" : obj.resubmission !== null ? "RE-SUBMITTED" : obj.revert !== null ? "REVERTED" : "SUBMITTED"
                   let delayed = obj.delaythis === 1 ? done + "-DELAYED" : done;
-                  let labeltosee = obj.subject.name + "-" + "Week-" + obj.week + "-" + obj.calendar.session + "-" + delayed
+                  let labeltosee = obj.subject.name + "-" + "Week-" + obj.week + "-" + obj.calendar.session  + "-" + classIndexData.value[obj.class_index] + "-" + delayed
                   let valuetosee =  obj.lessonnoteId 
                   lessonnoteOptions.value.push( { value: valuetosee , text: labeltosee } )
               });
