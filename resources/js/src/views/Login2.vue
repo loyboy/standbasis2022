@@ -179,6 +179,7 @@ export default {
                             permissions: JSON.parse(res.permissions),
                             email: res.email,
                             data_id: res.data_id,
+                            code: res.code ? res.code : null,
                             sch_id: res.school_id ? res.school_id : null,
                             school_date: res.school_date,
                             role: res.role,

@@ -427,7 +427,7 @@
                 :variant="`light-${resolveLessonnotestatusVariant( data.item.resubmission != null && data.item.revert == null && data.item.approval == null ? 2 : data.item.revert != null ? -1 : data.item.approval != null ? 1 : data.item.closure != null ? 3 : data.item.launch != null ? 0 : 2  )}`"
                 class="text-capitalize"
                 >      
-                   {{  data.item.resubmission != null && data.item.approval == null && data.item.revert == null ? "Re-submitted" : data.item.submission != null && data.item.revert == null && data.item.approval == null ? "Submitted" : data.item.revert != null ? "Reverted" : data.item.approval != null ? "Approved" : data.item.closure != null ? "Closed" : data.item.launch != null ? "Launched" : "Queued" }}
+                   {{  data.item.resubmission != null && data.item.approval == null && data.item.revert == null ? "Re-submitted" : data.item.submission != null && data.item.revert == null && data.item.approval == null ? getStatusOfLessonnote("submission",data.item.expected_submission,data.item.submission ) : data.item.revert != null ? "Reverted" : data.item.approval != null ? "Approved" : data.item.closure != null ? getStatusOfLessonnote("closure",data.item.expected_submission,data.item.closure ) : data.item.launch != null ? "Launched" : "Queued" }}
                 </b-badge>
              </template>
 
@@ -447,7 +447,7 @@
               >
                 {{ data.item.calendar.term === 1 ? "1st Term" : data.item.calendar.term === 2 ? "2nd Term" : data.item.calendar.term === 3 ? "3rd Term" : " "  }}
               </b-badge>
-            </template>
+            </template> 
     
             <!-- Column: Actions -->
             <template #cell(actions)="data">
@@ -968,887 +968,920 @@
   </template>
   
   <script>
-  import {
-    BCard,
-    BRow,
-    BCol,
-    BFormCheckbox,
-    BFormInput,
-    BFormGroup,
-    BModal,
-    BButton,
-    BSpinner,
-    BTable,
-    BSidebar,
-    BForm,
-    BMedia,
-    BAvatar,
-    BFormSelect,
-    BFormTags,
-    BCardText,
-    BFormDatepicker,
-    BLink,
-    BBadge,
-    BDropdown,
-    BDropdownItem,
-    BPagination,
-  } from 'bootstrap-vue';
-  import Ripple from 'vue-ripple-directive'
-  import StatisticCardHorizontal from "@core/components/statistics-cards/StatisticCardHorizontal.vue";
-  import vSelect from 'vue-select'
-  //import router from '@/router'
+      import {
+        BCard,
+        BRow,
+        BCol,
+        BFormCheckbox,
+        BFormInput,
+        BFormGroup,
+        BModal,
+        BButton,
+        BSpinner,
+        BTable,
+        BSidebar,
+        BForm,
+        BMedia,
+        BAvatar,
+        BFormSelect,
+        BFormTags,
+        BCardText,
+        BFormDatepicker,
+        BLink,
+        BBadge,
+        BDropdown,
+        BDropdownItem,
+        BPagination,
+      } from 'bootstrap-vue';
+      import Ripple from 'vue-ripple-directive'
+      import StatisticCardHorizontal from "@core/components/statistics-cards/StatisticCardHorizontal.vue";
+      import vSelect from 'vue-select'
+      //import router from '@/router'
 
-  import axios from "axios";
-  import jwtHeader from "@core/services/jwt-header";
-  import store from '@/store'
-  import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
-  import { $themeConfig } from "@themeConfig";
-  //import { avatarText } from '@core/utils/filter'
-  import formValidation from '@core/comp-functions/forms/form-validation'
-  // Notification
-  import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
-  import useLessonnoteList from './useLessonnoteList'
-  import lessonnoteStoreModule from './lessonnoteStoreModule'
-  
-  export default {
-    components: {
-    
-      StatisticCardHorizontal,
-      BCard,
-      BRow,
-      BCol,
-      BFormCheckbox,
-      BFormInput,
-      BFormGroup,
-      BModal,
-      BButton,
-      BSpinner,
-      BTable,
-      BSidebar,
-      BForm,
-      BFormTags,
-      BMedia,
-      BAvatar,
-      BFormSelect,
-      BCardText,
-      BFormDatepicker,
-      BLink,
-      BBadge,
-      BDropdown,
-      BDropdownItem,
-      BPagination,
-  
-      vSelect
-    },
-
-    directives: {
-      Ripple
-    },
-
-    data() {
+      import axios from "axios";
+      import jwtHeader from "@core/services/jwt-header";
+      import store from '@/store'
+      import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
+      import { $themeConfig } from "@themeConfig";
+      //import { avatarText } from '@core/utils/filter'
+      import formValidation from '@core/comp-functions/forms/form-validation'
+      // Notification
+      import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+      import useLessonnoteList from './useLessonnoteList'
+      import lessonnoteStoreModule from './lessonnoteStoreModule'
       
-      let teacherOptions = [
-       // { value: null, text: "Please select Teacher" }
-      ]
-
-      let classOptions = [
-       // { value: null, text: "Please select Class" }
-      ]
-
-      let calendarOptions = [
-       // { value: null, text: "Please select Calendar" }
-      ]
-
-      let weekOptions = [
-       // { value: null, text: "Please select a Week" }
-      ]
-
-      let subjectOptions = [
-        //{ value: null, text: "Please select a Subject" }
-      ]
-
-      let statusOptions = [
-       // { value: null, text: "Please select a Status" }
-      ]
-
-      let grammarOptions = [
-        { value: null, text: "Please select a Grade for Grammar" },
-        { value: 10, text: "10%" },
-        { value: 20, text: "20%" },
-        { value: 30, text: "30%" },
-        { value: 40, text: "40%" },
-        { value: 50, text: "50%" },
-        { value: 60, text: "60%" },
-        { value: 70, text: "70%" },
-        { value: 80, text: "80%" },
-        { value: 90, text: "90%" },
-        { value: 100, text: "100%" }
-      ]
-
-      let arrangementOptions = [
-        { value: null, text: "Please select a Grade for Arrangement" },
-        { value: 10, text: "10%" },
-        { value: 20, text: "20%" },
-        { value: 30, text: "30%" },
-        { value: 40, text: "40%" },
-        { value: 50, text: "50%" },
-        { value: 60, text: "60%" },
-        { value: 70, text: "70%" },
-        { value: 80, text: "80%" },
-        { value: 90, text: "90%" },
-        { value: 100, text: "100%" }
-      ]
-
-      let modalTitle,modalTitle2  = "";
-
-      let grammar, arrangement, subjectmatter, incomplete = false;
-
-      let teacherPicked , LessonnotePicked = null;
-
-      return {  
-         quality: "",
-         sub_perf_classwork: "",
-         sub_perf_homework: "",
-         sub_perf_test: "",
-         score: "",
-
-         grammar,
-         arrangement,
-         subjectmatter,
-         incomplete,
-
-         modalTitle, 
-         modalTitle2,
-
-         teacherOptions,
-         classOptions,
-         calendarOptions,
-         weekOptions,
-         subjectOptions,
-         statusOptions,
-         grammarOptions,
-         arrangementOptions,
-
-         teacherPicked,
-         LessonnotePicked,
-
-         searchValuesCurrent: {
-            teacher: "nil",
-            class: "nil",
-            calendar: "nil",
-            week: "nil",
-            subject: "nil",
-            status: "nil"
-         }     
-      }
-    },
-
-     mounted(){
-        if(this.userData.role !== "proprietor"){
-            setTimeout(() => {
-                this.loadOtherValues( this.teacherData.school.schId );
-            },2000);        
-        }
-    },
-
-    setup() {
-      const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
-      const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
-      const { baseURL, backendURL } = $themeConfig.app;
-
-      // Register module
-      if (!store.hasModule(Lessonnote_APP_STORE_MODULE_NAME)) store.registerModule(Lessonnote_APP_STORE_MODULE_NAME, lessonnoteStoreModule)
-  
-      // UnRegister on leave
-      onUnmounted(() => {
-        if (store.hasModule(Lessonnote_APP_STORE_MODULE_NAME)) store.unregisterModule(Lessonnote_APP_STORE_MODULE_NAME)
-      })  
-      
-      const userData = ref({});
-      const teacherData = ref({});
-      const schoolOptions = ref([]);
-
-      const storedItems = JSON.parse(localStorage.getItem('userData'));
-      if (storedItems){
-        userData.value = storedItems;
-      }
-
-      const storedItems2 = JSON.parse(localStorage.getItem('teacherData'));
-      if (storedItems2){
-        teacherData.value = storedItems2;
-      }
-
-      const findIfPropisPresent = ( userData.value.role === "proprietor"  );
-      const findIfTeacherisPresent = ( userData.value.role === "teacher" );
-      const findIfPrinisPresent = ( userData.value.role === "principal" );       
-      
-      const {
-        fetchLessonnotes,
-        tableColumns,
-        tableColumnsPrincipal,
-        perPage,
-        currentPage,
+      export default {
+        components: {
         
-        totalLessonnotes,
-        totalActiveLessonnotes,
-        totalInactiveLessonnotes,
-
-        dataMeta,
-        perPageOptions,
-        searchQuery,
-        sortBy,
-        isSortDirDesc,
-        refLessonnoteListTable,
-        isLessonnoteSidebarActive,
-        isManagementSidebarActive,
-        isLoading,
-
-        refetchData,
-        handlePageChange,
-        handleChange,
-
-        // UI       
-        resolveLessonnotestatusVariant,
-        resolveLessonnotemagVariant,
-        resolveLessonnoteactionVariant,
-
-        filters,
-        LessonnoteItems,
-
-        searchValues
-
-      } = useLessonnoteList();
-
-      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
-          filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
-          filters.value.school = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
-          filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
-      }
-
-      (async function () {
-        const resp = await store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSchools`, { id : filters.value.schoolgroup });
-        let myval = resp.data.data;
-        myval.forEach(obj => {
-          schoolOptions.value.push( { value: obj.schId , text: obj.name } )
-        });
-      })();
-
-      onMounted(async () => {
-        fetchLessonnotes();        
-      })
+          StatisticCardHorizontal,
+          BCard,
+          BRow,
+          BCol,
+          BFormCheckbox,
+          BFormInput,
+          BFormGroup,
+          BModal,
+          BButton,
+          BSpinner,
+          BTable,
+          BSidebar,
+          BForm,
+          BFormTags,
+          BMedia,
+          BAvatar,
+          BFormSelect,
+          BCardText,
+          BFormDatepicker,
+          BLink,
+          BBadge,
+          BDropdown,
+          BDropdownItem,
+          BPagination,
       
-      return {
-        // Sidebar
-        isLessonnoteSidebarActive,
-        isManagementSidebarActive,
-        isLoading,
-  
-        fetchLessonnotes,
-        tableColumns,
-        tableColumnsPrincipal,
-        perPage,
-        currentPage,
+          vSelect
+        },
 
-        totalLessonnotes,
-        totalActiveLessonnotes,
-        totalInactiveLessonnotes,
+        directives: {
+          Ripple
+        },
 
-        dataMeta,
-        perPageOptions,
-        searchQuery,
-        sortBy,
-        isSortDirDesc,
-        refLessonnoteListTable,
-
-        refetchData,
-        handlePageChange,
-        handleChange,
-
-        resetForm,
-  
-        // UI
-        resolveLessonnotestatusVariant,
-        resolveLessonnotemagVariant,
-        resolveLessonnoteactionVariant,
-
-        userData,
-        teacherData,
-        schoolOptions,
-        
-        filters,
-        LessonnoteItems,
-
-        searchValues,
-        backendURL,
-        baseURL,
-        Lessonnote_APP_STORE_MODULE_NAME
-
-      }
-    },
-    methods: {
-      
-      reset(){
-          this.isLessonnoteSidebarActive = false;
+        data() {
           
-          if (this.userData.role !== "teacher"){
-            this.teacherOptions = [
-              { value: null, text: "Please select Teacher" }
-            ]
+          let teacherOptions = [
+          // { value: null, text: "Please select Teacher" }
+          ]
 
-            this.classOptions = [
-              { value: null, text: "Please select Class Type" }
-            ]
+          let classOptions = [
+          // { value: null, text: "Please select Class" }
+          ]
 
-            this.calendarOptions = [
-              { value: null, text: "Please select Calendar" }
-            ]
+          let calendarOptions = [
+          // { value: null, text: "Please select Calendar" }
+          ]
 
-            this.weekOptions = [
-              { value: null, text: "Please select a Week" }
-            ]
+          let weekOptions = [
+          // { value: null, text: "Please select a Week" }
+          ]
 
-            this.subjectOptions = [
-              { value: null, text: "Please select a Subject" }
-            ]
+          let subjectOptions = [
+            //{ value: null, text: "Please select a Subject" }
+          ]
 
-            this.statusOptions = [
-              { value: null, text: "Please select a Status" }
-            ]
+          let statusOptions = [
+          // { value: null, text: "Please select a Status" }
+          ]
+
+          let grammarOptions = [
+            { value: null, text: "Please select a Grade for Grammar" },
+            { value: 10, text: "10%" },
+            { value: 20, text: "20%" },
+            { value: 30, text: "30%" },
+            { value: 40, text: "40%" },
+            { value: 50, text: "50%" },
+            { value: 60, text: "60%" },
+            { value: 70, text: "70%" },
+            { value: 80, text: "80%" },
+            { value: 90, text: "90%" },
+            { value: 100, text: "100%" }
+          ]
+
+          let arrangementOptions = [
+            { value: null, text: "Please select a Grade for Arrangement" },
+            { value: 10, text: "10%" },
+            { value: 20, text: "20%" },
+            { value: 30, text: "30%" },
+            { value: 40, text: "40%" },
+            { value: 50, text: "50%" },
+            { value: 60, text: "60%" },
+            { value: 70, text: "70%" },
+            { value: 80, text: "80%" },
+            { value: 90, text: "90%" },
+            { value: 100, text: "100%" }
+          ]
+
+          let modalTitle,modalTitle2  = "";
+
+          let grammar, arrangement, subjectmatter, incomplete = false;
+
+          let teacherPicked , LessonnotePicked = null;
+
+          return {  
+            quality: "",
+            sub_perf_classwork: "",
+            sub_perf_homework: "",
+            sub_perf_test: "",
+            score: "",
+
+            grammar,
+            arrangement,
+            subjectmatter,
+            incomplete,
+
+            modalTitle, 
+            modalTitle2,
+
+            teacherOptions,
+            classOptions,
+            calendarOptions,
+            weekOptions,
+            subjectOptions,
+            statusOptions,
+            grammarOptions,
+            arrangementOptions,
+
+            teacherPicked,
+            LessonnotePicked,
+
+            searchValuesCurrent: {
+                teacher: "nil",
+                class: "nil",
+                calendar: "nil",
+                week: "nil",
+                subject: "nil",
+                status: "nil"
+            }     
+          }
+        },
+
+        mounted(){
+            if(this.userData.role !== "proprietor"){
+                setTimeout(() => {
+                    this.loadOtherValues( this.teacherData.school.schId );
+                },2000);        
+            }
+        },
+
+        setup() {
+          const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
+          const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
+          const { baseURL, backendURL } = $themeConfig.app;
+
+          // Register module
+          if (!store.hasModule(Lessonnote_APP_STORE_MODULE_NAME)) store.registerModule(Lessonnote_APP_STORE_MODULE_NAME, lessonnoteStoreModule)
+      
+          // UnRegister on leave
+          onUnmounted(() => {
+            if (store.hasModule(Lessonnote_APP_STORE_MODULE_NAME)) store.unregisterModule(Lessonnote_APP_STORE_MODULE_NAME)
+          })  
+          
+          const userData = ref({});
+          const teacherData = ref({});
+          const schoolOptions = ref([]);
+
+          const storedItems = JSON.parse(localStorage.getItem('userData'));
+          if (storedItems){
+            userData.value = storedItems;
           }
 
-         this.searchValuesCurrent.teacher = ""
-         this.searchValuesCurrent.class = ""
-         this.searchValuesCurrent.calendar = ""
-         this.searchValuesCurrent.subject = ""
-         this.searchValuesCurrent.week = ""
-         this.searchValuesCurrent.status = ""
+          const storedItems2 = JSON.parse(localStorage.getItem('teacherData'));
+          if (storedItems2){
+            teacherData.value = storedItems2;
+          }
 
-         this.searchValues = []
+          const findIfPropisPresent = ( userData.value.role === "proprietor"  );
+          const findIfTeacherisPresent = ( userData.value.role === "teacher" );
+          const findIfPrinisPresent = ( userData.value.role === "principal" );       
+          
+          const {
+            fetchLessonnotes,
+            tableColumns,
+            tableColumnsPrincipal,
+            perPage,
+            currentPage,
+            
+            totalLessonnotes,
+            totalActiveLessonnotes,
+            totalInactiveLessonnotes,
 
-         this.filters.schoolId = null;
-         this.filters.classIndex = null;
-         if (this.userData.role !== "teacher"){
-            this.filters.teacherId = null;
-         } 
-         this.filters.calendarId = null;
-         this.filters.subjectId = null;
-         this.filters.week = null;
-         this.filters.status = null;
-         this.filters.dateFrom = null;
-         this.filters.dateTo = null;
+            dataMeta,
+            perPageOptions,
+            searchQuery,
+            sortBy,
+            isSortDirDesc,
+            refLessonnoteListTable,
+            isLessonnoteSidebarActive,
+            isManagementSidebarActive,
+            isLoading,
 
-         this.fetchLessonnotes();
-      },
+            refetchData,
+            handlePageChange,
+            handleChange,
 
-      async loadOtherValues(value){
+            // UI       
+            resolveLessonnotestatusVariant,
+            resolveLessonnotemagVariant,
+            resolveLessonnoteactionVariant,
 
-            this.searchValues = [];
+            filters,
+            LessonnoteItems,
 
-            this.filters.classIndex = null; 
+            searchValues
+
+          } = useLessonnoteList();
+
+          if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
+              filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
+              filters.value.school = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
+              filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
+          }
+
+          (async function () {
+            const resp = await store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSchools`, { id : filters.value.schoolgroup });
+            let myval = resp.data.data;
+            myval.forEach(obj => {
+              schoolOptions.value.push( { value: obj.schId , text: obj.name } )
+            });
+          })();
+
+          onMounted(async () => {
+            fetchLessonnotes();        
+          })
+          
+          return {
+            // Sidebar
+            isLessonnoteSidebarActive,
+            isManagementSidebarActive,
+            isLoading,
+      
+            fetchLessonnotes,
+            tableColumns,
+            tableColumnsPrincipal,
+            perPage,
+            currentPage,
+
+            totalLessonnotes,
+            totalActiveLessonnotes,
+            totalInactiveLessonnotes,
+
+            dataMeta,
+            perPageOptions,
+            searchQuery,
+            sortBy,
+            isSortDirDesc,
+            refLessonnoteListTable,
+
+            refetchData,
+            handlePageChange,
+            handleChange,
+
+            resetForm,
+      
+            // UI
+            resolveLessonnotestatusVariant,
+            resolveLessonnotemagVariant,
+            resolveLessonnoteactionVariant,
+
+            userData,
+            teacherData,
+            schoolOptions,
+            
+            filters,
+            LessonnoteItems,
+
+            searchValues,
+            backendURL,
+            baseURL,
+            Lessonnote_APP_STORE_MODULE_NAME
+
+          }
+        },
+        methods: {
+
+          getStatusOfLessonnote(type, last_date, actual_date){
+            if (actual_date){
+                const last_date_ = new Date(last_date).getTime();
+                const act_date = new Date(actual_date).getTime();
+                // Add 48 hours' worth of milliseconds (48 hours * 60 minutes * 60 seconds * 1000 milliseconds)
+                const late_last_date = last_date_ + (48 * 60 * 60 * 1000);
+                
+                if (type === "submission"){
+                  if (last_date_ > act_date){
+                    return "Submitted" //green
+                  }
+                  else if ( (act_date > last_date_) && ( late_last_date > act_date ) ){
+                    return "Late Submission" //amber
+                  }
+                  else if ( (act_date > late_last_date) ){
+                    return "Non-Submission" //red
+                  }
+                }
+
+                else if (type === "closure"){
+                  if (last_date_ > act_date){
+                    return "Closed"
+                  }
+                  else if ( (act_date > last_date_) && ( late_last_date > act_date ) ){
+                    return "Late Closure"
+                  }
+                  else if ( (act_date > late_last_date) ){
+                    return "Non-Closure"
+                  }
+                }
+            }            
+          },
+          
+          reset(){
+              this.isLessonnoteSidebarActive = false;
+              
+              if (this.userData.role !== "teacher"){
+                this.teacherOptions = [
+                  { value: null, text: "Please select Teacher" }
+                ]
+
+                this.classOptions = [
+                  { value: null, text: "Please select Class Type" }
+                ]
+
+                this.calendarOptions = [
+                  { value: null, text: "Please select Calendar" }
+                ]
+
+                this.weekOptions = [
+                  { value: null, text: "Please select a Week" }
+                ]
+
+                this.subjectOptions = [
+                  { value: null, text: "Please select a Subject" }
+                ]
+
+                this.statusOptions = [
+                  { value: null, text: "Please select a Status" }
+                ]
+              }
+
+            this.searchValuesCurrent.teacher = ""
+            this.searchValuesCurrent.class = ""
+            this.searchValuesCurrent.calendar = ""
+            this.searchValuesCurrent.subject = ""
+            this.searchValuesCurrent.week = ""
+            this.searchValuesCurrent.status = ""
+
+            this.searchValues = []
+
+            this.filters.schoolId = null;
+            this.filters.classIndex = null;
             if (this.userData.role !== "teacher"){
-              this.filters.teacherId = null;
-            }
+                this.filters.teacherId = null;
+            } 
             this.filters.calendarId = null;
             this.filters.subjectId = null;
             this.filters.week = null;
             this.filters.status = null;
+            this.filters.dateFrom = null;
+            this.filters.dateTo = null;
 
-            var values = this.schoolOptions.map(function(o) { return o.value })
+            this.fetchLessonnotes();
+          },
+
+          async loadOtherValues(value){
+
+                this.searchValues = [];
+
+                this.filters.classIndex = null; 
+                if (this.userData.role !== "teacher"){
+                  this.filters.teacherId = null;
+                }
+                this.filters.calendarId = null;
+                this.filters.subjectId = null;
+                this.filters.week = null;
+                this.filters.status = null;
+
+                var values = this.schoolOptions.map(function(o) { return o.value })
+                var index = values.indexOf(value) 
+                let choiceText = this.schoolOptions[index].text          
+
+                const seff = this;
+                let foundOlder = this.searchValues.find(function(o) { return String(o).trim() === String(seff.searchValuesCurrent.school).trim() });
+                if (foundOlder){
+                  const index = this.searchValues.findIndex(obj => obj === seff.searchValuesCurrent.school );
+                  this.searchValues.splice(index, 1);
+                }
+                
+                let found = this.searchValues.find(function(o) { return o === value });
+                if (!found){        
+                  this.searchValuesCurrent.school = choiceText;   
+                  this.searchValues.push(choiceText);
+                }   
+
+              // const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
+                const sef = this;     
+                sef.teacherOptions = [];     
+                store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchTeachers`, { id : value })
+                .then(response => { 
+                  let myval = response.data.data;
+                  myval.forEach(obj => {
+                    sef.teacherOptions.push( { value: obj.teaId , text: obj.fname + ' ' + obj.lname} )
+                  });            
+                });
+
+                sef.subjectOptions = [];     
+                store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null } )
+                .then(response => { 
+                  let myval = response.data.data;
+                  myval.forEach(obj => {
+                    sef.subjectOptions.push( { value: obj.subId , text: obj.name } )
+                  });            
+                });
+
+                  sef.classOptions = [];     
+                  sef.classOptions.push( { value: 7 , text: "JSS1" } )            
+                  sef.classOptions.push( { value: 8 , text: "JSS2" } )
+                  sef.classOptions.push( { value: 9 , text: "JSS3" } )
+                  sef.classOptions.push( { value: 10 , text: "SS1" } )  
+                  sef.classOptions.push( { value: 11 , text: "SS2" } )
+                  sef.classOptions.push( { value: 12 , text: "SS3" } )
+
+
+                  sef.weekOptions = [];     
+                  sef.weekOptions.push( { value: 1 , text: "Week 1" } )  
+                  sef.weekOptions.push( { value: 2 , text: "Week 2" } ) 
+                  sef.weekOptions.push( { value: 3, text: "Week 3" } ) 
+                  sef.weekOptions.push( { value: 4, text: "Week 4" } ) 
+                  sef.weekOptions.push( { value: 5, text: "Week 5" } ) 
+                  sef.weekOptions.push( { value: 6, text: "Week 6" } )
+                  sef.weekOptions.push( { value: 7, text: "Week 7" } ) 
+                  sef.weekOptions.push( { value: 8, text: "Week 8" } )
+                  sef.weekOptions.push( { value: 9, text: "Week 9" } )
+                  sef.weekOptions.push( { value: 10, text: "Week 10" } )
+                  sef.weekOptions.push( { value: 11, text: "Week 11" } )
+                  sef.weekOptions.push( { value: 12, text: "Week 12" } )
+
+                  sef.statusOptions = [];     
+                  sef.statusOptions.push( { value: "queued" , text: "Queued" } )  
+                  sef.statusOptions.push( { value: "submitted" , text: "Submitted" } )
+                  sef.statusOptions.push( { value: "re-submitted" , text: "Re-Submitted" } )
+                  sef.statusOptions.push( { value: "revert" , text: "Revert" } ) 
+                  sef.statusOptions.push( { value: "approved" , text: "Approved" } ) 
+
+                /*store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value, teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })
+                .then(response => { 
+                  let myval = response.data.data;
+                  myval.forEach(obj => {
+                    sef.classOptions.push( { value: obj.clsId , text: obj.title + ' ' + obj.ext} )
+                  });         
+                });*/
+
+                sef.calendarOptions = [];     
+                store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : value })
+                .then(response => { 
+                  let myval = response.data.data;
+                  myval.forEach(obj => {
+                    sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + ' ' + obj.term + ' Term'} )
+                  });             
+                });
+          },
+
+          teacherGrab(value){
+              var values = this.teacherOptions.map(function(o) { return o.value })
+              var index = values.indexOf(value) 
+              let choiceText = this.teacherOptions[index].text          
+
+              const sef = this;
+              let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.teacher).trim().replace("\n","") });
+              if (foundOlder){
+                const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.teacher).trim().replace("\n","") );
+                this.searchValues.splice(index, 1)
+              }
+              
+              let found = this.searchValues.find(function(o) { return o === value });
+              if (!found){        
+                this.searchValuesCurrent.teacher = choiceText;   
+                this.searchValues.push(choiceText);
+              }         
+
+            // console.log( "Teacher Grabbed : " + JSON.stringify(this.searchValues) )
+          },
+
+          classGrab(value){
+            var values = this.classOptions.map(function(o) { return o.value })
             var index = values.indexOf(value) 
-            let choiceText = this.schoolOptions[index].text          
+            let choiceText = this.classOptions[index].text
 
-            const seff = this;
-            let foundOlder = this.searchValues.find(function(o) { return String(o).trim() === String(seff.searchValuesCurrent.school).trim() });
+            const sef = this;
+            let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.class).trim().replace("\n","") });
             if (foundOlder){
-              const index = this.searchValues.findIndex(obj => obj === seff.searchValuesCurrent.school );
-              this.searchValues.splice(index, 1);
+              const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.class).trim().replace("\n","") );
+              this.searchValues.splice(index, 1)
+            }
+
+            let found = this.searchValues.find(function(o) { return o === value });
+            if (!found){
+              this.searchValuesCurrent.class = choiceText;
+              this.searchValues.push(choiceText);
+            }
+          
+          },
+
+          calendarGrab(value){
+            var values = this.calendarOptions.map(function(o) { return o.value })
+            var index = values.indexOf(value) 
+            let choiceText = this.calendarOptions[index].text
+
+            const sef = this;
+            let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.calendar).trim().replace("\n","") });
+            if (foundOlder){
+              const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.calendar).trim().replace("\n","") );
+              this.searchValues.value.splice(index, 1)
             }
             
             let found = this.searchValues.find(function(o) { return o === value });
-            if (!found){        
-              this.searchValuesCurrent.school = choiceText;   
+            if (!found){
+              this.searchValuesCurrent.calendar = choiceText;
               this.searchValues.push(choiceText);
-            }   
+            }       
+          },
 
-           // const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
-            const sef = this;     
-            sef.teacherOptions = [];     
-            store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchTeachers`, { id : value })
-            .then(response => { 
-              let myval = response.data.data;
-              myval.forEach(obj => {
-                sef.teacherOptions.push( { value: obj.teaId , text: obj.fname + ' ' + obj.lname} )
-              });            
-            });
+          subjectGrab(value){
+            var values = this.subjectOptions.map(function(o) { return o.value })
+            var index = values.indexOf(value) 
+            let choiceText = this.subjectOptions[index].text
 
-            sef.subjectOptions = [];     
-            store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null } )
-            .then(response => { 
-              let myval = response.data.data;
-              myval.forEach(obj => {
-                sef.subjectOptions.push( { value: obj.subId , text: obj.name } )
-              });            
-            });
+            const sef = this;
+            let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.subject).trim().replace("\n","") });
+            if (foundOlder){
+              const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.subject).trim().replace("\n","") );
+              this.searchValues.splice(index, 1)
+            }
+            
+            let found = this.searchValues.find(function(o) { return o === value });
+            if (!found){
+              this.searchValuesCurrent.subject = choiceText;
+              this.searchValues.push(choiceText);
+            }       
+          },
 
-              sef.classOptions = [];     
-              sef.classOptions.push( { value: 7 , text: "JSS1" } )            
-              sef.classOptions.push( { value: 8 , text: "JSS2" } )
-              sef.classOptions.push( { value: 9 , text: "JSS3" } )
-              sef.classOptions.push( { value: 10 , text: "SS1" } )  
-              sef.classOptions.push( { value: 11 , text: "SS2" } )
-              sef.classOptions.push( { value: 12 , text: "SS3" } )
+          weekGrab(value){
+            var values = this.weekOptions.map(function(o) { return o.value })
+            var index = values.indexOf(value) 
+            let choiceText = this.weekOptions[index].text
 
+            const sef = this;
+            let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.week).trim().replace("\n","") });
+            if (foundOlder){
+              const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.week).trim().replace("\n","") );
+              this.searchValues.splice(index, 1)
+            }
+            
+            let found = this.searchValues.find(function(o) { return o === value });
+            if (!found){
+              this.searchValuesCurrent.week = choiceText;
+              this.searchValues.push(choiceText);
+            }       
+          },
 
-              sef.weekOptions = [];     
-              sef.weekOptions.push( { value: 1 , text: "Week 1" } )  
-              sef.weekOptions.push( { value: 2 , text: "Week 2" } ) 
-              sef.weekOptions.push( { value: 3, text: "Week 3" } ) 
-              sef.weekOptions.push( { value: 4, text: "Week 4" } ) 
-              sef.weekOptions.push( { value: 5, text: "Week 5" } ) 
-              sef.weekOptions.push( { value: 6, text: "Week 6" } )
-              sef.weekOptions.push( { value: 7, text: "Week 7" } ) 
-              sef.weekOptions.push( { value: 8, text: "Week 8" } )
-              sef.weekOptions.push( { value: 9, text: "Week 9" } )
-              sef.weekOptions.push( { value: 10, text: "Week 10" } )
-              sef.weekOptions.push( { value: 11, text: "Week 11" } )
-              sef.weekOptions.push( { value: 12, text: "Week 12" } )
+          statusGrab(value){
+            var values = this.statusOptions.map(function(o) { return o.value })
+            var index = values.indexOf(value) 
+            let choiceText = this.statusOptions[index].text
 
-              sef.statusOptions = [];     
-              sef.statusOptions.push( { value: "queued" , text: "Queued" } )  
-              sef.statusOptions.push( { value: "submitted" , text: "Submitted" } )
-              sef.statusOptions.push( { value: "re-submitted" , text: "Re-Submitted" } )
-              sef.statusOptions.push( { value: "revert" , text: "Revert" } ) 
-              sef.statusOptions.push( { value: "approved" , text: "Approved" } ) 
+            const sef = this;
+            let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.status).trim().replace("\n","") });
+            if (foundOlder){
+              const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.status).trim().replace("\n","") );
+              this.searchValues.splice(index, 1)
+            }
+            
+            let found = this.searchValues.find(function(o) { return o === value });
+            if (!found){
+              this.searchValuesCurrent.status = choiceText;
+              this.searchValues.push(choiceText);
+            }       
+          },
 
-            /*store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value, teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })
-            .then(response => { 
-              let myval = response.data.data;
-              myval.forEach(obj => {
-                sef.classOptions.push( { value: obj.clsId , text: obj.title + ' ' + obj.ext} )
-              });         
-            });*/
+          principalActionApprove(id){       
+            const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
 
-            sef.calendarOptions = [];     
-            store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : value })
-            .then(response => { 
-              let myval = response.data.data;
-              myval.forEach(obj => {
-                sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + ' ' + obj.term + ' Term'} )
-              });             
-            });
-      },
+                let classwork = this.filters.hasClasswork ? 1 : 0;
+                let homework = this.filters.hasHomework ? 1 : 0;
+                let test = this.filters.hasTest ? 1 : 0;
+                let midterm = this.filters.hasMidTerm ? 1 : 0;
+                let finalexam = this.filters.hasFinalExam ? 1 : 0;
 
-      teacherGrab(value){
-          var values = this.teacherOptions.map(function(o) { return o.value })
-          var index = values.indexOf(value) 
-          let choiceText = this.teacherOptions[index].text          
+                const sef = this;          
+                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "approval", lessonnoteId: id, classwork, homework, test, midterm, finalexam },  management: { action : "approved" }, activity: { action: "approved", owner: this.teacherPicked, principal_query_arrangement: 1, principal_query_grammar: 1, principal_query_subjectmatter: 1  } } )
+                .then(response => { 
+                    sef.modalTitle = "";
+                    sef.grammar = 0;
+                    sef.arrangement = 0;
+                    sef.teacherPicked = null;
+                    sef.LessonnotePicked = null;
+                    sef.$toast({
+                      component: ToastificationContent,
+                      props: {
+                      title: 'Lessonnote has been approved.',
+                      icon: 'AlertTriangleIcon',
+                      variant: 'success',
+                      },
+                    });  
 
-          const sef = this;
-          let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.teacher).trim().replace("\n","") });
-          if (foundOlder){
-            const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.teacher).trim().replace("\n","") );
-            this.searchValues.splice(index, 1)
+                    sef.hideModal()
+                    sef.handleChange()
+
+                }).catch((exception) => { 
+                    sef.modalTitle = "";
+                    sef.grammar = 0;
+                    sef.arrangement = 0;
+                    sef.teacherPicked = null;
+                    sef.LessonnotePicked = null;
+                    sef.$toast({ 
+                      component: ToastificationContent,
+                      props: {
+                        title: 'There is an issue with the approval process',
+                        icon: 'AlertTriangleIcon',
+                        variant: 'danger'
+                      }
+                    }); 
+                    sef.hideModal()
+
+                }); 
+            
+          },
+
+          principalActionDisapprove(id){
+            const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
+            let set_grammar = this.grammar ? 0 : 1;
+            let set_arrangement = this.arrangement ? 0 : 1;
+            let set_subjectmatter = this.subjectmatter ? 0 : 1;
+            let set_incomplete = this.incomplete ? 0 : 1;
+
+                const sef = this;          
+                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "revert", lessonnoteId: id  },  management: { action : "revert" }, activity: { action: "revert", owner: this.teacherPicked, principal_query_arrangement: set_arrangement , principal_query_grammar: set_grammar, principal_query_subjectmatter: set_subjectmatter, principal_query_incomplete: set_incomplete } } )
+                .then(response => { 
+                    sef.modalTitle2 = "";
+                    sef.grammar = false;
+                    sef.arrangement = false;
+                    sef.subjectmatter = false;
+                    sef.teacherPicked = null;
+                    sef.LessonnotePicked = null;
+                    sef.$toast({
+                      component: ToastificationContent,
+                      props: {
+                      title: 'Lessonnote has been reverted.',
+                      icon: 'AlertTriangleIcon',
+                      variant: 'warning',
+                      },
+                    }); 
+
+                    sef.hideModal2() ;
+                    sef.handleChange()
+
+                }).catch((exception) => { 
+                    sef.modalTitle2 = "";
+                    sef.grammar = false;
+                    sef.arrangement = false;
+                    sef.subjectmatter = false;
+                    sef.teacherPicked = null;
+                    sef.LessonnotePicked = null;
+                    sef.$toast({
+                      component: ToastificationContent,
+                      props: {
+                        title: 'There is an issue with the reverting process',
+                        icon: 'AlertTriangleIcon',
+                        variant: 'danger'
+                      }
+                    }); 
+                    
+                    sef.hideModal2()
+                });
+          },
+
+          principalActionClosure(id){
+            const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
+
+                const sef = this;          
+                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "closed", lessonnoteId: id  },  management: { action : "closed" } } )
+                .then(response => { 
+                    sef.modalTitle4 = "";
+                  
+                    sef.teacherPicked = null;
+                    sef.LessonnotePicked = null;
+                    sef.$toast({
+                      component: ToastificationContent,
+                      props: {
+                      title: 'Lessonnote has been closed.',
+                      icon: 'AlertTriangleIcon',
+                      variant: 'warning',
+                      },
+                    }); 
+    s
+                    sef.hideModal4() 
+                    sef.handleChange()
+
+                }).catch((exception) => { 
+                    sef.modalTitle4 = "";
+                  
+                    sef.teacherPicked = null;
+                    sef.LessonnotePicked = null;
+                    sef.$toast({
+                      component: ToastificationContent,
+                      props: {
+                        title: 'There is an issue with the closing process',
+                        icon: 'AlertTriangleIcon',
+                        variant: 'danger'
+                      }
+                    }); 
+                    
+                    sef.hideModal4()
+                });
+          },
+
+          teacherActionClosure(id){
+            const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
+
+                const sef = this;          
+                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnote`, { id: Number(id), lessonnote: { action: "closure", lessonnoteId: id  }, activity: { action : "closure" }, management: { action : "closure" }  } )
+                .then(response => { 
+                    sef.modalTitle3 = "";
+                  
+                    sef.teacherPicked = null;
+                    sef.LessonnotePicked = null;
+                    sef.$toast({
+                      component: ToastificationContent,
+                      props: {
+                      title: 'Lessonnote has been closed.',
+                      icon: 'AlertTriangleIcon',
+                      variant: 'warning',
+                      },
+                    }); 
+
+                    sef.hideModal3()
+                    sef.handleChange() 
+
+                }).catch((exception) => { 
+                    sef.modalTitle3 = "";
+                  
+                    sef.teacherPicked = null;
+                    sef.LessonnotePicked = null;
+                    sef.$toast({
+                      component: ToastificationContent,
+                      props: {
+                        title: 'There is an issue with the closing process',
+                        icon: 'AlertTriangleIcon',
+                        variant: 'danger'
+                      }
+                    }); 
+                    
+                    sef.hideModal3()
+                });
+          },
+
+          checkIfClosureIsProper(){
+            //just create endpoint to check if all scores have been added, then use the result in deciding if to close lessonnote
+          },
+
+          forceFileDownload(response, title) {
+            console.log(title)
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement('a')
+            link.href = url
+            link.setAttribute('download', title + ".docx" )
+            document.body.appendChild(link)
+            link.click()
+          },
+
+          openfile(path, title){        
+                  const sef = this;
+                  axios({
+                    method: 'get',
+                    url: new String(this.baseURL).replace('/api','') + path,
+                    responseType: 'blob',
+                    headers: jwtHeader()
+                  })
+                    .then(function (response) {
+                        sef.forceFileDownload(response, title)
+                  }).catch(error => {
+                    console.log(error.response)
+                  });
+          },
+
+          showModal() {
+            this.$refs['my-modal-approve-lessonnote'].show()
+          },
+          hideModal() {
+            this.$refs['my-modal-approve-lessonnote'].hide()
+          },
+
+          showModal2() {
+            this.$refs['my-modal-disapprove-lessonnote'].show()
+          },
+          hideModal2() {
+            this.$refs['my-modal-disapprove-lessonnote'].hide()
+          },
+
+          showModal3() {
+            this.$refs['my-modal-closure-t-lessonnote'].show()
+          },
+          hideModal3() {
+            this.$refs['my-modal-closure-t-lessonnote'].hide()
+          },
+
+          showModal4() {
+            this.$refs['my-modal-closure-p-lessonnote'].show()
+          },
+          hideModal4() {
+            this.$refs['my-modal-closure-p-lessonnote'].hide()
+          },
+
+          triggerApprove(name, lsn, teacher){
+            this.modalTitle = "Approve this Lessonnote: "+ name;
+            this.teacherPicked = teacher;
+            this.LessonnotePicked = lsn;
+            this.showModal();
+          },
+
+          triggerDisapprove(name, lsn, teacher){
+            this.modalTitle2 = "Query this Lessonnote: "+ name;
+            this.teacherPicked = teacher;
+            this.LessonnotePicked = lsn;
+            this.showModal2();     
+          },
+
+          triggerClosure(user,name, lsn, teacher){
+            if (user === "teacher"){
+                this.modalTitle = "Close this Lessonnote: "+ name;
+                this.teacherPicked = teacher;
+                this.LessonnotePicked = lsn;
+                this.showModal3();
+            }
+            else if (user === "principal"){
+                this.modalTitle = "Close this Lessonnote: "+ name;
+                this.teacherPicked = teacher;
+                this.LessonnotePicked = lsn;
+                this.showModal4();
+            }
+          },
+
+          loadManagement(item){
+                const sef = this;    
+                const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';      
+                store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchLessonnoteManagement`, { id : item.lessonnoteId })
+                .then(response => { 
+                  let myval = response.data.data;
+
+                  sef.quality = myval[0].quality;
+                  sef.sub_perf_classwork = myval[0].sub_perf_classwork;
+                  sef.sub_perf_homework = myval[0].sub_perf_homework;
+                  sef.sub_perf_test = myval[0].sub_perf_test;
+                  sef.score = myval[0].score;
+                });
           }
-          
-          let found = this.searchValues.find(function(o) { return o === value });
-          if (!found){        
-            this.searchValuesCurrent.teacher = choiceText;   
-            this.searchValues.push(choiceText);
-          }         
 
-         // console.log( "Teacher Grabbed : " + JSON.stringify(this.searchValues) )
-      },
-
-      classGrab(value){
-        var values = this.classOptions.map(function(o) { return o.value })
-        var index = values.indexOf(value) 
-        let choiceText = this.classOptions[index].text
-
-        const sef = this;
-        let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.class).trim().replace("\n","") });
-        if (foundOlder){
-          const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.class).trim().replace("\n","") );
-          this.searchValues.splice(index, 1)
         }
 
-        let found = this.searchValues.find(function(o) { return o === value });
-        if (!found){
-          this.searchValuesCurrent.class = choiceText;
-          this.searchValues.push(choiceText);
-        }
-       
-      },
 
-      calendarGrab(value){
-        var values = this.calendarOptions.map(function(o) { return o.value })
-        var index = values.indexOf(value) 
-        let choiceText = this.calendarOptions[index].text
-
-        const sef = this;
-        let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.calendar).trim().replace("\n","") });
-        if (foundOlder){
-          const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.calendar).trim().replace("\n","") );
-          this.searchValues.value.splice(index, 1)
-        }
-        
-        let found = this.searchValues.find(function(o) { return o === value });
-        if (!found){
-          this.searchValuesCurrent.calendar = choiceText;
-          this.searchValues.push(choiceText);
-        }       
-      },
-
-      subjectGrab(value){
-        var values = this.subjectOptions.map(function(o) { return o.value })
-        var index = values.indexOf(value) 
-        let choiceText = this.subjectOptions[index].text
-
-        const sef = this;
-        let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.subject).trim().replace("\n","") });
-        if (foundOlder){
-          const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.subject).trim().replace("\n","") );
-          this.searchValues.splice(index, 1)
-        }
-        
-        let found = this.searchValues.find(function(o) { return o === value });
-        if (!found){
-          this.searchValuesCurrent.subject = choiceText;
-          this.searchValues.push(choiceText);
-        }       
-      },
-
-      weekGrab(value){
-        var values = this.weekOptions.map(function(o) { return o.value })
-        var index = values.indexOf(value) 
-        let choiceText = this.weekOptions[index].text
-
-        const sef = this;
-        let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.week).trim().replace("\n","") });
-        if (foundOlder){
-          const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.week).trim().replace("\n","") );
-          this.searchValues.splice(index, 1)
-        }
-        
-        let found = this.searchValues.find(function(o) { return o === value });
-        if (!found){
-          this.searchValuesCurrent.week = choiceText;
-          this.searchValues.push(choiceText);
-        }       
-      },
-
-      statusGrab(value){
-        var values = this.statusOptions.map(function(o) { return o.value })
-        var index = values.indexOf(value) 
-        let choiceText = this.statusOptions[index].text
-
-        const sef = this;
-        let foundOlder = this.searchValues.find(function(o) { return String(o).trim().replace("\n","") === String(sef.searchValuesCurrent.status).trim().replace("\n","") });
-        if (foundOlder){
-          const index = this.searchValues.findIndex(obj => String(obj).trim().replace("\n","") === String(sef.searchValuesCurrent.status).trim().replace("\n","") );
-          this.searchValues.splice(index, 1)
-        }
-        
-        let found = this.searchValues.find(function(o) { return o === value });
-        if (!found){
-          this.searchValuesCurrent.status = choiceText;
-          this.searchValues.push(choiceText);
-        }       
-      },
-
-      principalActionApprove(id){       
-        const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
-
-            let classwork = this.filters.hasClasswork ? 1 : 0;
-            let homework = this.filters.hasHomework ? 1 : 0;
-            let test = this.filters.hasTest ? 1 : 0;
-            let midterm = this.filters.hasMidTerm ? 1 : 0;
-            let finalexam = this.filters.hasFinalExam ? 1 : 0;
-
-            const sef = this;          
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "approval", lessonnoteId: id, classwork, homework, test, midterm, finalexam },  management: { action : "approved" }, activity: { action: "approved", owner: this.teacherPicked, principal_query_arrangement: 1, principal_query_grammar: 1, principal_query_subjectmatter: 1  } } )
-            .then(response => { 
-                sef.modalTitle = "";
-                sef.grammar = 0;
-                sef.arrangement = 0;
-                sef.teacherPicked = null;
-                sef.LessonnotePicked = null;
-                sef.$toast({
-                  component: ToastificationContent,
-                  props: {
-                  title: 'Lessonnote has been approved.',
-                  icon: 'AlertTriangleIcon',
-                  variant: 'success',
-                  },
-                });  
-
-                sef.hideModal()
-                sef.handleChange()
-
-            }).catch((exception) => { 
-                sef.modalTitle = "";
-                sef.grammar = 0;
-                sef.arrangement = 0;
-                sef.teacherPicked = null;
-                sef.LessonnotePicked = null;
-                sef.$toast({ 
-                  component: ToastificationContent,
-                  props: {
-                    title: 'There is an issue with the approval process',
-                    icon: 'AlertTriangleIcon',
-                    variant: 'danger'
-                  }
-                }); 
-                sef.hideModal()
-
-		        }); 
-         
-      },
-
-      principalActionDisapprove(id){
-         const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
-         let set_grammar = this.grammar ? 0 : 1;
-         let set_arrangement = this.arrangement ? 0 : 1;
-         let set_subjectmatter = this.subjectmatter ? 0 : 1;
-         let set_incomplete = this.incomplete ? 0 : 1;
-
-            const sef = this;          
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "revert", lessonnoteId: id  },  management: { action : "revert" }, activity: { action: "revert", owner: this.teacherPicked, principal_query_arrangement: set_arrangement , principal_query_grammar: set_grammar, principal_query_subjectmatter: set_subjectmatter, principal_query_incomplete: set_incomplete } } )
-            .then(response => { 
-                sef.modalTitle2 = "";
-                sef.grammar = false;
-                sef.arrangement = false;
-                sef.subjectmatter = false;
-                sef.teacherPicked = null;
-                sef.LessonnotePicked = null;
-                sef.$toast({
-                  component: ToastificationContent,
-                  props: {
-                  title: 'Lessonnote has been reverted.',
-                  icon: 'AlertTriangleIcon',
-                  variant: 'warning',
-                  },
-                }); 
-
-                sef.hideModal2() ;
-                sef.handleChange()
-
-            }).catch((exception) => { 
-                sef.modalTitle2 = "";
-                sef.grammar = false;
-                sef.arrangement = false;
-                sef.subjectmatter = false;
-                sef.teacherPicked = null;
-                sef.LessonnotePicked = null;
-                sef.$toast({
-                  component: ToastificationContent,
-                  props: {
-                    title: 'There is an issue with the reverting process',
-                    icon: 'AlertTriangleIcon',
-                    variant: 'danger'
-                  }
-                }); 
-                
-                sef.hideModal2()
-		        });
-      },
-
-      principalActionClosure(id){
-         const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
-
-            const sef = this;          
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "closed", lessonnoteId: id  },  management: { action : "closed" } } )
-            .then(response => { 
-                sef.modalTitle4 = "";
-              
-                sef.teacherPicked = null;
-                sef.LessonnotePicked = null;
-                sef.$toast({
-                  component: ToastificationContent,
-                  props: {
-                  title: 'Lessonnote has been closed.',
-                  icon: 'AlertTriangleIcon',
-                  variant: 'warning',
-                  },
-                }); 
-s
-                sef.hideModal4() 
-                sef.handleChange()
-
-            }).catch((exception) => { 
-                sef.modalTitle4 = "";
-              
-                sef.teacherPicked = null;
-                sef.LessonnotePicked = null;
-                sef.$toast({
-                  component: ToastificationContent,
-                  props: {
-                    title: 'There is an issue with the closing process',
-                    icon: 'AlertTriangleIcon',
-                    variant: 'danger'
-                  }
-                }); 
-                
-                sef.hideModal4()
-		        });
-      },
-
-      teacherActionClosure(id){
-         const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';
-
-            const sef = this;          
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnote`, { id: Number(id), lessonnote: { action: "closure", lessonnoteId: id  }, activity: { action : "closure" }, management: { action : "closure" }  } )
-            .then(response => { 
-                sef.modalTitle3 = "";
-               
-                sef.teacherPicked = null;
-                sef.LessonnotePicked = null;
-                sef.$toast({
-                  component: ToastificationContent,
-                  props: {
-                  title: 'Lessonnote has been closed.',
-                  icon: 'AlertTriangleIcon',
-                  variant: 'warning',
-                  },
-                }); 
-
-                sef.hideModal3()
-                sef.handleChange() 
-
-            }).catch((exception) => { 
-                sef.modalTitle3 = "";
-               
-                sef.teacherPicked = null;
-                sef.LessonnotePicked = null;
-                sef.$toast({
-                  component: ToastificationContent,
-                  props: {
-                    title: 'There is an issue with the closing process',
-                    icon: 'AlertTriangleIcon',
-                    variant: 'danger'
-                  }
-                }); 
-                
-                sef.hideModal3()
-		        });
-      },
-
-      checkIfClosureIsProper(){
-        //just create endpoint to check if all scores have been added, then use the result in deciding if to close lessonnote
-      },
-
-      forceFileDownload(response, title) {
-        console.log(title)
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement('a')
-        link.href = url
-        link.setAttribute('download', title + ".docx" )
-        document.body.appendChild(link)
-        link.click()
-      },
-
-      openfile(path, title){        
-              const sef = this;
-              axios({
-                method: 'get',
-                url: new String(this.baseURL).replace('/api','') + path,
-                responseType: 'blob',
-                headers: jwtHeader()
-              })
-                .then(function (response) {
-                    sef.forceFileDownload(response, title)
-              }).catch(error => {
-                console.log(error.response)
-              });
-      },
-
-      showModal() {
-        this.$refs['my-modal-approve-lessonnote'].show()
-      },
-      hideModal() {
-        this.$refs['my-modal-approve-lessonnote'].hide()
-      },
-
-      showModal2() {
-        this.$refs['my-modal-disapprove-lessonnote'].show()
-      },
-      hideModal2() {
-        this.$refs['my-modal-disapprove-lessonnote'].hide()
-      },
-
-      showModal3() {
-        this.$refs['my-modal-closure-t-lessonnote'].show()
-      },
-      hideModal3() {
-        this.$refs['my-modal-closure-t-lessonnote'].hide()
-      },
-
-      showModal4() {
-        this.$refs['my-modal-closure-p-lessonnote'].show()
-      },
-      hideModal4() {
-        this.$refs['my-modal-closure-p-lessonnote'].hide()
-      },
-
-      triggerApprove(name, lsn, teacher){
-        this.modalTitle = "Approve this Lessonnote: "+ name;
-        this.teacherPicked = teacher;
-        this.LessonnotePicked = lsn;
-        this.showModal();
-      },
-
-      triggerDisapprove(name, lsn, teacher){
-        this.modalTitle2 = "Query this Lessonnote: "+ name;
-        this.teacherPicked = teacher;
-        this.LessonnotePicked = lsn;
-        this.showModal2();     
-      },
-
-      triggerClosure(user,name, lsn, teacher){
-        if (user === "teacher"){
-            this.modalTitle = "Close this Lessonnote: "+ name;
-            this.teacherPicked = teacher;
-            this.LessonnotePicked = lsn;
-            this.showModal3();
-        }
-         else if (user === "principal"){
-            this.modalTitle = "Close this Lessonnote: "+ name;
-            this.teacherPicked = teacher;
-            this.LessonnotePicked = lsn;
-            this.showModal4();
-        }
-      },
-
-      loadManagement(item){
-            const sef = this;    
-            const Lessonnote_APP_STORE_MODULE_NAME = 'app-lessonnote';      
-            store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchLessonnoteManagement`, { id : item.lessonnoteId })
-            .then(response => { 
-              let myval = response.data.data;
-
-              sef.quality = myval[0].quality;
-              sef.sub_perf_classwork = myval[0].sub_perf_classwork;
-              sef.sub_perf_homework = myval[0].sub_perf_homework;
-              sef.sub_perf_test = myval[0].sub_perf_test;
-              sef.score = myval[0].score;
-            });
+      }
+      </script>
+      
+      <style lang="scss" scoped>
+      .per-page-selector {
+        width: 90px;
       }
 
-    }
 
-
-  }
-  </script>
-  
-  <style lang="scss" scoped>
-  .per-page-selector {
-    width: 90px;
-  }
-
-
-  
-  </style>
-  
-  <style lang="scss">
-  @import '~@core/scss/vue/libs/vue-select.scss';
-  </style>
-  
+      
+      </style>
+      
+      <style lang="scss">
+      @import '~@core/scss/vue/libs/vue-select.scss';
+      </style>
+      

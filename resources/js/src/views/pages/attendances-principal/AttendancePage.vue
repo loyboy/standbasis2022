@@ -1,6 +1,6 @@
 <template>
 
-    <div> 
+    <div v-if=" userData.role === 'principal' "> 
        
        <b-card-body>
 

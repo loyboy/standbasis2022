@@ -1,6 +1,6 @@
 <template>
     <div>
-
+      <!--   -->
       <b-form
                 class="p-2"
                 @submit.prevent="handleChange()"
@@ -240,6 +240,12 @@
       const teacherData = ref({});
       const schoolOptions = ref([]);
       const schoolGroupOptions = ref([]);
+      const LocalGovtOptions = ref(
+        { "001" : "abak", "002": "eastern obolo", "003" : "eket",  "004" : "esit eket", "005" : "essien udim"   } 
+      );
+      const StateGovtOptions = ref(
+        { "01" : "akwaibom" } 
+      );
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
       if (storedItems){
@@ -272,10 +278,12 @@
 
       } = useAttendanceList();
 
-      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
+      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent){
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
+          filters.value.schoolState = findIfSupervisorisPresent ?  LocalGovtOptionsString(userData.value.code).split("-")[2] : null;
+       
       }
 
       (async function () {
