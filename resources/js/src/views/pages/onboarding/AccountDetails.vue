@@ -49,15 +49,20 @@
                           label-for="acct-name"
                           class="mb-2 bolden"
                           >
-                          <b-form-input
-                              id="acct-name"
-                              v-model="accountDetails.acctName"
-                              :state="getValidationState(validationContext)"
-                              trim
-                          />
-                          <b-form-invalid-feedback>
-                              {{ validationContext.errors[0] }}
-                          </b-form-invalid-feedback>
+                            <b-form-input
+                                id="acct-name"
+                                v-model="accountDetails.acctName"
+                                :state="getValidationState(validationContext)"
+                                @input="validateFullName"
+                                trim
+                            />
+
+                            <div v-if="invalidFullName" class="invalid-feedback">Invalid full name format.</div>
+
+                            <b-form-invalid-feedback>
+                                {{ validationContext.errors[0] }}
+                            </b-form-invalid-feedback>
+
                           </b-form-group>
                       </validation-provider>
                   </b-col>
@@ -190,14 +195,14 @@
                 </b-col>
 
                   <!-- Submit Button -->
-                  <b-col cols="12" >
-                      <b-button
+                <b-col cols="12" v-if=" invalidFullName === false " >
+                  <b-button
                           variant="primary"
                           type="submit"
                       >
-                          Save Account Details
-                      </b-button>
-                  </b-col>
+                        Save Account Details
+                  </b-button>
+                </b-col>
                   
               </b-row>
           </b-card-body>
@@ -226,7 +231,7 @@ import {
   BFormInvalidFeedback,
   BFormSelect
 } from 'bootstrap-vue'
-import { ValidationProvider, ValidationObserver } from 'vee-validate'
+import { ValidationProvider, ValidationObserver, validate } from 'vee-validate'
 import vSelect from 'vue-select';
 import axios from "axios";
 import { required, integer, email } from '@validations'
@@ -267,7 +272,8 @@ export default {
 
   data() {    
     return {  
-         confirmpassword: ''
+         confirmpassword: '',
+         invalidFullName: false
     }
   },
 
@@ -356,6 +362,11 @@ export default {
 
       
       
+    },
+
+    validateFullName(val) {
+      const fullNameRegex = /^[a-zA-Z]+\s[a-zA-Z]+$/; // Regex for minimum of two strings separated by a single space.
+      this.invalidFullName = !fullNameRegex.test(val);
     }
   },
 
