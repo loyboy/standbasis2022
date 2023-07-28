@@ -6,13 +6,7 @@
 
           <b-row>
             <b-col cols="12" md="12" class="d-flex align-items-center py-1 mx-4">
-                <span> <b> <h2> Attendance Live Data Center </h2> </b> </span>
-            </b-col>
-          </b-row>
-
-          <b-row>
-            <b-col cols="12" md="12" class="d-flex align-items-center py-1 mx-4">
-                <span> <b> <h3> <i> {{ todayDate() }} </i> </h3> </b> </span>
+                <span> <b> <h2> <i> {{ todayDate() }} </i> </h2> </b> </span>
             </b-col>
           </b-row>
 
@@ -20,57 +14,58 @@
 
        
       <!-- Table Container Card -->
-     <b-card-code title="Attendance Today" class="my-2 mx-2"> 
+     <b-card-code title="Attendance Today" class="my-2 mx-4 px-2"> 
         
+        <div class="d-flex align-items-center px-2 justify-content-between" >
             <button
                 type="button"
-                class="btn btn-outline-danger waves-effect waves-float waves-light"
+                class="btn btn-primary waves-effect waves-float waves-light"
                 style="position: relative"
                 @click="getTimeBand(9)"
                 >
-               Between 8am to 9am
+                8am to 9am
             </button>
             <button                
                 type="button"
-                class="btn btn-outline-danger waves-effect waves-float waves-light"
+                class="btn btn-primary waves-effect waves-float waves-light"
                 style="position: relative"
                 @click="getTimeBand(10)"
                 >
-               Between 9am to 10am
+                9am to 10am
             </button>
             <button                
                 type="button"
-                class="btn btn-outline-danger waves-effect waves-float waves-light"
+                class="btn btn-primary waves-effect waves-float waves-light"
                 style="position: relative"
                 @click="getTimeBand(11)"
                 >
-                Between 10am to 11am
+                 10am to 11am
             </button>
             <button                
                 type="button"
-                class="btn btn-outline-danger waves-effect waves-float waves-light"
+                class="btn btn-primary waves-effect waves-float waves-light"
                 style="position: relative"
                 @click="getTimeBand(12)"
                 >
-                Between 11am to 12am
+                 11am to 12am
             </button> 
             <button                
                 type="button"
-                class="btn btn-outline-danger waves-effect waves-float waves-light"
+                class="btn btn-primary waves-effect waves-float waves-light"
                 style="position: relative"
                 @click="getTimeBand(13)"
                 >
-                 Between 12pm to 1pm
+                  12pm to 1pm
             </button>
             <button
                 type="button"
-                class="btn btn-outline-danger waves-effect waves-float waves-light"
+                class="btn btn-primary waves-effect waves-float waves-light"
                 style="position: relative"
                 @click="getTimeBand(14)"
                 >
-               Between 1pm to 2pm
+                1pm to 2pm
             </button>
-           
+          </div> 
 
             <b-table            
               class="position-relative"

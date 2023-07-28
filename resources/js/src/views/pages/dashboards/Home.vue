@@ -22,11 +22,11 @@
     </b-row>-->
 
     <b-row class="match-height">
+     
+     <!--
       <b-col lg="12">
         <template>
-          <b-row class="match-height">
-            
-            <!-- Bar Chart - Orders -->
+          <b-row class="match-height">            
             <b-col lg="4" md="6" cols="12">
               <order-chart
                 v-if=" userData.role === 'teacher' "
@@ -50,7 +50,7 @@
                 :value="filters.att"
               />
             </b-col>
-            <!--/ Bar Chart - Orders -->
+          
 
             <b-col lg="4" md="6" cols="12">
               <profit-chart
@@ -76,36 +76,177 @@
               />
             </b-col>
            
-           <!-- <b-col lg="12" md="12">
+           <b-col lg="12" md="12">
               <transtions-trend :charts="charts" />
-            </b-col> -->
+            </b-col> 
 
           </b-row>
-        </template>
+        </template>      
 
-      <!--  <Skeleton :count="1" v-else /> -->
+      </b-col> -->
 
+      <b-col lg="4">        
+         <b-card bg-variant="primary" no-body>
+          <b-card-body class="d-flex justify-content-between align-items-center">
+           
+              <b-avatar
+                :variant="`light-primary`"
+                size="65"
+              >
+                <feather-icon
+                  size="26"
+                  icon="ClipboardIcon"                  
+                />
+              </b-avatar>             
+
+            <div class="text-column">
+              <h2> <b> Attendance </b> </h2>
+              
+             <!-- <p><em> Look through today's  attendance list. </em></p> -->
+              <router-link to = "/attendances-principal-home">Administration</router-link>
+              <router-link to = "/attendances-list">Review</router-link>
+            </div>
+
+          </b-card-body>
+        </b-card>
       </b-col>
+
+       <b-col lg="4">        
+         <b-card bg-variant="primary" no-body>
+          <b-card-body class="d-flex justify-content-between align-items-center">
+           
+              <b-avatar
+                :variant="`light-primary`"
+                size="65"
+              >
+                <feather-icon
+                  size="26"
+                  icon="ArchiveIcon"                  
+                />
+              </b-avatar>             
+
+            <div class="text-column">
+              <h2> <b> School Data </b> </h2>
+             
+             
+             <b-row class="match-height">
+               <b-col lg="6">    
+                  <router-link v-if=" userData.role === 'proprietor' " to = "/groupschools-list" >School Group</router-link>
+                  <router-link to = "/teachers-list">Teachers</router-link>
+                  <router-link to = "/enrollments-list">Enrollments</router-link>
+                  <router-link to = "/classrooms-list">Classrooms</router-link>
+               </b-col> 
+               <b-col lg="6">      
+                  <router-link to = "/calendars-list">Calendars</router-link> 
+                  <router-link to = "/users-list">Users</router-link>
+                  <router-link to = "/timetables-list">Timetables</router-link>  
+               </b-col> 
+              </b-row>
+
+            </div>
+
+          </b-card-body>
+        </b-card>
+      </b-col>
+
+       <b-col lg="4">        
+         <b-card bg-variant="primary" no-body>
+          <b-card-body class="d-flex justify-content-between align-items-center">
+           
+              <b-avatar
+                :variant="`light-primary`"
+                size="65"
+              >
+                <feather-icon
+                  size="26"
+                  icon="GiftIcon"                  
+                />
+              </b-avatar>             
+
+            <div class="text-column">
+              <h2> <b> Lessonnote </b> </h2>
+                          
+               <router-link to = "/lessonnotes-list">Administration</router-link> 
+               <router-link to = "/lessonnotes-list">Review</router-link> 
+              
+            </div>
+
+          </b-card-body>
+        </b-card>
+      </b-col>
+
+      <b-col lg="4">        
+         <b-card bg-variant="primary" no-body>
+          <b-card-body class="d-flex justify-content-between align-items-center">
+           
+              <b-avatar
+                :variant="`light-primary`"
+                size="65"
+              >
+                <feather-icon
+                  size="26"
+                  icon="ActivityIcon"                  
+                />
+              </b-avatar>             
+
+            <div class="text-column">
+              <h2> <b> School M&E </b> </h2>
+             
+                           
+               <router-link to = "/mne-attendances-list">Attendance</router-link>
+               <router-link to = "/mne-lessonnotes-list"> Lessonnote </router-link>
+              
+            </div>
+
+          </b-card-body>
+        </b-card>
+      </b-col>
+
+      <b-col lg="4">        
+         <b-card bg-variant="primary" no-body>
+          <b-card-body class="d-flex justify-content-between align-items-center">
+           
+              <b-avatar
+                :variant="`light-primary`"
+                size="65"
+              >
+                <feather-icon
+                  size="26"
+                  icon="LifeBuoyIcon"                  
+                />
+              </b-avatar>             
+
+            <div class="text-column">
+              <h2> <b> School Flag </b> </h2>           
+             
+               <router-link to = "/flag-attendances-list">Attendance</router-link>
+               <router-link to = "/flag-attendances-list">Lessonnote</router-link>
+              
+            </div>
+
+          </b-card-body>
+        </b-card>
+      </b-col>     
 
       <!-- Revenue Report Card -->
      <!-- <b-col lg="6">
         <revenue-report :data="data.revenue" :charts="charts" />
       </b-col> -->
       <!--/ Revenue Report Card -->
-
-      <b-col cols="12">
-       <!-- <bottom-table /> -->
+<!-- <bottom-table /> -->
+     <!--   
+      <b-col cols="12">       
         <event-list :teacherId="filters.teacherId" v-if=" userData.role === 'teacher'  "/>
         <event-list :schoolId="filters.schoolId" v-if=" userData.role === 'principal'  "/>
         <event-list :schoolgroupId="filters.schoolgroup" v-if=" userData.role === 'proprietor'  "/>
-      </b-col>
+      </b-col>  -->
 
     </b-row>
   </section>
 </template>
 
   <script>
-  import { BRow, BCol } from "bootstrap-vue";
+  import { BRow, BCol, BAvatar, BCard, BCardBody } from "bootstrap-vue";
   import Statistics from "./components/Statistics.vue";
   import OrderChart from "./components/OrderChart.vue";
   import ProfitChart from "./components/ProfitChart.vue";
@@ -125,6 +266,9 @@
     components: {
       BRow,
       BCol,
+      BAvatar,
+      BCard,
+      BCardBody,
       Skeleton,
       flatPickr,
       Statistics,
@@ -237,6 +381,7 @@
         return {
           isLoading, 
           filters,   
+          
           fetchAttendances,
           fetchLessonnotes
         }
@@ -245,6 +390,45 @@
 
   };
   </script>
+  <<style scoped>      
+    
+    .b-avatar{
+      background-color: white !important;
+    }
+
+    .icon-column i {
+      font-size: 48px;
+      /* Add any additional styling for the icon here */
+    }
+
+    .text-column {
+      width: 70%;
+      padding-left: 20px; /* Add spacing between the icon and text */
+      color: #ffffff;
+    }
+
+    .text-column h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+       color: #ffffff;
+    }
+
+    .text-column h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+      color: #ffffff;
+    }
+
+    .text-column p {
+      margin-bottom: 5px;
+      font-size: 10px;
+    }
+
+    .text-column a {
+      display: block;
+      color: #007bff; /* Change the link color as desired */
+    }
+  </style>
 
   <style lang="scss">
   @import "~@core/scss/vue/pages/dashboard-ecommerce.scss";

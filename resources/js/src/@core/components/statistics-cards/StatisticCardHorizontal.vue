@@ -30,7 +30,7 @@ export default {
   components: {
     BCard,
     BCardBody,
-    BAvatar,
+    BAvatar
   },
   props: {
     icon: {

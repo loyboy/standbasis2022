@@ -38,7 +38,7 @@ export default [
 
     {
         title: 'Your Activities',
-        icon: 'CommandIcon',
+        icon: 'ClipboardIcon',
         permission: ["teacher"],
         children: [
             {
@@ -56,7 +56,7 @@ export default [
 
     {
         title: 'Main Activities',
-        icon: 'CommandIcon',
+        icon: 'ClipboardIcon',
         permission: ["principal"],
         children: [
             {
@@ -69,7 +69,7 @@ export default [
 
     { 
         title: 'School Data',
-        icon: 'CircleIcon',
+        icon: 'ArchiveIcon',
         permission: ["admin", "proprietor", "principal"],
         children: [
             {
@@ -79,8 +79,8 @@ export default [
             },
             {
                 title: 'Group of Schools',
-                route: 'groupschools-home'
-              
+                route: 'groupschools-home',
+                permission: [ "proprietor" ]              
             },
             {
                 title: 'Teachers',
@@ -111,8 +111,8 @@ export default [
     },
 
     {
-        title: 'School Performance Data',
-        icon: 'CommandIcon',
+        title: 'School Native Data',
+        icon: 'GiftIcon',
         permission: ["admin", "proprietor", "principal", "teacher" ],
         children: [
             {
@@ -157,7 +157,7 @@ export default [
 
     {
         title: 'School M&E',
-        icon: 'CommandIcon',
+        icon: 'ActivityIcon',
         permission: ["teacher" ,"principal"],
         children: [
             {
@@ -175,7 +175,7 @@ export default [
 
     {
         title: 'School Flags',
-        icon: 'CommandIcon',
+        icon: 'LifeBuoyIcon',
         permission: ["proprietor" ,"principal"],
         children: [
             {

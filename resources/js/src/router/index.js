@@ -582,14 +582,14 @@ const router = new VueRouter({
             },
         },
 
-        //Attendances Live View 
+        //Attendances Administration
         {
             path: '/attendances-principal-home',
             name: 'attendances-principal-home',
             component: () =>
                 import ('@/views/pages/attendances-principal/AttendancePage.vue'),
             meta: {
-                pageTitle: 'Attendances Live View'
+                pageTitle: 'Attendance Administration'
             },
         },
 
@@ -712,7 +712,7 @@ const router = new VueRouter({
             component: () =>
                 import ('@/views/pages/mne-attendance/ListPage.vue'),
             meta: {
-                pageTitle: 'MNE Attendances',
+                pageTitle: 'M&E Attendances',
                 breadcrumb: [{
                         text: 'Filter & View',
                         active: true
@@ -728,7 +728,7 @@ const router = new VueRouter({
             component: () =>
                 import ('@/views/pages/mne-lessonnote/ListPage.vue'),
             meta: {
-                pageTitle: 'MNE Lessonnotes',
+                pageTitle: 'M&E Lessonnotes',
                 breadcrumb: [{
                         text: 'Filter & View',
                         active: true
