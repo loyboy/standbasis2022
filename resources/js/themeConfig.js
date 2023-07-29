@@ -12,9 +12,9 @@ export const $themeConfig = {
         appName: 'Standbasis', // Will update name in navigation menu (Branding)      
         //https://www.school-digital-transformation.com
         //http://localhost:8084
-        baseURL: "https://www.school-digital-transformation.com/api",
+        baseURL: "http://localhost:8084/api",
 
-        backendURL: "https://www.school-digital-transformation.com",
+        backendURL: "http://localhost:8084",
       
         // dealAdThumbnailsURL: "/deals_ads/thumb_nail/",
         // dealAdCoverURL: "/deals_ads/cover/",
