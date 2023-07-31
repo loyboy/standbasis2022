@@ -176,7 +176,7 @@
         </b-card>
       </b-col>
 
-      <b-col lg="4" v-if=" userData.role === 'teacher' || userData.role === 'principal' ">        
+      <b-col lg="4" v-if=" userData.role === 'teacher' || userData.role === 'principal' || userData.role === 'supervisor' || userData.role === 'proprietor' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
@@ -193,9 +193,9 @@
             <div class="text-column">
               <h2> <b> School M&E </b> </h2>             
                            
-               <router-link v-if=" userData.role === 'principal' || userData.role === 'teacher' " to = "/mne-attendances-list"> Attendance</router-link>
-               <router-link v-if=" userData.role === 'principal' || userData.role === 'teacher' " to = "/mne-lessonnotes-list"> Lessonnote </router-link>
-               <router-link v-if=" userData.role === 'principal' || userData.role === 'teacher' " to = "#"> Assessments </router-link>
+               <router-link  to = "/mne-attendances-list"> Attendance</router-link>
+               <router-link  to = "/mne-lessonnotes-list"> Lessonnote </router-link>
+               <router-link  to = "#"> Assessments </router-link>
               
             </div>
 
@@ -261,7 +261,7 @@
                <b-col lg="12">
                  <router-link to = "#">Continuous Capacity Development </router-link>
                </b-col>
-               
+
               </b-row>
 
             </div>
@@ -270,7 +270,7 @@
         </b-card>
       </b-col> 
 
-      <b-col lg="12" v-if=" userData.role === 'proprietor' ">        
+      <b-col lg="8" v-if=" userData.role === 'proprietor' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
