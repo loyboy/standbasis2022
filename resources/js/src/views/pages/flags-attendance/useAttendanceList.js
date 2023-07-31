@@ -48,7 +48,7 @@ export default function useAttendanceList() {
       .then(response => {
         const { student_absence, queried_attendance, approval_delays, approval_done, late_attendance, void_attendance, student_excused_absence, endorsement_expected, teacher_absent, teacher_expected, student_expected } = response.data;
      
-        attendanceItems.value = [ 
+        attendanceItems.value = [
          
           { parameter: "Total number of classes", value: ( Number(teacher_expected) - Number(teacher_absent) ), expected: teacher_expected } ,
           { parameter: "Student Attendance", value: student_absence, expected: student_expected }, { parameter: "Late Attendance", value: late_attendance, expected: "0" }, 

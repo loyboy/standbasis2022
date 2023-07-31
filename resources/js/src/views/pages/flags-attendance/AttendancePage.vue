@@ -282,8 +282,8 @@
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
-          filters.value.schoolState = findIfSupervisorisPresent ?  LocalGovtOptions.value[ new String(userData.value.code).split("-")[2] ] : null;
-       
+          filters.value.schoolState = findIfSupervisorisPresent ?  StateGovtOptions.value[ new String(userData.value.code).split("-")[2] ] : null;
+          filters.value.schoolLga = findIfSupervisorisPresent ?  LocalGovtOptions.value[ new String(userData.value.code).split("-")[3] ] : null;       
       }
 
       (async function () {
@@ -294,13 +294,15 @@
             schoolOptions.value.push( { value: obj.schId , label: obj.name } )
           });
         }
+        
         else if( findIfSupervisorisPresent ){
-          const resp = await store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSchoolGroups`);
-          let myval = resp.data.data;
+          const resp2 = await store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSchoolByState`, { state : filters.value.schoolState, lga: filters.value.schoolLga });
+          let myval = resp2.data.data;
           myval.forEach(obj => {
-            schoolGroupOptions.value.push( { value: obj.id , label: obj.name } )
+            schoolOptions.value.push( { value: obj.schId , label: obj.name + "--" + obj.state + "--" + obj.lga } )
           });
         }
+       
       })();
 
       onMounted(async () => {

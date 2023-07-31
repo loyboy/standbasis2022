@@ -221,7 +221,7 @@
               <h2> <b> School Flags </b> </h2>           
              
                <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' " to = "/flag-attendances-list">Attendance</router-link>
-               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' " to = "/flag-attendances-list">Lessonnote</router-link>
+               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' " to = "/flag-lessonnotes-list">Lessonnote</router-link>
                <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' " to = "#">Standards</router-link>
               
             </div>
@@ -256,8 +256,12 @@
                <b-col lg="6">      
                   <router-link to = "#">Teaching</router-link> 
                   <router-link to = "#">Administration</router-link>
-                  <router-link to = "#">Continuous Capacity Development </router-link>
+                 
                </b-col> 
+               <b-col lg="12">
+                 <router-link to = "#">Continuous Capacity Development </router-link>
+               </b-col>
+               
               </b-row>
 
             </div>

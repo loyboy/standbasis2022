@@ -63,6 +63,14 @@ export default {
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
+        },
+        fetchSchoolByState(ctx, { state, lga }) {
+            return new Promise((resolve, reject) => {
+                axios
+                .get($themeConfig.app.baseURL + '/school/state/' + state + '/lga/'+ lga)
+                .then(response => resolve(response))
+                .catch(error => reject(error))
+            })
         }
     },
 }
