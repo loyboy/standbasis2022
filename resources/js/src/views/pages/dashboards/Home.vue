@@ -256,7 +256,7 @@
                <b-col lg="6">      
                   <router-link to = "#">Teaching</router-link> 
                   <router-link to = "#">Administration</router-link>
-                   
+                  <router-link to = "#">Continuous Capacity Development </router-link>
                </b-col> 
               </b-row>
 
@@ -281,16 +281,14 @@
               </b-avatar>             
 
             <div class="text-column">
-              <h2> <b> School Evaluation </b> </h2>                  
-            
-                  <router-link to = "#">Core Processes (0%) </router-link>
-                  <router-link to = "#">Instructor Resource (0%) </router-link>
-                  <router-link to = "#">Total Student Development (0%)</router-link>
-                  <router-link to = "#">Learning Environment (0%)</router-link>
-                  <router-link to = "#">Sustainability (0%)</router-link>
-                  <router-link to = "#">Academic Performance (0%)</router-link>
-                  <router-link to = "#">Safety, Health, Environment, Security (0%)</router-link>
-
+              <h2> <b> School Evaluation & School Rating </b> </h2>                 
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#"> Curriculum Teaching Processes Management </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Instructor Resource  </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Total Student Development </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Learning Environment </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Sustainability </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Academic Performance </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">   <router-link to = "#">Safety, Health, Environment, Security </router-link> <span> 0% </span> </div>
             </div>
 
           </b-card-body>

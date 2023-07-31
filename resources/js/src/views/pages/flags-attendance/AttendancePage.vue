@@ -282,7 +282,7 @@
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
-          filters.value.schoolState = findIfSupervisorisPresent ?  LocalGovtOptionsString(userData.value.code).split("-")[2] : null;
+          filters.value.schoolState = findIfSupervisorisPresent ?  LocalGovtOptions.value[ new String(userData.value.code).split("-")[2] ] : null;
        
       }
 
