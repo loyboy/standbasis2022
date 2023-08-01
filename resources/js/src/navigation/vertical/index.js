@@ -175,7 +175,7 @@ export default [
 
     {
         title: 'School Flags',
-        icon: 'LifeBuoyIcon',
+        icon: 'FlagIcon',
         permission: ["proprietor" ,"principal"],
         children: [
             {

@@ -191,11 +191,12 @@
               </b-avatar>             
 
             <div class="text-column">
-              <h2> <b> School M&E </b> </h2>             
-                           
+              <h2> <b> School M&E </b> </h2>          
+                               
+               <router-link v-if=" userData.role === 'guardian' " to = "/attendances-student-list"> Live Attendance</router-link>               
                <router-link  to = "/mne-attendances-list"> Attendance</router-link>
-               <router-link  to = "/mne-lessonnotes-list"> Lessonnote </router-link>
-               <router-link  to = "#"> Assessments </router-link>
+               <router-link v-if=" userData.role !== 'guardian' " to="/mne-lessonnotes-list" > Lessonnote </router-link>
+               <router-link  to = "/mne-assessment-list"> Assessment </router-link>
               
             </div>
 
@@ -203,7 +204,7 @@
         </b-card>
       </b-col>
 
-      <b-col lg="4" v-if=" userData.role === 'proprietor' || userData.role === 'principal' || userData.role === 'supervisor' ">        
+      <b-col lg="4" v-if=" userData.role === 'proprietor' || userData.role === 'principal' || userData.role === 'supervisor' || userData.role === 'guardian' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
@@ -213,16 +214,16 @@
               >
                 <feather-icon
                   size="26"
-                  icon="LifeBuoyIcon"                  
+                  icon="FlagIcon"                  
                 />
               </b-avatar>             
 
             <div class="text-column">
               <h2> <b> School Flags </b> </h2>           
              
-               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' " to = "/flag-attendances-list">Attendance</router-link>
-               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' " to = "/flag-lessonnotes-list">Lessonnote</router-link>
-               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' " to = "#">Standards</router-link>
+               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' " to = "/flag-attendances-list">Attendance</router-link>
+               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' " to = "/flag-lessonnotes-list">Lessonnote</router-link>
+               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' " to = "#">Standards</router-link>
               
             </div>
 
@@ -230,7 +231,7 @@
         </b-card>
       </b-col>  
 
-       <b-col lg="4">        
+      <b-col lg="4">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
@@ -249,17 +250,17 @@
              
              <b-row class="match-height">
                <b-col lg="6"> 
-                  <router-link to = "#">Notices</router-link>
-                  <router-link to = "#">Reports</router-link>
+                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Notices</router-link>
+                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Reports</router-link>
                   <router-link to = "#">Bulletins</router-link>
                </b-col> 
                <b-col lg="6">      
-                  <router-link to = "#">Teaching</router-link> 
-                  <router-link to = "#">Administration</router-link>
+                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Teaching</router-link> 
+                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Administration</router-link>
                  
                </b-col> 
                <b-col lg="12">
-                 <router-link to = "#">Continuous Capacity Development </router-link>
+                 <router-link v-if=" userData.role !== 'guardian' " to = "#">Continuous Capacity Development </router-link>
                </b-col>
 
               </b-row>
@@ -270,7 +271,7 @@
         </b-card>
       </b-col> 
 
-      <b-col lg="8" v-if=" userData.role === 'proprietor' ">        
+      <b-col lg="8" v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
@@ -280,7 +281,7 @@
               >
                 <feather-icon
                   size="26"
-                  icon="TableIcon"                  
+                  icon="InfoIcon"                  
                 />
               </b-avatar>             
 
@@ -292,7 +293,7 @@
                <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Learning Environment </router-link> <span> 0% </span> </div>
                <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Sustainability </router-link> <span> 0% </span> </div>
                <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Academic Performance </router-link> <span> 0% </span> </div>
-               <div class="d-flex align-items-center px-2 justify-content-between">   <router-link to = "#">Safety, Health, Environment, Security </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Safety, Health, Environment, Security </router-link> <span> 0% </span> </div>
             </div>
 
           </b-card-body>
