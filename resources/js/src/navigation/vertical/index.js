@@ -148,12 +148,12 @@ export default [
         ],
     },
 
-    {
+  /*  {
         title: 'Capacity Development',
         route: 'capacity-home',
         icon: 'CodepenIcon',
         permission: ["teacher"]
-    },
+    },*/
 
     {
         title: 'School M&E',

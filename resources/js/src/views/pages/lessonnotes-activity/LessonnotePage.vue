@@ -343,7 +343,7 @@
               <!-- Column: Actual Date -->
               <template #cell(actual)="data">
                 <div>
-                 {{ String( data.item.actual ).replace(".000+00:00","") }}
+                 {{ data.item.actual === null ? "Nil" : String( data.item.actual ).replace(".000+00:00","") }}
                 </div>               
               </template>
 

@@ -159,7 +159,7 @@
               >
                 <feather-icon
                   size="26"
-                  icon="GiftIcon"                  
+                  icon="ClipboardIcon"                  
                 />
               </b-avatar>             
 
@@ -176,7 +176,7 @@
         </b-card>
       </b-col>
 
-      <b-col lg="4" v-if=" userData.role === 'teacher' || userData.role === 'principal' || userData.role === 'supervisor' || userData.role === 'proprietor' ">        
+      <b-col lg="4" v-if=" userData.role === 'teacher' || userData.role === 'principal' || userData.role === 'supervisor' || userData.role === 'proprietor' || userData.role !== 'guardian' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
@@ -221,8 +221,8 @@
             <div class="text-column">
               <h2> <b> School Flags </b> </h2>           
              
-               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' " to = "/flag-attendances-list">Attendance</router-link>
-               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' " to = "/flag-lessonnotes-list">Lessonnote</router-link>
+               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor'  " to = "/flag-attendances-list">Attendance</router-link>
+               <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor'  " to = "/flag-lessonnotes-list">Lessonnote</router-link>
                <router-link v-if=" userData.role === 'principal' || userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' " to = "#">Standards</router-link>
               
             </div>
@@ -271,7 +271,7 @@
         </b-card>
       </b-col> 
 
-      <b-col lg="8" v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' ">        
+      <b-col lg="8" v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
