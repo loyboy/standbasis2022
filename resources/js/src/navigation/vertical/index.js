@@ -10,7 +10,7 @@ export default [
         title: 'Your Dashboard',
         route: 'home',
         icon: 'HomeIcon',
-        permission: ["teacher", "principal", "proprietor", "supervisor"]
+        permission: [ "teacher", "principal", "proprietor", "supervisor", "guardian" ]
     },
 
     //evaluator

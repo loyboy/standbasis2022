@@ -364,22 +364,22 @@
                   />
                 </template>
 
-                <b-dropdown-item :to="{ name: 'attendances-home-view', params: { id: data.item.attId } }" v-if=" data.item.done === 1 ">
+                <b-dropdown-item :to="{ name: 'attendances-home-view', params: { id: data.item.attId } }" v-if=" data.item.done === 1 || data.item.done === 2 ">
                   <feather-icon icon="BookOpenIcon" />
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item :to="{ name: 'attendances-student-home', params: { attendance: data.item.attId } }" v-if=" data.item.done === 1 ">
+                <b-dropdown-item :to="{ name: 'attendances-student-home', params: { attendance: data.item.attId } }" v-if=" data.item.done === 1 || data.item.done === 2 ">
                   <feather-icon icon="BookOpenIcon" />
                   <span class="align-middle ml-50">View Rowcall</span>
                 </b-dropdown-item>  
 
-                <b-dropdown-item :to="{ name: 'attendances-activity-home', params: { attendance: data.item.attId } }" v-if=" data.item.done === 1 ">
+                <b-dropdown-item :to="{ name: 'attendances-activity-home', params: { attendance: data.item.attId } }" v-if=" data.item.done === 1 || data.item.done === 2 ">
                   <feather-icon icon="LayersIcon" />
                   <span class="align-middle ml-50">View Activity</span>
                 </b-dropdown-item>           
                 
-                <b-dropdown-item :to="{ name: 'schools-home-view', params: { id: data.item.teacher.school.schId } }" v-if=" data.item.done === 1 ">
+                <b-dropdown-item :to="{ name: 'schools-home-view', params: { id: data.item.teacher.school.schId } }" v-if=" data.item.done === 1 || data.item.done === 2 ">
                   <feather-icon icon="Maximize2Icon" />
                   <span class="align-middle ml-50"> View School </span>
                 </b-dropdown-item>  
@@ -530,8 +530,7 @@
           </b-table>
 
           <div class="mx-2 mb-2">
-            <b-row>
-    
+            <b-row>    
               <b-col
                 cols="12"
                 sm="6"

@@ -312,7 +312,7 @@
           return false;
         }  
         let diffInMilliseconds = Math.round(date2 - date1);
-        console.log("DiffinMilliseconds: "+ diffInMilliseconds);
+        console.log("DiffinMilliseconds within 1 hour: "+ diffInMilliseconds);
         return diffInMilliseconds <= 7200000; 
       }
 
@@ -321,7 +321,7 @@
           return false;
         }  
         let diffInMilliseconds = Math.round(date2 - date1);
-        console.log("DiffinMilliseconds: "+ diffInMilliseconds);
+        console.log("DiffinMilliseconds within 45 mins: "+ diffInMilliseconds);
         return diffInMilliseconds <= 2700000; // 2700000 milliseconds = 45 minutes
       }
 
