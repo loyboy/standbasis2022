@@ -147,6 +147,12 @@
                 <span class="align-text-top text-capitalize">{{ data.item.role }}</span>
               </div>
             </template>-->
+
+            <template #cell(day_of)="data">
+            
+              <span class="align-text-top text-capitalize">{{ dayData[ Number(data.item.day_of) ] }}</span>              
+             
+            </template>
     
             <!-- Column: Status -->
             <template #cell(status)="data">
@@ -340,6 +346,8 @@
         tableColumns,
         perPage,
         currentPage,
+
+        dayData,
         
         totalTimetables,
         totalActiveTimetables,
@@ -375,6 +383,8 @@
         tableColumns,
         perPage,
         currentPage,
+
+        dayData,
 
         totalTimetables,
         totalActiveTimetables,

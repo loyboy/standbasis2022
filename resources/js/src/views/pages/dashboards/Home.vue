@@ -176,7 +176,7 @@
         </b-card>
       </b-col>
 
-      <b-col lg="4" v-if=" userData.role === 'teacher' || userData.role === 'principal' || userData.role === 'supervisor' || userData.role === 'proprietor' || userData.role !== 'guardian' ">        
+      <b-col lg="4" v-if=" userData.role === 'teacher' || userData.role === 'principal' || userData.role === 'supervisor' || userData.role === 'proprietor' || userData.role === 'guardian' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
@@ -271,7 +271,7 @@
         </b-card>
       </b-col> 
 
-      <b-col lg="8" v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' ">        
+      <b-col lg="8" v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guar` dian' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            

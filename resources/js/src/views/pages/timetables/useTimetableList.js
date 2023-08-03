@@ -19,6 +19,8 @@ export default function useTimetableList(School = null, Teacher = null) {
     { key: 'class_stream.title',label: 'Class Name',  sortable: true },
     { key: 'class_stream.ext',label: 'Class Arm',  sortable: true },
     { key: 'sub_name',label: 'Subject Name',  sortable: true },
+    { key: 'time_of',label: 'Time of Class',  sortable: true },
+    { key: 'day_of',label: 'Day of Class',  sortable: true },
     { key: 'status',label: 'Status',  sortable: true },
     { key: 'actions' }
   ]
@@ -29,6 +31,7 @@ export default function useTimetableList(School = null, Teacher = null) {
   const searchQuery = ref('')
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)
+  const dayData = ref([ "Sunday", "Monday", "Tuesday" , "Wednesday" , "Thursday" , "Friday" ]);
   const filters = ref({
     schoolgroup: null,
     schoolid: null,
@@ -112,6 +115,8 @@ if (status === -1) return 'danger'
     totalTimetables,
     totalActiveTimetables,    
     totalInactiveTimetables,
+
+    dayData,
 
     tableColumns,
     perPage,
