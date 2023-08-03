@@ -243,7 +243,7 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalAttendances === undefined ? 0 : totalAttendances "
-              statistic-title="Total Attendance Activity"
+              statistic-title="Expected Teaching Time"
             />
           </b-col>
 
@@ -254,18 +254,18 @@
               :statistic="
                 totalActiveAttendances === undefined ? 0 :totalActiveAttendances
               "
-              statistic-title="Attendance Activity Non-Slip"
+              statistic-title="Realized Teaching Time"
             />
           </b-col>
 
           <b-col lg="4" sm="6">
             <statistic-card-horizontal
-              icon="UserMinusIcon"
+              icon="UserXIcon"
               color="danger"
               :statistic="
                 totalInactiveAttendances === undefined ? 0 : totalInactiveAttendances
               "
-              statistic-title="Attendance Activity Slip"
+              statistic-title="Lost Teaching Time"
             />
           </b-col>
 
@@ -415,6 +415,12 @@
               </b-badge> 
             </template>
 
+             <!-- Column: Date -->
+             <template #cell(att_id._date)="data">
+               <div>
+                {{ String( data.item.att_id._date ).replace(".000+00:00","") }}
+               </div>               
+             </template>
     
             <!-- Column: Actions -->
             <template #cell(actions)="data">

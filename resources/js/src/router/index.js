@@ -541,7 +541,7 @@ const router = new VueRouter({
             component: () =>
                 import ('@/views/pages/attendances-student/AttendancePage.vue'),
             meta: {
-                pageTitle: 'Student Attendances',
+                pageTitle: 'Rowcalls',
                 breadcrumb: [{
                         text: 'List Student Attendances',
                         active: true
@@ -556,7 +556,7 @@ const router = new VueRouter({
             component: () =>
                 import ('@/views/pages/attendances-student/attendance-view/AttendanceView.vue'),
             meta: {
-                pageTitle: 'Student Attendances',
+                pageTitle: 'Rowcalls',
                 breadcrumb: [{
                         text: 'View Information',
                         active: true
@@ -573,9 +573,9 @@ const router = new VueRouter({
             component: () =>
                 import ('@/views/pages/attendances-activity/AttendancePage.vue'),
             meta: {
-                pageTitle: 'Attendances Activity',
+                pageTitle: 'Attendances Status',
                 breadcrumb: [{
-                        text: 'List Attendance Activity',
+                        text: 'List Attendance Status',
                         active: true
                     }
                 ]

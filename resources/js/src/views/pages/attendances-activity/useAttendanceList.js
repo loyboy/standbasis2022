@@ -22,6 +22,7 @@ export default function useAttendanceList() {
     { key: 'att_id.teacher.fname',label: 'Teacher First Name',  sortable: true },
     { key: 'att_id.timetable.class_stream.title',label: 'Class Name',  sortable: true },    
     { key: 'att_id.timetable.subject.name',label: 'Subject Name',  sortable: true },
+    { key: 'att_id._date',label: 'Date of Submission',  sortable: true, thStyle: { width: "20%" } },
    // { key: 'expected',label: "Principal's Expected Date of Action ",  sortable: true, thStyle: { width: "20%" } },
    // { key: 'actual',label: "Principal's Actual Date of Action ",  sortable: true, thStyle: { width: "30%" } },
 

@@ -154,34 +154,45 @@
             </template>
           </b-sidebar>
           
-          <b-col lg="4" sm="6">
+          <b-col lg="3" sm="6">
             <statistic-card-horizontal
               icon="UsersIcon"
               color="primary"
               :statistic=" totalAttendances === undefined ? 0 : totalAttendances "
-              statistic-title="Total Attendances"
+              statistic-title="Total Attendance"
             />
           </b-col>
 
-          <b-col lg="4" sm="6" v-if=" userData.role === 'teacher' ">
+          <b-col lg="3" sm="6" v-if=" userData.role === 'teacher' ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
               :statistic="
                 totalActiveAttendances === undefined ? 0 :totalActiveAttendances
               "
-              statistic-title="Done Attendances"
+              statistic-title="Good"
             />
           </b-col>
 
-          <b-col lg="4" sm="6" v-if=" userData.role === 'teacher' ">
+          <b-col lg="3" sm="6" v-if=" userData.role === 'teacher' ">
             <statistic-card-horizontal
               icon="UserMinusIcon"
+              color="warning"
+              :statistic="
+                totalInactiveAttendances === undefined ? 0 : totalInactiveAttendances
+              "
+              statistic-title="Late"
+            />
+          </b-col>
+
+          <b-col lg="3" sm="6" v-if=" userData.role === 'teacher' ">
+            <statistic-card-horizontal
+              icon="UserXIcon"
               color="danger"
               :statistic="
                 totalInactiveAttendances === undefined ? 0 : totalInactiveAttendances
               "
-              statistic-title="Not Done Attendances"
+              statistic-title="Voided"
             />
           </b-col>
 
