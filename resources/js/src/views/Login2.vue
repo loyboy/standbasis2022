@@ -180,6 +180,7 @@ export default {
                             email: res.email,
                             data_id: res.data_id,
                             code: res.code ? res.code : null,
+                            schName: res.school_name ? res.school_name : null,
                             sch_id: res.school_id ? res.school_id : null,
                             school_date: res.school_date,
                             role: res.role,

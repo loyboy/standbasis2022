@@ -10,6 +10,9 @@
         <p class="user-name font-weight-bolder mb-0">
           {{ userData.fullName || userData.username }}
         </p>
+        <p v-if=" userData.schName " class="user-name mb-0">
+          {{ userData.schName }}
+        </p>
         <span class="user-status">{{ userData.role }}</span>
       </div>
 
