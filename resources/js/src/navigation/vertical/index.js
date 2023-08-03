@@ -7,7 +7,7 @@ export default [
     },
 
     {
-        title: 'Your Dashboard',
+        title: 'Dashboard',
         route: 'home',
         icon: 'HomeIcon',
         permission: [ "teacher", "principal", "proprietor", "supervisor", "guardian" ]
@@ -37,17 +37,17 @@ export default [
 
 
     {
-        title: 'Your Activities',
+        title: 'Activities',
         icon: 'ClipboardIcon',
         permission: ["teacher"],
         children: [
             {
-                title: 'Teacher Attendance',
+                title: 'Attendance Taking',
                 route: 'attendances-teacher-home'
           
             },
             {
-                title: 'Teacher Lessonnote',
+                title: 'Lessonnote Submission',
                 route: 'lessonnotes-teacher-home'
           
             }
@@ -55,7 +55,7 @@ export default [
     },
 
     {
-        title: 'Main Activities',
+        title: 'Activities',
         icon: 'ClipboardIcon',
         permission: ["principal"],
         children: [
@@ -111,39 +111,39 @@ export default [
     },
 
     {
-        title: 'School Native Data',
+        title: 'Records',
         icon: 'GiftIcon',
         permission: ["admin", "proprietor", "principal", "teacher" ],
         children: [
             {
-                title: 'Teacher Attendance Data',
+                title: 'Attendance Logs',
                 route: 'attendances-home'
           
             }, 
             {
-                title: 'Student Attendance Data',
+                title: 'Rowcalls',
                 route: 'attendances-student-home'
                 
             },
             {
-                title: 'Attendance Activity Data',
+                title: 'Attendance(s) Status',
                 route: 'attendances-activity-home'
          
             },
             {
-                title: 'Teacher Lessonnote Data',
+                title: 'Lessonnote Logs',
                 route: 'lessonnotes-home'
             },
             {
-                title: 'Student Assessment Data',
-                route: 'lessonnotes-student-home'
-                
-            },
-            {
-                title: 'Lessonnote Activity Data',
+                title: 'Lessonnote(s) Status',
                 route: 'lessonnotes-activity-home'
          
-            }
+            },
+            {
+                title: 'Assessments',
+                route: 'lessonnotes-student-home'
+                
+            }          
            
         ],
     },
@@ -184,7 +184,7 @@ export default [
           
             },
             {
-                title: 'Lessonnote M&E',
+                title: 'Lessonnote Flags',
                 route: 'flag-lessonnotes-home'
                 
             }           

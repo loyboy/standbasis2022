@@ -402,20 +402,7 @@
                 <span class="align-text-top text-capitalize">{{ data.item.role }}</span>
               </div>
             </template>-->
-    
-             <!-- Column: Expected Date -->
-             <template #cell(expected)="data">
-               <div>
-                {{ String( data.item.expected ).replace(".000+00:00","") }}
-               </div>               
-             </template>
 
-              <!-- Column: Actual Date -->
-              <template #cell(actual)="data">
-                <div>
-                 {{ data.item.actual === null ? "Nil" : String( data.item.actual ).replace(".000+00:00","") }}
-                </div>               
-              </template>
 
             <!-- Column: Action -->
             <template #cell(action)="data">
@@ -428,16 +415,6 @@
               </b-badge> 
             </template>
 
-             <!-- Column: Slip -->
-             <template #cell(slip)="data">
-              <b-badge
-                pill
-                :variant="`light-${resolveAttendancestatusVariant(data.item.slip)}`"
-                class="text-capitalize"
-              >
-              {{ data.item.actual === null ? "Not Done Yet" : (data.item.slip === 1 ? "Late" : data.item.slip === 0 ? "On-time" : "Nil")  }}
-              </b-badge>
-            </template>
     
             <!-- Column: Actions -->
             <template #cell(actions)="data">

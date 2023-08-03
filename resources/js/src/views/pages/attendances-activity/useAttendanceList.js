@@ -22,10 +22,10 @@ export default function useAttendanceList() {
     { key: 'att_id.teacher.fname',label: 'Teacher First Name',  sortable: true },
     { key: 'att_id.timetable.class_stream.title',label: 'Class Name',  sortable: true },    
     { key: 'att_id.timetable.subject.name',label: 'Subject Name',  sortable: true },
-    { key: 'expected',label: "Principal's Expected Date of Action ",  sortable: true, thStyle: { width: "20%" } },
-    { key: 'actual',label: "Principal's Actual Date of Action ",  sortable: true, thStyle: { width: "30%" } },
+   // { key: 'expected',label: "Principal's Expected Date of Action ",  sortable: true, thStyle: { width: "20%" } },
+   // { key: 'actual',label: "Principal's Actual Date of Action ",  sortable: true, thStyle: { width: "30%" } },
 
-    { key: 'slip',label: "Principal's slip?",  sortable: true },
+   // { key: 'slip',label: "Principal's slip?",  sortable: true },
     { key: 'action',label: 'Status',  sortable: true },
     { key: 'comment_query',label: 'Comment(s)',  sortable: true },
     { key: 'actions' }

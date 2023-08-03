@@ -21,12 +21,12 @@ export default function useLessonnoteList() {
     { key: 'lsn_id.class_index', label: 'Class Name',  sortable: true },
     { key: 'lsn_id.subject.name',label: 'Subject Name',  sortable: true },  
 
-    { key: 'ownertype',label: "Owner of Action",  sortable: true },
-    { key: 'activity',label: "Expected Action",  sortable: true },
-    { key: 'expected',label: "Actor's Expected Date of Action ",  sortable: true },
-    { key: 'actual',label: "Actor's Actual Date of Action ",  sortable: true },
+   // { key: 'ownertype',label: "Owner of Action",  sortable: true },
+   // { key: 'activity',label: "Expected Action",  sortable: true },
+   // { key: 'expected',label: "Actor's Expected Date of Action ",  sortable: true },
+   // { key: 'actual',label: "Actor's Actual Date of Action ",  sortable: true },
 
-    { key: 'slip',label: "Principal's slip?",  sortable: true },
+   // { key: 'slip',label: "Principal's slip?",  sortable: true },
     { key: 'action',label: 'Status',  sortable: true },
     { key: 'comment_query',label: 'Comment(s)',  sortable: true },
 

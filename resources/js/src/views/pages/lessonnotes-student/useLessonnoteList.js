@@ -16,7 +16,7 @@ export default function useLessonnoteList() {
 
   // Table Handlers
   const tableColumns = [    
-    { key: 'lsn.title', label: 'School Name', sortable: true },
+    { key: 'lsn.title', label: 'Lessonnote Name', sortable: true },
     { key: 'enrol.student.name', label: "Student Name",  sortable: true },   
     { key: 'lsn.teacher.school.name', label: 'School Name', sortable: true },
     { key: 'lsn.teacher.fname', label: 'Teacher First Name',  sortable: true },
