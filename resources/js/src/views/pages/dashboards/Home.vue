@@ -132,6 +132,7 @@
              <b-row class="match-height">
                <b-col lg="6">    
                   <router-link v-if=" userData.role === 'proprietor' " to = "/groupschools-list" >School Group</router-link>
+                  <router-link to = "/schools-list">Schools</router-link>
                   <router-link to = "/teachers-list">Teachers</router-link>
                   <router-link to = "/enrollments-list">Enrollments</router-link>
                   <router-link to = "/classrooms-list">Classrooms</router-link>
