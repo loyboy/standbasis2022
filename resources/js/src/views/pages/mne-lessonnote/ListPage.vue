@@ -279,7 +279,7 @@
 
     data() {    
         let userOptions = [
-            { value: null, label: "Please select A User" }
+            { value: null, text: "Please select A User" }
         ]
         let weekOptions = [
             { value: null, text: "Please select A Week Period" },
@@ -359,7 +359,7 @@
           let myval = resp.data.data;
           myval.forEach(obj => { 
             let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
-            calendarOptions.value.push( { value: obj.CalendarId , label: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+            calendarOptions.value.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
           });
         }
       })();

@@ -286,22 +286,22 @@
 
     data() {    
         let userOptions = [
-            { value: null, label: "Please select A User" }
+            { value: null, text: "Please select A User" }
         ]
         let weekOptions = [
-            { value: null, label: "Please select A Week Period" },
-            { value: 1, label: "Week 1" },
-            { value: 2, label: "Week 2" },
-            { value: 3, label: "Week 3" },
-            { value: 4, label: "Week 4" },
-            { value: 5, label: "Week 5" },
-            { value: 6, label: "Week 6" },
-            { value: 7, label: "Week 7" },
-            { value: 8, label: "Week 8" },
-            { value: 9, label: "Week 9" },
-            { value: 10, label: "Week 10" },
-            { value: 11, label: "Week 11" },
-            { value: 12, label: "Week 12" }
+            { value: null, text: "Please select A Week Period" },
+            { value: 1, text: "Week 1" },
+            { value: 2, text: "Week 2" },
+            { value: 3, text: "Week 3" },
+            { value: 4, text: "Week 4" },
+            { value: 5, text: "Week 5" },
+            { value: 6, text: "Week 6" },
+            { value: 7, text: "Week 7" },
+            { value: 8, text: "Week 8" },
+            { value: 9, text: "Week 9" },
+            { value: 10, text: "Week 10" },
+            { value: 11, text: "Week 11" },
+            { value: 12, text: "Week 12" }
         ]            
         return {           
            weekOptions,          
