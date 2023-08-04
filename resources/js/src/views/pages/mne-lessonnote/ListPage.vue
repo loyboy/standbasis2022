@@ -57,7 +57,7 @@
 
                   <b-col cols="12" md="3">
                     <b-form-group label="Select Teacher" label-for="teacherpick">
-                      <b-form-radio v-model="filters.typeone" @change="changeType" name="teacherpick" value="teahcer">Teacher</b-form-radio>
+                      <b-form-radio v-model="filters.typeone" @change="changeType" name="teacherpick" value="teacher">Teacher</b-form-radio>
                     </b-form-group>
                   </b-col>
 

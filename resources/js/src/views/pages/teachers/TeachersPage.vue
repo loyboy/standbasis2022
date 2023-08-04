@@ -3,34 +3,67 @@
     <div>  
         <div class="row">
 
-          <b-col lg="4" sm="6">
+          <b-col lg="2" sm="6">
             <statistic-card-horizontal
               icon="UsersIcon"
               color="primary"
               :statistic=" totalTeachers === undefined ? 0 : totalTeachers "
-              statistic-title="Total Teachers"
+              statistic-title="Total"
             />
           </b-col>
 
-          <b-col lg="4" sm="6">
+          <b-col lg="2" sm="6">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
               :statistic="
                 totalActiveTeachers === undefined ? 0 :totalActiveTeachers
               "
-              statistic-title="Active Teachers"
+              statistic-title="Active"
             />
           </b-col>
 
-          <b-col lg="4" sm="6">
+          <b-col lg="2" sm="6">
             <statistic-card-horizontal
               icon="UserMinusIcon"
               color="danger"
               :statistic="
                 totalInactiveTeachers === undefined ? 0 : totalInactiveTeachers
               "
-              statistic-title="Inactive Teachers"
+              statistic-title="Inactive"
+            />
+          </b-col>
+
+            <b-col lg="2" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="success"
+              :statistic="
+                totalDeployedTeachers === undefined ? 0 :totalDeployedTeachers
+              "
+              statistic-title="Deployed"
+            />
+          </b-col>
+
+          <b-col lg="2" sm="6">
+            <statistic-card-horizontal
+              icon="UserMinusIcon"
+              color="danger"
+              :statistic="
+                totalUnderDeployedTeachers === undefined ? 0 : totalUnderDeployedTeachers
+              "
+              statistic-title="Under-Deployed"
+            />
+          </b-col>
+
+           <b-col lg="2" sm="6">
+            <statistic-card-horizontal
+              icon="UserXIcon"
+              color="warining"
+              :statistic="
+                totalOverDeployedTeachers === undefined ? 0 : totalOverDeployedTeachers
+              "
+              statistic-title="Over-Deployed"
             />
           </b-col>
 
@@ -380,8 +413,11 @@
         totalTeachers,
         totalActiveTeachers,
         totalInactiveTeachers,
+        totalDeployedTeachers,
+        totalUnderDeployedTeachers,
+        totalOverDeployedTeachers,
 
-        dataMeta,
+        dataMeta, 
         perPageOptions,
         searchQuery,
         sortBy,

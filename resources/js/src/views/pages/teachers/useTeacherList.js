@@ -36,6 +36,9 @@ export default function useTeacherList(School = null) {
  
   const totalActiveTeachers = ref(0)
   const totalInactiveTeachers = ref(0)
+  const totalDeployedTeachers = ref(0)
+  const totalUnderDeployedTeachers = ref(0)
+  const totalOverDeployedTeachers = ref(0)
 
   const dataMeta = computed(() => {
     const localItemsCount = refTeacherListTable.value ? refTeacherListTable.value.localItems.length : 0
@@ -64,13 +67,15 @@ export default function useTeacherList(School = null) {
         school: School ? School : filters.value.schoolid
       })
       .then(response => {
-        const { teachers, totalItems, totalActive, totalInactive } = response.data
+        const { teachers, totalItems, totalActive, totalInactive, totalUnder, totalDeploy, totalOver } = response.data
 
         callback(teachers)
         totalTeachers.value = totalItems
         totalActiveTeachers.value = totalActive
         totalInactiveTeachers.value = totalInactive
-
+        totalUnderDeployedTeachers.value = totalUnder
+        totalDeployedTeachers.value = totalDeploy
+        totalOverDeployedTeachers.value = totalOver
       })
       .catch((e) => {
         console.log("Fetch teachers error: " + e)
@@ -96,7 +101,7 @@ export default function useTeacherList(School = null) {
 
   const resolveUserStatusVariant = status => {
     if (status === 0) return 'warning'
-if (status === -1) return 'danger'
+    if (status === -1) return 'danger'
     if (status === 1) return 'success'
     return 'primary'
   }
@@ -108,6 +113,9 @@ if (status === -1) return 'danger'
     totalTeachers,
     totalActiveTeachers,    
     totalInactiveTeachers,
+    totalDeployedTeachers,
+    totalUnderDeployedTeachers,
+    totalOverDeployedTeachers,
 
     tableColumns,
     perPage,
