@@ -289,7 +289,7 @@
             { value: 4, label: "Week 4" },
             { value: 5, label: "Week 5" },
             { value: 6, label: "Week 6" },
-            { value: 7, label: "Week 7" },
+            { value: 7, label: "Week 7" }, 
             { value: 8, label: "Week 8" },
             { value: 9, label: "Week 9" },
             { value: 10, label: "Week 10" },
@@ -359,7 +359,7 @@
           let myval = resp.data.data;
           myval.forEach(obj => { 
             let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
-            calendarOptions.value.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+            calendarOptions.value.push( { value: obj.CalendarId , label: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
           });
         }
       })();

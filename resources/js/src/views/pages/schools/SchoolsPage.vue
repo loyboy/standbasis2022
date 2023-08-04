@@ -19,25 +19,25 @@
               :statistic="
                 totalSriSchools === undefined ? 0 :totalSriSchools
               "
-              statistic-title="SRI-enabled Schools"
+              statistic-title="Private Schools"
             />
           </b-col>
           <b-col lg="3" sm="6">
             <statistic-card-horizontal
-              icon="UserMinusIcon"
-              color="danger"
+              icon="UserCheckIcon"
+              color="success"
               :statistic="
                 totalNonSriSchools === undefined ? 0 : totalNonSriSchools
               "
-              statistic-title="Non SRI-enabled Schools"
+              statistic-title="Secondary Schools"
             />
           </b-col>
           <b-col lg="3" sm="6">
             <statistic-card-horizontal
-              icon="UserXIcon"
-              color="warning"
+              icon="UserCheckIcon"
+              color="success"
               :statistic="totalInactiveSchools === undefined ? 0 : totalInactiveSchools"
-              statistic-title="Deactivated Schools"
+              statistic-title="Subeb Schools"
             />
           </b-col>
         </div>
@@ -255,6 +255,7 @@
     
             </b-row>
           </div>
+          
         </b-card>
 
     </div>
