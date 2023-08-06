@@ -19,7 +19,7 @@
               :statistic="
                 totalActiveTimetables === undefined ? 0 :totalActiveTimetables
               "
-              statistic-title="Active Timetables"
+              statistic-title="Active"
             />
           </b-col>
 
@@ -30,7 +30,7 @@
               :statistic="
                 totalInactiveTimetables === undefined ? 0 : totalInactiveTimetables
               "
-              statistic-title="Inactive Timetables"
+              statistic-title="Inactive"
             />
           </b-col>
 
@@ -41,7 +41,7 @@
               :statistic="
                 totalDeletedTimetables === undefined ? 0 : totalDeletedTimetables
               "
-              statistic-title="Deleted Timetables"
+              statistic-title="Deleted"
             />
           </b-col>
 

@@ -161,36 +161,14 @@
             </template>
           </b-sidebar>
           
-          <b-col lg="4" sm="6">
+          <b-col lg="12" sm="6">
             <statistic-card-horizontal
               icon="UsersIcon"
               color="primary"
               :statistic=" totalLessonnotes === undefined ? 0 : totalLessonnotes "
-              statistic-title="Total Lessonnote Activity"
+              statistic-title="Total"
             />
-          </b-col>
-
-          <b-col lg="4" sm="6">
-            <statistic-card-horizontal
-              icon="UserCheckIcon"
-              color="success"
-              :statistic="
-                totalActiveLessonnotes === undefined ? 0 :totalActiveLessonnotes
-              "
-              statistic-title="Lessonnote Activity Non-Slip"
-            />
-          </b-col>
-
-          <b-col lg="4" sm="6">
-            <statistic-card-horizontal
-              icon="UserMinusIcon"
-              color="danger"
-              :statistic="
-                totalInactiveLessonnotes === undefined ? 0 : totalInactiveLessonnotes
-              "
-              statistic-title="Lessonnote Activity Slip"
-            />
-          </b-col>
+          </b-col>         
 
         </div>
 

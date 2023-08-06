@@ -8,7 +8,7 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalEnrollments === undefined ? 0 : totalEnrollments "
-              statistic-title="Total Enrollments"
+              statistic-title="Total"
             />
           </b-col>
 
@@ -19,7 +19,7 @@
               :statistic="
                 totalActiveEnrollments === undefined ? 0 :totalActiveEnrollments
               "
-              statistic-title="Active Student Enrollments"
+              statistic-title="Active"
             />
           </b-col>
 
@@ -30,7 +30,7 @@
               :statistic="
                 totalInactiveEnrollments === undefined ? 0 : totalInactiveEnrollments
               "
-              statistic-title="Inactive Student Enrollments"
+              statistic-title="Inactive"
             />
           </b-col>
 

@@ -161,7 +161,7 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalAttendances === undefined ? 0 : totalAttendances "
-              statistic-title="Total Rowcall Data"
+              statistic-title="Total"
             />
           </b-col> 
 
@@ -172,7 +172,7 @@
               :statistic="
                 totalPresentAttendances === undefined ? 0 :totalPresentAttendances
               "
-              statistic-title="Present Rowcall"
+              statistic-title="Present"
             />
           </b-col>
 
@@ -183,7 +183,7 @@
               :statistic="
                 totalAbsentAttendances === undefined ? 0 : totalAbsentAttendances
               "
-              statistic-title="Absent Rowcall"
+              statistic-title="Absent"
             />
           </b-col>
 
@@ -194,7 +194,7 @@
               :statistic="
                 totalExcusedAttendances === undefined ? 0 : totalExcusedAttendances
               "
-              statistic-title="Excused Rowcall"
+              statistic-title="Excused"
             />
           </b-col>
 

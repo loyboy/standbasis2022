@@ -252,7 +252,7 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalLessonnotes === undefined ? 0 : totalLessonnotes "
-              statistic-title="Total Lessonnotes"
+              statistic-title="Total"
             />
           </b-col>
 
@@ -263,7 +263,7 @@
               :statistic="
                 totalActiveLessonnotes === undefined ? 0 :totalActiveLessonnotes
               "
-              statistic-title="Done Lessonnotes"
+              statistic-title="Done"
             />
           </b-col>
 
@@ -274,7 +274,7 @@
               :statistic="
                 totalInactiveLessonnotes === undefined ? 0 : totalInactiveLessonnotes
               "
-              statistic-title="Not Done Lessonnotes"
+              statistic-title="Not Done"
             />
           </b-col>
 

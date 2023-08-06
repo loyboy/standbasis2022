@@ -8,7 +8,7 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalUsers === undefined ? 0 : totalUsers "
-              statistic-title="Total Users"
+              statistic-title="Total"
             />
           </b-col>
 
@@ -19,7 +19,7 @@
               :statistic="
                 totalActiveUsers === undefined ? 0 :totalActiveUsers
               "
-              statistic-title="Active Users"
+              statistic-title="Active"
             />
           </b-col>
 
@@ -30,7 +30,7 @@
               :statistic="
                 totalInactiveUsers === undefined ? 0 : totalInactiveUsers
               "
-              statistic-title="Inactive Users"
+              statistic-title="Inactive"
             />
           </b-col>
 
@@ -41,7 +41,7 @@
               :statistic="
                 totalDeletedUsers === undefined ? 0 : totalDeletedUsers
               "
-              statistic-title="Deleted Users"
+              statistic-title="Deleted"
             />
           </b-col>
 

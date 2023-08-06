@@ -392,7 +392,7 @@
         filters,
 
         // UI       
-        resolveUserStatusVariant
+        resolveUserStatusVariant 
 
       } = useTeacherList( school );
 

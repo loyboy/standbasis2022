@@ -8,7 +8,7 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalClassrooms === undefined ? 0 : totalClassrooms "
-              statistic-title="Total Classrooms"
+              statistic-title="Total"
             />
           </b-col>
 
@@ -19,7 +19,7 @@
               :statistic="
                 totalActiveClassrooms === undefined ? 0 :totalActiveClassrooms
               "
-              statistic-title="Active Student Classrooms"
+              statistic-title="Active"
             />
           </b-col>
 
@@ -30,7 +30,7 @@
               :statistic="
                 totalInactiveClassrooms === undefined ? 0 : totalInactiveClassrooms
               "
-              statistic-title="Inactive Student Classrooms"
+              statistic-title="Inactive"
             />
           </b-col>
 

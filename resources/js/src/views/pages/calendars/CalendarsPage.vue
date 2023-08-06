@@ -8,7 +8,7 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalCalendars === undefined ? 0 : totalCalendars "
-              statistic-title="Total Calendars"
+              statistic-title="Total"
             />
           </b-col>
 
@@ -19,7 +19,7 @@
               :statistic="
                 totalActiveCalendars === undefined ? 0 :totalActiveCalendars
               "
-              statistic-title="Active Student Calendars"
+              statistic-title="Active"
             />
           </b-col>
 
@@ -30,7 +30,7 @@
               :statistic="
                 totalInactiveCalendars === undefined ? 0 : totalInactiveCalendars
               "
-              statistic-title="Inactive Student Calendars"
+              statistic-title="Inactive"
             />
           </b-col>
 

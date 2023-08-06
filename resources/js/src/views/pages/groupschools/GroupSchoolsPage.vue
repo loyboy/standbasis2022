@@ -8,7 +8,7 @@
         icon="UsersIcon"
         color="primary"
         :statistic=" totalGroupSchools === undefined ? 0 : totalGroupSchools "
-        statistic-title="Total Group of Schools"
+        statistic-title="Total"
       />
     </b-col>
 

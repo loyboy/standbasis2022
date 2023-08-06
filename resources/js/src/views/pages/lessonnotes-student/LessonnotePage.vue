@@ -179,7 +179,7 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalLessonnotes === undefined ? 0 : totalLessonnotes "
-              statistic-title="Total Assessment Available"
+              statistic-title="Total"
             />
           </b-col>
 
@@ -190,7 +190,7 @@
               :statistic="
                 totalActiveLessonnotes === undefined ? 0 :totalActiveLessonnotes
               "
-              statistic-title="Lessonnote Assessment Passed"
+              statistic-title="Passed"
             />
           </b-col>
 
@@ -201,7 +201,7 @@
               :statistic="
                 totalInactiveLessonnotes === undefined ? 0 : totalInactiveLessonnotes
               "
-              statistic-title="Lessonnote Assessment Not Passed"
+              statistic-title="Not Passed"
             />
           </b-col>
 
