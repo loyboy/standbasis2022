@@ -380,6 +380,9 @@
         totalTeachers,
         totalActiveTeachers,
         totalInactiveTeachers,
+        totalDeployedTeachers,
+        totalUnderDeployedTeachers,
+        totalOverDeployedTeachers,
 
         dataMeta,
         perPageOptions,
