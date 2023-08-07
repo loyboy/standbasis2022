@@ -3,7 +3,7 @@
     <div>  
         <div class="row">
 
-          <b-col lg="4" sm="6">
+          <b-col lg="3" sm="6">
             <statistic-card-horizontal
               icon="UsersIcon"
               color="primary"
@@ -12,25 +12,58 @@
             />
           </b-col>
 
-          <b-col lg="4" sm="6">
+          <b-col lg="3" sm="6">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
               :statistic="
                 totalActiveClassrooms === undefined ? 0 :totalActiveClassrooms
               "
-              statistic-title="Active"
+              statistic-title="Primary"
             />
           </b-col>
 
-          <b-col lg="4" sm="6">
+          <b-col lg="3" sm="6">
             <statistic-card-horizontal
-              icon="UserMinusIcon"
+              icon="UserCheckIcon"
               color="danger"
               :statistic="
                 totalInactiveClassrooms === undefined ? 0 : totalInactiveClassrooms
               "
-              statistic-title="Inactive"
+              statistic-title="JSS"
+            />
+          </b-col>
+
+           <b-col lg="3" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="success"
+              :statistic="
+                totalActiveClassrooms === undefined ? 0 :totalActiveClassrooms
+              "
+              statistic-title="SSS"
+            />
+          </b-col>
+
+          <b-col lg="3" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="danger"
+              :statistic="
+                totalInactiveClassrooms === undefined ? 0 : totalInactiveClassrooms
+              "
+              statistic-title="UnderDeployed Secondary"
+            />
+          </b-col>
+
+          <b-col lg="3" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="success"
+              :statistic="
+                totalInactiveClassrooms === undefined ? 0 : totalInactiveClassrooms
+              "
+              statistic-title="UnderDeployed Primary"
             />
           </b-col>
 

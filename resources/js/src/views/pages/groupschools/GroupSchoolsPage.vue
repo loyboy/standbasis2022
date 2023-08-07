@@ -3,12 +3,30 @@
   <div>
 
   <div class="row">
-    <b-col lg="12" sm="6">
+    <b-col lg="4" sm="6">
       <statistic-card-horizontal
         icon="UsersIcon"
         color="primary"
         :statistic=" totalGroupSchools === undefined ? 0 : totalGroupSchools "
         statistic-title="Total"
+      />
+    </b-col>
+
+     <b-col lg="4" sm="6">
+      <statistic-card-horizontal
+        icon="UsersIcon"
+        color="warning"
+        :statistic=" totalGroupSchools === undefined ? 0 : totalGroupSchools "
+        statistic-title="Government"
+      />
+    </b-col>
+
+    <b-col lg="4" sm="6">
+      <statistic-card-horizontal
+        icon="UsersIcon"
+        color="link"
+        :statistic=" totalGroupSchools === undefined ? 0 : totalGroupSchools "
+        statistic-title="Private"
       />
     </b-col>
 

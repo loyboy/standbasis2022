@@ -3,41 +3,30 @@
     <div>
   
         <div class="row">
-          <b-col lg="3" sm="6">
+          <b-col lg="4" sm="6">
             <statistic-card-horizontal
               icon="UsersIcon"
               color="primary"
               :statistic=" totalSchools === undefined ? 0 : totalSchools "
-              statistic-title="Total Schools"
+              statistic-title="Total"
             />
           </b-col>
-
-          <b-col lg="3" sm="6">
-            <statistic-card-horizontal
-              icon="UserCheckIcon"
-              color="success"
-              :statistic="
-                totalSriSchools === undefined ? 0 :totalSriSchools
-              "
-              statistic-title="Private Schools"
-            />
-          </b-col>
-          <b-col lg="3" sm="6">
+          <b-col lg="4" sm="6">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
               :statistic="
                 totalNonSriSchools === undefined ? 0 : totalNonSriSchools
               "
-              statistic-title="Secondary Schools"
+              statistic-title="Secondary"
             />
           </b-col>
-          <b-col lg="3" sm="6">
+          <b-col lg="4" sm="6">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
               :statistic="totalInactiveSchools === undefined ? 0 : totalInactiveSchools"
-              statistic-title="Subeb Schools"
+              statistic-title="Primary"
             />
           </b-col>
         </div>

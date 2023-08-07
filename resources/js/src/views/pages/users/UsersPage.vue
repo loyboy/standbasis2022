@@ -19,29 +19,62 @@
               :statistic="
                 totalActiveUsers === undefined ? 0 :totalActiveUsers
               "
-              statistic-title="Active"
+              statistic-title="Ministry"
             />
           </b-col>
 
           <b-col lg="3" sm="6">
             <statistic-card-horizontal
-              icon="UserMinusIcon"
+              icon="UserCheckIcon"
               color="danger"
               :statistic="
                 totalInactiveUsers === undefined ? 0 : totalInactiveUsers
               "
-              statistic-title="Inactive"
+              statistic-title="SUBEB"
             />
           </b-col>
 
           <b-col lg="3" sm="6">
             <statistic-card-horizontal
-              icon="UserXIcon"
-              color="warning"
+              icon="UserCheckIcon"
+              color="success"
               :statistic="
                 totalDeletedUsers === undefined ? 0 : totalDeletedUsers
               "
-              statistic-title="Deleted"
+              statistic-title="SSMB"
+            />
+          </b-col>
+
+            <b-col lg="4" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="primary"
+              :statistic="
+                totalActiveUsers === undefined ? 0 :totalActiveUsers
+              "
+              statistic-title="Teachers"
+            />
+          </b-col>
+
+          <b-col lg="4" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="primary"
+              :statistic="
+                totalInactiveUsers === undefined ? 0 : totalInactiveUsers
+              "
+              statistic-title="Stakeholders"
+            />
+          </b-col>
+
+          <b-col lg="4" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="primary"
+              :statistic="
+                totalDeletedUsers === undefined ? 0 : totalDeletedUsers
+              "
+              statistic-title="Inactive"
             />
           </b-col>
 

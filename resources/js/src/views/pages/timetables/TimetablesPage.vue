@@ -3,47 +3,15 @@
     <div>  
         <div class="row">
 
-          <b-col lg="3" sm="6">
+          <b-col lg="12" sm="6">
             <statistic-card-horizontal
               icon="UsersIcon"
-              color="primary"
+              color="info"
               :statistic=" totalTimetables === undefined ? 0 : totalTimetables "
-              statistic-title="Total Timetables"
+              statistic-title="Total"
             />
           </b-col>
 
-          <b-col lg="3" sm="6">
-            <statistic-card-horizontal
-              icon="UserCheckIcon"
-              color="success"
-              :statistic="
-                totalActiveTimetables === undefined ? 0 :totalActiveTimetables
-              "
-              statistic-title="Active"
-            />
-          </b-col>
-
-          <b-col lg="3" sm="6">
-            <statistic-card-horizontal
-              icon="UserMinusIcon"
-              color="danger"
-              :statistic="
-                totalInactiveTimetables === undefined ? 0 : totalInactiveTimetables
-              "
-              statistic-title="Inactive"
-            />
-          </b-col>
-
-          <b-col lg="3" sm="6">
-            <statistic-card-horizontal
-              icon="TimetableXIcon"
-              color="warning"
-              :statistic="
-                totalDeletedTimetables === undefined ? 0 : totalDeletedTimetables
-              "
-              statistic-title="Deleted"
-            />
-          </b-col>
 
         </div>
   

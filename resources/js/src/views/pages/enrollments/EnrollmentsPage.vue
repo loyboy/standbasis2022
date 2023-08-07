@@ -15,22 +15,66 @@
           <b-col lg="4" sm="6">
             <statistic-card-horizontal
               icon="UserCheckIcon"
-              color="success"
+              color="danger"
               :statistic="
                 totalActiveEnrollments === undefined ? 0 :totalActiveEnrollments
               "
-              statistic-title="Active"
+              statistic-title="Primary(F)"
             />
           </b-col>
 
           <b-col lg="4" sm="6">
             <statistic-card-horizontal
-              icon="UserMinusIcon"
-              color="danger"
+              icon="UserCheckIcon"
+              color="success"
               :statistic="
                 totalInactiveEnrollments === undefined ? 0 : totalInactiveEnrollments
               "
-              statistic-title="Inactive"
+              statistic-title="Primary(M)"
+            />
+          </b-col>
+
+          <b-col lg="3" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="danger"
+              :statistic="
+                totalActiveEnrollments === undefined ? 0 :totalActiveEnrollments
+              "
+              statistic-title="JSS(F)"
+            />
+          </b-col>
+
+          <b-col lg="3" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="success"
+              :statistic="
+                totalInactiveEnrollments === undefined ? 0 : totalInactiveEnrollments
+              "
+              statistic-title="JSS(M)"
+            />
+          </b-col>
+
+            <b-col lg="3" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="danger"
+              :statistic="
+                totalActiveEnrollments === undefined ? 0 :totalActiveEnrollments
+              "
+              statistic-title="SSS(F)"
+            />
+          </b-col>
+
+          <b-col lg="3" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="success"
+              :statistic="
+                totalInactiveEnrollments === undefined ? 0 : totalInactiveEnrollments
+              "
+              statistic-title="SSS(M)"
             />
           </b-col>
 

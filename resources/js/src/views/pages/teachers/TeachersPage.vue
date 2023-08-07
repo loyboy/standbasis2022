@@ -3,7 +3,7 @@
     <div>  
         <div class="row">
 
-          <b-col lg="2" sm="6">
+          <b-col lg="3" sm="6">
             <statistic-card-horizontal
               icon="UsersIcon"
               color="primary"
@@ -12,29 +12,7 @@
             />
           </b-col>
 
-          <b-col lg="2" sm="6">
-            <statistic-card-horizontal
-              icon="UserCheckIcon"
-              color="success"
-              :statistic="
-                totalActiveTeachers === undefined ? 0 :totalActiveTeachers
-              "
-              statistic-title="Active"
-            />
-          </b-col>
-
-          <b-col lg="2" sm="6">
-            <statistic-card-horizontal
-              icon="UserMinusIcon"
-              color="danger"
-              :statistic="
-                totalInactiveTeachers === undefined ? 0 : totalInactiveTeachers
-              "
-              statistic-title="Inactive"
-            />
-          </b-col>
-
-            <b-col lg="2" sm="6">
+          <b-col lg="3" sm="6">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
@@ -45,7 +23,7 @@
             />
           </b-col>
 
-          <b-col lg="2" sm="6">
+          <b-col lg="3" sm="6">
             <statistic-card-horizontal
               icon="UserMinusIcon"
               color="danger"
@@ -56,7 +34,7 @@
             />
           </b-col>
 
-           <b-col lg="2" sm="6">
+           <b-col lg="3" sm="6">
             <statistic-card-horizontal
               icon="UserXIcon"
               color="warining"
