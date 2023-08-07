@@ -78,11 +78,6 @@ export default [
                 permission: [ "admin" , "proprietor" ]            
             },
             {
-                title: 'Group of Schools',
-                route: 'groupschools-home',
-                permission: [ "proprietor" ]              
-            },
-            {
                 title: 'Teachers',
                 route: 'teachers-home'
               
