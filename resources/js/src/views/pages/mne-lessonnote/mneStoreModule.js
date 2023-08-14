@@ -11,7 +11,15 @@ export default {
         fetchMne(ctx, queryParams) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/mne/attendance/students', { params: queryParams })
+                    .get($themeConfig.app.baseURL + '/mne/lessonnote/students', { params: queryParams })
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            }) 
+        },
+        fetchMneTwo(ctx, queryParams) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/mne/lessonnote/proprietors', { params: queryParams })
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
@@ -24,7 +32,7 @@ export default {
                     .catch(error => reject(error))
             }) 
         },
-        fetchTeachers(ctx, {school}) {
+        fetchTeachers(ctx, {school}) { 
             return new Promise((resolve, reject) => {
                 axios
                     .get($themeConfig.app.baseURL + '/teacher/school/' + school )

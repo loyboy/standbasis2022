@@ -4,11 +4,13 @@ import store from '@/store'
 export default function useEvaluation() {  
   
   const mnelistItems = ref([]) 
+  const userData = ref({});   
   const isLoading = ref(false)
   const changeFieldsStudents = ref(false)
-  const dyFieldsStudents = ref([
- 
-  ])
+  const dyFieldsStudents = ref([])
+
+  const headTotal = ref(0);
+  const teacherTotal = ref(0);
 
   const changeFieldsTeacher = ref(false)
   const dyFieldsTeacher = ref([])
@@ -28,6 +30,8 @@ export default function useEvaluation() {
    
   });
 
+  userData.value = JSON.parse(localStorage.getItem('userData'));
+
   const dynamicFields = computed(() => {
       let fields = [];
 
@@ -42,10 +46,11 @@ export default function useEvaluation() {
       return fields;
   })
  
+  // For student assessment
   const fetchMneVariant = () => {
       isLoading.value = true;
 
-      store.dispatch('app-MneAttendance/fetchMne', {enrol: filters.value.typetwo_student, calendar: filters.value.typefour, week: filters.value.typethree  })
+      store.dispatch('app-MneLessonnote/fetchMne', {enrol: filters.value.typetwo_student, calendar: filters.value.typefour, week: filters.value.typethree  })
       .then(response => {
         
         const { mnecolumndata, mnecolumns } = response.data;
@@ -64,27 +69,49 @@ export default function useEvaluation() {
     })
   }  
 
+  // For teacher lessonnote
   const fetchMneVariant2 = () => {
     isLoading.value = true;
 
-    store.dispatch('app-MneAttendance/fetchMne', {enrol: filters.value.typetwo_teacher, calendar: filters.value.typefour, week: filters.value.typethree  })
-    .then(response => {
+      store.dispatch('app-MneLessonnote/fetchMne', {enrol: filters.value.typetwo_teacher, calendar: filters.value.typefour, week: filters.value.typethree  })
+      .then(response => {
+        
+        const { mnecolumndata, mnecolumns } = response.data;
+
+        dyFieldsTeacher.value = mnecolumns
+
+        mnelistItems.value = mnecolumndata;
+
+        isLoading.value = false;
+        changeFieldsTeacher.value = true;
+        changeFieldsStudents.value = false;
+      })
+      .catch((e) => {
+        console.log("Fetch Mne Viewing error: " + e);
+        isLoading.value = false;   
+      })
+  } 
+
+  const fetchMneVariant3 = () => {
+    isLoading.value = true;
+
+      store.dispatch('app-MneLessonnote/fetchMneTwo', {group: filters.value.schoolgroup, school: filters.value.schoolId, calendar: filters.value.typefour, week: filters.value.typethree  })
+      .then(response => {
+        
+        const { teacher_management, head_admin } = response.data;
+
+        headTotal.value = head_admin;
+
+        teacherTotal.value = teacher_management;
+
+        isLoading.value = false;
       
-      const { mnecolumndata, mnecolumns } = response.data;
-
-      dyFieldsTeacher.value = mnecolumns
-
-      mnelistItems.value = mnecolumndata;
-
-      isLoading.value = false;
-      changeFieldsTeacher.value = true;
-      changeFieldsStudents.value = false;
-    })
-    .catch((e) => {
-      console.log("Fetch Mne Viewing error: " + e);
-      isLoading.value = false;   
-  })
-} 
+      })
+      .catch((e) => {
+        console.log("Fetch Mne Viewing error: " + e);
+        isLoading.value = false;   
+      })
+  } 
  
 
   const handleChange = (ctx) => {
@@ -96,7 +123,7 @@ export default function useEvaluation() {
       fetchMneVariant2();
     }
 
-    else if (  filters.value.typeone && filters.value.typetwo_principal && filters.value.typethree && filters.value.typefour ) {
+    else if ( userData.value.role === "proprietor" && filters.value.schoolId && filters.value.typethree && filters.value.typefour ) {
       fetchMneVariant3();
     }
 

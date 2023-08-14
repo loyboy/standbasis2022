@@ -11,7 +11,7 @@
 
            <b-row v-if=" userData.role === 'proprietor' ">
                   <b-col cols="12" md="12"  >
-                    <b-form-group label=" Select School in View" >
+                    <b-form-group label=" Select School" >
                       <b-form-select
                         v-model="filters.schoolId"
                         :options="schoolOptions"
@@ -23,7 +23,7 @@
 
           <b-row>
                   <b-col cols="12" md="12"  >
-                    <b-form-group label=" Select School Calendar in View" >
+                    <b-form-group label=" Select School Calendar" >
                       <b-form-select
                         v-model="filters.typefour"
                         :options="calendarOptions"
@@ -35,7 +35,7 @@
 
           <b-row v-if=" filters.typefour !== null ">
                   <b-col cols="12" md="12"  >
-                    <b-form-group label=" Select Week Period " >
+                    <b-form-group label=" Select Week" >
                       <b-form-select
                         v-model="filters.typethree"
                         :options="weekOptions"

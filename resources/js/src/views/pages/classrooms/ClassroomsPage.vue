@@ -52,7 +52,7 @@
               :statistic="
                 totalInactiveClassrooms === undefined ? 0 : totalInactiveClassrooms
               "
-              statistic-title="UnderDeployed Secondary"
+              statistic-title="UnDeployed Secondary"
             />
           </b-col>
 
@@ -63,7 +63,7 @@
               :statistic="
                 totalInactiveClassrooms === undefined ? 0 : totalInactiveClassrooms
               "
-              statistic-title="UnderDeployed Primary"
+              statistic-title="UnDeployed Primary"
             />
           </b-col>
 
