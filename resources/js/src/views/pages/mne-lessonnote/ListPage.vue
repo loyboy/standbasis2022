@@ -418,6 +418,10 @@
 
         handleChange,
 
+        headTotal,
+
+        teacherTotal
+
       } = useMne();
 
       if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
