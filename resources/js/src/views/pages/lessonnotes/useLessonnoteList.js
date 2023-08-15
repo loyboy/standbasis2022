@@ -105,6 +105,14 @@ export default function useLessonnoteList() {
     refLessonnoteListTable.value.refresh()
   }
 
+  const isWithinSevenDays = (date1, date2) => {
+    if (date2 < date1) {
+      return false;
+    }  
+    let diffInMilliseconds = Math.round(date2 - date1);        
+    return diffInMilliseconds <= 604800000; // 7 days in milliseconds
+  }
+
   watch([currentPage, perPage, searchQuery], () => {
     refetchData()
   })
@@ -163,8 +171,16 @@ export default function useLessonnoteList() {
       })
       .then(response => {
         const { lessonnotemanagement } = response.data
-    
-        LessonnoteItems.value = lessonnotemanagement   
+
+        const showCurrent = lessonnotemanagement.filter( o => { 
+          const expiry_date_of_submission = new Date(o.lsn_id.expected_submission).getTime();
+          const todayDate = new Date().getTime();
+        
+          return isWithinSevenDays(todayDate, expiry_date_of_submission);  
+        
+        } )
+
+        LessonnoteItems.value = showCurrent   
         isLoading.value = false;   
 
       })

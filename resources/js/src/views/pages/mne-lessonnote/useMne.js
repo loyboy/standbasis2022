@@ -123,7 +123,7 @@ export default function useEvaluation() {
       fetchMneVariant2();
     }
 
-    else if ( userData.value.role === "proprietor" && filters.value.schoolId && filters.value.typethree && filters.value.typefour ) {
+    else if ( userData.value.role === "proprietor" && filters.value.schoolgroup && filters.value.typethree && filters.value.typefour ) {
       fetchMneVariant3();
     }
 

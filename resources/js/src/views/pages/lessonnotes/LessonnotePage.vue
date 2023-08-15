@@ -1279,7 +1279,7 @@
             LessonnoteItems,
 
             searchValues,
-            backendURL,
+            backendURL, 
             baseURL,
             Lessonnote_APP_STORE_MODULE_NAME
 
