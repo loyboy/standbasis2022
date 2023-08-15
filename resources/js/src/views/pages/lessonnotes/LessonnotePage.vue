@@ -535,7 +535,7 @@
                 :variant="`light-${resolveLessonnoteactionVariant(data.item.action)}`"
                 class="text-capitalize"
                 >      
-                   {{  data.item.action }}
+                   {{  data.item.action === "submit" ? "Submitted" : data.item.action }}
                 </b-badge>
              </template>
 
@@ -571,7 +571,7 @@
             <template #cell(actions)="data">
               <div class="d-flex flex-column">
                 <b-button size="sm" variant="success" class="mb-1" v-if=" ( data.item.lsn_id.resubmission != null || data.item.lsn_id.submission != null ) && data.item.lsn_id.revert == null && data.item.lsn_id.approval == null "  @click= " triggerApprove( data.item.lsn_id.title , data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId  ) " >Approve</b-button>
-                <b-button size="sm" variant="danger"  class="mb-1"  v-if=" ( data.item.lsn_id.resubmission != null || data.item.lsn_id.submission != null ) && data.item.lsn_id.revert == null && data.item.lsn_id.approval == null " @click= " triggerDisapprove( data.item.lsn_id.title, data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId ) " >Revert</b-button>
+                <b-button size="sm" variant="danger"  class="mb-1"  v-if=" ( data.item.lsn_id.resubmission != null || data.item.lsn_id.submission != null ) && data.item.lsn_id.revert == null && data.item.lsn_id.approval == null " @click= " triggerDisapprove( data.item.lsn_id.title, data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId ) " >Query</b-button>
                 <b-button size="sm" variant="primary" class="mb-1" v-if=" data.item.lsn_id.approval !== null && data.item.lsn_id.closure != null  " @click= " triggerClosure( 'principal', data.item.lsn_id.title, data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId ) "  >Close</b-button>
                 
                 <b-button size="sm" variant="info" @click="openfile(data.item.lsn_id.lsnPath, data.item.lsn_id.title)" > View File </b-button>
@@ -704,7 +704,7 @@
 
               <b-row>
                   <b-col cols="4" md="12">
-                    <b-form-group label=" This lesson note has classwork included?" label-for="">
+                    <b-form-group label="Classwork attached?" label-for="">
                      <b-form-checkbox
                       v-model="filters.hasClasswork"
                       switch
@@ -713,7 +713,7 @@
                   </b-col>
 
                   <b-col cols="4" md="12">
-                    <b-form-group label=" This lesson note has homework included?" label-for="">
+                    <b-form-group label="Homework attached?" label-for="">
                      <b-form-checkbox
                       v-model="filters.hasHomework"
                       switch
@@ -722,37 +722,20 @@
                   </b-col>
 
                   <b-col cols="4" md="12">
-                    <b-form-group label=" This lesson note has test included?" label-for="">
+                    <b-form-group label="Test attached?" label-for="">
                      <b-form-checkbox
                       v-model="filters.hasTest"
                       switch
                     />
                     </b-form-group>
                   </b-col>
-
-                  <b-col cols="4" md="12">
-                    <b-form-group label=" This lesson Note has MidTerm included?" label-for="">
-                     <b-form-checkbox
-                      v-model="filters.hasMidTerm"
-                      switch
-                    />
-                    </b-form-group>
-                  </b-col>
-
-                   <b-col cols="4" md="12">
-                    <b-form-group label="This Lesson Note has Final Exam included?" label-for="">
-                     <b-form-checkbox
-                      v-model="filters.hasFinalExam"
-                      switch
-                    />
-                    </b-form-group>
-                  </b-col>
+                 
               </b-row>
 
           <b-button
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-3"
-            variant="outline-secondary"
+            variant="warning"
             block
             @click="hideModal"
           >
@@ -763,7 +746,7 @@
             v-if=" !isLoading "
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-2"
-            variant="outline-success"
+            variant="success"
             block
             @click="principalActionApprove( LessonnotePicked )"
           >
@@ -798,7 +781,7 @@
           </span>  
             <b-row>
                   <b-col cols="6" md="12">
-                    <b-form-group label="Grammar is Faulty? (Select YES if faulty)" label-for="">
+                    <b-form-group label="Grammar?" label-for="">
                      <b-form-checkbox
                       v-model="grammar"
                       switch
@@ -807,7 +790,7 @@
                   </b-col>
 
                   <b-col cols="6" md="12">
-                    <b-form-group label="Arrangement is faulty? (Select YES if faulty)" label-for="">
+                    <b-form-group label="Arrangement?" label-for="">
                      <b-form-checkbox
                       v-model="arrangement"
                       switch
@@ -816,7 +799,7 @@
                   </b-col>
 
                   <b-col cols="6" md="12">
-                    <b-form-group label="Subject Matter is not fully understood? (Select YES if in agreement)" label-for="">
+                    <b-form-group label="Subject Matter?" label-for="">
                      <b-form-checkbox
                       v-model="subjectmatter"
                       switch
@@ -825,7 +808,7 @@
                   </b-col> 
 
                    <b-col cols="6" md="12">
-                    <b-form-group label="Either Classwork/Test/Homework not included? (Select YES if not included and is a priority)" label-for="">
+                    <b-form-group label="Incomplete Assessment/No Assessment?" label-for="">
                      <b-form-checkbox
                       v-model="incomplete"
                       switch
@@ -837,7 +820,7 @@
           <b-button
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-3"
-            variant="outline-warning"
+            variant="warning"
             block
             @click="hideModal2"
           >
@@ -847,7 +830,7 @@
             v-if=" !isLoading "
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-2"
-            variant="outline-danger"
+            variant="success"
             block
             @click="principalActionDisapprove( LessonnotePicked )"
           >
@@ -895,7 +878,7 @@
             v-if=" !isLoading "
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-2"
-            variant="outline-danger"
+            variant="success"
             block
             @click="teacherActionClosure( LessonnotePicked )"
           >
@@ -933,7 +916,7 @@
           <b-button
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-3"
-            variant="outline-warning"
+            variant="warning"
             block
             @click="hideModal4"
           >
@@ -944,7 +927,7 @@
             v-if=" !isLoading "
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-2"
-            variant="outline-danger"
+            variant="success"
             block
             @click="principalActionClosure( LessonnotePicked )"
           >

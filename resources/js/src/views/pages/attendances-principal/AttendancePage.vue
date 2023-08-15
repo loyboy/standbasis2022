@@ -132,7 +132,7 @@
                     </b-dropdown-item>
 
                   </b-dropdown>-->
-                  <b-form-group v-if=" data.item.done !== 0 ">
+                  <b-form-group v-if=" data.item.done !== 0 && (data.item.principal_action === 0 || data.item.principal_action === null ) ">
                        <div class="d-flex mt-2">
                           <b-button type="button" variant="success" class="mr-2" @click="principalActionApprove(data.item.attId)">
                             Approve
@@ -141,6 +141,17 @@
                             Query
                           </b-button>
                         
+                       </div>
+                  </b-form-group>
+
+                  <b-form-group v-else> 
+                      <div class="d-flex mt-2">
+                          <b-button v-if="data.item.principal_action === 1" type="button" variant="success" class="mr-4">
+                            APPROVED
+                          </b-button>  
+                          <b-button v-if="data.item.principal_action === 2" type="button" variant="danger" class="mr-4">
+                            QUERIED
+                          </b-button>                        
                        </div>
                   </b-form-group>
                 </template>
@@ -332,7 +343,7 @@
          let confirmApproval = window.confirm("Do you really wish to Approve this Attendance?");
          if (confirmApproval){
             const sef = this;          
-            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId),  management: { action : 1 }, activity: { action: "approved" } } )
+            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId), attendance: { principal_action: 1 },  management: { action : 1 }, activity: { action: "approved" } } )
             .then(response => { 
                 sef.$toast({
                   component: ToastificationContent,
@@ -362,7 +373,7 @@
          let confirmApproval = window.confirm("Are all the issues within this Attendance been resolved?");
          if (confirmApproval){
             const sef = this;          
-            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId),  management: { action : 3, comment: "All issues have been resolved." }, activity: { action: "resolved" } } )
+            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId), attendance: { principal_action: 3 }, management: { action : 3, comment: "All issues have been resolved." }, activity: { action: "resolved" } } )
             .then(response => { 
                 sef.$toast({
                   component: ToastificationContent,
@@ -391,7 +402,7 @@
          let confirmQuery = window.prompt("Type in a comment to add to this Query for this Attendance:")
          if (confirmQuery){
             const sef = this;          
-            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId), management: { action : 2, comment: confirmQuery === "" ? "No comment" : confirmQuery }, activity: { action: "queried", comment_query: confirmQuery === "" ? "No comment" : confirmQuery  } } )
+            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceManagement`, { id: Number(attId), attendance: { principal_action: 2 }, management: { action : 2, comment: confirmQuery === "" ? "No comment" : confirmQuery }, activity: { action: "queried", comment_query: confirmQuery === "" ? "No comment" : confirmQuery  } } )
             .then(response => { 
                 sef.$toast({
                   component: ToastificationContent,

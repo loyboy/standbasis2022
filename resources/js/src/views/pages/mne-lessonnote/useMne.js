@@ -201,7 +201,11 @@ export default function useEvaluation() {
 
     handleChange,
 
-    mnelistItems
+    mnelistItems,
+
+    headTotal,
+
+    teacherTotal
 
   }
 }
