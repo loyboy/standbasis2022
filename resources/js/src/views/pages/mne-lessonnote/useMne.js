@@ -115,20 +115,23 @@ export default function useEvaluation() {
  
 
   const handleChange = (ctx) => {
-    if (  filters.value.typeone && filters.value.typetwo_student && filters.value.typethree && filters.value.typefour ) {
+    if (  filters.value.typeone && filters.value.typetwo_student && filters.value.typefour ) {
       fetchMneVariant();
+      window.scrollBy(0, 200);
     }
     
-    else if (  filters.value.typeone && filters.value.typetwo_teacher && filters.value.typethree && filters.value.typefour ) {
+    else if (  filters.value.typeone && filters.value.typetwo_teacher && filters.value.typefour ) {
       fetchMneVariant2();
+      window.scrollBy(0, 200);
     }
 
-    else if ( userData.value.role === "proprietor" && filters.value.schoolgroup && filters.value.typethree && filters.value.typefour ) {
+    else if ( userData.value.role === "proprietor" && filters.value.schoolgroup  ) {
       fetchMneVariant3();
+      window.scrollBy(0, 200);
     }
 
     else{
-      window.alert(" please select all appropriate options before beginning the search. ")
+      window.alert(" Please select all appropriate options before beginning the search. ")
     }    
   }
 

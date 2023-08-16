@@ -13,6 +13,12 @@ export default function useEvaluation() {
 
   const tableKey = ref(1)
 
+  const headTotal = ref(0);
+  const teacherManTotal = ref(0)
+  const studentAtt =  ref(0)
+  const studentExcusedAtt = ref(0)
+  const teacherAttTotal = ref(0)
+
   const filters = ref({  
     schoolId: null,
     teacherId: null,
@@ -85,30 +91,61 @@ export default function useEvaluation() {
     .catch((e) => {
       console.log("Fetch Mne Viewing error: " + e);
       isLoading.value = false;   
-  })
-} 
+    })
+  } 
+
+
+  const fetchMneVariant3 = () => {
+    isLoading.value = true;
+
+    store.dispatch('app-MneAttendance/fetchMneTwo', {group: filters.value.schoolgroup, school: filters.value.schoolId, calendar: filters.value.typefour, week: filters.value.typethree  })
+    .then(response => {
+      
+      const { teacher_management, teacher_attendance, student_att, student_att_excused, head_admin } = response.data;
+
+      headTotal.value = head_admin;
+
+      teacherAttTotal.value = teacher_attendance;
+
+      teacherManTotal.value = teacher_management;
+
+      studentAtt.value = student_att;
+
+      studentExcusedAtt.value = student_att_excused;
+
+      isLoading.value = false;
+    
+    })
+    .catch((e) => {
+      console.log("Fetch Mne Viewing error: " + e);
+      isLoading.value = false;   
+    })
+  } 
  
 
   const handleChange = (ctx) => {
     //console.log(  filters.value.typeone + " >>  " + filters.value.typetwo_teacher + " >> " + filters.value.typethree + " >> " + filters.value.typefour);
-    if (  filters.value.typeone === "student" && filters.value.typetwo_student && filters.value.typethree && filters.value.typefour ) {
+    if (  filters.value.typeone === "student" && filters.value.typetwo_student &&  filters.value.typefour ) {
       fetchMneVariant();
+      window.scrollBy(0, 200);
     }
     
-    else if ( filters.value.typeone === "teacher" && filters.value.typetwo_teacher && filters.value.typethree && filters.value.typefour ) {
+    else if ( filters.value.typeone === "teacher" && filters.value.typetwo_teacher &&  filters.value.typefour ) {
       fetchMneVariant2();
+      window.scrollBy(0, 200);
     }
 
-    else if ( filters.value.typeone === "teacher_me" && filters.value.typetwo_teacher && filters.value.typethree && filters.value.typefour ) {
+    else if ( filters.value.typeone === "teacher_me" && filters.value.typetwo_teacher &&  filters.value.typefour ) {
       fetchMneVariant2();
+      window.scrollBy(0, 200);
     }
 
-    else if (  filters.value.typeone === "principal" && filters.value.typetwo_principal && filters.value.typethree && filters.value.typefour ) {
+    else if ( userData.value.role === "proprietor" && filters.value.schoolgroup ) {
       fetchMneVariant3();
     }
 
     else{
-      window.alert(" please select all appropriate options before beginning the search. ")
+      window.alert(" Please select all appropriate options before beginning the search. ")
     }    
   }
 
@@ -183,7 +220,17 @@ export default function useEvaluation() {
 
     mnelistItems,
 
-    tableKey
+    tableKey,
+
+    teacherManTotal,
+
+    studentAtt,
+
+    studentExcusedAtt,
+
+    headTotal, 
+
+    teacherAttTotal
 
   }
 }

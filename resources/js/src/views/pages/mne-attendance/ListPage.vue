@@ -2,24 +2,13 @@
     <div>
 
       <b-form
+                 v-if=" userData.role !== 'proprietor' "
                 class="p-2 myborder"
                 @submit.prevent="handleChange()"
                 @reset.prevent="resetForm"
               >
         <b-card-body>
-          <!-- Fixxx the issue with Propreitor here in Calendar --> 
-
-           <b-row v-if=" userData.role === 'proprietor' ">
-                  <b-col cols="12" md="12"  >
-                    <b-form-group label=" Select School" >
-                      <b-form-select
-                        v-model="filters.schoolId"
-                        :options="schoolOptions"
-                        @change="changeSchoolCalendar"
-                      />
-                    </b-form-group>
-                  </b-col>
-          </b-row>
+          <!-- Fixxx the issue with Propreitor here in Calendar -->        
 
           <b-row>
                   <b-col cols="12" md="12"  >
@@ -125,6 +114,129 @@
         </b-card-body>
 
       </b-form>
+
+      <b-form class="p-2 myborder" 
+        @submit.prevent="handleChange()"
+        @reset.prevent="resetForm"
+        v-else>
+            <b-card-body>
+              
+              <b-row>
+                  <b-col cols="12" md="12"  >
+                    <b-form-group label=" Select School" >
+                      <b-form-select
+                        v-model="filters.schoolId"
+                        :options="schoolOptions"
+                        @change="changeSchoolCalendar"
+                      />
+                    </b-form-group>
+                  </b-col>
+              </b-row>
+
+              <b-row>
+                
+                  <span>  
+                    <b-form-checkbox id="drill-down" v-model="cal_drilldown" name="checkbox-1">
+                      Drill down From Schools ? 
+                    </b-form-checkbox>  
+                  </span>
+
+                  <b-col cols="10" md="10"  v-if=" cal_drilldown "  >
+                    <b-form-group label=" Select School Calendar" >
+                      <b-form-select
+                        v-model="filters.typefour"
+                        :options="calendarOptions"                       
+                      />
+                    </b-form-group>
+                  </b-col>
+
+              </b-row>
+
+              <b-row>
+                  <span>  
+                    <b-form-checkbox id="drill-down-two" v-model="week_drilldown" name="checkbox-1">
+                      Drill down From Schools & Calendars ? 
+                    </b-form-checkbox>
+                  </span>  
+                  <b-col cols="10" md="10" v-if=" week_drilldown " >
+                    <b-form-group label=" Select Week " >
+                      <b-form-select
+                        v-model="filters.typethree"
+                        :options="weekOptions"
+                      />
+                    </b-form-group>
+                  </b-col>
+              </b-row>
+
+              <b-row class="filter-padding" align-h="center" v-if=" cal_drilldown || week_drilldown" >
+                <b-col
+                  cols="12"
+                  md="8"
+                  class="mb-md-0 mb-2 align-center"
+                >
+                      <b-button variant="success" class="mr-2 col-md-12" type="submit">
+                        Filter M&E Listing
+                      </b-button> 
+
+                </b-col>            
+              </b-row>
+
+              <b-row class="mt-2 py-2">
+                <b-col lg="6" sm="6">
+                  <statistic-card-horizontal
+                    icon="AlertOctagonIcon"
+                    color="info"
+                    :statistic=" teacherAttTotal === undefined ? 0 : teacherAttTotal "
+                    statistic-title="Teacher Attendance (%)"
+                  />
+                </b-col>
+
+                <b-col lg="6" sm="6">
+                  <statistic-card-horizontal
+                    icon="AlertOctagonIcon"
+                    color="success"
+                    :statistic="
+                      teacherManTotal === undefined ? 0 : teacherManTotal
+                    "
+                    statistic-title="Teacher Management (%)"
+                  />
+                </b-col>
+
+                 <b-col lg="6" sm="6">
+                  <statistic-card-horizontal
+                    icon="AlertOctagonIcon"
+                    color="danger"
+                    :statistic=" studentAtt === undefined ? 0 : studentAtt "
+                    statistic-title="Student Attendance (%)"
+                  />
+                </b-col>
+
+                <b-col lg="6" sm="6">
+                  <statistic-card-horizontal
+                    icon="AlertOctagonIcon"
+                    color="secondary"
+                    :statistic="
+                      studentExcusedAtt === undefined ? 0 : studentExcusedAtt
+                    "
+                    statistic-title="Student Excused Absence (%)"
+                  />
+                </b-col>
+
+                <b-col lg="12" sm="12">
+                  <statistic-card-horizontal
+                    icon="AlertOctagonIcon"
+                    color="warning"
+                    :statistic="
+                      headTotal === undefined ? 0 : headTotal
+                    "
+                    statistic-title="School Head Administration (%)"
+                  />
+                </b-col>
+              </b-row>
+
+            </b-card-body>
+      </b-form>
+        
   
       <!-- Table Container Card -->
      <b-card-code title="Filtered M&E Results" class="my-4 mx-1">
@@ -289,7 +401,7 @@
             { value: null, text: "Please select A User" }
         ]
         let weekOptions = [
-            { value: null, text: "Please select A Week Period" },
+            { value: null, text: "Up until today...." },
             { value: 1, text: "Week 1" },
             { value: 2, text: "Week 2" },
             { value: 3, text: "Week 3" },
@@ -302,10 +414,16 @@
             { value: 10, text: "Week 10" },
             { value: 11, text: "Week 11" },
             { value: 12, text: "Week 12" }
-        ]            
+        ]   
+        
+        let cal_drilldown = false
+        let week_drilldown = false
+
         return {           
            weekOptions,          
-           userOptions
+           userOptions,
+           cal_drilldown,
+           week_drilldown
         }
     },  
 
@@ -325,6 +443,7 @@
       const userData = ref({});   
       const teacherData = ref({}); 
       const calendarOptions = ref([ { value: null, text: "Please select A Calendar" } ]);
+      const schoolOptions = ref([ { value: null, text: "All Schools" } ]);
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
       if (storedItems){
@@ -352,6 +471,16 @@
 
         handleChange,
 
+        teacherManTotal,
+
+        studentAtt,
+
+        studentExcusedAtt,
+
+        headTotal, 
+
+        teacherAttTotal,
+
         tableKey
 
       } = useMne();
@@ -370,6 +499,15 @@
             let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
             calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
           });
+        }
+         else if( findIfPropisPresent === true ){
+          const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { id : filters.value.schoolgroup });
+          let myval = resp.data.data;
+          myval.forEach(obj => { 
+            schoolOptions.value.push( { value: obj.schId , text: obj.name } )
+          });
+
+          handleChange();
         }
       })();
 
@@ -400,6 +538,18 @@
         handleChange,
 
         calendarOptions,
+
+        schoolOptions,
+
+        teacherManTotal,
+
+        studentAtt,
+
+        studentExcusedAtt,
+
+        headTotal, 
+
+        teacherAttTotal,
 
         tableKey
 

@@ -111,7 +111,10 @@
 
       </b-form>
 
-      <b-form class="p-2 myborder" v-else>
+      <b-form class="p-2 myborder"  
+          @submit.prevent="handleChange()"
+          @reset.prevent="resetForm" 
+          v-else>
             <b-card-body>
               
               <b-row>
@@ -161,6 +164,19 @@
                   </b-col>
               </b-row>
 
+              <b-row class="filter-padding" align-h="center" v-if=" cal_drilldown || week_drilldown" >
+                <b-col
+                  cols="12"
+                  md="8"
+                  class="mb-md-0 mb-2 align-center"
+                >
+                      <b-button variant="success" class="mr-2 col-md-12" type="submit">
+                        Filter M&E Listing
+                      </b-button> 
+
+                </b-col>            
+              </b-row>
+
               <b-row class="mt-2 py-2">
                 <b-col lg="6" sm="6">
                   <statistic-card-horizontal
@@ -183,6 +199,7 @@
                 </b-col>
               </b-row>
 
+             
             </b-card-body>
       </b-form>
         
@@ -348,7 +365,7 @@
             { value: null, text: "Please select A User" }
         ]
         let weekOptions = [
-            { value: null, text: "Please select A Week Period" },
+            { value: null, text: "Up until today...." },
             { value: 1, text: "Week 1" },
             { value: 2, text: "Week 2" },
             { value: 3, text: "Week 3" },
@@ -408,7 +425,7 @@
 
       const {     
          
-        isLoading,     
+        isLoading,      
         
         filters,
 
@@ -447,6 +464,8 @@
           myval.forEach(obj => { 
             schoolOptions.value.push( { value: obj.schId , text: obj.name } )
           });
+
+          handleChange();
         }
 
       })();

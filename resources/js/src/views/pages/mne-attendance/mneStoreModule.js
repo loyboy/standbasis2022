@@ -25,6 +25,14 @@ export default {
                     .catch(error => reject(error))
             }) 
         },
+        fetchMneTwo(ctx, queryParams) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/mne/attendance/proprietors', { params: queryParams })
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            }) 
+        },
         fetchStudents(ctx, queryParams) {
             return new Promise((resolve, reject) => {
                 axios
