@@ -508,10 +508,10 @@
               myval.forEach(obj => { 
                 let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
                 
-              //  calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
-                 if (Number(obj.term) !== -99){
+                calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+                /* if (Number(obj.term) !== -99){
                     calendarOptions.value.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
-                 } 
+                 } */
               });
             }
             else if( findIfPropisPresent === true ){

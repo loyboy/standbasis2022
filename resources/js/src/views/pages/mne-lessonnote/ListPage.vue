@@ -463,9 +463,9 @@
           let myval = resp.data.data;
           myval.forEach(obj => { 
             let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
-            if (Number(obj.term) !== -99){
+          //  if (Number(obj.term) !== -99){
                 calendarOptions.value.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
-            }            
+          //  }            
           });
         }
 
