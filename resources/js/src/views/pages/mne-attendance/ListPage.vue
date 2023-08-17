@@ -499,8 +499,8 @@
        
       })();
 
-      onMounted(() => {
-          setTimeout(() => {
+     onMounted(() => {
+          setTimeout( async () => {
            
             if ( findIfPropisPresent === false ){
               const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : filters.value.schoolId });
