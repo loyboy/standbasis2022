@@ -260,6 +260,10 @@
                    <b> {{ data.item.performance }} % </b>
                 </template>
 
+                <template #cell(management)="data">
+                   <b> {{ data.item.management }} % </b>
+                </template>
+
                 <template #cell(d1)="data">
                    <b> {{ data.item.d1 }} % </b>
                 </template>
@@ -492,29 +496,33 @@
       } 
 
       (async function () {
-        if ( findIfPropisPresent === false ){
-          const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : filters.value.schoolId });
-          let myval = resp.data.data;
-          myval.forEach(obj => { 
-            let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
-            calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
-          });
-        }
-         else if( findIfPropisPresent === true ){
-          const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { id : filters.value.schoolgroup });
-          let myval = resp.data.data;
-          myval.forEach(obj => { 
-            schoolOptions.value.push( { value: obj.schId , text: obj.name } )
-          });
-
-          handleChange();
-        }
+       
       })();
 
       onMounted(() => {
           setTimeout(() => {
            
-           //fetchOneRoundInEvaluation(evaluation);   
+            if ( findIfPropisPresent === false ){
+              const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : filters.value.schoolId });
+              let myval = resp.data.data;
+              myval.forEach(obj => { 
+                let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
+                
+              //  calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+                 if (Number(obj.term) !== -99){
+                    calendarOptions.value.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+                 } 
+              });
+            }
+            else if( findIfPropisPresent === true ){
+              const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { id : filters.value.schoolgroup });
+              let myval = resp.data.data;
+              myval.forEach(obj => { 
+                schoolOptions.value.push( { value: obj.schId , text: obj.name } )
+              });
+
+              handleChange();
+            }
           
           }, 800)       
       })

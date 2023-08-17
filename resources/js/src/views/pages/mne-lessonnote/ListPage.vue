@@ -224,6 +224,10 @@
                    <b> {{ data.item.performance }} % </b>
                 </template>
 
+                <template #cell(management)="data">
+                   <b> {{ data.item.management }} % </b>
+                </template>
+
                 <template #cell(d1)="data">
                    <b> {{ data.item.d1 }} % </b>
                 </template>
@@ -447,14 +451,21 @@
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
       } 
 
-      (async function () {
+      (async function () {       
 
-        if ( findIfPropisPresent === false ){
+      })();
+
+      onMounted(() => {
+          setTimeout(() => {
+           
+           if ( findIfPropisPresent === false ){
           const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : filters.value.schoolId });
           let myval = resp.data.data;
           myval.forEach(obj => { 
             let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
-            calendarOptions.value.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+            if (Number(obj.term) !== -99){
+                calendarOptions.value.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+            }            
           });
         }
 
@@ -466,16 +477,9 @@
           });
 
           handleChange();
-        }
-
-      })();
-
-      onMounted(() => {
-          setTimeout(() => {
-           
-           //fetchOneRoundInEvaluation(evaluation);   
+        } 
           
-          }, 800)       
+          }, 1000)       
       })
       
       return {
