@@ -57,7 +57,10 @@ export default function useEvaluation() {
         const { mnecolumndata, mnecolumn } = response.data;
 
         dyFieldsStudents.value = mnecolumn
-
+        
+        if (mnecolumndata.length > 1){
+          mnecolumndata = mnecolumndata.slice(0, 1);
+        }
         mnelistItems.value = mnecolumndata;
 
         isLoading.value = false;
@@ -78,6 +81,10 @@ export default function useEvaluation() {
     .then(response => {
       
       const { mnecolumndata, mnecolumn } = response.data;
+
+      if (mnecolumndata.length > 1){
+        mnecolumndata = mnecolumndata.slice(0, 1);
+      }
 
       dyFieldsTeacher.value = mnecolumn;
 

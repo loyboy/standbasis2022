@@ -212,7 +212,7 @@
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>
     
-                <b-dropdown-item :to="{ name: 'users-home-edit', params: { id: data.item.userId } }">
+                <b-dropdown-item v-if=" userData.role !== 'proprietor' " :to="{ name: 'users-home-edit', params: { id: data.item.userId } }">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Edit User Details </span>
                 </b-dropdown-item>
@@ -396,9 +396,6 @@
         resolveUserStatusVariant
 
       } = useUserList( school );
-
-      //findIfTeacherisPresent &&
-      //findIfPrinisPresent &&
       
       if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
           filters.value.teacherid =  teacherData.value ? teacherData.value.teaId : null;
@@ -409,7 +406,8 @@
       return {
         // Sidebar
         isSearchSchoolSidebarActive,
-  
+        userData,
+
         fetchUsers,
         tableColumns,
         perPage,

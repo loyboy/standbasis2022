@@ -186,7 +186,7 @@
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>
     
-                <b-dropdown-item :to="{ name: 'teachers-home-edit', params: { id: data.item.teaId } }">
+                <b-dropdown-item v-if=" userData.role !== 'proprietor' " :to="{ name: 'teachers-home-edit', params: { id: data.item.teaId } }">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Edit Teacher </span>
                 </b-dropdown-item>
@@ -385,6 +385,7 @@
       return {
         // Sidebar
         isSearchSchoolSidebarActive,
+        userData,
   
         fetchTeachers,
         tableColumns,

@@ -223,7 +223,7 @@
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>
     
-                <b-dropdown-item :to="{ name: 'enrollments-home-edit', params: { id: data.item.enrolId } }">
+                <b-dropdown-item v-if=" userData.role !== 'proprietor' " :to="{ name: 'enrollments-home-edit', params: { id: data.item.enrolId } }">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Edit Enrollment </span>
                 </b-dropdown-item>
@@ -414,6 +414,7 @@
       return {
         // Sidebar
         isSearchSchoolSidebarActive,
+        userData,
   
         fetchEnrollments,
         tableColumns,

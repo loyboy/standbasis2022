@@ -153,7 +153,7 @@
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>
     
-                <b-dropdown-item :to="{ name: 'timetables-home-edit', params: { id: data.item.timeId } }">
+                <b-dropdown-item v-if=" userData.role !== 'proprietor' " :to="{ name: 'timetables-home-edit', params: { id: data.item.timeId } }">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Edit Timetable Details </span>
                 </b-dropdown-item>
@@ -346,6 +346,7 @@
       return {
         // Sidebar
         isSearchSchoolSidebarActive,
+        userData,
   
         fetchTimetables,
         tableColumns,
