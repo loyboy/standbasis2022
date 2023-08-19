@@ -4,6 +4,7 @@ import store from '@/store'
 export default function useEvaluation() {  
   
   const mnelistItems = ref([]) 
+  const userData = ref({});   
   const isLoading = ref(false)
   const changeFieldsStudents = ref(false)
   const dyFieldsStudents = ref([])
@@ -33,6 +34,8 @@ export default function useEvaluation() {
     typefour: null 
    
   });
+
+  userData.value = JSON.parse(localStorage.getItem('userData'));
 
   const dynamicFields = computed(() => {
       let fields = [];

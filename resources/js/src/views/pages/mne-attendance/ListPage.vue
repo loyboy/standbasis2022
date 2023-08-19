@@ -569,7 +569,7 @@
 
         changeType(value){
             const sef = this;  
-            let userid = this.userData.id;            
+                      
             sef.userOptions = [];
 
             if (value === "student"){
