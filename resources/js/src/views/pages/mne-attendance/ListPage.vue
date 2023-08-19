@@ -459,7 +459,7 @@
         teacherData.value = storedItems2;
       }
       
-      const findIfPropisPresent = ( userData.value.role === "proprietor"  );
+      const findIfPropisPresent = ( userData.value.role === "proprietor"  ); 
       const findIfTeacherisPresent = ( userData.value.role === "teacher" );
       const findIfPrinisPresent = ( userData.value.role === "principal" ); 
 
@@ -493,6 +493,9 @@
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = (findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
+          console.log("schoolgroup : "+ teacherData.value.school.owner.id );
+          console.log("schoolgroup 2 : "+ findIfPropisPresent );
+          
       } 
 
       (async function () {

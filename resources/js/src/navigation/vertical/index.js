@@ -153,7 +153,7 @@ export default [
     {
         title: 'School M&E',
         icon: 'ActivityIcon',
-        permission: ["teacher" ,"principal"],
+        permission: ["teacher" ,"principal", "proprietor"],
         children: [
             {
                 title: 'Attendance M&E',
