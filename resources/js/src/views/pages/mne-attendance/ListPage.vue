@@ -638,7 +638,7 @@
             const sef = this;
             sef.isLoading = true;
 
-            store.dispatch(`${this.Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { school : value })
+            store.dispatch(`${this.Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : value })
             .then(response => { 
                     let myval = response.data.data;
                     myval.forEach(obj => {
