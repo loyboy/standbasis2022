@@ -476,7 +476,7 @@
         }
 
         else if( findIfPropisPresent === true ){
-          const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { id : filters.value.schoolgroup });
+          const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { group : filters.value.schoolgroup });
           let myval = resp.data.data;
           myval.forEach(obj => { 
             schoolOptions.value.push( { value: obj.schId , text: obj.name } )

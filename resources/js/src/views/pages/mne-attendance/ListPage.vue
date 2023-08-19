@@ -493,9 +493,7 @@
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = (findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
-          console.log("schoolgroup : "+ teacherData.value.school.owner.id );
-          console.log("schoolgroup 2 : "+ findIfPropisPresent );
-          
+         
       } 
 
       (async function () {
@@ -518,7 +516,7 @@
               });
             }
             else if( findIfPropisPresent === true ){
-              const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { id : filters.value.schoolgroup });
+              const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { group : filters.value.schoolgroup });
               let myval = resp.data.data;
               myval.forEach(obj => { 
                 schoolOptions.value.push( { value: obj.schId , text: obj.name } )
