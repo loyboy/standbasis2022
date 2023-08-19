@@ -640,6 +640,7 @@
 
             store.dispatch(`${this.Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : value })
             .then(response => { 
+                    sef.calendarOptions = []
                     let myval = response.data.data;
                     myval.forEach(obj => {
                       let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
@@ -648,7 +649,7 @@
                     sef.isLoading = false;
             });
 
-            handleChange();
+            this.handleChange();
 
         },
 
