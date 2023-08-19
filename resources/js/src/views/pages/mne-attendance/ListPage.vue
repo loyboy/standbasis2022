@@ -154,7 +154,7 @@
 
               <b-row>
                   <span>  
-                    <b-form-checkbox id="drill-down-two" v-model="week_drilldown" name="checkbox-1">
+                    <b-form-checkbox id="drill-down-two" v-model="week_drilldown" v-if=" cal_drilldown " name="checkbox-1">
                       Drill down From Schools & Calendars ? 
                     </b-form-checkbox>
                   </span>  
@@ -182,56 +182,56 @@
               </b-row>
 
               <b-row class="mt-2 py-2">
-                <b-col lg="6" sm="6">
-                  <statistic-card-horizontal
-                    icon="AlertOctagonIcon"
-                    color="info"
-                    :statistic=" teacherAttTotal === undefined ? 0 : teacherAttTotal "
-                    statistic-title="Teacher Attendance (%)"
-                  />
-                </b-col>
+                  <b-col lg="6" sm="6">
+                    <statistic-card-horizontal
+                      icon="AlertOctagonIcon"
+                      color="info"
+                      :statistic=" teacherAttTotal === undefined ? 0 : teacherAttTotal "
+                      statistic-title="Teacher Attendance (%)"
+                    />
+                  </b-col>
 
-                <b-col lg="6" sm="6">
-                  <statistic-card-horizontal
-                    icon="AlertOctagonIcon"
-                    color="success"
-                    :statistic="
-                      teacherManTotal === undefined ? 0 : teacherManTotal
-                    "
-                    statistic-title="Teacher Management (%)"
-                  />
-                </b-col>
+                  <b-col lg="6" sm="6">
+                    <statistic-card-horizontal
+                      icon="AlertOctagonIcon"
+                      color="success"
+                      :statistic="
+                        teacherManTotal === undefined ? 0 : teacherManTotal
+                      "
+                      statistic-title="Attendance Management (%)"
+                    />
+                  </b-col>
 
-                 <b-col lg="6" sm="6">
-                  <statistic-card-horizontal
-                    icon="AlertOctagonIcon"
-                    color="danger"
-                    :statistic=" studentAtt === undefined ? 0 : studentAtt "
-                    statistic-title="Student Attendance (%)"
-                  />
-                </b-col>
+                  <b-col lg="6" sm="6">
+                    <statistic-card-horizontal
+                      icon="AlertOctagonIcon"
+                      color="danger"
+                      :statistic=" studentAtt === undefined ? 0 : studentAtt "
+                      statistic-title="Student Attendance (%)"
+                    />
+                  </b-col>
 
-                <b-col lg="6" sm="6">
-                  <statistic-card-horizontal
-                    icon="AlertOctagonIcon"
-                    color="secondary"
-                    :statistic="
-                      studentExcusedAtt === undefined ? 0 : studentExcusedAtt
-                    "
-                    statistic-title="Student Excused Absence (%)"
-                  />
-                </b-col>
+                  <b-col lg="6" sm="6">
+                    <statistic-card-horizontal
+                      icon="AlertOctagonIcon"
+                      color="secondary"
+                      :statistic="
+                        studentExcusedAtt === undefined ? 0 : studentExcusedAtt
+                      "
+                      statistic-title="Student Excused Absence (%)"
+                    />
+                  </b-col>
 
-                <b-col lg="12" sm="12">
-                  <statistic-card-horizontal
-                    icon="AlertOctagonIcon"
-                    color="warning"
-                    :statistic="
-                      headTotal === undefined ? 0 : headTotal
-                    "
-                    statistic-title="School Head Administration (%)"
-                  />
-                </b-col>
+                  <b-col lg="12" sm="12">
+                    <statistic-card-horizontal
+                      icon="AlertOctagonIcon"
+                      color="warning"
+                      :statistic="
+                        headTotal === undefined ? 0 : headTotal
+                      "
+                      statistic-title="Attendance Administration (%)"
+                    />
+                  </b-col>
               </b-row>
 
             </b-card-body>

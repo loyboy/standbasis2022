@@ -46,11 +46,17 @@
                     </b-form-group>
                   </b-col>
 
-                  <b-col cols="12" md="3">
+                  <b-col cols="12" md="3" v-if="  userData.role === 'teacher' ">
+                    <b-form-group label="Select Teacher" label-for="teacherpick2">
+                      <b-form-radio v-model="filters.typeone" @change="changeType" name="teacherpick2" value="teacher_me">Me</b-form-radio>
+                    </b-form-group>
+                  </b-col>
+
+                  <b-col cols="12" md="3" v-else>
                     <b-form-group label="Select Teacher" label-for="teacherpick">
                       <b-form-radio v-model="filters.typeone" @change="changeType" name="teacherpick" value="teacher">Teacher</b-form-radio>
                     </b-form-group>
-                  </b-col>
+                  </b-col>                
 
                   <b-col cols="12" md="3">
                     <b-form-group label="Select Head" label-for="principalpick" v-if=" userData.role === 'proprietor' ">
