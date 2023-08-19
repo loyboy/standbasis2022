@@ -648,6 +648,8 @@
                     sef.isLoading = false;
             });
 
+            handleChange();
+
         },
 
         changeCalendar(value){
