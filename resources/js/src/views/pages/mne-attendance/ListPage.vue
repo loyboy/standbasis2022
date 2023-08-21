@@ -239,7 +239,7 @@
         
   
       <!-- Table Container Card -->
-     <b-card-code title="Filtered M&E Results" class="my-4 mx-1">
+     <b-card-code title="Filtered M&E Results" class="my-4 mx-1" v-if=" userData.role !== 'proprietor' ">
 
             <b-table            
               class="position-relative"

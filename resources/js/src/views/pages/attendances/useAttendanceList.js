@@ -65,8 +65,11 @@ export default function useAttendanceList() {
     dateFrom: null,
     dateTo: null
   });
-  const totalActiveAttendances = ref(0)
-  const totalInactiveAttendances = ref(0)
+  const totalActiveAttendances = ref(0) // good attendance
+  const totalInactiveAttendances = ref(0) //late attendance
+  const totalVoidAttendances = ref(0)
+  const totalNotDoneAttendances = ref(0)
+
   const searchValues = ref([])
 
   const dataMeta = computed(() => {
@@ -108,12 +111,15 @@ export default function useAttendanceList() {
             dateto: dateT
           })
           .then(response => {
-            const { attendances, totalItems, totalDone, totalNotDone } = response.data
+            const { attendances, totalItems, totalGood, totalLate, totalVoid, totalNotDone } = response.data
         
             attendanceItems.value = attendances
             totalAttendances.value = totalItems
-            totalActiveAttendances.value = totalDone
-            totalInactiveAttendances.value = totalNotDone    
+            totalActiveAttendances.value = totalGood
+            totalInactiveAttendances.value = totalLate   
+            totalVoidAttendances.value = totalVoid
+            totalNotDoneAttendances.value = totalNotDone
+
             isLoading.value = false;   
 
           })

@@ -827,7 +827,7 @@
             Cancel
           </b-button>
           <b-button
-            v-if=" !isLoading "
+            v-if=" !isLoading && ( arrangement !== null || subjectmatter !== null || grammar !== null || incomplete !== null ) "
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             class="mt-2"
             variant="success"
@@ -933,6 +933,7 @@
           >
             Close this Lessonnote
           </b-button>
+          
           <b-button  
             v-else
             class="mt-2"

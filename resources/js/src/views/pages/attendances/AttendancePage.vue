@@ -190,9 +190,20 @@
               icon="UserXIcon"
               color="danger"
               :statistic="
-                totalInactiveAttendances === undefined ? 0 : totalInactiveAttendances
+                totalVoidAttendances === undefined ? 0 : totalVoidAttendances
               "
               statistic-title="Voided"
+            />
+          </b-col>
+
+           <b-col lg="3" sm="6" v-if=" userData.role === 'teacher' ">
+            <statistic-card-horizontal
+              icon="UserXIcon"
+              color="secondary"
+              :statistic="
+                totalNotDoneAttendances === undefined ? 0 : totalNotDoneAttendances
+              "
+              statistic-title="Not Done"
             />
           </b-col>
 
@@ -745,6 +756,8 @@
         totalAttendances,
         totalActiveAttendances,
         totalInactiveAttendances,
+        totalVoidAttendances,
+        totalNotDoneAttendances,
 
         dataMeta,
         perPageOptions,
@@ -804,6 +817,8 @@
         totalAttendances,
         totalActiveAttendances,
         totalInactiveAttendances,
+        totalVoidAttendances,
+        totalNotDoneAttendances,
 
         dataMeta,
         perPageOptions,
