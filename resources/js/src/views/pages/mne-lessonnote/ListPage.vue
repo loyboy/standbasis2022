@@ -21,7 +21,7 @@
                        
                       />
                     </b-form-group>
-                  </b-col>
+                  </b-col> 
           </b-row>
 
           <b-row v-if-=" filters.typefour !== null ">

@@ -139,12 +139,12 @@ export default function useLessonnoteList() {
           dateto: dateT
         })
         .then(response => {
-          const { lessonnotes, totalItems, totalSubmitted, totalNotSubmitted } = response.data
+          const { lessonnotes, totalItems, totalSubmitted, totalClosed } = response.data
       
           LessonnoteItems.value = lessonnotes
           totalLessonnotes.value = totalItems
           totalActiveLessonnotes.value = totalSubmitted
-          totalInactiveLessonnotes.value = totalNotSubmitted    
+          totalInactiveLessonnotes.value = totalClosed    
           isLoading.value = false;   
 
         })

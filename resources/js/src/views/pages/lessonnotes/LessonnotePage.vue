@@ -252,7 +252,7 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalLessonnotes === undefined ? 0 : totalLessonnotes "
-              statistic-title="Total"
+              statistic-title="Total Expected"
             />
           </b-col>
 
@@ -263,7 +263,7 @@
               :statistic="
                 totalActiveLessonnotes === undefined ? 0 :totalActiveLessonnotes
               "
-              statistic-title="Done"
+              statistic-title="Submitted"
             />
           </b-col>
 
@@ -274,7 +274,7 @@
               :statistic="
                 totalInactiveLessonnotes === undefined ? 0 : totalInactiveLessonnotes
               "
-              statistic-title="Not Done"
+              statistic-title="Closed"
             />
           </b-col>
 
@@ -933,7 +933,7 @@
           >
             Close this Lessonnote
           </b-button>
-          
+
           <b-button  
             v-else
             class="mt-2"
@@ -947,7 +947,7 @@
           </b-button>
 
         </b-modal>
-
+ 
     </div>
   </template>
   
