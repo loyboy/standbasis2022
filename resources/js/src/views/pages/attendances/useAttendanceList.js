@@ -218,6 +218,8 @@ export default function useAttendanceList() {
     totalAttendances,
     totalActiveAttendances,    
     totalInactiveAttendances,
+    totalVoidAttendances,
+    totalNotDoneAttendances,
 
     tableColumns,
     tableColumnsPrincipal,

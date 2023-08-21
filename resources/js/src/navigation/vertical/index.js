@@ -108,7 +108,7 @@ export default [
     {
         title: 'Records',
         icon: 'GiftIcon',
-        permission: ["admin", "proprietor", "principal", "teacher" ],
+        permission: ["admin",  "principal", "teacher" ],
         children: [
             {
                 title: 'Attendance Logs',
