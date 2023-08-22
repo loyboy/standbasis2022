@@ -23,7 +23,7 @@
                 style="position: relative"
                 @click="getTimeBand(9)"
                 >
-                8am to 9am
+                8a
             </button>
             <button                
                 type="button"
@@ -31,7 +31,7 @@
                 style="position: relative"
                 @click="getTimeBand(10)"
                 >
-                9am to 10am
+                9am 
             </button>
             <button                
                 type="button"
@@ -39,7 +39,7 @@
                 style="position: relative"
                 @click="getTimeBand(11)"
                 >
-                 10am to 11am
+                 10am 
             </button>
             <button                
                 type="button"
@@ -47,7 +47,7 @@
                 style="position: relative"
                 @click="getTimeBand(12)"
                 >
-                 11am to 12am
+                 11am 
             </button> 
             <button                
                 type="button"
@@ -55,7 +55,7 @@
                 style="position: relative"
                 @click="getTimeBand(13)"
                 >
-                  12pm to 1pm
+                  12pm
             </button>
             <button
                 type="button"
@@ -63,7 +63,7 @@
                 style="position: relative"
                 @click="getTimeBand(14)"
                 >
-                1pm to 2pm
+                1pm 
             </button>
           </div> 
 
@@ -147,7 +147,7 @@
                   <b-form-group v-else> 
                       <div class="d-flex mt-2">
                           <b-button v-if="data.item.principal_action === 1" type="button" variant="success" class="mr-4">
-                            APPROVED
+                            ENDORSED
                           </b-button>  
                           <b-button v-if="data.item.principal_action === 2" type="button" variant="danger" class="mr-4">
                             QUERIED

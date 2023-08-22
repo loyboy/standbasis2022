@@ -61,7 +61,7 @@ export default function useTeacherList(School = null) {
     store
       .dispatch('app-teacher/fetchTeachers', {
         size: perPage.value,
-        page: currentPage.value - 1,
+        page: currentPage.value - 1, 
         q: searchQuery.value,
         schoolgroup: School ? null : filters.value.schoolgroup,
         school: School ? School : filters.value.schoolid

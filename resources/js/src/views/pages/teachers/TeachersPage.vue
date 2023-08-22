@@ -37,7 +37,7 @@
            <b-col lg="3" sm="6">
             <statistic-card-horizontal
               icon="UserXIcon"
-              color="warining"
+              color="warning"
               :statistic="
                 totalOverDeployedTeachers === undefined ? 0 : totalOverDeployedTeachers
               "
