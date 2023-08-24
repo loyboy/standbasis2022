@@ -737,6 +737,22 @@ const router = new VueRouter({
             }
         },
 
+         //Assessments M&E begin here
+         {
+            path: '/mne-assessments-list',
+            name: 'mne-assessments-home',
+            component: () =>
+                import ('@/views/pages/mne-assessment/ListPage.vue'),
+            meta: {
+                pageTitle: 'M&E Assessments',
+                breadcrumb: [{
+                        text: 'Filter & View',
+                        active: true
+                    }
+                ]
+            }
+        },
+
          //Evaluation begin here
         {
             path: '/evaluation-home',

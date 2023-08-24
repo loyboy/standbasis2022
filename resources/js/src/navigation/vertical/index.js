@@ -164,7 +164,12 @@ export default [
                 title: 'Lessonnote M&E',
                 route: 'mne-lessonnotes-home'
                 
-            }           
+            },
+            {
+                title: 'Assessment M&E',
+                route: 'mne-assessments-home'
+                
+            }            
         ]
     },
 

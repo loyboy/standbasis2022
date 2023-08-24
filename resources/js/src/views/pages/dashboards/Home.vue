@@ -196,7 +196,7 @@
                <router-link v-if=" userData.role === 'guardian' " to = "/attendances-student-list"> Live Attendance</router-link>               
                <router-link  to = "/mne-attendances-list"> Attendance</router-link>
                <router-link v-if=" userData.role !== 'guardian' " to="/mne-lessonnotes-list" > Lessonnote </router-link>
-               <router-link  to = "/mne-assessment-list"> Assessment </router-link>
+               <router-link  to = "/mne-assessments-list"> Assessment </router-link>
               
             </div>
 

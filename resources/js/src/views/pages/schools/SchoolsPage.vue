@@ -1,6 +1,6 @@
 <template>
 
-    <div>
+    <div v-if=" userData.role === 'proprietor' && userData.role === 'admin' " >
   
         <div class="row">
           <b-col lg="4" sm="6">

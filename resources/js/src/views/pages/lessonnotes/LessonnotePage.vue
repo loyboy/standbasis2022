@@ -469,7 +469,7 @@
                   <span class="align-middle ml-50">View Lessonnote File</span>
                 </b-dropdown-item>
 
-                <b-dropdown-item v-if=" data.item.approval !== null && data.item.closure == null " @click="triggerClosure( 'teacher', data.item.title, data.item.lessonnoteId, data.item.teacher.teaId ) "   >
+                <b-dropdown-item v-if=" data.item.approval !== null && data.item.closure == null && getClosureAllowed( new Date() , data.item.expected_closure ) && data.item.can_close" @click="triggerClosure( 'teacher', data.item.title, data.item.lessonnoteId, data.item.teacher.teaId ) "   >
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">Close this lessonnote</span>
                 </b-dropdown-item>
@@ -1276,7 +1276,7 @@
                 const last_date_ = new Date(last_date).getTime();
                 const act_date = new Date(actual_date).getTime();
                 // Add 48 hours' worth of milliseconds (48 hours * 60 minutes * 60 seconds * 1000 milliseconds)
-                const late_last_date = last_date_ + (48 * 60 * 60 * 1000);
+                const late_last_date = last_date_ + (48 * 60 * 60 * 1000); // 2 days after
                 
                 if (type === "submission"){
                   if (last_date_ > act_date){
@@ -1301,6 +1301,25 @@
                     return "Non-Closure"
                   }
                 }
+            }            
+          },
+
+          getClosureAllowed(last_date, actual_date){
+            if (actual_date){
+                const last_date_ = new Date(last_date).getTime();
+                const act_date = new Date(actual_date).getTime();
+                // Add 48 hours' worth of milliseconds (48 hours * 60 minutes * 60 seconds * 1000 milliseconds)
+                const late_last_date = last_date_ + (48 * 60 * 60 * 1000); // 2 days after                
+               
+                  if (last_date_ > act_date){
+                    return true;
+                  }
+                  else if ( (act_date > last_date_) && ( late_last_date > act_date ) ){
+                    return true;
+                  }
+                  else if ( (act_date > late_last_date) ){
+                    return false;
+                  }                
             }            
           },
           
@@ -1582,7 +1601,7 @@
                 let finalexam = this.filters.hasFinalExam ? 1 : 0;
 
                 const sef = this;          
-                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "approval", lessonnoteId: id, classwork, homework, test, midterm, finalexam },  management: { action : "approved" }, activity: { action: "approved", owner: this.teacherPicked, principal_query_arrangement: 1, principal_query_grammar: 1, principal_query_subjectmatter: 1  } } )
+                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "approval", lessonnoteId: id, classwork, homework, test, midterm, finalexam },  management: { action : "approved", quality: 100 }, activity: { action: "approved", owner: this.teacherPicked, principal_query_arrangement: 1, principal_query_grammar: 1, principal_query_subjectmatter: 1, principal_query_incomplete: 1  } } )
                 .then(response => { 
                     sef.modalTitle = "";
                     sef.grammar = 0;
@@ -1627,9 +1646,10 @@
             let set_arrangement = this.arrangement ? 0 : 1;
             let set_subjectmatter = this.subjectmatter ? 0 : 1;
             let set_incomplete = this.incomplete ? 0 : 1;
+            let set_quality = ( set_grammar + set_arrangement + set_subjectmatter + set_incomplete ) === 3 ? 75 : ( set_grammar + set_arrangement + set_subjectmatter + set_incomplete ) === 2 ? 50 : ( set_grammar + set_arrangement + set_subjectmatter + set_incomplete ) === 1 ? 25 : 0;
 
                 const sef = this;          
-                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "revert", lessonnoteId: id  },  management: { action : "revert" }, activity: { action: "revert", owner: this.teacherPicked, principal_query_arrangement: set_arrangement , principal_query_grammar: set_grammar, principal_query_subjectmatter: set_subjectmatter, principal_query_incomplete: set_incomplete } } )
+                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "revert", lessonnoteId: id  },  management: { action : "revert", quality: set_quality }, activity: { action: "revert", owner: this.teacherPicked, principal_query_arrangement: set_arrangement , principal_query_grammar: set_grammar, principal_query_subjectmatter: set_subjectmatter, principal_query_incomplete: set_incomplete } } )
                 .then(response => { 
                     sef.modalTitle2 = "";
                     sef.grammar = false;

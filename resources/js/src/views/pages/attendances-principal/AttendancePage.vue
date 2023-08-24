@@ -23,7 +23,7 @@
                 style="position: relative"
                 @click="getTimeBand(9)"
                 >
-                8a
+                8am
             </button>
             <button                
                 type="button"

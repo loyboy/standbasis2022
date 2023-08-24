@@ -29,7 +29,7 @@ export default function useLessonnoteList() {
     isLoading.value = true;
     store
       .dispatch('app-LessonnoteSubmit/fetchLessonnotes', {
-        teacher: filters.value.teacherId,
+        teacher: filters.value.teacherId, 
         week: filters.value.week
       })
       .then(response => {
