@@ -25,9 +25,10 @@
                 </h4>
                 <span class="card-text">{{ teacherData.email }}</span>
               </div>
-              <div class="d-flex flex-wrap" v-if=" userData.role  === 'proprietor' ||  userData.role  === 'principal' ">
+              <div class="d-flex flex-wrap" v-if=" userData.role  === 'admin' ">
                 <b-button
                   :to="{ name: 'teachers-home-edit', params: { id: teacherData.teaId } }"
+                 
                   variant="success"
                 >
                   Edit

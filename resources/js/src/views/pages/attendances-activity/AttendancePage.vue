@@ -238,7 +238,7 @@
             </template>
           </b-sidebar>
           
-          <b-col lg="4" sm="6">
+        <!--  <b-col lg="4" sm="6">
             <statistic-card-horizontal
               icon="UsersIcon"
               color="primary"
@@ -267,7 +267,7 @@
               "
               statistic-title="Lost Teaching Time"
             />
-          </b-col>
+          </b-col>-->
 
         </div>
 
