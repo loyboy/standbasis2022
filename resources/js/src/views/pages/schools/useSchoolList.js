@@ -32,9 +32,9 @@ export default function useSchoolList( Owner = null ) {
   const searchQuery = ref('')
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)
-  const totalSriSchools = ref(0)
-  const totalNonSriSchools = ref(0)
-  const totalInactiveSchools = ref(0)
+  const totalSecondarySchools = ref(0)
+  const totalPrimarySchools = ref(0)
+
   const filters = ref({
     schoolgroup: null
   });
@@ -65,13 +65,13 @@ export default function useSchoolList( Owner = null ) {
         owner: Owner ? Owner : filters.value.schoolgroup
       })
       .then(response => {
-        const { schools, totalItems, totalSri, totalNonSri, totalInactive } = response.data
+        const { schools, totalItems, totalSecondary, totalPrimary } = response.data
 
         callback(schools)
         totalSchools.value = totalItems
-        totalSriSchools.value = totalSri
-        totalNonSriSchools.value = totalNonSri
-        totalInactiveSchools.value = totalInactive
+        totalSecondarySchools.value = totalSecondary
+        totalPrimarySchools.value = totalPrimary
+      //  totalInactiveSchools.value = totalInactive
 
       })
       .catch((e) => {
@@ -107,9 +107,9 @@ export default function useSchoolList( Owner = null ) {
     fetchSchools,
     handlePageChange,
     totalSchools,
-    totalSriSchools,
-    totalNonSriSchools,
-    totalInactiveSchools,
+    totalSecondarySchools,
+    totalPrimarySchools,
+   
     tableColumns,
     perPage,
     currentPage,

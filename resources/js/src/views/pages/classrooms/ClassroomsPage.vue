@@ -14,10 +14,11 @@
 
           <b-col lg="3" sm="6">
             <statistic-card-horizontal
+              v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary' "
               icon="UserCheckIcon"
               color="success"
               :statistic="
-                totalActiveClassrooms === undefined ? 0 :totalActiveClassrooms
+                totalPrimary === undefined ? 0 :totalPrimary
               "
               statistic-title="Primary"
             />
@@ -25,10 +26,11 @@
 
           <b-col lg="3" sm="6">
             <statistic-card-horizontal
+              v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary' "
               icon="UserCheckIcon"
               color="danger"
               :statistic="
-                totalInactiveClassrooms === undefined ? 0 : totalInactiveClassrooms
+                totalSecondaryJunior === undefined ? 0 : totalSecondaryJunior
               "
               statistic-title="JSS"
             />
@@ -36,10 +38,11 @@
 
            <b-col lg="3" sm="6">
             <statistic-card-horizontal
+              v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary' "
               icon="UserCheckIcon"
               color="success"
               :statistic="
-                totalActiveClassrooms === undefined ? 0 :totalActiveClassrooms
+                totalSecondarySenior === undefined ? 0 :totalSecondarySenior
               "
               statistic-title="SSS"
             />
@@ -47,10 +50,11 @@
 
           <b-col lg="3" sm="6">
             <statistic-card-horizontal
+              v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary' "
               icon="UserCheckIcon"
               color="danger"
               :statistic="
-                totalInactiveClassrooms === undefined ? 0 : totalInactiveClassrooms
+                totalSecondaryUndeployed === undefined ? 0 : totalSecondaryUndeployed
               "
               statistic-title="UnDeployed Secondary"
             />
@@ -58,10 +62,11 @@
 
           <b-col lg="3" sm="6">
             <statistic-card-horizontal
+               v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary' "
               icon="UserCheckIcon"
               color="success"
               :statistic="
-                totalInactiveClassrooms === undefined ? 0 : totalInactiveClassrooms
+                totalPrimaryUndeployed === undefined ? 0 : totalPrimaryUndeployed
               "
               statistic-title="UnDeployed Primary"
             />
@@ -363,8 +368,11 @@
         currentPage,
         
         totalClassrooms,
-        totalActiveClassrooms,
-        totalInactiveClassrooms,
+        totalPrimary,
+        totalSecondaryJunior,
+        totalSecondarySenior,
+        totalSecondaryUndeployed,
+        totalPrimaryUndeployed,
 
         dataMeta,
         perPageOptions,
@@ -390,6 +398,7 @@
         // Sidebar
         isSearchSchoolSidebarActive,
         userData,  
+        teacherData,
         
         fetchClassrooms,
         tableColumns,
@@ -397,8 +406,11 @@
         currentPage,
 
         totalClassrooms,
-        totalActiveClassrooms,
-        totalInactiveClassrooms,
+        totalPrimary,
+        totalSecondaryJunior,
+        totalSecondarySenior,
+        totalSecondaryUndeployed,
+        totalPrimaryUndeployed,
 
         dataMeta,
         perPageOptions,

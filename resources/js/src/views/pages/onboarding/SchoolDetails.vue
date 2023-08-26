@@ -567,7 +567,8 @@ export default {
       let typeOptions = [
         { value: "", text: "Please select your School's type " },
         { value: "primary", text: "Primary" }, 
-        { value: "secondary", text: "Secondary" }
+        { value: "secondary", text: "Secondary" },
+        { value: "both", text: "Both Secondary & Primary" }
       ];
 
       let schFaithOptions = [

@@ -35,8 +35,12 @@ export default function useEnrollmentList(School = null) {
     schoolid: null
   });
  
-  const totalActiveEnrollments = ref(0)
-  const totalInactiveEnrollments = ref(0)
+  const totalPrimaryEnrollmentsMale =  ref(0);
+  const totalPrimaryEnrollmentsFemale = ref(0);
+  const totalSecEnrollmentsJuniorFemale = ref(0);
+  const totalSecEnrollmentsJuniorMale = ref(0);
+  const totalSecEnrollmentsSeniorFemale = ref(0);
+  const totalSecEnrollmentsSeniorMale = ref(0);
 
   const dataMeta = computed(() => {
     const localItemsCount = refEnrollmentListTable.value ? refEnrollmentListTable.value.localItems.length : 0
@@ -65,12 +69,16 @@ export default function useEnrollmentList(School = null) {
         school: School ? School : filters.value.schoolid
       })
       .then(response => {
-        const { enrollments, totalItems, totalActive, totalInactive } = response.data
+        const { enrollments, totalItems, totalPMale, totalPFemale , totalJunSecMale , totalJunSecFemale, totalSenSecMale , totalSenSecFemale } = response.data
 //
         callback(enrollments)
         totalEnrollments.value = totalItems
-        totalActiveEnrollments.value = totalActive
-        totalInactiveEnrollments.value = totalInactive
+        totalPrimaryEnrollmentsMale.value = totalPMale
+        totalPrimaryEnrollmentsFemale.value = totalPFemale
+        totalSecEnrollmentsJuniorFemale.value = totalJunSecFemale;
+        totalSecEnrollmentsJuniorMale.value = totalJunSecMale;
+        totalSecEnrollmentsSeniorFemale.value = totalSenSecFemale;
+        totalSecEnrollmentsSeniorMale.value = totalSenSecMale;
 
       })
       .catch((e) => {
@@ -115,8 +123,12 @@ export default function useEnrollmentList(School = null) {
     handlePageChange,
 
     totalEnrollments,
-    totalActiveEnrollments,    
-    totalInactiveEnrollments,
+    totalPrimaryEnrollmentsMale,
+    totalPrimaryEnrollmentsFemale,
+    totalSecEnrollmentsJuniorFemale,
+    totalSecEnrollmentsJuniorMale,
+    totalSecEnrollmentsSeniorFemale,
+    totalSecEnrollmentsSeniorMale,
 
     tableColumns,
     perPage,

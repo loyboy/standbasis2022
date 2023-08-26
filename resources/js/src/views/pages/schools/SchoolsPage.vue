@@ -16,7 +16,7 @@
               icon="UserCheckIcon"
               color="success"
               :statistic="
-                totalNonSriSchools === undefined ? 0 : totalNonSriSchools
+                totalSecondarySchools === undefined ? 0 : totalSecondarySchools
               "
               statistic-title="Secondary"
             />
@@ -25,7 +25,7 @@
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
-              :statistic="totalInactiveSchools === undefined ? 0 : totalInactiveSchools"
+              :statistic="totalPrimarySchools === undefined ? 0 : totalPrimarySchools"
               statistic-title="Primary"
             />
           </b-col>
@@ -340,9 +340,9 @@
         perPage,
         currentPage,
         totalSchools,
-        totalSriSchools,
-        totalNonSriSchools,
-        totalInactiveSchools, 
+        totalSecondarySchools,
+        totalPrimarySchools,
+        
         dataMeta,
         perPageOptions,
         searchQuery,
@@ -374,9 +374,9 @@
         perPage,
         currentPage,
         totalSchools,
-        totalSriSchools,
-        totalNonSriSchools,
-        totalInactiveSchools,
+        totalSecondarySchools,
+        totalPrimarySchools,
+        
         dataMeta,
         perPageOptions,
         searchQuery,

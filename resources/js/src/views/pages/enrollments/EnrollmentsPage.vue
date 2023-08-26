@@ -12,67 +12,67 @@
             />
           </b-col>
 
-          <b-col lg="4" sm="6">
+          <b-col lg="4" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary' ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="danger"
               :statistic="
-                totalActiveEnrollments === undefined ? 0 :totalActiveEnrollments
+                totalPrimaryEnrollmentsMale === undefined ? 0 :totalPrimaryEnrollmentsMale
               "
               statistic-title="Primary(F)"
             />
           </b-col>
 
-          <b-col lg="4" sm="6">
+          <b-col lg="4" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary' ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
               :statistic="
-                totalInactiveEnrollments === undefined ? 0 : totalInactiveEnrollments
+                totalPrimaryEnrollmentsFemale === undefined ? 0 : totalPrimaryEnrollmentsFemale
               "
               statistic-title="Primary(M)"
             />
           </b-col>
 
-          <b-col lg="3" sm="6">
+          <b-col lg="3" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary' ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="danger"
               :statistic="
-                totalActiveEnrollments === undefined ? 0 :totalActiveEnrollments
+                totalSecEnrollmentsJuniorFemale === undefined ? 0 :totalSecEnrollmentsJuniorFemale
               "
               statistic-title="JSS(F)"
             />
           </b-col>
 
-          <b-col lg="3" sm="6">
+          <b-col lg="3" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary' ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
               :statistic="
-                totalInactiveEnrollments === undefined ? 0 : totalInactiveEnrollments
+                totalSecEnrollmentsJuniorMale === undefined ? 0 : totalSecEnrollmentsJuniorMale
               "
               statistic-title="JSS(M)"
             />
           </b-col>
 
-            <b-col lg="3" sm="6">
+            <b-col lg="3" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary' ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="danger"
               :statistic="
-                totalActiveEnrollments === undefined ? 0 :totalActiveEnrollments
+                totalSecEnrollmentsSeniorFemale === undefined ? 0 :totalSecEnrollmentsSeniorFemale
               "
               statistic-title="SSS(F)"
             />
           </b-col>
 
-          <b-col lg="3" sm="6">
+          <b-col lg="3" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary' ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
               :statistic="
-                totalInactiveEnrollments === undefined ? 0 : totalInactiveEnrollments
+                totalSecEnrollmentsSeniorMale === undefined ? 0 : totalSecEnrollmentsSeniorMale
               "
               statistic-title="SSS(M)"
             />
@@ -387,8 +387,12 @@
         currentPage,
         
         totalEnrollments,
-        totalActiveEnrollments,
-        totalInactiveEnrollments,
+        totalPrimaryEnrollmentsMale,
+        totalPrimaryEnrollmentsFemale,
+        totalSecEnrollmentsJuniorFemale,
+        totalSecEnrollmentsJuniorMale,
+        totalSecEnrollmentsSeniorFemale,
+        totalSecEnrollmentsSeniorMale,
 
         dataMeta,
         perPageOptions,
@@ -415,6 +419,7 @@
         // Sidebar
         isSearchSchoolSidebarActive,
         userData,
+        teacherData,
   
         fetchEnrollments,
         tableColumns,
@@ -422,8 +427,12 @@
         currentPage,
 
         totalEnrollments,
-        totalActiveEnrollments,
-        totalInactiveEnrollments,
+        totalPrimaryEnrollmentsMale,
+        totalPrimaryEnrollmentsFemale,
+        totalSecEnrollmentsJuniorFemale,
+        totalSecEnrollmentsJuniorMale,
+        totalSecEnrollmentsSeniorFemale,
+        totalSecEnrollmentsSeniorMale,
 
         dataMeta,
         perPageOptions,

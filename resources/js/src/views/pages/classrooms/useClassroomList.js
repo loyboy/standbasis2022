@@ -31,8 +31,11 @@ export default function useClassroomList(School = null) {
     schoolid: null
   });
  
-  const totalActiveClassrooms = ref(0)
-  const totalInactiveClassrooms = ref(0)
+  const totalPrimary = ref(0);
+  const totalSecondaryJunior = ref(0);
+  const totalSecondarySenior = ref(0);
+  const totalSecondaryUndeployed = ref(0);
+  const totalPrimaryUndeployed = ref(0);
 
   const dataMeta = computed(() => {
     const localItemsCount = refClassroomListTable.value ? refClassroomListTable.value.localItems.length : 0
@@ -61,12 +64,15 @@ export default function useClassroomList(School = null) {
         schoolgroup: School ? null : filters.value.schoolgroup
       })
       .then(response => {
-        const { classrooms, totalItems, totalActive, totalInactive } = response.data
+        const { classrooms, totalItems, totalPrimary, totalSJunior, totalSSenior, totalSUndeployed , totalPUndeployed } = response.data
 
         callback(classrooms)
         totalClassrooms.value = totalItems
-        totalActiveClassrooms.value = totalActive
-        totalInactiveClassrooms.value = totalInactive
+        totalPrimary.value = totalPrimary
+        totalSecondaryJunior.value = totalSJunior
+        totalSecondarySenior.value = totalSSenior
+        totalSecondaryUndeployed.value = totalSUndeployed
+        totalPrimaryUndeployed.value = totalPUndeployed
 
       })
       .catch((e) => {
@@ -103,8 +109,11 @@ export default function useClassroomList(School = null) {
     handlePageChange,
 
     totalClassrooms,
-    totalActiveClassrooms,    
-    totalInactiveClassrooms,
+    totalPrimary,
+    totalSecondaryJunior,
+    totalSecondarySenior,
+    totalSecondaryUndeployed,
+    totalPrimaryUndeployed,
 
     tableColumns,
     perPage,
