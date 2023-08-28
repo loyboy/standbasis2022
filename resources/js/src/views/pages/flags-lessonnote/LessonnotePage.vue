@@ -371,9 +371,7 @@
 
     methods: {
 
-      reset(){
-
-       
+      reset(){       
 
         this.classOptions = [
           { value: null, label: "Please select Class" }
@@ -461,13 +459,12 @@
               let myval = response.data.data;
               myval.forEach(obj => {
                 if (obj.term !== -99){
-                  sef.calendarOptions.push( { value: obj.CalendarId , label: obj.session + ' ' + obj.term + ' Term'} );
+                 // sef.calendarOptions.push( { value: obj.CalendarId , label: obj.session + ' ' + obj.term + ' Term'} );
+                  let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
+                  sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
                 }
               });             
-            });
-
-
-    
+            });    
       },
 
       loadOtherValuesGroup(value){

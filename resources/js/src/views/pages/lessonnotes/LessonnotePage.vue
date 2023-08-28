@@ -481,7 +481,7 @@
 
                 <b-dropdown-item :to="{ name: 'lessonnotes-student-home', params: { id: data.item.lessonnoteId } }" v-if = " data.item.approval != null ">
                   <feather-icon icon="FileTextIcon" />
-                  <span class="align-middle ml-50">View Student's Performance</span>
+                  <span class="align-middle ml-50">Add Student's Scores</span>
                 </b-dropdown-item> 
 
                 <b-dropdown-item @click="isManagementSidebarActive = true; loadManagement(data.item); "  v-if = " data.item.approval != null ">
@@ -1469,7 +1469,9 @@
                 .then(response => { 
                   let myval = response.data.data;
                   myval.forEach(obj => {
-                    sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + ' ' + obj.term + ' Term'} )
+                    // sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + ' ' + obj.term + ' Term'} )
+                    let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
+                    sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
                   });             
                 });
           },
