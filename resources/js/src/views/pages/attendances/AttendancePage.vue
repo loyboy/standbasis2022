@@ -789,6 +789,7 @@
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
+          filters.value.calendarId = (findIfPrinisPresent || findIfTeacherisPresent) && userData.value ? userData.value.cal_id : null;
       } 
 
       (async function () {
