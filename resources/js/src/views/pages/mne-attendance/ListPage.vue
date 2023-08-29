@@ -579,7 +579,7 @@
                 .then(response => { 
                     let myval = response.data.data;
                     myval.forEach(obj => {
-                      console.log("Student found : " + JSON.stringify(obj) )
+                   //   console.log("Student found : " + JSON.stringify(obj) )
                       sef.userOptions.push( { value: obj.enrolId , text: obj.classstream.title + "---->" + obj.student.name } )
                     }); 
                     sef.isLoading = false;

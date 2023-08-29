@@ -115,6 +115,8 @@ export default function useEvaluation() {
  
 
   const handleChange = (ctx) => {
+    conole.log( ">>" + filters.value.typeone + " >> " + filters.value.typetwo_teacher + ">>" +  filters.value.typefour )
+    conole.log( ">>" + filters.value.typeone + " >> " + filters.value.typetwo_student + ">>" +  filters.value.typefour )
     if (  filters.value.typeone && filters.value.typetwo_student && filters.value.typefour ) {
       fetchMneVariant();
       window.scrollBy(0, 200);
