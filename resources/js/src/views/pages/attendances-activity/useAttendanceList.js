@@ -114,6 +114,8 @@ export default function useAttendanceList() {
 
   const handlePageChange = (value) => {
     currentPage.value = value;
+    console.log("Cal: " + filters.value.calendarId);
+    filters.value.calendarId = userData.value.cal_id;
     fetchAttendances();
   }
 

@@ -166,9 +166,9 @@
             <div class="text-column">
               <h2> <b> Lessonnote </b> </h2>
                           
-               <router-link v-if=" userData.role === 'principal' " to = "/lessonnotes-list">Administration</router-link> 
+               <router-link v-if=" userData.role === 'principal' " to = "/lessonnotes-list">Administration & Review </router-link> 
                <router-link v-if=" userData.role === 'teacher' " to = "/lessonnotes-teacher"> Administration </router-link> 
-               <router-link to = "/lessonnotes-list">Review</router-link> 
+             
               
             </div>
 
@@ -271,7 +271,7 @@
         </b-card>
       </b-col> 
 
-      <b-col lg="8" v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guar` dian' ">        
+      <b-col lg="8" v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
