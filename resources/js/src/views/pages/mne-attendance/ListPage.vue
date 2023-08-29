@@ -574,11 +574,13 @@
 
             if (value === "student"){
                 sef.isLoading = true;
+               
                 store.dispatch(`${this.Mne_APP_STORE_MODULE_NAME}/fetchStudents`, { calendar : this.filters.typefour })
                 .then(response => { 
                     let myval = response.data.data;
                     myval.forEach(obj => {
-                      sef.userOptions.push( { value: obj.enrolId , text: obj.classstream.title + "----" + obj.student.name } )
+                      console.log("Student found : " + JSON.stringify(obj) )
+                      sef.userOptions.push( { value: obj.enrolId , text: obj.classstream.title + "---->" + obj.student.name } )
                     }); 
                     sef.isLoading = false;
                 });
