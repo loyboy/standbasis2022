@@ -201,8 +201,6 @@ export default function useEvaluation() {
     filters,
 
     dynamicFields,
-    
-    filters,
 
     handleChange,
 
