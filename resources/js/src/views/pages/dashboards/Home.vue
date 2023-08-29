@@ -168,6 +168,7 @@
                           
                <router-link v-if=" userData.role === 'principal' " to = "/lessonnotes-list">Administration & Review </router-link> 
                <router-link v-if=" userData.role === 'teacher' " to = "/lessonnotes-teacher"> Administration </router-link> 
+               <router-link v-if=" userData.role === 'teacher' " to = "/lessonnotes-list"> Review </router-link> 
              
               
             </div>
