@@ -201,6 +201,8 @@ export default function useLessonnoteList() {
   const handleChange = () => {
     currentPage.value = 1;
     isLessonnoteSidebarActive.value = false;
+    console.log("Cal2: " + filters.value.calendarId);
+    filters.value.calendarId = userData.value.cal_id;
     fetchLessonnotes();
   }
 
