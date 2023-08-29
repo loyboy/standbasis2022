@@ -247,7 +247,7 @@
             </template>
           </b-sidebar>
           
-          <b-col lg="4" sm="6">
+          <b-col lg="4" sm="6" v-if=" userData.role === 'teacher' " >
             <statistic-card-horizontal
               icon="UsersIcon"
               color="primary"
@@ -256,7 +256,7 @@
             />
           </b-col>
 
-          <b-col lg="4" sm="6">
+          <b-col lg="4" sm="6" v-if=" userData.role === 'teacher' " >
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
@@ -267,7 +267,7 @@
             />
           </b-col>
 
-          <b-col lg="4" sm="6">
+          <b-col lg="4" sm="6" v-if=" userData.role === 'teacher' ">
             <statistic-card-horizontal
               icon="UserMinusIcon"
               color="danger"
@@ -275,6 +275,48 @@
                 totalInactiveLessonnotes === undefined ? 0 : totalInactiveLessonnotes
               "
               statistic-title="Closed"
+            />
+          </b-col>
+
+           <b-col lg="3" sm="6" v-if=" userData.role === 'principal' " >
+            <statistic-card-horizontal
+              icon="UsersIcon"
+              color="primary"
+              :statistic=" totalLessonnotes === undefined ? 0 : totalLessonnotes "
+              statistic-title="Submitted"
+            />
+          </b-col>
+
+          <b-col lg="3" sm="6" v-if=" userData.role === 'principal' " >
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="success"
+              :statistic="
+                totalActiveLessonnotes === undefined ? 0 :totalActiveLessonnotes
+              "
+              statistic-title="Approved"
+            />
+          </b-col>
+
+          <b-col lg="3" sm="6" v-if=" userData.role === 'principal' ">
+            <statistic-card-horizontal
+              icon="UserMinusIcon"
+              color="danger"
+              :statistic="
+                totalInactiveLessonnotes === undefined ? 0 : totalInactiveLessonnotes
+              "
+              statistic-title="Processing"
+            />
+          </b-col>
+
+          <b-col lg="3" sm="6" v-if=" userData.role === 'principal' ">
+            <statistic-card-horizontal
+              icon="UserMinusIcon"
+              color="danger"
+              :statistic="
+                totalInactiveLessonnotes === undefined ? 0 : totalInactiveLessonnotes
+              "
+              statistic-title="Pending"
             />
           </b-col>
 

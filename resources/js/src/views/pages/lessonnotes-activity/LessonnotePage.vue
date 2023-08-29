@@ -319,7 +319,7 @@
                 :variant="`light-${resolveLessonnoteactionVariant(data.item.action)}`"
                 class="text-capitalize"
               >
-                {{ data.item.action }}
+                {{ data.item.action === null  ? "Submitted" : data.item.action }}
               </b-badge>
             </template>
     
