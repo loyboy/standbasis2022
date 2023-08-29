@@ -1052,7 +1052,7 @@
       
          this.filters.dateFrom = null;
          this.filters.dateTo = null;
-
+         console.log("Calendar tins: " +  this.filters.calendarId );
          this.filters.calendarId = this.userData.cal_id;
          this.fetchLessonnotes();
       },
