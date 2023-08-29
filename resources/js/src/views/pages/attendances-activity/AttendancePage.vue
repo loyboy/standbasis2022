@@ -812,6 +812,8 @@
          this.filters.dateFrom = null;
          this.filters.dateTo = null;
 
+         this.filters.calendarId = this.userData.cal_id;
+
          this.fetchAttendances();
       },
       
