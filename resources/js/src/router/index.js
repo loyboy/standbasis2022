@@ -643,7 +643,7 @@ const router = new VueRouter({
 
         //Lessonnotes student begin here
        {
-            path: '/lessonnotes-student-list/:id',
+            path: '/lessonnotes-student-list/:id?',
             name: 'lessonnotes-student-home',
             component: () =>
                 import ('@/views/pages/lessonnotes-student/LessonnotePage.vue'),
@@ -659,7 +659,7 @@ const router = new VueRouter({
 
         //Lessonnotes Activity begin here
         {
-            path: '/lessonnotes-activity-list/:id',
+            path: '/lessonnotes-activity-list/:id?',
             name: 'lessonnotes-activity-home',
             component: () =>
                 import ('@/views/pages/lessonnotes-activity/LessonnotePage.vue'),
