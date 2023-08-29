@@ -1038,12 +1038,12 @@
          
          this.searchValues = []
 
-         this.filters.schoolId = null;
+        // this.filters.schoolId = null;
          this.filters.classIndex = null;
          if (this.userData.role !== "teacher"){
             this.filters.teacherId = null;
          }
-         this.filters.calendarId = null;
+         //this.filters.calendarId = null;
          this.filters.subjectId = null;
          this.filters.studentId = null;
          this.filters.assessType = null;
@@ -1062,7 +1062,7 @@
             if (this.userData.role !== "teacher"){
               this.filters.teacherId = null;
             }
-            this.filters.calendarId = null;
+          //  this.filters.calendarId = null;
             this.filters.subjectId = null;
             this.filters.studentId = null;
             this.filters.assessType = null;

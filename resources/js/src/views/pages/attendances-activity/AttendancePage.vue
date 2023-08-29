@@ -799,12 +799,12 @@
          this.searchValuesCurrent.slip = ""
          this.searchValues = []
 
-         this.filters.schoolId = null;
+       //  this.filters.schoolId = null;
          this.filters.classId = null;
         if (this.userData.role !== "teacher"){
             this.filters.teacherId = null;
          }
-         this.filters.calendarId = null;
+        // this.filters.calendarId = null;
          this.filters.subjectId = null;
          this.filters.status = null;
          this.filters.slip = null;
@@ -822,7 +822,7 @@
             if (this.userData.role !== "teacher"){
               this.filters.teacherId = null;
             }
-            this.filters.calendarId = null;
+          //  this.filters.calendarId = null;
             this.filters.subjectId = null;
             this.filters.status = null;
             this.filters.slip = null;

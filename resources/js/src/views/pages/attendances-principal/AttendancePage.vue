@@ -462,14 +462,15 @@
               }
 
               // Check if the time hour falls within the adjusted range
-              return timeHour === lowerBound || timeHour === upperBound;
+              return timeHour === upperBound;
           });
-          console.log("Altered attendances: "+ attendancefiltered.length )
+         // console.log("Altered attendances: "+ attendancefiltered.length )
           this.attendanceItems  = attendancefiltered;
-      }
+      },
+
+      
 
     }
-
 
   }
   </script>
