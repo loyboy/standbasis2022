@@ -335,7 +335,7 @@
       }
 
       onMounted(() => {
-        //  fetchAttendances();
+          fetchAttendances();
 
           setTimeout(() => {
             attendanceItems.value.forEach(obj => {
