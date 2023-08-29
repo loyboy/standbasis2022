@@ -1107,13 +1107,13 @@
             });
 
             sef.studentOptions = [];     
-            store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchStudents`)
+            /*store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchStudents`)
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
                 sef.studentOptions.push( { value: obj.subId , text: obj.name } )
               });            
-            });
+            });*/
   
             sef.classOptions = [];     
             sef.classOptions.push( { value: 7 , text: "JSS1" } )            
