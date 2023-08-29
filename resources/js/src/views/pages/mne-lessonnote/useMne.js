@@ -117,12 +117,12 @@ export default function useEvaluation() {
   const handleChange = (ctx) => {
     console.log( ">>" + filters.value.typeone + " >> " + filters.value.typetwo_teacher + ">>" +  filters.value.typefour )
     console.log( ">>" + filters.value.typeone + " >> " + filters.value.typetwo_student + ">>" +  filters.value.typefour )
-    if (  filters.value.typeone && filters.value.typetwo_student && filters.value.typefour ) {
+    if (  filters.value.typeone === "student" && filters.value.typetwo_student && filters.value.typefour ) {
       fetchMneVariant();
       window.scrollBy(0, 200);
     }
     
-    else if (  filters.value.typeone && filters.value.typetwo_teacher && filters.value.typefour ) {
+    else if (  filters.value.typeone === "teacher" && filters.value.typetwo_teacher && filters.value.typefour ) {
       fetchMneVariant2();
       window.scrollBy(0, 200);
     }

@@ -8,9 +8,7 @@
                 @reset.prevent="resetForm"
               >
         <b-card-body>
-          <!-- Fixxx the issue with Propreitor here in Calendar --> 
-
-        
+          <!-- Fixxx the issue with Propreitor here in Calendar -->        
 
           <b-row>
                   <b-col cols="12" md="12"  >
@@ -18,7 +16,7 @@
                       <b-form-select
                         v-model="filters.typefour"
                         :options="calendarOptions"
-                       
+                        @change="changeCalendar"
                       />
                     </b-form-group>
                   </b-col> 
@@ -588,6 +586,10 @@
                     sef.isLoading = false;
             });
 
+        },
+
+        changeCalendar(value){
+          console.log("Value is here: " + value)
         }
        
     }
