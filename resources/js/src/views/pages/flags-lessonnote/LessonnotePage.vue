@@ -457,8 +457,10 @@
             store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : value })
             .then(response => { 
               let myval = response.data.data;
+              console.log("Calendar here: " + JSON.stringify(myval))
               myval.forEach(obj => {
                 //if (obj.term !== -99){
+                  console.log(" >>> " + obj.status);
                  // sef.calendarOptions.push( { value: obj.CalendarId , label: obj.session + ' ' + obj.term + ' Term'} );
                   let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
                   sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
