@@ -463,7 +463,7 @@
                   console.log(" >>> " + obj.status);
                  // sef.calendarOptions.push( { value: obj.CalendarId , label: obj.session + ' ' + obj.term + ' Term'} );
                   let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
-                  sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+                  sef.calendarOptions.push( { value: obj.CalendarId , label: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
                 //}
               });             
             });    
