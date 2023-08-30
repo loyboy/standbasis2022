@@ -56,7 +56,7 @@
               </b-col>
 
                  <!-- Class ID  -->
-                 <b-col
+              <b-col
                 cols="12"
                 md="12"
                 class="mb-2"

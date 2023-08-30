@@ -17,7 +17,7 @@
                 <span class="card-text"> <b> {{ userData.email }} </b> </span>
               </div>
 
-              <div class="d-flex flex-wrap" v-if=" userData.role  === 'proprietor' ||  userData.role  === 'principal' ">
+              <div class="d-flex flex-wrap" v-if=" userData.role  === 'admin' ">
 
                 <b-button
                   :to="{ name: 'users-home-edit', params: { id: userData.timeId } }"

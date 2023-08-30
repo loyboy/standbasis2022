@@ -14,7 +14,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset(mix('css/loader.css')) }}" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
+  <link rel="stylesheet" href="{{ asset(mix('css/app.css?time=')) }} {{ time() }} ">
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="{{ asset('images/logo/favicon.png') }}">
@@ -167,7 +167,8 @@
   <div id="app">
   </div>
 
-  <script src="{{ asset(mix('js/app.js')) }}"></script>
+  <script src="{{ asset(mix('js/app.js?time=')) }} {{ time() }} "></script>
+  <!--<script src="{{ asset( 'js/app.js?time=') }} {{ time() }}" defer></script>-->
 
 </body>
 

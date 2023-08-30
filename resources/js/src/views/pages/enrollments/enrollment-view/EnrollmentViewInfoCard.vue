@@ -23,7 +23,7 @@
                 </h4>
                 <span class="card-text">{{ enrollmentData.student.regNo }}</span>
               </div>
-              <div class="d-flex flex-wrap" v-if=" userData.role  === 'proprietor' ||  userData.role  === 'principal'  ">
+              <div class="d-flex flex-wrap" v-if=" userData.role  === 'admin' ">
                 <b-button
                   :to="{ name: 'enrollments-home-edit', params: { id: enrollmentData.enrolId } }"
                   variant="success"

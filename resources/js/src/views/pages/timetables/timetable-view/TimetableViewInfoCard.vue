@@ -17,7 +17,7 @@
                 <span class="card-text"> <b> {{ timetableData.tea_name }} </b> || <b> {{ timetableData.sub_name }} </b> || <b> {{ timetableData.class_name }} </b>    </span>
               </div>
 
-              <div class="d-flex flex-wrap" v-if=" userData.role  === 'proprietor' ||  userData.role  === 'principal' ">
+              <div class="d-flex flex-wrap" v-if=" userData.role  === 'admin' ">
 
                 <b-button
                   :to="{ name: 'timetables-home-edit', params: { id: timetableData.timeId } }"

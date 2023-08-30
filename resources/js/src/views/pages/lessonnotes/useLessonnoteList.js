@@ -174,9 +174,10 @@ export default function useLessonnoteList() {
 
         const showCurrent = lessonnotemanagement.filter( o => { 
           const expiry_date_of_submission = new Date(o.lsn_id.expected_submission).getTime();
+          const late_last_date = expiry_date_of_submission + (48 * 60 * 60 * 1000);
           const todayDate = new Date().getTime();
         
-          return isWithinSevenDays(todayDate, expiry_date_of_submission);  
+          return isWithinSevenDays(todayDate, late_last_date);  //plus late submission days
         
         } )
 

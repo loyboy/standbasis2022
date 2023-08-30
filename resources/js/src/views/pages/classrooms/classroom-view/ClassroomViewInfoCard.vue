@@ -24,7 +24,7 @@
                 <span class="card-text"> <b> {{ classroomData.title }} {{ classroomData.ext }} </b> </span>
               </div>
 
-              <div class="d-flex flex-wrap"  v-if=" userData.role  === 'proprietor' ||  userData.role  === 'principal'  ">
+              <div class="d-flex flex-wrap"  v-if=" userData.role  === 'admin' ">
                 <b-button
                   :to="{ name: 'classrooms-home-edit', params: { id: classroomData.clsId } }"
                   variant="success"
