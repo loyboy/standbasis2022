@@ -254,7 +254,7 @@
 
     mounted(){
         if(this.userData.role !== "proprietor"){
-            console.log("School id " + this.teacherData.school.schId )
+        //    console.log("School id " + this.teacherData.school.schId )
             setTimeout(() => {
                 this.loadOtherValues( this.teacherData.school.schId );              
             },900);  
@@ -331,7 +331,7 @@
             schoolOptions.value.push( { value: obj.schId , label: obj.name } )
           });
 
-          console.log(" School Options shown: " + JSON.stringify(schoolOptions) )
+        //  console.log(" School Options shown: " + JSON.stringify(schoolOptions) )
         }
         else if( findIfSupervisorisPresent ){
           const resp = await store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSchoolGroups`);
@@ -458,11 +458,11 @@
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
-                if (obj.term !== -99){
+                //if (obj.term !== -99){
                  // sef.calendarOptions.push( { value: obj.CalendarId , label: obj.session + ' ' + obj.term + ' Term'} );
                   let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
                   sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
-                }
+                //}
               });             
             });    
       },
