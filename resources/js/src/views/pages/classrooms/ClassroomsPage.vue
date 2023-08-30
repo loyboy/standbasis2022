@@ -23,7 +23,7 @@
             />
           </b-col>
 
-          <b-col lg="3" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary' ">
+          <b-col lg="3" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary' ">
             <statistic-card-horizontal              
               icon="UserCheckIcon"
               color="danger"
