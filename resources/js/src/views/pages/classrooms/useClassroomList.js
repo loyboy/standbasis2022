@@ -74,6 +74,8 @@ export default function useClassroomList(School = null) {
         totalSecondaryUndeployed.value = totalSUndeployed
         totalPrimaryUndeployed.value = totalPUndeployed
 
+        console.log( "TotalSecondary: " +  totalSecondarySenior.value + " >>> " + totalSecondaryJunior.value );
+
       })
       .catch((e) => {
         console.log("Fetch Classrooms error: " + e)

@@ -39,7 +39,7 @@
               icon="UserCheckIcon"
               color="success"
               :statistic="
-                totalSecondarySenior === undefined ? 0 :totalSecondarySenior
+                totalSecondarySenior === undefined ? 0 : totalSecondarySenior
               "
               statistic-title="SSS"
             />
