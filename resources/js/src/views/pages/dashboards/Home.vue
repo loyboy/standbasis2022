@@ -138,7 +138,7 @@
                </b-col> 
                <b-col lg="6">      
                   <router-link to = "/calendars-list">Calendars</router-link> 
-                  <router-link to = "/users-list">Users</router-link>
+                 
                   <router-link to = "/timetables-list">Timetables</router-link>  
                </b-col> 
               </b-row>

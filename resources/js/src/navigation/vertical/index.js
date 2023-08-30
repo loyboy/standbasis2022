@@ -94,10 +94,7 @@ export default [
                 title: 'Calendars',
                 route: 'calendars-home'
             },
-            {
-                title: 'Users',
-                route: 'users-home'
-            },
+          
             {
                 title: 'Timetables',
                 route: 'timetables-home'
