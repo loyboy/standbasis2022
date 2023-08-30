@@ -167,7 +167,7 @@
   <div id="app">
   </div>
 
-  <script src="{{ asset(mix('js/app.js')) }}?time={{ time() }} "></script>
+  <script src="{{ asset(mix('js/app.js')) }}&time={{ time() }} "></script>
   <!--<script src="{{ asset( 'js/app.js?time=') }} {{ time() }}" defer></script>-->
 
 </body>
