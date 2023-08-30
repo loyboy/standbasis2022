@@ -16,7 +16,7 @@
               icon="UserCheckIcon"
               color="success"
               :statistic="
-                totalSecondarySchools === undefined ? 0 : totalSecondarySchools
+                totalSecondarySchools === undefined ? 0 : totalSecondarySchools 
               "
               statistic-title="Secondary"
             />

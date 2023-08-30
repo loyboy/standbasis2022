@@ -31,7 +31,7 @@ export default function useClassroomList(School = null) {
     schoolid: null
   });
  
-  const totalPrimary = ref(0);
+  const totalPrimar = ref(0);
   const totalSecondaryJunior = ref(0);
   const totalSecondarySenior = ref(0);
   const totalSecondaryUndeployed = ref(0);
@@ -68,7 +68,7 @@ export default function useClassroomList(School = null) {
 
         callback(classrooms)
         totalClassrooms.value = totalItems
-        totalPrimary.value = totalPrimary
+        totalPrimar.value = totalPrimary
         totalSecondaryJunior.value = totalSJunior
         totalSecondarySenior.value = totalSSenior
         totalSecondaryUndeployed.value = totalSUndeployed
@@ -111,7 +111,7 @@ export default function useClassroomList(School = null) {
     handlePageChange,
 
     totalClassrooms,
-    totalPrimary,
+    totalPrimar,
     totalSecondaryJunior,
     totalSecondarySenior,
     totalSecondaryUndeployed,

@@ -17,7 +17,7 @@
               icon="UserCheckIcon"
               color="success"
               :statistic="
-                totalPrimary === undefined ? 0 :totalPrimary
+                totalPrimar === undefined ? 0 :totalPrimar
               "
               statistic-title="Primary"
             />
@@ -363,7 +363,7 @@
         currentPage,
         
         totalClassrooms,
-        totalPrimary,
+        totalPrimar,
         totalSecondaryJunior,
         totalSecondarySenior,
         totalSecondaryUndeployed,
@@ -401,7 +401,7 @@
         currentPage,
 
         totalClassrooms,
-        totalPrimary,
+        totalPrimar,
         totalSecondaryJunior,
         totalSecondarySenior,
         totalSecondaryUndeployed,
