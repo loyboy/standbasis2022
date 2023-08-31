@@ -282,17 +282,17 @@
             <statistic-card-horizontal
               icon="UsersIcon"
               color="primary"
-              :statistic=" totalLessonnotes === undefined ? 0 : totalLessonnotes "
+              :statistic=" totalPSubmitted === undefined ? 0 : totalPSubmitted "
               statistic-title="Submitted"
             />
           </b-col>
 
           <b-col lg="3" sm="6" v-if=" userData.role === 'principal' " >
             <statistic-card-horizontal
-              icon="UserCheckIcon"
+              icon="UsersIcon"
               color="success"
               :statistic="
-                totalActiveLessonnotes === undefined ? 0 :totalActiveLessonnotes
+                totalPApproved === undefined ? 0 :totalPApproved
               "
               statistic-title="Approved"
             />
@@ -300,10 +300,10 @@
 
           <b-col lg="3" sm="6" v-if=" userData.role === 'principal' ">
             <statistic-card-horizontal
-              icon="UserMinusIcon"
-              color="danger"
+              icon="UsersIcon"
+              color="secondary"
               :statistic="
-                totalInactiveLessonnotes === undefined ? 0 : totalInactiveLessonnotes
+                totalPProcessing === undefined ? 0 : totalPProcessing
               "
               statistic-title="Processing"
             />
@@ -311,10 +311,10 @@
 
           <b-col lg="3" sm="6" v-if=" userData.role === 'principal' ">
             <statistic-card-horizontal
-              icon="UserMinusIcon"
+              icon="UsersIcon"
               color="danger"
               :statistic="
-                totalInactiveLessonnotes === undefined ? 0 : totalInactiveLessonnotes
+                totalPPending === undefined ? 0 : totalPPending
               "
               statistic-title="Pending"
             />
@@ -1219,6 +1219,11 @@
             totalActiveLessonnotes,
             totalInactiveLessonnotes,
 
+            totalPSubmitted,
+            totalPApproved,
+            totalPProcessing,
+            totalPPending,
+
             dataMeta,
             perPageOptions,
             searchQuery,
@@ -1279,6 +1284,11 @@
             totalLessonnotes,
             totalActiveLessonnotes,
             totalInactiveLessonnotes,
+
+            totalPSubmitted,
+            totalPApproved,
+            totalPProcessing,
+            totalPPending,
 
             dataMeta,
             perPageOptions,

@@ -15,10 +15,10 @@ export default function useTimetableList(School = null, Teacher = null) {
   const tableColumns = [
     
     { key: 'school.name', label: 'School Name', sortable: true },
-    { key: 'tea_name',label: 'Teacher Name',  sortable: true },
+    { key: 'teacher.fname',label: 'Teacher Name',  sortable: true },
     { key: 'class_stream.title',label: 'Class Name',  sortable: true },
     { key: 'class_stream.ext',label: 'Class Arm',  sortable: true },
-    { key: 'sub_name',label: 'Subject Name',  sortable: true },
+    { key: 'subject.name',label: 'Subject Name',  sortable: true },
     { key: 'time_of',label: 'Time of Class',  sortable: true },
     { key: 'day_of',label: 'Day of Class',  sortable: true },
     { key: 'status',label: 'Status',  sortable: true },

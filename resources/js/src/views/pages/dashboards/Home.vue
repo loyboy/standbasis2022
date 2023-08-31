@@ -139,7 +139,7 @@
                <b-col lg="6">      
                   <router-link to = "/calendars-list">Calendars</router-link> 
                  
-                  <router-link to = "/timetables-list">Timetables</router-link>  
+                  <router-link to = "/timetables-list/teacher">Timetables</router-link>  
                </b-col> 
               </b-row>
 
@@ -197,7 +197,7 @@
                <router-link v-if=" userData.role === 'guardian' " to = "/attendances-student-list"> Live Attendance</router-link>               
                <router-link  to = "/mne-attendances-list"> Attendance</router-link>
                <router-link v-if=" userData.role !== 'guardian' " to="/mne-lessonnotes-list" > Lessonnote </router-link>
-               <router-link  to = "/mne-assessments-list"> Assessment </router-link>
+              <!-- <router-link  to = "/mne-assessments-list"> Assessment </router-link> -->
               
             </div>
 

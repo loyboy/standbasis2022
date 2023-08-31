@@ -184,12 +184,12 @@
               </b-row>
 
               <b-row class="mt-2 py-2">
-                <b-col lg="6" sm="6">
+                <b-col lg="4" sm="6">
                   <statistic-card-horizontal
                     icon="AlertOctagonIcon"
                     color="info"
                     :statistic=" headTotal === undefined ? 0 : headTotal "
-                    statistic-title="School Head Administration (%)"
+                    statistic-title=" Classwork Performance Average (%) \\n Schools with < 50% "
                   />
                 </b-col>
 
@@ -200,7 +200,51 @@
                     :statistic="
                       teacherTotal === undefined ? 0 : teacherTotal
                     "
-                    statistic-title="Teacher Management (%)"
+                    statistic-title=" Homework Performance Average (%) \\n Schools with < 50% "
+                  />
+                </b-col>
+
+                <b-col lg="6" sm="6">
+                  <statistic-card-horizontal
+                    icon="AlertOctagonIcon"
+                    color="primary"
+                    :statistic="
+                      teacherTotal === undefined ? 0 : teacherTotal
+                    "
+                    statistic-title=" Weekly Test Performance Average (%) \\n Schools with < 50% "
+                  />
+                </b-col>
+              </b-row>
+
+              <b-row class="mt-2 py-2">
+                <b-col lg="4" sm="6">
+                  <statistic-card-horizontal
+                    icon="AlertOctagonIcon"
+                    color="info"
+                    :statistic=" headTotal === undefined ? 0 : headTotal "
+                    statistic-title=" Classwork Performance Average (%) \\n Schools with > 50% "
+                  />
+                </b-col>
+
+                <b-col lg="6" sm="6">
+                  <statistic-card-horizontal
+                    icon="AlertOctagonIcon"
+                    color="success"
+                    :statistic="
+                      teacherTotal === undefined ? 0 : teacherTotal
+                    "
+                    statistic-title=" Homework Performance Average (%) \\n Schools with > 50% "
+                  />
+                </b-col>
+
+                <b-col lg="6" sm="6">
+                  <statistic-card-horizontal
+                    icon="AlertOctagonIcon"
+                    color="primary"
+                    :statistic="
+                      teacherTotal === undefined ? 0 : teacherTotal
+                    "
+                    statistic-title=" Weekly Test Performance Average (%) \\n Schools with > 50% "
                   />
                 </b-col>
               </b-row>

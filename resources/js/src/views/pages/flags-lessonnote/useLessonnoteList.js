@@ -11,7 +11,7 @@ export default function useLessonnoteList() {
   const tableColumns = [    
     { key: 'parameter',label: 'Flag Type', sortable: true, tdClass: "tdBlue"},
     { key: 'expected',label: 'Expected Count',  sortable: true },
-    { key: 'value',label: 'Value',  sortable: true }
+    { key: 'value',label: 'Actual',  sortable: true }
   ]  
   
   const filters = ref({

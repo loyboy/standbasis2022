@@ -90,6 +90,11 @@ export default function useLessonnoteList() {
 
   const totalActiveLessonnotes = ref(0)
   const totalInactiveLessonnotes = ref(0)
+  const totalPSubmitted = ref(0)
+  const totalPApproved = ref(0)
+  const totalPProcessing = ref(0)
+  const totalPPending = ref(0)
+
   const searchValues = ref([])
 
   const dataMeta = computed(() => {
@@ -98,7 +103,7 @@ export default function useLessonnoteList() {
       from: perPage.value * (currentPage.value - 1) + (localItemsCount ? 1 : 0),
       to: perPage.value * (currentPage.value - 1) + localItemsCount,
       of: totalLessonnotes.value,
-    }// 
+    } 
   })
 
   const refetchData = () => {
@@ -181,7 +186,28 @@ export default function useLessonnoteList() {
         
         } )
 
+        const showSubmitted = showCurrent.filter( o => {
+          return o.lsn_id.submission !== null && o.lsn_id.approval === null
+        })
+
+        const showApproval = showCurrent.filter( o => {
+          return o.lsn_id.submission !== null && o.lsn_id.approval !== null
+        })
+
+        const showProcessing = showCurrent.filter( o => {
+          return o.lsn_id.resubmission !== null || o.lsn_id.revert !== null
+        })
+
+        const showPending = showCurrent.filter( o => {
+          return o.lsn_id.closure !== null && o.lsn_id.approval !== null
+        })
+
         LessonnoteItems.value = showCurrent   
+        totalPSubmitted.value = showSubmitted.length;
+        totalPApproved.value = showApproval.length;
+        totalPProcessing.value = showProcessing.length;
+        totalPPending.value = showPending.length;
+
         isLoading.value = false;   
 
       })
@@ -246,6 +272,11 @@ export default function useLessonnoteList() {
     totalLessonnotes,
     totalActiveLessonnotes,    
     totalInactiveLessonnotes,
+
+    totalPSubmitted,
+    totalPApproved,
+    totalPProcessing,
+    totalPPending,
 
     tableColumns,
     tableColumnsPrincipal,
