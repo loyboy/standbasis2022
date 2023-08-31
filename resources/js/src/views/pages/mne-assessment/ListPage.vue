@@ -156,7 +156,7 @@
 
               <b-row>
                   <span>  
-                    <b-form-checkbox id="drill-down-two" v-model="week_drilldown" name="checkbox-1">
+                    <b-form-checkbox id="drill-down-two" v-model="week_drilldown" v-if=" cal_drilldown " name="checkbox-1">
                       Drill down From Schools & Calendars ? 
                     </b-form-checkbox>
                   </span>  
@@ -189,29 +189,29 @@
                     icon="AlertOctagonIcon"
                     color="info"
                     :statistic=" headTotal === undefined ? 0 : headTotal "
-                    statistic-title=" Classwork Performance Average (%) \\n Schools with < 50% "
+                    statistic-title=" Classwork Performance Average (%) Schools with < 50% "
                   />
                 </b-col>
 
-                <b-col lg="6" sm="6">
+                <b-col lg="4" sm="6">
                   <statistic-card-horizontal
                     icon="AlertOctagonIcon"
                     color="success"
                     :statistic="
                       teacherTotal === undefined ? 0 : teacherTotal
                     "
-                    statistic-title=" Homework Performance Average (%) \\n Schools with < 50% "
+                    statistic-title=" Homework Performance Average (%) Schools with < 50% "
                   />
                 </b-col>
 
-                <b-col lg="6" sm="6">
+                <b-col lg="4" sm="6">
                   <statistic-card-horizontal
                     icon="AlertOctagonIcon"
                     color="primary"
                     :statistic="
                       teacherTotal === undefined ? 0 : teacherTotal
                     "
-                    statistic-title=" Weekly Test Performance Average (%) \\n Schools with < 50% "
+                    statistic-title=" Weekly Test Performance Average (%) Schools with < 50% "
                   />
                 </b-col>
               </b-row>
@@ -222,29 +222,29 @@
                     icon="AlertOctagonIcon"
                     color="info"
                     :statistic=" headTotal === undefined ? 0 : headTotal "
-                    statistic-title=" Classwork Performance Average (%) \\n Schools with > 50% "
+                    statistic-title=" Classwork Performance Average (%) Schools with > 50% "
                   />
                 </b-col>
 
-                <b-col lg="6" sm="6">
+                <b-col lg="4" sm="6">
                   <statistic-card-horizontal
                     icon="AlertOctagonIcon"
                     color="success"
                     :statistic="
                       teacherTotal === undefined ? 0 : teacherTotal
                     "
-                    statistic-title=" Homework Performance Average (%) \\n Schools with > 50% "
+                    statistic-title=" Homework Performance Average (%) Schools with > 50% "
                   />
                 </b-col>
 
-                <b-col lg="6" sm="6">
+                <b-col lg="4" sm="6">
                   <statistic-card-horizontal
                     icon="AlertOctagonIcon"
                     color="primary"
                     :statistic="
                       teacherTotal === undefined ? 0 : teacherTotal
                     "
-                    statistic-title=" Weekly Test Performance Average (%) \\n Schools with > 50% "
+                    statistic-title=" Weekly Test Performance Average (%) Schools with > 50% "
                   />
                 </b-col>
               </b-row>
