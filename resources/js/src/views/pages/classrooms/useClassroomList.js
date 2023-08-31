@@ -60,7 +60,7 @@ export default function useClassroomList(School = null) {
         size: perPage.value,
         page: currentPage.value - 1,
         q: searchQuery.value,
-        school: School ? School : filters.value.school,
+        school: School ? School : filters.value.schoolid,
         schoolgroup: School ? null : filters.value.schoolgroup
       })
       .then(response => {
