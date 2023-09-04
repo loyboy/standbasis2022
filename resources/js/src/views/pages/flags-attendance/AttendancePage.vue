@@ -209,7 +209,7 @@
       ]
 
       let calendarOptions = [
-        { value: null, label: "Please select Calendar" }
+        { value: null, label: "All Schools" }
       ]
 
       let subjectOptions = [
@@ -238,7 +238,7 @@
       
       const userData = ref({});
       const teacherData = ref({});
-      const schoolOptions = ref([]);
+      const schoolOptions = ref([ { value: null, label: "All Schools" } ]);
       const schoolGroupOptions = ref([]);
       const LocalGovtOptions = ref(
         { "001" : "abak", "002": "eastern obolo", "003" : "eket",  "004" : "esit eket", "005" : "essien udim"   } 

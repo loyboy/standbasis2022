@@ -189,7 +189,7 @@
                     icon="AlertOctagonIcon"
                     color="info"
                     :statistic=" headTotal === undefined ? 0 : headTotal "
-                    statistic-title=" Classwork Performance Average (%) Schools with < 50% "
+                    statistic-title=" Classwork Performance Average Schools with < 50% "
                   />
                 </b-col>
 
@@ -200,7 +200,7 @@
                     :statistic="
                       teacherTotal === undefined ? 0 : teacherTotal
                     "
-                    statistic-title=" Homework Performance Average (%) Schools with < 50% "
+                    statistic-title=" Homework Performance Average Schools with < 50% "
                   />
                 </b-col>
 
@@ -211,7 +211,7 @@
                     :statistic="
                       teacherTotal === undefined ? 0 : teacherTotal
                     "
-                    statistic-title=" Weekly Test Performance Average (%) Schools with < 50% "
+                    statistic-title=" Weekly Test Performance Average Schools with < 50% "
                   />
                 </b-col>
               </b-row>
@@ -222,7 +222,7 @@
                     icon="AlertOctagonIcon"
                     color="info"
                     :statistic=" headTotal === undefined ? 0 : headTotal "
-                    statistic-title=" Classwork Performance Average (%) Schools with > 50% "
+                    statistic-title=" Classwork Performance Average Schools with > 50% "
                   />
                 </b-col>
 
@@ -233,7 +233,7 @@
                     :statistic="
                       teacherTotal === undefined ? 0 : teacherTotal
                     "
-                    statistic-title=" Homework Performance Average (%) Schools with > 50% "
+                    statistic-title=" Homework Performance Average Schools with > 50% "
                   />
                 </b-col>
 
@@ -244,7 +244,7 @@
                     :statistic="
                       teacherTotal === undefined ? 0 : teacherTotal
                     "
-                    statistic-title=" Weekly Test Performance Average (%) Schools with > 50% "
+                    statistic-title=" Weekly Test Performance Average Schools with > 50% "
                   />
                 </b-col>
               </b-row>

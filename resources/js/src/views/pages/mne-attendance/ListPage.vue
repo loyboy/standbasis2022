@@ -308,6 +308,11 @@
 
       </b-card-code>
 
+      <!-- Create a Printable Form for Teachers, Student, School, Class, Principal -->
+ 
+
+
+
     </div>
 
 </template>

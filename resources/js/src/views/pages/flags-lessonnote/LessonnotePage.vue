@@ -283,7 +283,7 @@
       
       const userData = ref({});
       const teacherData = ref({});
-      const schoolOptions = ref([]);
+      const schoolOptions = ref([ { value: null, label: "All Schools" } ]);
       const schoolGroupOptions = ref([]);
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
