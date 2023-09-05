@@ -245,7 +245,7 @@
       );
       const StateGovtOptions = ref(
         { "01" : "akwaibom" } 
-      );
+      ); 
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
       if (storedItems){

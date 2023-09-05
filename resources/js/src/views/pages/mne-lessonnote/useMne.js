@@ -120,7 +120,7 @@ export default function useEvaluation() {
     if (  filters.value.typeone === "student" && filters.value.typetwo_student && filters.value.typefour ) {
       fetchMneVariant();
       window.scrollBy(0, 200);
-    }
+    } 
     
     else if (  filters.value.typeone === "teacher" && filters.value.typetwo_teacher && filters.value.typefour ) {
       fetchMneVariant2();

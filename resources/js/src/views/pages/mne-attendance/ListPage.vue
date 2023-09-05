@@ -115,6 +115,7 @@
 
       </b-form>
 
+      <!-- Proprietor screen-->
       <b-form class="p-2 myborder" 
         @submit.prevent="handleChange()"
         @reset.prevent="resetForm"
@@ -122,7 +123,7 @@
             <b-card-body>
               
               <b-row>
-                  <b-col cols="12" md="12"  >
+                  <b-col cols="10" md="10"  >
                     <b-form-group label=" Select School" >
                       <b-form-select
                         v-model="filters.schoolId"
@@ -647,7 +648,7 @@
 
             store.dispatch(`${this.Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : value })
             .then(response => { 
-                    sef.calendarOptions = []
+                    sef.calendarOptions = [ { value: null, text: "Select a Calendar for This School" } ]
                     let myval = response.data.data;
                     myval.forEach(obj => {
                       let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";

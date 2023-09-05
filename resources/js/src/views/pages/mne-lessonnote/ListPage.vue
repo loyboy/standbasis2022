@@ -154,7 +154,7 @@
 
               <b-row>
                   <span>  
-                    <b-form-checkbox id="drill-down-two" v-model="week_drilldown" name="checkbox-1">
+                    <b-form-checkbox id="drill-down-two" v-model="week_drilldown" v-if=" cal_drilldown " name="checkbox-1">
                       Drill down From Schools & Calendars ? 
                     </b-form-checkbox>
                   </span>  
@@ -414,7 +414,7 @@
       
       const userData = ref({});   
       const teacherData = ref({}); 
-      const calendarOptions = ref([]);
+      const calendarOptions = ref([ { value: null, text: "Please select A Calendar" } ]);
       const schoolOptions = ref([ { value: null, text: "All Schools" } ]);
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
@@ -562,14 +562,24 @@
 
         changeStudent(value){
             this.filters.enrolId = value;
+            this.filters.typetwo_teacher = null
+            this.filters.typetwo_principal = null
+            console.log("Student..."+ value)
         },
 
         changeTeacher(value){
             this.filters.teacherId = value;
+            this.filters.typetwo_student = null
+            this.filters.typetwo_principal = null
+             console.log("Teacher..."+ value)
+             console.log("Teacher2..."+ this.filters.typetwo_teacher)
         },
 
         changePrincipal(value){              
             this.filters.schoolId = value;
+            this.filters.typetwo_student = null
+            this.filters.typetwo_teacher = null
+            console.log("Principal..."+ value)
         },
 
         changeSchoolCalendar(value){
@@ -579,6 +589,7 @@
             store.dispatch(`${this.Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : value })
             .then(response => { 
                     let myval = response.data.data;
+                    sef.calendarOptions = [ { value: null, text: "Select a Calendar for This School" } ]
                     myval.forEach(obj => {
                       let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
                       sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )

@@ -41,7 +41,7 @@
 
             <hr /> 
 
-            <b-col
+          <!--  <b-col
               cols="12"
               md="12"
               class="mb-md-0 mb-2"
@@ -55,9 +55,41 @@
                 class="w-100"
                 :reduce="(val) => val.value"            
               />
+            </b-col>-->
+
+            <b-col
+              cols="12"
+              md="12"
+              class="mb-md-0 mb-2"
+              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
+            >
+              <label>School Year</label>
+              <v-select
+                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                v-model="filters.schoolyear"
+                :options="schoolyearOptions"               
+                class="w-100"
+                :reduce="(val) => val.value"            
+              />
             </b-col>
 
             <hr /> 
+
+            <b-col
+              cols="12"
+              md="12"
+              class="mb-md-0 mb-2"
+              v-if=" userData.role === 'proprietor' ||  userData.role === 'principal' ||  userData.role === 'teacher' || userData.role === 'supervisor' "
+            >
+              <label>School Term</label>
+              <v-select
+                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                v-model="filters.schoolterm"
+                :options="schooltermOptions"               
+                class="w-100"
+                :reduce="(val) => val.value"            
+              />
+            </b-col>
 
             <b-col
               cols="12"
@@ -254,16 +286,15 @@
 
     mounted(){
         if(this.userData.role !== "proprietor"){
-        //    console.log("School id " + this.teacherData.school.schId )
             setTimeout(() => {
                 this.loadOtherValues( this.teacherData.school.schId );              
             },900);  
             
             setTimeout(() => {
-               this.filters.calendarId = this.calendarOptions[0].value;  
-               this.filters.week =   this.weekOptions[0].value;
-               this.handleChange()
-               
+               this.filters.week       =   this.weekOptions[0].value; 
+               this.filters.schoolyear =   this.schoolyearOptions[0].value;
+               this.filters.schoolterm =   this.schooltermOptions[0].value;
+               this.handleChange()               
             },1500); 
               
         }
@@ -284,7 +315,9 @@
       const userData = ref({});
       const teacherData = ref({});
       const schoolOptions = ref([ { value: null, label: "All Schools" } ]);
-      const schoolGroupOptions = ref([]);
+      const schoolGroupOptions = ref([ { value: null, label: "Select a School Group" } ]);
+      const schoolyearOptions = ref([ { value: null, label: "Select a School Year" } ]);
+      const schooltermOptions = ref([ { value: null, label: "Select a School Term" } ]);
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
       if (storedItems){
@@ -324,14 +357,20 @@
       }
 
       (async function () {
+        schoolyearOptions.value.push({ value: "2022/2023" , label: "2022/2023" });
+        schoolyearOptions.value.push({ value: "2023/2024" , label: "2023/2024" });
+        schoolyearOptions.value.push({ value: "2024/2025" , label: "2024/2025" });
+        
+        schooltermOptions.value.push({ value: 1 , label: "1st Term" });
+        schooltermOptions.value.push({ value: 2 , label: "2nd Term" });
+        schooltermOptions.value.push({ value: 3 , label: "3rd Term" });
+
         if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
           const resp = await store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSchools`, { id : filters.value.schoolgroup });
           let myval = resp.data.data;
           myval.forEach(obj => {
             schoolOptions.value.push( { value: obj.schId , label: obj.name } )
           });
-
-        //  console.log(" School Options shown: " + JSON.stringify(schoolOptions) )
         }
         else if( findIfSupervisorisPresent ){
           const resp = await store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSchoolGroups`);
@@ -361,6 +400,9 @@
         schoolOptions,
         schoolGroupOptions,
 
+        schoolyearOptions,
+        schooltermOptions,
+
         userData,
         teacherData,
 
@@ -389,7 +431,7 @@
           { value: null, label: "Please select a Week" }
         ]
 
-         this.filters.schoolgroup = null;
+       //  this.filters.schoolgroup = null;
          this.filters.schoolId = null;
          this.filters.classId = null;
        

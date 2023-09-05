@@ -18,8 +18,10 @@ export default function useLessonnoteList() {
     schoolgroup: null, 
     schoolId: null,
     classId: null,//unused
+    schoolyear: null,
+    schoolterm: null,
     week: null,
-    calendarId: null,
+    calendarId: null,//unused
     teacherId:null,//unused
     subjectId: null,//unused
     dateFrom: null,//unused
@@ -39,10 +41,12 @@ export default function useLessonnoteList() {
       .dispatch('app-LessonnoteMNE/fetchLessonnotes', {
         q: "",
         schoolgroup: filters.value.schoolgroup,
-        school: filters.value.schoolId,
-        class: filters.value.classId,
+        school: filters.value.schoolId,  
         week: filters.value.week,
-        calendar: filters.value.calendarId,
+        schoolyear: filters.value.schoolyear,
+        schoolterm: filters.value.schoolterm,
+
+        class: filters.value.classId,
         teacher: filters.value.teacherId,
         subject:  filters.value.subjectId,
         datefrom: dateF,
