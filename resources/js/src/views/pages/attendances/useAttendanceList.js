@@ -186,7 +186,7 @@ export default function useAttendanceList() {
     if (status === 100) return 'success'
     if (status === 0) return 'danger'   
     return 'link'
-  }
+  } 
   
   const resolveAttendanceclassPerfVariant = status => {
     if (status === 100) return 'success'

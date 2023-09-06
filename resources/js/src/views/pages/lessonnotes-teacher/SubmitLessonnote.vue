@@ -424,7 +424,7 @@
                       let lsnactivity = response.data.data;   
                       this.filters.revertedGrammar =  lsnactivity.principal_query_grammar === 0 ? true : false;  
                       this.filters.revertedArrangement =  lsnactivity.principal_query_arrangement === 0 ? true : false; 
-                      this.filters.revertedSubject =  lsnactivity.principal_query_subject === 0 ? true : false;
+                      this.filters.revertedSubject =  lsnactivity.principal_query_subjectmatter === 0 ? true : false;
                       this.filters.revertedIncomplete =  lsnactivity.principal_query_incomplete === 0 ? true : false;            
               });
           }

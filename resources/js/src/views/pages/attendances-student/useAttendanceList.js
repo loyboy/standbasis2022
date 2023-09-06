@@ -32,6 +32,11 @@ export default function useAttendanceList() {
   const searchQuery = ref('')
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)
+  const userData = ref({});
+  const storedItems = JSON.parse(localStorage.getItem('userData'));
+  if (storedItems){
+    userData.value = storedItems;
+  }
 
   const attendanceItems = ref([])
   const filters = ref({

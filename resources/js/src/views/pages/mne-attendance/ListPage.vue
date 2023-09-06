@@ -362,7 +362,6 @@
   import { avatarText } from '@core/utils/filter'
   import formValidation from '@core/comp-functions/forms/form-validation'
   import { $themeConfig } from "@themeConfig";
-
   import useMne from './useMne'
   import mneStoreModule from './mneStoreModule'
 

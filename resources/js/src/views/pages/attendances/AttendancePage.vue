@@ -573,7 +573,7 @@
                   :per-page="perPage"
                   first-number
                   last-number
-                  class="mb-0 mt-1 mt-sm-0"
+                  class="mb-0 mt-1 mt-sm-0" 
                   prev-class="prev-item"
                   next-class="next-item"
                   @change="handlePageChange"
