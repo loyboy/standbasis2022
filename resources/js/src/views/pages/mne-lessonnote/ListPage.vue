@@ -22,7 +22,7 @@
                   </b-col> 
           </b-row>
 
-          <b-row v-if-=" filters.typefour !== null ">
+          <b-row v-if=" filters.typefour !== null ">
                   <b-col cols="12" md="12"  >
                     <b-form-group label=" Select Week " >
                       <b-form-select
@@ -33,7 +33,7 @@
                   </b-col>
           </b-row>
 
-          <b-row v-if-=" filters.typefour !== null ">
+          <b-row v-if=" filters.typefour !== null ">
                   <b-col cols="12" md="3">
                     <span> <b> <h3> Choose a Category: </h3> </b> </span>
                   </b-col>

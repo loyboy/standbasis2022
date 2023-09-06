@@ -288,14 +288,17 @@
         if(this.userData.role !== "proprietor"){
             setTimeout(() => {
                 this.loadOtherValues( this.teacherData.school.schId );              
-            },900);  
+            },800);  
             
             setTimeout(() => {
+               let cal_obj             =   this.calendarOptions.filter(c => c.value === this.calendarId )  
+               const regexPattern = /(\d{4}\/\d{4})---Term (\d+)/;
+               const match = cal_obj[0].label.match(regexPattern);
                this.filters.week       =   this.weekOptions[0].value; 
-               this.filters.schoolyear =   this.schoolyearOptions[0].value;
-               this.filters.schoolterm =   this.schooltermOptions[0].value;
+               this.filters.schoolyear =   match[1];
+               this.filters.schoolterm =   match[2];
                this.handleChange()               
-            },1500); 
+            },1700); 
               
         }
     },
@@ -354,6 +357,7 @@
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
+          filters.value.calendarId = (findIfPrinisPresent || findIfTeacherisPresent) && userData.value ? userData.value.cal_id : null;
       }
 
       (async function () {
@@ -435,7 +439,7 @@
          this.filters.schoolId = null;
          this.filters.classId = null;
        
-         this.filters.calendarId = null;
+        // this.filters.calendarId = null;
          this.filters.subjectId = null;
          this.filters.week = null;        
          this.filters.dateFrom = null;
