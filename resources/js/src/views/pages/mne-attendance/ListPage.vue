@@ -42,7 +42,7 @@
                     <b-form-group label="Select Student" label-for="studentpick">
                       <b-form-radio v-model="filters.typeone" @change="changeType"  name="studentpick" value="student">Student</b-form-radio>
                     </b-form-group>
-                  </b-col>
+                  </b-col> 
 
                    <b-col cols="12" md="3" v-if="  userData.role === 'teacher' ">
                     <b-form-group label="Select Teacher" label-for="teacherpick2">

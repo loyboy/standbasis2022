@@ -535,6 +535,10 @@
                     sef.isLoading = false;
                 });
             }
+
+            else if (value === "teacher_me"){
+                this.filters.typetwo_teacher =  this.filters.teacherId;
+            }
             
             else if (value === "teacher"){
                 sef.isLoading = true;
@@ -572,15 +576,14 @@
             this.filters.teacherId = value;
             this.filters.typetwo_student = null
             this.filters.typetwo_principal = null
-             console.log("Teacher..."+ value)
-             console.log("Teacher2..."+ this.filters.typetwo_teacher)
+           
         },
 
         changePrincipal(value){              
             this.filters.schoolId = value;
             this.filters.typetwo_student = null
             this.filters.typetwo_teacher = null
-            console.log("Principal..."+ value)
+           
         },
 
         changeSchoolCalendar(value){
