@@ -296,7 +296,7 @@
                const match = cal_obj[0].label.match(regexPattern);
                this.filters.week       =   this.weekOptions[0].value; 
                this.filters.schoolyear =   match[1];
-               this.filters.schoolterm =   match[2];
+               this.filters.schoolterm =   Number(match[2]);
                this.handleChange()               
             },1700); 
               
