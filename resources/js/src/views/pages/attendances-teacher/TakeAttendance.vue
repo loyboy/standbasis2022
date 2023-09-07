@@ -344,7 +344,7 @@
                // targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );
                // if ( isWithinOneHour( targetTime, new Date() ) ) {                    
                     let done = obj.done === 0 ? "NOT DONE" : "CONCLUDED"
-                    let labeltosee = obj.timetable.subject.name + "-" + obj.timetable.time_of + "-" + new String(dayData.value[ Number(obj.timetable.day_of) - 1 ]).toUpperCase() + "-" + done  
+                    let labeltosee = obj.timetable.subject.name + "-" + obj.timetable.class_stream.title + obj.timetable.class_stream.ext + "-" + obj.timetable.time_of + "-" + new String(dayData.value[ Number(obj.timetable.day_of) - 1 ]).toUpperCase() + "-" + done  
                     let valuetosee = obj.timetable.class_stream.clsId + "!" + obj.attId + "!" + obj.timetable.class_stream.title + "!" + obj.timetable.time_of +  "!"  + obj._date
                     attendanceOptions.value.push( { value: valuetosee , text: labeltosee } )
               /*  } else {
