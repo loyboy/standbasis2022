@@ -336,7 +336,7 @@
                 :variant="`light-${resolveLessonnotetypeVariant(data.item._type)}`"
                 class="text-capitalize"
               >
-              {{ data.item._type }} 
+              {{ dataOfType[data.item._type] }} 
               </b-badge>
             </template>
     
@@ -861,7 +861,15 @@
             student: "nil",
             assesstype: "nil",
             score: "nil"            
-         }     
+         },
+
+         dataOfType : {
+          "tst": "Test",
+          "clw": "Classwork",
+          "hwk": "Homework",
+          "mid": "MidTerm",
+          "final": "Final Exams"
+         }   
       }
     },
 
