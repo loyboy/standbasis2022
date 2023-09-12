@@ -17,7 +17,7 @@ export default function useLessonnoteList() {
   // Table Handlers
   const tableColumns = [    
     { key: 'lsn.title', label: 'Lessonnote Name', sortable: true },
-    { key: 'enrol.student.name', label: "Student Name",  sortable: true },   
+    { key: 'enroll.student.name', label: "Student Name",  sortable: true },   
     { key: 'lsn.teacher.school.name', label: 'School Name', sortable: true },
     { key: 'lsn.teacher.fname', label: 'Teacher First Name',  sortable: true },
     { key: 'lsn.class_index', label: 'Class Name',  sortable: true },
@@ -149,6 +149,16 @@ export default function useLessonnoteList() {
 
     return 'primary'
   }
+
+  const resolveLessonnotetypeVariant = st => {
+    if (st === 'tst') return 'success'
+    if (st === 'hwk') return 'secondary'
+    if (st === 'clw') return 'primary'
+    if (st === 'mid') return 'link'
+    if (st === 'final') return 'warning'
+
+    return 'primary'
+  }
   
   return {
     fetchLessonnotes,
@@ -175,6 +185,7 @@ export default function useLessonnoteList() {
 
     resolveLessonnotestatusVariant,
     resolveLessonnoteactionVariant,
+    resolveLessonnotetypeVariant,
     refetchData,
 
     filters,

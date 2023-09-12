@@ -314,7 +314,7 @@
              <!-- Column: Date -->
              <template #cell(_date)="data">
                <div>
-                {{ String( data.item._date ).replace(".000+00:00","") }}
+                {{ data.item._date !== null ? String( data.item._date ).replace(".000+00:00","") : "Not Available" }}
                </div>               
              </template>
 
@@ -326,6 +326,17 @@
                 class="text-capitalize"
               >
               {{ data.item.score }} %
+              </b-badge>
+            </template>
+
+             <!-- Column: Type -->
+             <template #cell(_type)="data">
+              <b-badge
+                pill
+                :variant="`light-${resolveLessonnotetypeVariant(data.item._type)}`"
+                class="text-capitalize"
+              >
+              {{ data.item._type }} 
               </b-badge>
             </template>
     
@@ -344,27 +355,27 @@
                   />
                 </template>
                   
-                <b-dropdown-item v-if=" data.item.type === 'clw' " @click= " triggerClasswork( data.item.assessId ) ">
+                <b-dropdown-item v-if=" data.item._type === 'clw' " @click= " triggerClasswork( data.item.assessId ) ">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Add Classwork Scores</span>
                 </b-dropdown-item> 
                 
-                <b-dropdown-item v-if=" data.item.type === 'hwk' "  @click= " triggerHomework( data.item.assessId ) ">
+                <b-dropdown-item v-if=" data.item._type === 'hwk' "  @click= " triggerHomework( data.item.assessId ) ">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Add Homework Scores</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item v-if=" data.item.type === 'tst' "  @click= " triggerTest( data.item.assessId ) ">
+                <b-dropdown-item v-if=" data.item._type === 'tst' "  @click= " triggerTest( data.item.assessId ) ">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Add Test Scores</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item v-if=" data.item.type === 'mid' "  @click= " triggerMid( data.item.assessId ) ">
+                <b-dropdown-item v-if=" data.item._type === 'mid' "  @click= " triggerMid( data.item.assessId ) ">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Add Mid-Term Scores</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item v-if=" data.item.type === 'final' "  @click= " triggerFinal( data.item.assessId ) ">
+                <b-dropdown-item v-if=" data.item._type === 'final' "  @click= " triggerFinal( data.item.assessId ) ">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Add Final Exam Scores</span>
                 </b-dropdown-item> 
@@ -920,6 +931,7 @@
         // UI       
         resolveLessonnotestatusVariant,
         resolveLessonnoteactionVariant,
+        resolveLessonnotetypeVariant,
 
         filters,
         LessonnoteItems,
@@ -982,6 +994,7 @@
         // UI
         resolveLessonnotestatusVariant,
         resolveLessonnoteactionVariant,
+        resolveLessonnotetypeVariant,
 
         teacherData,
         userData,
