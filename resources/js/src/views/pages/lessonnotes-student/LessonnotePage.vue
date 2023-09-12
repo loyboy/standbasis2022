@@ -355,27 +355,27 @@
                   />
                 </template>
                   
-                <b-dropdown-item v-if=" data.item._type === 'clw' " @click= " triggerClasswork( data.item.assessId ) ">
+                <b-dropdown-item v-if=" data.item._type === 'clw' " @click= " triggerClasswork( data.item.assessId,  ) ">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Add Classwork Scores</span>
                 </b-dropdown-item> 
                 
-                <b-dropdown-item v-if=" data.item._type === 'hwk' "  @click= " triggerHomework( data.item.assessId ) ">
+                <b-dropdown-item v-if=" data.item._type === 'hwk' "  @click= " triggerHomework( data.item.assessId, data.item.lsn.title, data.item.enroll.student.name ) ">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Add Homework Scores</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item v-if=" data.item._type === 'tst' "  @click= " triggerTest( data.item.assessId ) ">
+                <b-dropdown-item v-if=" data.item._type === 'tst' "  @click= " triggerTest( data.item.assessId, data.item.lsn.title, data.item.enroll.student.name ) ">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Add Test Scores</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item v-if=" data.item._type === 'mid' "  @click= " triggerMid( data.item.assessId ) ">
+                <b-dropdown-item v-if=" data.item._type === 'mid' "  @click= " triggerMid( data.item.assessId, data.item.lsn.title, data.item.enroll.student.name ) ">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Add Mid-Term Scores</span>
                 </b-dropdown-item> 
 
-                <b-dropdown-item v-if=" data.item._type === 'final' "  @click= " triggerFinal( data.item.assessId ) ">
+                <b-dropdown-item v-if=" data.item._type === 'final' "  @click= " triggerFinal( data.item.assessId, data.item.lsn.title, data.item.enroll.student.name ) ">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Add Final Exam Scores</span>
                 </b-dropdown-item> 
