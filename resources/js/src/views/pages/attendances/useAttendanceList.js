@@ -143,9 +143,10 @@ export default function useAttendanceList() {
         dateto: dateT
       })
       .then(response => {
-        const { attendancemanagement } = response.data
+        const { attendancemanagement,totalItems } = response.data
     
-        attendanceItems.value = attendancemanagement       
+        attendanceItems.value = attendancemanagement    
+        totalAttendances.value = totalItems   
         isLoading.value = false;   
 
       })

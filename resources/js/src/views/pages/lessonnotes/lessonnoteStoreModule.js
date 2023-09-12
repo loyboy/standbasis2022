@@ -55,7 +55,7 @@ export default {
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
-        },
+        }, 
         fetchCalendars(ctx, {id}) {
             return new Promise((resolve, reject) => {
                 axios

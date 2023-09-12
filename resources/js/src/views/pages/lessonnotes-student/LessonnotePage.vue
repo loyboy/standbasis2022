@@ -369,12 +369,12 @@
                   <span class="align-middle ml-50">Add Final Exam Scores</span>
                 </b-dropdown-item> 
                 
-                <b-dropdown-item :to="{ name: 'lessonnotes-home-view', params: { id: data.item.lsn_id.lessonnoteId } }">
+                <b-dropdown-item :to="{ name: 'lessonnotes-home-view', params: { id: data.item.lsn.lessonnoteId } }">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">View Lessonnote Details</span>
                 </b-dropdown-item>   
 
-                <b-dropdown-item :to="{ name: 'schools-home-view', params: { id: data.item.lsn_id.teacher.school.schId } }">
+                <b-dropdown-item :to="{ name: 'schools-home-view', params: { id: data.item.lsn.teacher.school.schId } }">
                   <feather-icon icon="Maximize2Icon" />
                   <span class="align-middle ml-50"> View School </span>
                 </b-dropdown-item>  
