@@ -758,7 +758,7 @@
 
   import formValidation from '@core/comp-functions/forms/form-validation'
   // Notification
- // import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+  import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
   import useLessonnoteList from './useLessonnoteList'
   import lessonnoteStoreModule from './lessonnoteStoreModule'
   
@@ -1326,7 +1326,7 @@
           return;
          }
 
-         if (this.classwork_actual > this.classwork_max){
+         if ( Number(this.classwork_actual) > Number(this.classwork_max) ){
           alert("Please enter an actual score that is less than the maximum score ");
           return;
          }
@@ -1347,6 +1347,8 @@
                   variant: 'success',
                   },
                 });  
+                sef.hideModalClasswork();
+                sef.handleChange();
             }).catch((exception) => { 
                 sef.modalTitleClasswork = "";
                 sef.classwork_max = 0;
@@ -1359,6 +1361,7 @@
                     variant: 'danger'
                   }
                 }); 
+                sef.hideModalClasswork();
 		        }); 
          
       },
@@ -1388,7 +1391,7 @@
             return;
          }
 
-         if (this.homework_actual > this.homework_max){
+         if ( Number(this.homework_actual) > Number(this.homework_max) ){
             alert("Please enter an actual score that is less than the maximum score ");
             return;
          }
@@ -1411,6 +1414,8 @@
                   variant: 'success',
                   },
                 });  
+                sef.hideModalHomework();
+                sef.handleChange();
             }).catch((exception) => { 
                 sef.modalTitleHomework = "";
                 sef.homework_max = 0;
@@ -1452,7 +1457,7 @@
             return;
          }
 
-         if (this.test_actual > this.test_max){
+         if ( Number(this.test_actual) > Number(this.test_max) ){
             alert("Please enter an actual score that is less than the maximum score ");
             return;
          }
@@ -1474,7 +1479,9 @@
                   icon: 'AlertTriangleIcon',
                   variant: 'success'
                   },
-                });  
+                });
+                sef.hideModalTest();
+                sef.handleChange();  
             }).catch((exception) => { 
                 sef.modalTitleTest = "";
                 sef.test_max = 0;
@@ -1516,7 +1523,7 @@
             return;
          }
 
-         if (this.mid_actual > this.mid_max){
+         if ( Number(this.mid_actual) > Number(this.mid_max) ){
             alert("Please enter an actual score that is less than the maximum score ");
             return;
          }
@@ -1538,7 +1545,9 @@
                   icon: 'AlertTriangleIcon',
                   variant: 'success'
                   },
-                });  
+                });
+                sef.hideModalMid();
+                sef.handleChange();    
             }).catch((exception) => { 
                 sef.modalTitleMid = "";
                 sef.mid_max = 0;
@@ -1580,7 +1589,7 @@
               return;
           }
 
-          if (this.final_actual > this.final_max){
+          if ( Number(this.final_actual) > Number(this.final_max) ){
               alert("Please enter an actual score that is less than the maximum score ");
               return;
           }
@@ -1602,7 +1611,9 @@
                   icon: 'AlertTriangleIcon',
                   variant: 'success'
                   },
-                });  
+                }); 
+                sef.hideModalFinal();
+                sef.handleChange();  
             }).catch((exception) => { 
                 sef.modalTitlefinal = "";
                 sef.final_max = 0;
