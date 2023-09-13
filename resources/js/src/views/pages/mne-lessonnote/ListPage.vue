@@ -83,7 +83,7 @@
                         :options="userOptions"
                         @change="changeTeacher"                       
                       />
-                    </b-form-group>
+                    </b-form-group> 
                   </b-col>
           </b-row>
 

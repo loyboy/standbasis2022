@@ -105,7 +105,7 @@
             class="position-relative"
             :items="fetchTeachers"
             responsive
-            :fields="tableColumns"
+            :fields="tableColumns" 
             primary-key="id"
             :sort-by.sync="sortBy"
             show-empty

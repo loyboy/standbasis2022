@@ -259,6 +259,7 @@
                 <div class="d-flex align-items-center justify-content-end">
                   <b-form-input
                     v-model="searchQuery"
+                    @change="searchChange"
                     class="d-inline-block mr-1"
                     placeholder="Search..."
                   />
@@ -1016,6 +1017,12 @@
       }
     },
     methods: {
+
+      searchChange(val){
+          this.searchQuery = val;
+          console.log("search :" + this.searchQuery);
+          this.handleChange();
+      },
       reset(){
          this.isLessonnoteSidebarActive = false;
 

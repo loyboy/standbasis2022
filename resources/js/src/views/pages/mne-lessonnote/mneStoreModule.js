@@ -23,7 +23,7 @@ export default {
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
-        },
+        }, 
         fetchStudents(ctx, queryParams) {
             return new Promise((resolve, reject) => {
                 axios
