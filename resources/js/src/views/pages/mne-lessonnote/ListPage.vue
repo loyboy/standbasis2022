@@ -231,6 +231,16 @@
                   </div>
                 </template>
 
+                <template #thead-top="data">
+                  <thead>
+                    <tr>
+                      <th v-for="column in data.columns" :key="column.key">
+                        {{ column.label }}
+                      </th>
+                    </tr>
+                  </thead>
+                </template>
+
                 <template #cell(performance)="data">
                    <b> {{ data.item.performance }} % </b>
                 </template>
@@ -625,5 +635,15 @@
   <style lang="scss" scoped>
   .myborder{
     border: 1px darkgray dotted;
+  }
+
+  th {
+    writing-mode: vertical-rl; /* Vertical text orientation */
+    transform: rotate(180deg); /* Rotate the text 180 degrees */
+    white-space: nowrap; /* Prevent text from wrapping */
+    width: 30px; /* Set the width as needed */
+    text-align: left; /* Adjust text alignment */
+    padding: 0 5px; /* Adjust padding as needed */
+    border: 1px solid #ccc; /* Add borders for better visibility */
   }
   </style>
