@@ -12,6 +12,8 @@ export default function useEvaluation() {
   const headTotal = ref(0);
   const teacherTotal = ref(0);
 
+  const tableKey = ref(1)
+
   const changeFieldsTeacher = ref(false)
   const dyFieldsTeacher = ref([])
 
@@ -58,7 +60,7 @@ export default function useEvaluation() {
         dyFieldsStudents.value = mnecolumns
 
         mnelistItems.value = mnecolumndata;
-
+        tableKey.value = tableKey.value++;
         isLoading.value = false;
         changeFieldsStudents.value = true;
         changeFieldsTeacher.value = false;
@@ -81,7 +83,7 @@ export default function useEvaluation() {
         dyFieldsTeacher.value = mnecolumns
 
         mnelistItems.value = mnecolumndata;
-
+        tableKey.value = tableKey.value++;
         isLoading.value = false;
         changeFieldsTeacher.value = true;
         changeFieldsStudents.value = false;
@@ -101,7 +103,7 @@ export default function useEvaluation() {
         const { teacher_management, head_admin } = response.data;
 
         headTotal.value = head_admin;
-
+        tableKey.value = tableKey.value++;
         teacherTotal.value = teacher_management;
 
         isLoading.value = false;
@@ -217,7 +219,9 @@ export default function useEvaluation() {
 
     headTotal,
 
-    teacherTotal
+    teacherTotal,
+
+    tableKey
 
   }
 }

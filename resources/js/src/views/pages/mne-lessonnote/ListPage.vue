@@ -223,6 +223,7 @@
               :busy="isLoading"
               responsive
               :fields="dynamicFields"
+              :key="tableKey"
             >
                 <template #table-busy>
                   <div class="text-center text-danger my-2">
@@ -483,7 +484,9 @@
 
         headTotal,
 
-        teacherTotal
+        teacherTotal,
+
+        tableKey
 
       } = useMne();
 
@@ -548,8 +551,9 @@
 
         headTotal,
 
-        teacherTotal
+        teacherTotal,
 
+        tableKey
 
       }
     },
