@@ -190,7 +190,7 @@
               :statistic="
                 totalActiveLessonnotes === undefined ? 0 :totalActiveLessonnotes
               "
-              statistic-title="Passed"
+              statistic-title="> 50% Score"
             />
           </b-col>
 
@@ -201,7 +201,7 @@
               :statistic="
                 totalInactiveLessonnotes === undefined ? 0 : totalInactiveLessonnotes
               "
-              statistic-title="Not Passed"
+              statistic-title="< 50% Score"
             />
           </b-col>
 
@@ -356,7 +356,7 @@
                   />
                 </template>
                   
-                <b-dropdown-item v-if=" data.item._type === 'clw' " @click= " triggerClasswork( data.item.assessId,  ) ">
+                <b-dropdown-item v-if=" data.item._type === 'clw' " @click= " triggerClasswork( data.item.assessId, data.item.lsn.title, data.item.enroll.student.name ) ">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Add Classwork Scores</span>
                 </b-dropdown-item> 

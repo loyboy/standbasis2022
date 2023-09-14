@@ -38,9 +38,15 @@
                     <span> <b> <h3> Choose a Category: </h3> </b> </span>
                   </b-col>
 
-                  <b-col cols="12" md="3">
+                 <!-- <b-col cols="12" md="3">
                     <b-form-group label="Select Student(Assessment)" label-for="studentpick">
                       <b-form-radio v-model="filters.typeone" @change="changeType"  name="studentpick" value="student">Student</b-form-radio>
+                    </b-form-group>
+                  </b-col>-->
+
+                  <b-col cols="12" md="3" v-if="  userData.role === 'principal' ">
+                    <b-form-group label="Select Head" >
+                      <b-form-radio v-model="filters.typeone" @change="changeType" name="principalpick" value="principal_me">Me</b-form-radio>
                     </b-form-group>
                   </b-col>
 
@@ -467,7 +473,7 @@
           const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : filters.value.schoolId });
           let myval = resp.data.data;
           myval.forEach(obj => { 
-            let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
+                let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
           //  if (Number(obj.term) !== -99){
                 calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
           //  }            
@@ -539,6 +545,10 @@
             else if (value === "teacher_me"){
                 this.filters.typetwo_teacher =  this.filters.teacherId;
             }
+
+            else if (value === "principal_me"){
+                this.filters.typetwo_teacher =  null;
+            }
             
             else if (value === "teacher"){
                 sef.isLoading = true;
@@ -569,7 +579,7 @@
             this.filters.enrolId = value;
             this.filters.typetwo_teacher = null
             this.filters.typetwo_principal = null
-            console.log("Student..."+ value)
+            
         },
 
         changeTeacher(value){

@@ -73,7 +73,7 @@ export default function useEvaluation() {
   const fetchMneVariant2 = () => {
     isLoading.value = true;
 
-      store.dispatch('app-MneLessonnote/fetchMne', {teacher: filters.value.typetwo_teacher, calendar: filters.value.typefour, week: filters.value.typethree  })
+      store.dispatch('app-MneLessonnote/fetchMneTeacher', { teacher: filters.value.typetwo_teacher, calendar: filters.value.typefour, week: filters.value.typethree  })
       .then(response => {
         
         const { mnecolumndata, mnecolumns } = response.data;
@@ -122,6 +122,11 @@ export default function useEvaluation() {
     } 
 
     else if ( filters.value.typeone === "teacher_me" && filters.value.typetwo_teacher && filters.value.typefour ) {
+      fetchMneVariant2();
+      window.scrollBy(0, 200);
+    }
+
+    else if ( filters.value.typeone === "principal_me" && filters.value.typetwo_teacher === null && filters.value.typefour ) {
       fetchMneVariant2();
       window.scrollBy(0, 200);
     }

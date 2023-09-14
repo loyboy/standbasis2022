@@ -15,6 +15,14 @@ export default {
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
+        }, 
+        fetchMneTeacher(ctx, queryParams){
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/mne/lessonnote/teachers', { params: queryParams })
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
         },
         fetchMneTwo(ctx, queryParams) {
             return new Promise((resolve, reject) => {

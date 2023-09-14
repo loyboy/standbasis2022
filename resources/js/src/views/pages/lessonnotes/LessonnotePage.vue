@@ -1658,7 +1658,7 @@
                 let finalexam = this.filters.hasFinalExam ? 1 : 0;
 
                 const sef = this;          
-                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "approval", lessonnoteId: id, classwork, homework, test, midterm, finalexam },  management: { action : "approved", quality: 100 }, activity: { action: "approved", owner: this.teacherPicked, principal_query_arrangement: 1, principal_query_grammar: 1, principal_query_subjectmatter: 1, principal_query_incomplete: 1  } } )
+                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "approval", lessonnoteId: id, classwork, homework, test, midterm, finalexam },  management: { action : "approved", management: 100 }, activity: { action: "approved", owner: this.teacherPicked, principal_query_arrangement: 1, principal_query_grammar: 1, principal_query_subjectmatter: 1, principal_query_incomplete: 1  } } )
                 .then(response => { 
                     sef.modalTitle = "";
                     sef.grammar = 0;
@@ -1706,7 +1706,7 @@
             let set_quality = ( set_grammar + set_arrangement + set_subjectmatter + set_incomplete ) === 3 ? 75 : ( set_grammar + set_arrangement + set_subjectmatter + set_incomplete ) === 2 ? 50 : ( set_grammar + set_arrangement + set_subjectmatter + set_incomplete ) === 1 ? 25 : 0;
 
                 const sef = this;          
-                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "revert", lessonnoteId: id  },  management: { action : "revert", quality: set_quality }, activity: { action: "revert", owner: this.teacherPicked, principal_query_arrangement: set_arrangement , principal_query_grammar: set_grammar, principal_query_subjectmatter: set_subjectmatter, principal_query_incomplete: set_incomplete } } )
+                store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/approveLessonnote`, { lsnid: Number(id), lessonnote: { action: "revert", lessonnoteId: id  },  management: { action : "revert", management: set_quality }, activity: { action: "revert", owner: this.teacherPicked, principal_query_arrangement: set_arrangement , principal_query_grammar: set_grammar, principal_query_subjectmatter: set_subjectmatter, principal_query_incomplete: set_incomplete } } )
                 .then(response => { 
                     sef.modalTitle2 = "";
                     sef.grammar = false;
@@ -1826,10 +1826,6 @@
                 });
           },
 
-          checkIfClosureIsProper(){
-            //just create endpoint to check if all scores have been added, then use the result in deciding if to close lessonnote
-          },
-
           forceFileDownload(response, title) {
             console.log(title)
             const url = window.URL.createObjectURL(new Blob([response.data]))
@@ -1899,13 +1895,13 @@
 
           triggerClosure(user,name, lsn, teacher){
             if (user === "teacher"){
-                this.modalTitle = "Close this Lessonnote: "+ name;
+                this.modalTitle = "Close this Lessonnote As Teacher: "+ name;
                 this.teacherPicked = teacher;
                 this.LessonnotePicked = lsn;
                 this.showModal3();
             }
             else if (user === "principal"){
-                this.modalTitle = "Close this Lessonnote: "+ name;
+                this.modalTitle = "Close this Lessonnote As Principal: "+ name;
                 this.teacherPicked = teacher;
                 this.LessonnotePicked = lsn;
                 this.showModal4();
