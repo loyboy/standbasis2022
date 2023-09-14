@@ -241,6 +241,37 @@
                   </thead>
                 </template>
 
+                <template #head(d1)="data">
+                  <th class="vertical-header">{{ data.label }}</th>
+                </template>
+                <template #head(d2)="data">
+                  <th class="vertical-header">{{ data.label }}</th>
+                </template>
+                <template #head(d3)="data">
+                  <th class="vertical-header">{{ data.label }}</th>
+                </template>
+                <template #head(d4)="data">
+                  <th class="vertical-header">{{ data.label }}</th>
+                </template>
+                <template #head(d5)="data">
+                  <th class="vertical-header">{{ data.label }}</th>
+                </template>
+                <template #head(d6)="data">
+                  <th class="vertical-header">{{ data.label }}</th>
+                </template>
+                <template #head(d7)="data">
+                  <th class="vertical-header">{{ data.label }}</th>
+                </template>
+                <template #head(d8)="data">
+                  <th class="vertical-header">{{ data.label }}</th>
+                </template>
+                <template #head(d9)="data">
+                  <th class="vertical-header">{{ data.label }}</th>
+                </template>
+                <template #head(d10)="data">
+                  <th class="vertical-header">{{ data.label }}</th>
+                </template>
+
                 <template #cell(performance)="data">
                    <b> {{ data.item.performance }} % </b>
                 </template>
@@ -636,14 +667,19 @@
   .myborder{
     border: 1px darkgray dotted;
   }
-
-  th {
-    writing-mode: vertical-rl; /* Vertical text orientation */
-    transform: rotate(180deg); /* Rotate the text 180 degrees */
-    white-space: nowrap; /* Prevent text from wrapping */
-    width: 30px; /* Set the width as needed */
-    text-align: left; /* Adjust text alignment */
-    padding: 0 5px; /* Adjust padding as needed */
-    border: 1px solid #ccc; /* Add borders for better visibility */
-  }
+  .vertical-header{
+      writing-mode: vertical-rl;
+      white-space: nowrap;
+      width: 10px !important; /* Adjust the width as per your requirement */
+    }
+  /*th {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap; 
+    width: 30px;
+    text-align: left; 
+    padding: 0 5px; 
+    border: 1px solid #ccc; 
+  }*/
+  
   </style>
