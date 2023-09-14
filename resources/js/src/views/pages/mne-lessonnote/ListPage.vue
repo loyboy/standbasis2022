@@ -231,16 +231,6 @@
                   </div>
                 </template>
 
-                <template #thead-top="data">
-                  <thead>
-                    <tr>
-                      <th v-for="column in data.columns" :key="column.key">
-                        {{ column.label }}
-                      </th>
-                    </tr>
-                  </thead>
-                </template>
-
                 <template #head(d1)="data">
                   <th class="vertical-header">{{ data.label }}</th>
                 </template>
@@ -681,5 +671,5 @@
     padding: 0 5px; 
     border: 1px solid #ccc; 
   }*/
-  
+
   </style>
