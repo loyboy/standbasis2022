@@ -91,10 +91,10 @@
                   icon="StarIcon"
                   class="mr-75"
                 />
-                <span class="font-weight-bold">Start Time</span>
+                <span class="font-weight-bold">Start Date</span>
               </th>
               <td class="pb-50 text-capitalize">
-                {{ calendarData.startdate !== null ? calendarData.startdate : "Not available" }}
+                {{ calendarData.startdate !== null ? removeTimeFromDate(calendarData.startdate) : "Not available" }}
               </td>
             </tr>
 
@@ -104,10 +104,10 @@
                   icon="StarIcon"
                   class="mr-75"
                 />
-                <span class="font-weight-bold">Start Time</span>
+                <span class="font-weight-bold">End Date</span>
               </th>
               <td class="pb-50 text-capitalize">
-                {{ calendarData.enddate !== null ? calendarData.enddate : "Not available" }}
+                {{ calendarData.enddate !== null ? removeTimeFromDate(calendarData.enddate) : "Not available" }}
               </td>
             </tr>
 
@@ -136,6 +136,22 @@
         type: Object,
         required: true,
       },
+    },
+    methods:{
+        removeTimeFromDate(dateString) {
+          // Parse the input string into a Date object
+          const date = new Date(dateString);
+
+          // Get the date components
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, '0'); 
+          const day = String(date.getDate()).padStart(2, '0');
+
+          // Create a formatted date string in the format YYYY-MM-DD
+          const formattedDate = `${year}-${month}-${day}`;
+
+          return formattedDate;
+        }
     },
     setup() {
     //  const { resolveUserRoleVariant } = useUsersList()
