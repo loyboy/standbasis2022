@@ -641,7 +641,7 @@
                     sef.calendarOptions = [ { value: null, text: "Select a Calendar for This School" } ]
                     myval.forEach(obj => {
                       let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
-                      sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+                      sef.calendarOptions.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
                     }); 
                     sef.isLoading = false;
             });

@@ -138,6 +138,11 @@ export default function useEvaluation() {
       window.scrollBy(0, 200);
     }
 
+    else if ( filters.value.typeone === "principal_me" && filters.value.typetwo_teacher === null && filters.value.typefour ) {
+      fetchMneVariant2();
+      window.scrollBy(0, 200);
+    }
+
     else if ( filters.value.typeone === "teacher_me" && filters.value.typetwo_teacher &&  filters.value.typefour ) {
       fetchMneVariant2();
       window.scrollBy(0, 200);

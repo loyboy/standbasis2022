@@ -44,6 +44,12 @@
                     </b-form-group>
                   </b-col> 
 
+                  <b-col cols="12" md="3" v-if="  userData.role === 'principal' ">
+                    <b-form-group label="Select Head" >
+                      <b-form-radio v-model="filters.typeone" @change="changeType" name="principalpick" value="principal_me">Me</b-form-radio>
+                    </b-form-group>
+                  </b-col>
+
                    <b-col cols="12" md="3" v-if="  userData.role === 'teacher' ">
                     <b-form-group label="Select Teacher" label-for="teacherpick2">
                       <b-form-radio v-model="filters.typeone" @change="changeType" name="teacherpick2" value="teacher_me">Me</b-form-radio>
@@ -592,8 +598,11 @@
             }
 
             else if (value === "teacher_me"){
-              //  console.log("Teacher ID " + this.filters.teacherId );
                 this.filters.typetwo_teacher =  this.filters.teacherId;
+            }
+
+            else if (value === "principal_me"){
+                this.filters.typetwo_teacher =  null;
             }
             
             else if (value === "teacher"){
