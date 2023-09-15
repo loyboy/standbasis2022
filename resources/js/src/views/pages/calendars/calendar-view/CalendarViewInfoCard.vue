@@ -85,6 +85,32 @@
               </td>
             </tr>
 
+            <tr>
+              <th>
+                <feather-icon
+                  icon="StarIcon"
+                  class="mr-75"
+                />
+                <span class="font-weight-bold">Start Time</span>
+              </th>
+              <td class="pb-50 text-capitalize">
+                {{ calendarData.startdate !== null ? calendarData.startdate : "Not available" }}
+              </td>
+            </tr>
+
+             <tr>
+              <th>
+                <feather-icon
+                  icon="StarIcon"
+                  class="mr-75"
+                />
+                <span class="font-weight-bold">Start Time</span>
+              </th>
+              <td class="pb-50 text-capitalize">
+                {{ calendarData.enddate !== null ? calendarData.enddate : "Not available" }}
+              </td>
+            </tr>
+
           </table>
 
         </b-col>

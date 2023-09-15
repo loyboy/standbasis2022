@@ -148,10 +148,11 @@
                     class="align-middle text-body"
                   />
                 </template>
+                <!--
                 <b-dropdown-item :to="{ name: 'timetables-home-view', params: { id: data.item.timeId } }">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">View Details</span>
-                </b-dropdown-item>
+                </b-dropdown-item>-->
     
                 <b-dropdown-item v-if=" userData.role !== 'proprietor' " :to="{ name: 'timetables-home-edit', params: { id: data.item.timeId } }">
                   <feather-icon icon="EditIcon" />

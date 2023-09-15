@@ -33,7 +33,7 @@
             </b-col>         
         </b-row>    
 
-        <event-list :schoolId="calendarData.school.schId" :module="moduleName" />
+      <!--  <event-list :schoolId="calendarData.school.schId" :module="moduleName" /> -->
       </template>
   
     </div>
