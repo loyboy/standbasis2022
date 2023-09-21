@@ -401,7 +401,7 @@
 
                let idsplit = String( filters.value.guardianId ).split("-");
                delete idsplit[0];
-               idsplit.forEach(i => { 
+               idsplit.forEach( async (i) => { 
                 
                 const resp = await store.dispatch(`${Parent_APP_STORE_MODULE_NAME}/fetchEnrollment`, { id : Number(i) });
                 let myval = resp.data.data;
