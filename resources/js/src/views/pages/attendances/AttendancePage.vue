@@ -154,7 +154,7 @@
             </template>
           </b-sidebar>
           
-          <b-col lg="3" sm="6">
+          <b-col lg="3" sm="6" v-if=" userData.role === 'teacher' ">
             <statistic-card-horizontal
               icon="UsersIcon"
               color="primary"

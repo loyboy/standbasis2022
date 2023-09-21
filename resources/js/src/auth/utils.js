@@ -26,7 +26,7 @@ export const getHomeRouteForLoggedInUser = userRole => {
     if (userRole === 'evaluator') return '/evaluation-home'
     if (userRole === 'principal') return '/'
     if (userRole === 'proprietor') return '/'
-    if (userRole === 'guardian') return '/'
+    if (userRole === 'guardian') return '/parent'
     if (userRole === 'supervisor') return '/'
     if (userRole === 'student') return '/student-dashboard'
     if (userRole === 'user') return { name: 'access-control' }

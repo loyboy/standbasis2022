@@ -10,7 +10,15 @@ export default [
         title: 'Dashboard',
         route: 'home',
         icon: 'HomeIcon',
-        permission: [ "teacher", "principal", "proprietor", "supervisor", "guardian" ]
+        permission: [ "teacher", "principal", "proprietor", "supervisor" ]
+    },
+
+    //Guardian
+    {
+        title: 'Dashboard',
+        route: 'parent-window',
+        icon: 'HomeIcon',
+        permission: [ "guardian" ]
     },
 
     //evaluator

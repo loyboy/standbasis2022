@@ -816,6 +816,22 @@ const router = new VueRouter({
                 ]
             }
         },
+
+         //Parent dashboard begin here
+         {
+            path: '/parent',
+            name: 'parent-window',
+            component: () =>
+                import ('@/views/pages/parent/ListPage.vue'),
+            meta: {
+                pageTitle: 'Parent Window',
+                breadcrumb: [{
+                        text: 'Parent Window',
+                        active: true
+                    }
+                ]
+            }
+        },
         
         //Capacity Development begin here
         {
