@@ -132,7 +132,7 @@
                     </b-dropdown-item>
 
                   </b-dropdown>-->
-                  <b-form-group v-if=" data.item.done === 0 && ( data.item.principal_action === 0 || data.item.principal_action === null ) ">
+                  <b-form-group v-if=" data.item.done !== 0 && ( data.item.principal_action === 0 || data.item.principal_action === null ) ">
                        <div class="d-flex mt-2">
                           <b-button type="button" variant="success" class="mr-2" @click="principalActionApprove(data.item.attId)">
                             Approve
