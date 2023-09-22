@@ -135,7 +135,7 @@
                   <b-form-group v-if=" data.item.done !== 0 && ( data.item.principal_action === 0 || data.item.principal_action === null ) ">
                        <div class="d-flex mt-2">
                           <b-button type="button" variant="success" class="mr-2" @click="principalActionApprove(data.item.attId)">
-                            Approve
+                            Endorse
                           </b-button>
                           <b-button type="button" variant="danger" @click="principalActionDisapprove(data.item.attId)">
                             Query
@@ -351,7 +351,8 @@
                   icon: 'AlertTriangleIcon',
                   variant: 'success',
                   },
-                });  
+                }); 
+               sef.fetchAttendances();
             }).catch((exception) => { 
 
               sef.$toast({
@@ -381,7 +382,8 @@
                   icon: 'AlertTriangleIcon',
                   variant: 'success',
                   },
-                });  
+                });
+                sef.fetchAttendances(); 
             }).catch((exception) => { 
               sef.$toast({
                 component: ToastificationContent,
