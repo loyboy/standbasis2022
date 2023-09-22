@@ -243,6 +243,14 @@
             return weeksElapsed;
       }
 
+      const isWithinSevenDays = (date1, date2) => {
+        if (date2 < date1) {
+          return false;
+        }  
+        let diffInMilliseconds = Math.round(date2 - date1);        
+        return diffInMilliseconds <= 604800000; // 7 days in milliseconds
+      }
+
       let weekCalculated = getWeeksFromStartDate( new Date( userData.value.school_date ) )
 
       filters.value.week = weekCalculated
@@ -251,7 +259,16 @@
           fetchLessonnotes();
 
           setTimeout(() => {
-              LessonnoteItems.value.forEach(obj => {
+
+              const newLsn = LessonnoteItems.value.filter( o => {
+                  const expiry_date_of_submission = new Date(o.expected_submission).getTime();
+                  
+                  const todayDate = new Date().getTime();
+
+                  return todayDate < expiry_date_of_submission;
+              });
+
+              newLsn.forEach(obj => {
                   let done = obj.submission === null ? "NOT DONE" : obj.resubmission !== null ? "RE-SUBMITTED" : obj.revert !== null ? "REVERTED" : "SUBMITTED"
                   let delayed = obj.delaythis === 1 ? done + "-DELAYED" : done;
                   let labeltosee = obj.subject.name + "-" + "Week-" + obj.week + "Term-" + obj.calendar.term + "-" + obj.calendar.session  + "-" + classIndexData.value[obj.class_index] + "-" + delayed

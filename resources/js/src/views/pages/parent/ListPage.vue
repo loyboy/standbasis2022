@@ -1,20 +1,22 @@
  <template>
     <div>
 
-       <b-row class="filter-padding mb-2" align-h="left" >
+       <b-row class="filter-padding mb-2" align-h="left" >           
             <b-col
               cols="12"
-              md="12"
+              md="10"
               class="mb-md-0 mb-2 align-center"
             >
+              <b-form-group label=" Toggle Between Attendance and Assessment" >
                   <b-form-checkbox
                       id="parent-status"
                       v-model="showAttendance"
-                      value="true"
+                     
                       class="custom-control-primary"               
-                      unchecked-value="false"
+                      
                       switch
-                    > 
+                    /> 
+              </b-form-group>
             </b-col>            
       </b-row>
 

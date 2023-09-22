@@ -116,7 +116,7 @@ export default function useLessonnoteList() {
     }  
     let diffInMilliseconds = Math.round(date2 - date1);        
     return diffInMilliseconds <= 604800000; // 7 days in milliseconds
-  }
+  } 
 
   watch([currentPage, perPage, searchQuery], () => {
     refetchData()
