@@ -11,7 +11,7 @@
                   <b-form-checkbox
                       id="parent-status"
                       v-model="showAttendance"
-                     
+                      @change="getResult"
                       class="custom-control-primary"               
                       
                       switch
@@ -437,6 +437,15 @@
                     sef.isLoading = false;
                 });
             }  
+            
+        },
+
+        getResult(v){
+            const sef = this;  
+
+           
+              this.filters.dateTo = null;
+              this.filters.typethree = null;
             
         }
        
