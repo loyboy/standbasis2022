@@ -190,7 +190,7 @@
               :statistic="
                 totalActiveLessonnotes === undefined ? 0 :totalActiveLessonnotes
               "
-              statistic-title="> 50% Score"
+              statistic-title=">= 50% Score"
             />
           </b-col>
 
@@ -462,6 +462,8 @@
                 v-model="classwork_max"
                 placeholder="Maximum Score"
                 type="number"
+                value="100"
+                disabled
                 autofocus
                 autocomplete="off"/>
             </b-form-group>
@@ -517,6 +519,8 @@
                 v-model="homework_max"
                 placeholder="Maximum Score"
                 type="number"
+                value="100"
+                disabled
                 autofocus
                 autocomplete="off"/>
             </b-form-group>
@@ -572,6 +576,8 @@
                 v-model="test_max"
                 placeholder="Maximum Score"
                 type="number"
+                value="100"
+                disabled
                 autofocus
                 autocomplete="off"/>
             </b-form-group>
@@ -628,6 +634,8 @@
                 v-model="mid_max"
                 placeholder="Maximum Score"
                 type="number"
+                value="100"
+                disabled
                 autofocus
                 autocomplete="off"/>
             </b-form-group>
@@ -684,6 +692,8 @@
                 v-model="final_max"
                 placeholder="Maximum Score"
                 type="number"
+                value="100"
+                disabled
                 autofocus
                 autocomplete="off"/>
             </b-form-group>

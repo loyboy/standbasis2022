@@ -275,9 +275,7 @@
     },
 
     data() {    
-        let userOptions = [
-            { value: null, text: "Please select A Student" }
-        ]
+       
         let weekOptions = [
             { value: null, text: "Up until today...." },
             { value: 1, text: "Week 1" },
@@ -299,7 +297,7 @@
 
         return {           
            weekOptions,          
-           userOptions,
+        
            showAttendance,
            showAssessment
         }
@@ -321,6 +319,9 @@
       const userData = ref({});   
       const teacherData = ref({}); 
       const calendarOptions = ref([ { value: null, text: "Please select A Calendar" } ]);     
+      const userOptions = ref([
+        { value: null, text: "Please select A Student" }
+      ]);
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
       if (storedItems){
@@ -381,7 +382,7 @@
               
             }          
           
-          }, 800)       
+          }, 2000)       
       })
       
       return {
@@ -410,7 +411,9 @@
 
         hwkTotal,
 
-        tstTotal
+        tstTotal,
+
+        userOptions
 
       }
     },
