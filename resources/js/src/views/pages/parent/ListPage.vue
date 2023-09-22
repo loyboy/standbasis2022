@@ -400,9 +400,7 @@
 
         handleChange,
 
-        calendarOptions,
-
-        schoolOptions,
+        calendarOptions,       
 
         tableKey,
 
