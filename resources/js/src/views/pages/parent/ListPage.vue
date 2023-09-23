@@ -34,6 +34,8 @@
                           id="to"
                           v-model="filters.dateTo"
                           placeholder="Choose a date"
+                          
+                          :dropright="showRight"
                           local="en"
                           initial-date="2023-01-01"
                       />
@@ -291,13 +293,14 @@
             { value: 11, text: "Week 11" },
             { value: 12, text: "Week 12" }
         ]   
-        
+
+        let showRight = true
         let showAttendance = true
         let showAssessment = false
 
         return {           
            weekOptions,          
-        
+           showRight,
            showAttendance,
            showAssessment
         }

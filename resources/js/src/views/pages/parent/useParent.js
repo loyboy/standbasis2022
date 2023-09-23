@@ -19,7 +19,7 @@ export default function useEvaluation() {
 
   const filters = ref({  
     guardianId: null,
-    dateTo: null,
+    dateTo: new Date().toISOString().slice(0, 10),
 
     typeone: null, 
     typetwo_student: null,
@@ -42,8 +42,9 @@ export default function useEvaluation() {
  
   const fetchMneVariant = () => {
       isLoading.value = true;
+      let dateT = filters.value.dateTo !== null ? String(filters.value.dateTo) + " 00:00:00" : null;
 
-      store.dispatch('app-Parent/fetchMneAttendance', { enrol: filters.value.typetwo_student, date: filters.value.dateTo  })
+      store.dispatch('app-Parent/fetchMneAttendance', { enrol: filters.value.typetwo_student, date: dateT  })
       .then(response => {
         
         const { mnecolumndata, mnecolumn } = response.data;
