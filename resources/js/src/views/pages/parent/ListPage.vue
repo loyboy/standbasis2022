@@ -59,7 +59,7 @@
               class="mb-md-0 mb-2 align-center"
             >
                   <b-button variant="success" class="mr-2 col-md-12" type="submit">
-                    Get Result
+                    Get Result Of Attendance
                   </b-button> 
 
             </b-col>            
@@ -103,8 +103,8 @@
                   md="8"
                   class="mb-md-0 mb-2 align-center"
                 >
-                      <b-button variant="success" class="mr-2 col-md-12" type="submit">
-                        Get Result
+                      <b-button variant="primary" class="mr-2 col-md-12" type="submit">
+                        Get Result of Assessment
                       </b-button> 
 
                 </b-col>            
