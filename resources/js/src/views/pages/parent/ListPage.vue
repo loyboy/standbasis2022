@@ -112,13 +112,18 @@
                 </b-col>            
               </b-row>
 
-              <b-row class="mt-2 py-2">
+              <div class="text-center text-danger my-2" v-if="isLoading">
+                    <b-spinner class="align-middle"></b-spinner>
+                    <strong>Loading...</strong>
+              </div>
+
+              <b-row class="mt-2 py-2" v-else>
                 <b-col lg="4" sm="6">
                   <statistic-card-horizontal
                     icon="AlertOctagonIcon"
                     color="info"
                     :statistic=" clwTotal === undefined ? 0 : clwTotal "
-                    statistic-title=" Classwork Performance Average "
+                    statistic-title=" Classwork Performance Average(%) "
                   />
                 </b-col>
 
@@ -129,7 +134,7 @@
                     :statistic="
                       hwkTotal === undefined ? 0 : hwkTotal
                     "
-                    statistic-title=" Homework Performance Average "
+                    statistic-title=" Homework Performance Average(%) "
                   />
                 </b-col>
 
@@ -140,7 +145,7 @@
                     :statistic="
                       tstTotal === undefined ? 0 : tstTotal
                     "
-                    statistic-title=" Test Performance Average "
+                    statistic-title=" Test Performance Average(%) "
                   />
                 </b-col>
               </b-row>
