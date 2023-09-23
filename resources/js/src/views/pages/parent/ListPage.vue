@@ -441,16 +441,7 @@
                 });
             }  
             
-        },
-
-        getResult(v){
-            const sef = this;  
-
-           
-              this.filters.dateTo = null;
-              this.filters.typethree = null;
-            
-        }
+        }     
        
     }
 
