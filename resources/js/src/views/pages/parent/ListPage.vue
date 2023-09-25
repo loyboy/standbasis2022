@@ -1,13 +1,13 @@
  <template>
     <div>
 
-       <b-row class="filter-padding mb-2" align-h="left" >           
+       <b-row class="filter-padding" align-h="left" >           
             <b-col
               cols="12"
               md="10"
               class="mb-md-0 mb-2 align-center"
             >
-              <b-form-group label=" Toggle Between Attendance and Assessment" >
+              <b-form-group label=" Toggle Between Tracker and Performance" >
                   <b-form-checkbox
                       id="parent-status"
                       v-model="showAttendance"
@@ -18,7 +18,7 @@
             </b-col>            
       </b-row>
 
-      <b-form
+    <!-- <b-form
                 v-if=" showAttendance === true && showOptions === true "
                 @submit.prevent="handleChange()"
                 class="p-2 myborder"                
@@ -68,7 +68,7 @@
 
         </b-card-body>
 
-      </b-form>
+      </b-form>-->
 
       <!-- Proprietor screen-->
       <b-form class="p-2 myborder" 
@@ -116,45 +116,12 @@
               <div class="text-center text-danger my-2" v-if="isLoading">
                     <b-spinner class="align-middle"></b-spinner>
                     <strong>Loading...</strong>
-              </div>
-
-              <b-row class="mt-2 py-2" v-else>
-                <b-col lg="4" sm="6">
-                  <statistic-card-horizontal
-                    icon="AlertOctagonIcon"
-                    color="info"
-                    :statistic=" clwTotal === undefined ? 0 : clwTotal "
-                    statistic-title=" Classwork Performance Average(%) "
-                  />
-                </b-col>
-
-                <b-col lg="4" sm="6">
-                  <statistic-card-horizontal
-                    icon="AlertOctagonIcon"
-                    color="success"
-                    :statistic="
-                      hwkTotal === undefined ? 0 : hwkTotal
-                    "
-                    statistic-title=" Homework Performance Average(%) "
-                  />
-                </b-col>
-
-                <b-col lg="4" sm="6">
-                  <statistic-card-horizontal
-                    icon="AlertOctagonIcon"
-                    color="primary"
-                    :statistic="
-                      tstTotal === undefined ? 0 : tstTotal
-                    "
-                    statistic-title=" Test Performance Average(%) "
-                  />
-                </b-col>
-              </b-row>
+              </div>             
 
             </b-card-body>
       </b-form>
         
-      <b-row class="filter-padding mb-2" align-h="left" >           
+     <!-- <b-row class="filter-padding mb-2" align-h="left" >           
             <b-col
               cols="12"
               md="10"
@@ -169,10 +136,10 @@
                     /> 
               </b-form-group>
             </b-col>            
-      </b-row>
+      </b-row> -->
   
       <!-- Table Container Card -->
-     <b-card-code title="Your Ward's Tracker" class="my-2 mx-4" v-if=" showOptions === false && showAttendance === true ">
+     <b-card-code title="Your Ward's Tracker" class="my-2 mx-4" v-if=" showAttendance === true ">
 
             <b-table            
               class="position-relative"

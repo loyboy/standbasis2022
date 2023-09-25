@@ -44,9 +44,9 @@ export default function useEvaluation() {
 
 
       store.dispatch('app-Parent/fetchMneAttendance', { 
-        enrol: showOptions.value === true ? filters.value.typetwo_student : null, 
+        enrol: null, 
         date: dateT, 
-        parent: showOptions.value === false ? String(filters.value.guardianId).replace(/^\d{2}-/, '') : null  })
+        parent: String(filters.value.guardianId).replace(/^\d{2}-/, '')  })
 
       .then(response => {
         
@@ -91,12 +91,12 @@ export default function useEvaluation() {
   } 
 
   const handleChange = (ctx) => {
-    if (  filters.value.typetwo_student && filters.value.dateTo && showOptions.value === true ) {
+    if (  filters.value.guardianId && filters.value.dateTo  ) {
       fetchMneVariant();
       window.scrollBy(0, 200);
     }
 
-    else if (  filters.value.typetwo_student && filters.value.dateTo && showOptions.value === false ) {
+    else if (  filters.value.typetwo_student && filters.value.dateTo ) {
       fetchMneVariant();
       window.scrollBy(0, 200);
     }
