@@ -20,7 +20,7 @@ export default function useLessonnoteList() {
     { key: 'lsn_id.teacher.fname',label: 'Teacher First Name',  sortable: true },
     { key: 'lsn_id.class_index', label: 'Class Name',  sortable: true },
     { key: 'lsn_id.subject.name',label: 'Subject Name',  sortable: true },  
-
+    { key: 'lsn_id.week',label: 'Week',  sortable: true }, 
    // { key: 'ownertype',label: "Owner of Action",  sortable: true },
    // { key: 'activity',label: "Expected Action",  sortable: true },
    // { key: 'expected',label: "Actor's Expected Date of Action ",  sortable: true },

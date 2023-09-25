@@ -11,9 +11,7 @@
                   <b-form-checkbox
                       id="parent-status"
                       v-model="showAttendance"
-                      @change="getResult"
-                      class="custom-control-primary"               
-                      
+                      class="custom-control-primary"
                       switch
                     /> 
               </b-form-group>
@@ -21,51 +19,53 @@
       </b-row>
 
       <b-form
-                v-if=" showAttendance === true "
+                v-if=" showAttendance === true && showOptions === true "
                 @submit.prevent="handleChange()"
                 class="p-2 myborder"                
                 @reset.prevent="resetForm"
               >
-        <b-card-body>    
-          <b-row>
-                  <b-col cols="12" md="12"  >
-                    <b-form-group label=" Select Date of Attendance" >
-                      <b-form-datepicker
-                          id="to"
-                          v-model="filters.dateTo"
-                          placeholder="Choose a date"
-                          
-                          :dropright="showRight"
-                          local="en"
-                          initial-date="2023-01-01"
-                      />
-                    </b-form-group>
-                  </b-col>
-          </b-row>
 
-          <b-row>
-                  <b-col cols="12" md="12" >
-                    <b-form-group label=" Select Child's Calendar Year " >
-                      <b-form-select
-                        v-model="filters.typetwo_student"
-                        :options="userOptions"
-                      />
-                    </b-form-group>
-                  </b-col>
-          </b-row>              
+        <b-card-body>
 
-          <b-row class="filter-padding" align-h="center" >
-            <b-col
-              cols="12"
-              md="8"
-              class="mb-md-0 mb-2 align-center"
-            >
-                  <b-button variant="success" class="mr-2 col-md-12" type="submit">
-                    Get Result Of Attendance
-                  </b-button> 
+            <b-row>
+                    <b-col cols="12" md="12"  >
+                      <b-form-group label=" Select Date of Attendance" >
+                        <b-form-datepicker
+                            id="to"
+                            v-model="filters.dateTo"
+                            placeholder="Choose a date"                            
+                            :dropright="showRight"
+                            local="en"
+                            initial-date="2023-01-01"
+                        />
+                      </b-form-group>
+                    </b-col>
+            </b-row>
 
-            </b-col>            
-          </b-row>
+            <b-row>
+                    <b-col cols="12" md="12" >
+                      <b-form-group label=" Select Child's Calendar Year " >
+                        <b-form-select
+                          v-model="filters.typetwo_student"
+                          :options="userOptions"
+                        />
+                      </b-form-group>
+                    </b-col>
+            </b-row>              
+
+            <b-row class="filter-padding" align-h="center" >
+              <b-col
+                cols="12"
+                md="8"
+                class="mb-md-0 mb-2 align-center"
+              >
+                    <b-button variant="success" class="mr-2 col-md-12" type="submit">
+                      Get Result Of Attendance
+                    </b-button> 
+
+              </b-col>            
+            </b-row>
+
         </b-card-body>
 
       </b-form>
@@ -74,7 +74,8 @@
       <b-form class="p-2 myborder" 
         @submit.prevent="handleChange()"
         @reset.prevent="resetForm"
-        v-else>
+        v-if=" showAttendance === false " >
+
             <b-card-body>
               
               <b-row>
@@ -153,9 +154,25 @@
             </b-card-body>
       </b-form>
         
+      <b-row class="filter-padding mb-2" align-h="left" >           
+            <b-col
+              cols="12"
+              md="10"
+              class="mb-md-0 mb-2 align-center"
+            >
+              <b-form-group label=" Toggle Show More Options" >
+                  <b-form-checkbox
+                      id="parent-status"
+                      v-model="showOptions"                     
+                      class="custom-control-danger"
+                      switch
+                    /> 
+              </b-form-group>
+            </b-col>            
+      </b-row>
   
       <!-- Table Container Card -->
-     <b-card-code title="Rowcall Results" class="my-2 mx-4" v-if=" showAttendance === true ">
+     <b-card-code title="Your Ward's Tracker" class="my-2 mx-4" v-if=" showOptions === false && showAttendance === true ">
 
             <b-table            
               class="position-relative"
@@ -300,6 +317,7 @@
         ]   
 
         let showRight = true
+        
         let showAttendance = true
         let showAssessment = false
 
@@ -340,7 +358,9 @@
 
       const {     
          
-        isLoading,     
+        isLoading,   
+        
+        showOptions,
         
         filters,
 
@@ -366,8 +386,8 @@
          
       } 
 
-      (async function () {
-       
+      (function () {
+        handleChange();
       })();
 
      onMounted(() => {
@@ -396,6 +416,8 @@
       return {
         
         isLoading,
+
+        showOptions,
         
         filters,
 

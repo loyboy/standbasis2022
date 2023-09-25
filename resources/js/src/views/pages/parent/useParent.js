@@ -6,11 +6,9 @@ export default function useEvaluation() {
   const mnelistItems = ref([]) 
   const userData = ref({});   
   const isLoading = ref(false)
+  const showOptions = ref(false)
   const changeFieldsStudents = ref(false)
   const dyFieldsStudents = ref([])
-
-  const changeFieldsTeacher = ref(false)
-  const dyFieldsTeacher = ref([])
 
   const tableKey = ref(1)
   const clwTotal = ref(0)
@@ -44,7 +42,12 @@ export default function useEvaluation() {
       isLoading.value = true;
       let dateT = filters.value.dateTo !== null ? String(filters.value.dateTo) + " 00:00:00" : null;
 
-      store.dispatch('app-Parent/fetchMneAttendance', { enrol: filters.value.typetwo_student, date: dateT  })
+
+      store.dispatch('app-Parent/fetchMneAttendance', { 
+        enrol: showOptions.value === true ? filters.value.typetwo_student : null, 
+        date: dateT, 
+        parent: showOptions.value === false ? String(filters.value.guardianId).replace(/^\d{2}-/, '') : null  })
+
       .then(response => {
         
         const { mnecolumndata, mnecolumn } = response.data;
@@ -88,7 +91,12 @@ export default function useEvaluation() {
   } 
 
   const handleChange = (ctx) => {
-    if (  filters.value.typetwo_student && filters.value.dateTo ) {
+    if (  filters.value.typetwo_student && filters.value.dateTo && showOptions.value === true ) {
+      fetchMneVariant();
+      window.scrollBy(0, 200);
+    }
+
+    else if (  filters.value.typetwo_student && filters.value.dateTo && showOptions.value === false ) {
       fetchMneVariant();
       window.scrollBy(0, 200);
     }
@@ -109,6 +117,8 @@ export default function useEvaluation() {
     fetchMneVariant2,
   
     isLoading,
+
+    showOptions,
 
     filters,
 
