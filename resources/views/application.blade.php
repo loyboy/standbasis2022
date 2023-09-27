@@ -14,7 +14,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset(mix('css/loader.css')) }}" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="{{ asset(mix('css/app.css')) . "?id=" . Str::random(16) }} ">
+  <link rel="stylesheet" href="{{ asset(mix('css/app.css')) . "&sid=" . Str::random(16) }} ">
 
   <!-- Favicon -->
   <link rel="shortcut icon" href="{{ asset('images/logo/favicon.png') }}">
