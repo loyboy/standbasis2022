@@ -838,15 +838,15 @@
       let assessmentPicked = null;
 
       return {  
-         classwork_max: 0,
+         classwork_max: 100,
          classwork_actual: 0,
-         homework_max: 0,
+         homework_max: 100,
          homework_actual: 0,
-         test_max: 0,
+         test_max: 100,
          test_actual: 0,
-         mid_max: 0,
+         mid_max: 100,
          mid_actual: 0,
-         final_max: 0,
+         final_max: 100,
          final_actual: 0,
 
          teacherOptions,
