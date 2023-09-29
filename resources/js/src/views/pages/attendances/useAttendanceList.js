@@ -12,6 +12,7 @@ export default function useAttendanceList() {
   const refAttendanceListTable = ref(null)
   const isAttendanceSidebarActive = ref(false)
   const isLoading = ref(false)
+  const isLoadingInner = ref(false)
   const userData = ref({});
   const storedItems = JSON.parse(localStorage.getItem('userData'));
   if (storedItems){
@@ -47,6 +48,7 @@ export default function useAttendanceList() {
 
   const perPage = ref(10)
   const totalAttendances = ref(0)
+  const totalExportAttendances = ref(0)
   const currentPage = ref(1)
   const perPageOptions = [10, 25, 50, 100]
   const searchQuery = ref('')
@@ -54,6 +56,7 @@ export default function useAttendanceList() {
   const isSortDirDesc = ref(true)
   
   const attendanceItems = ref([])
+  const attendanceExportItems = ref([])
   const filters = ref({
     schoolgroup: null, 
     schoolId: null,
@@ -63,7 +66,8 @@ export default function useAttendanceList() {
     subjectId: null,
     status: null,  
     dateFrom: null,
-    dateTo: null
+    dateTo: null,
+    exportResult: 0
   });
   const totalActiveAttendances = ref(0) // good attendance
   const totalInactiveAttendances = ref(0) //late attendance
@@ -88,6 +92,57 @@ export default function useAttendanceList() {
   watch([currentPage, perPage, searchQuery], () => {
     refetchData()
   })
+
+
+  const fetchExportAttendances = (ctx) => {
+    
+    let dateF = filters.value.dateFrom !== null ? String(filters.value.dateFrom) + " 00:00:00" : null;
+    let dateT = filters.value.dateTo !== null ? String(filters.value.dateTo) + " 00:00:00" : null;
+    isLoadingInner.value = true;
+  
+    store.dispatch('app-Attendance/fetchAttendanceExport', {
+      school: filters.value.schoolId,
+      class: filters.value.classId,
+      calendar: filters.value.calendarId,
+      teacher: filters.value.teacherId,
+      subject:  filters.value.subjectId,
+      attendancedone: filters.value.status,
+      datefrom: dateF,
+      dateto: dateT
+    })
+    .then(response => {
+      const { attendancemanagement, totalItems } = response.data
+      
+      const otheratt = attendancemanagement.map(att => {
+        let attobj = {};        
+        // Other data
+        attobj.teacher = att.att_id.teacher.fname
+        attobj.class = att.att_id.timetable.class_stream.title
+        attobj.extension = att.att_id.timetable.class_stream.ext
+        attobj.subject = att.att_id.timetable.subject.name
+        attobj.submission = att.timing
+        attobj.class_attendance = att.class_perf
+        attobj.completeness = att.completeness
+        attobj.performance =  att.score
+        attobj.date =  att.att_id._date
+        attobj.action =  att.action
+        attobj.comment =  att.comment
+
+        return attobj
+    })
+
+      attendanceExportItems.value = otheratt
+      filters.value.exportResult = Number(totalItems)  
+
+      isLoadingInner.value = false;   
+
+    })
+    .catch((e) => {
+      console.log("Fetch Attendances error: " + e);
+      isLoadingInner.value = false;   
+    })
+
+  }
 
   const fetchAttendances = (ctx) => {
     let _DONE = 0;
@@ -215,10 +270,12 @@ export default function useAttendanceList() {
 
   return {
     fetchAttendances,
+    fetchExportAttendances,
     handlePageChange,
     handleChange,
 
     totalAttendances,
+    totalExportAttendances,
     totalActiveAttendances,    
     totalInactiveAttendances,
     totalVoidAttendances,
@@ -237,6 +294,7 @@ export default function useAttendanceList() {
     refAttendanceListTable,
     isAttendanceSidebarActive,
     isLoading,
+    isLoadingInner,
 
     resolveAttendancestatusVariant,
     resolveAttendancetimingVariant,
@@ -247,6 +305,7 @@ export default function useAttendanceList() {
 
     filters,
     attendanceItems,
+    attendanceExportItems,
     searchValues
 
   }

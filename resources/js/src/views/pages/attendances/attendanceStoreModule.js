@@ -24,6 +24,14 @@ export default {
                     .catch(error => reject(error))
             })
         },
+        fetchAttendanceExport(ctx, queryParams) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/attendance/exportTeachers', { params: queryParams })
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
         fetchAttendance(ctx, {id}) {
             return new Promise((resolve, reject) => {
                 axios

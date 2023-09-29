@@ -44,6 +44,11 @@
               >
                 <b-row>
 
+                  <div class="text-center text-primary my-2" v-if=" isLoadingInner === true ">
+                    <b-spinner class="align-middle"></b-spinner>
+                    <strong>Loading...</strong>
+                  </div>
+
                   <b-col cols="12" md="12" v-if=" userData.role === 'proprietor'">
                     <b-form-group label="Select school" label-for="school">
                       <b-form-select
@@ -136,6 +141,11 @@
                 </b-row>
 
                 <b-row class="filter-padding">
+
+                  <b-button variant="success" class="mr-2 col-md-12" type="button" @click="exportToCSV">
+                    Export Result(s) ( {{ filters.exportResult }} )
+                  </b-button>
+
                   <b-button variant="success" class="mr-2 col-md-12" type="submit">
                     Filter Page
                   </b-button>
@@ -748,10 +758,12 @@
       
       const {
         fetchAttendances,
+        fetchExportAttendances,
         tableColumns,
         tableColumnsPrincipal,
         perPage,
         currentPage,
+        attendanceExportItems,
         
         totalAttendances,
         totalActiveAttendances,
@@ -780,6 +792,7 @@
         resolveAttendancescoreVariant,
         filters,
         attendanceItems,
+        isLoadingInner,
 
         searchValues
 
@@ -810,10 +823,12 @@
         isLoading,
   
         fetchAttendances,
+        fetchExportAttendances,
         tableColumns,
         tableColumnsPrincipal,
         perPage,
         currentPage,
+        attendanceExportItems,
 
         totalAttendances,
         totalActiveAttendances,
@@ -847,6 +862,7 @@
         
         filters,
         attendanceItems,
+        isLoadingInner,
 
         searchValues
 
@@ -1014,13 +1030,47 @@
               myval.forEach(obj => {
                 //sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + ' ' + obj.term + ' Term'} )
                 let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
-                sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+                sef.calendarOptions.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
               });             
             });
 
       },
 
+      exportToCSV() {
+          // Convert the data array to a CSV string
+          const csvContent = this.convertToCSV(this.attendanceExportItems);
+
+          // Create a blob with the CSV content
+          const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+
+          // Create a temporary URL for the blob
+          const url = window.URL.createObjectURL(blob);
+
+          // Create an anchor element to trigger the download
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = url;
+          a.download = "exported_attendance_log_data_" + new Date().toDateString() + ".csv";
+
+          // Trigger a click event on the anchor element to initiate the download
+          document.body.appendChild(a);
+          a.click();
+
+         // Clean up resources
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        },
+
+        convertToCSV(data) {
+            const headers = Object.keys(data[0]);
+            const rows = data.map((row) =>
+              headers.map((fieldName) => JSON.stringify(row[fieldName])).join(",")
+            );
+            return [headers.join(","), ...rows].join("\n");
+        },
+
       teacherGrab(value){
+          this.changeTeacher(value)
           var values = this.teacherOptions.map(function(o) { return o.value })
           var index = values.indexOf(value) 
           let choiceText = this.teacherOptions[index].text          
@@ -1036,7 +1086,8 @@
           if (!found){        
             this.searchValuesCurrent.teacher = choiceText;   
             this.searchValues.push(choiceText);
-          }         
+          } 
+          this.fetchExportAttendances()        
       },
 
       classGrab(value){
@@ -1056,7 +1107,7 @@
           this.searchValuesCurrent.class = choiceText;
           this.searchValues.push(choiceText);
         }
-       
+        this.fetchExportAttendances()
       },
 
       calendarGrab(value){
@@ -1075,7 +1126,8 @@
         if (!found){
           this.searchValuesCurrent.calendar = choiceText;
           this.searchValues.push(choiceText);
-        }       
+        }  
+        this.fetchExportAttendances()     
       },
 
       subjectGrab(value){
@@ -1094,7 +1146,8 @@
         if (!found){
           this.searchValuesCurrent.subject = choiceText;
           this.searchValues.push(choiceText);
-        }       
+        } 
+        this.fetchExportAttendances()      
       },
 
       statusGrab(value){
@@ -1113,7 +1166,8 @@
         if (!found){
           this.searchValuesCurrent.status = choiceText;
           this.searchValues.push(choiceText);
-        }       
+        } 
+        this.fetchExportAttendances()      
       },
 
       principalActionApprove(attId){
