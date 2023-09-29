@@ -43,7 +43,7 @@ export default {
         fetchTeachers(ctx, {id}) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/teacher/school/' + id)
+                    .get($themeConfig.app.baseURL + '/teacher/school/' + id + '/attendance')
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })

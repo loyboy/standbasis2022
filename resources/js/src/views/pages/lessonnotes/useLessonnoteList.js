@@ -110,12 +110,12 @@ export default function useLessonnoteList() {
     refLessonnoteListTable.value.refresh()
   }
 
-  const isWithinSevenDays = (date1, date2) => {
+  const isWithinNineDays = (date1, date2) => {
     if (date2 < date1) {
       return false;
     }  
     let diffInMilliseconds = Math.round(date2 - date1);        
-    return diffInMilliseconds <= 604800000; // 7 days in milliseconds
+    return diffInMilliseconds <= 777600000; // 9 days in milliseconds
   } 
 
   watch([currentPage, perPage, searchQuery], () => {
@@ -182,7 +182,7 @@ export default function useLessonnoteList() {
           const late_last_date = expiry_date_of_submission + (48 * 60 * 60 * 1000);
           const todayDate = new Date().getTime();
         
-          return isWithinSevenDays(todayDate, late_last_date);  //plus late submission days
+          return isWithinNineDays(todayDate, late_last_date);  //plus late submission days
         
         } )
 

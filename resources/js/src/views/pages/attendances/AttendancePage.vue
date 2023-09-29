@@ -502,7 +502,7 @@
                 :variant="`light-${resolveAttendancestatusVariant(data.item.action)}`"
                 class="text-capitalize"
               >
-                {{ data.item.action === 1 ? "Approved" : data.item.action === 0 ? "Unattended" : data.item.action === 2 ? "Queried" : data.item.done === -1 ? "Voided" : "Nil"  }}
+                {{ data.item.action === 1 ? "Endorsed" : data.item.action === 0 ? "Unattended" : data.item.action === 2 ? "Queried" : data.item.done === -1 ? "Voided" : "Nil"  }}
               </b-badge>
             </template>
     
@@ -709,7 +709,7 @@
 
     mounted(){
         if(this.userData.role !== "proprietor"){
-            console.log("School id " + this.teacherData.school.schId )
+           // console.log("School id " + this.teacherData.school.schId )
             setTimeout(() => {
                 this.loadOtherValues( this.teacherData.school.schId );
             },2000);        
@@ -895,10 +895,32 @@
          this.filters.dateFrom = null;
          this.filters.dateTo = null;
 
-         console.log("Calendar tins: " +  this.filters.calendarId );
+        // console.log("Calendar tins: " +  this.filters.calendarId );
          this.filters.calendarId = this.userData.cal_id;
 
          this.fetchAttendances();
+      },
+
+      changeTeacher(value){
+
+              const sef = this; 
+              sef.classOptions = []; 
+              store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : this.filters.schoolId, teacher: value })
+              .then(response => { 
+                let myval = response.data.data;
+                myval.forEach(obj => {
+                  sef.classOptions.push( { value: obj.clsId , text: obj.title + ' ' + obj.ext} )
+                });             
+              });
+
+              sef.subjectOptions = [];     
+              store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: value })
+              .then(response => { 
+                let myval = response.data.data;
+                myval.forEach(obj => {
+                  sef.subjectOptions.push( { value: obj.subId , text: obj.name } )
+                });            
+              });
       },
 
       loadOtherValues(value){
@@ -911,7 +933,7 @@
             } 
            // this.filters.calendarId = null;
             this.filters.subjectId = null;
-            this.filters.status = null;
+            this.filters.status = null; 
 
             var values = this.schoolOptions.map(function(o) { return o.value })
             var index = values.indexOf(value) 
@@ -940,7 +962,7 @@
                 sef.teacherOptions.push( { value: obj.teaId , text: obj.fname + ' ' + obj.lname} )
               });             
             });
-//
+
             sef.classOptions = [];     
             if ( this.userData.role === 'teacher' ){
               store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : value, teacher: this.userData.role === 'teacher' ? this.teacherData.teaId : null })

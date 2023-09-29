@@ -1354,7 +1354,7 @@
             store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteAssessment`, { score: percent, actual: this.classwork_actual, max: this.classwork_max, assessId: id  } )
             .then(response => { 
                 sef.modalTitleClasswork = "";
-                sef.classwork_max = 0;
+               
                 sef.classwork_actual = 0;                
                 sef.$toast({
                   component: ToastificationContent,
@@ -1368,7 +1368,7 @@
                 sef.handleChange();
             }).catch((exception) => { 
                 sef.modalTitleClasswork = "";
-                sef.classwork_max = 0;
+              
                 sef.classwork_actual = 0; 
                 sef.$toast({
                   component: ToastificationContent,
@@ -1421,7 +1421,7 @@
             store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteAssessment`, { score: percent, actual: this.homework_actual, max: this.homework_max, assessId: id  } )
             .then(response => { 
                 sef.modalTitleHomework = "";
-                sef.homework_max = 0;
+                
                 sef.homework_actual = 0;                
                 sef.$toast({
                   component: ToastificationContent,
@@ -1435,7 +1435,7 @@
                 sef.handleChange();
             }).catch((exception) => { 
                 sef.modalTitleHomework = "";
-                sef.homework_max = 0;
+               
                 sef.homework_actual = 0; 
                 sef.$toast({
                   component: ToastificationContent,
@@ -1487,7 +1487,7 @@
             store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteAssessment`, { score: percent, actual: this.test_actual, max: this.test_max, assessId: id  } )
             .then(response => { 
                 sef.modalTitleTest = "";
-                sef.test_max = 0;
+                
                 sef.test_actual = 0;                
                 sef.$toast({
                   component: ToastificationContent,
@@ -1501,7 +1501,7 @@
                 sef.handleChange();  
             }).catch((exception) => { 
                 sef.modalTitleTest = "";
-                sef.test_max = 0;
+               
                 sef.test_actual = 0; 
                 sef.$toast({
                   component: ToastificationContent,
@@ -1553,7 +1553,7 @@
             store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteAssessment`, { score: percent, actual: this.mid_actual, max: this.mid_max, assessId: id  } )
             .then(response => { 
                 sef.modalTitleMid = "";
-                sef.mid_max = 0;
+               
                 sef.mid_actual = 0;                
                 sef.$toast({
                   component: ToastificationContent,
@@ -1567,7 +1567,7 @@
                 sef.handleChange();    
             }).catch((exception) => { 
                 sef.modalTitleMid = "";
-                sef.mid_max = 0;
+                
                 sef.mid_actual = 0; 
                 sef.$toast({
                   component: ToastificationContent,
@@ -1619,7 +1619,7 @@
             store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteAssessment`, { score: percent, actual: this.final_actual, max: this.final_max, assessId: id  } )
             .then(response => { 
                 sef.modalTitlefinal = "";
-                sef.final_max = 0;
+               
                 sef.final_actual = 0;                
                 sef.$toast({
                   component: ToastificationContent,
@@ -1633,7 +1633,7 @@
                 sef.handleChange();  
             }).catch((exception) => { 
                 sef.modalTitlefinal = "";
-                sef.final_max = 0;
+               
                 sef.final_actual = 0; 
                 sef.$toast({
                   component: ToastificationContent,

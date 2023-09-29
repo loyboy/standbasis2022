@@ -90,7 +90,7 @@ export default function useAttendanceList() {
   })
 
   const fetchAttendances = (ctx) => {
-    let _DONE = 1;
+    let _DONE = 0;
     let dateF = filters.value.dateFrom !== null ? String(filters.value.dateFrom) + " 00:00:00" : null;
     let dateT = filters.value.dateTo !== null ? String(filters.value.dateTo) + " 00:00:00" : null;
     isLoading.value = true;

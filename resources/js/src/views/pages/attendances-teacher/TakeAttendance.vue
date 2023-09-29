@@ -316,22 +316,22 @@
         return diffInMilliseconds <= 7200000; 
       }
 
-      const isWithinfourfiveMinutes = (date1, date2) => {
+      const isWithinTenMinutes = (date1, date2) => {
         if (date2 < date1) {
           return false;
         }  
         let diffInMilliseconds = Math.round(date2 - date1);
-        console.log("DiffinMilliseconds within 45 mins: "+ diffInMilliseconds);
-        return diffInMilliseconds <= 2700000; // 2700000 milliseconds = 45 minutes
+      //  console.log("DiffinMilliseconds within 45 mins: "+ diffInMilliseconds);
+        return diffInMilliseconds > 300000 && diffInMilliseconds <= 600000; // 600000 milliseconds = 10 minutes
       }
 
       //
-       const isWithinTenMinutes = (date1, date2) => {
+       const isWithinFiveMinutes = (date1, date2) => {
         if (date2 < date1) {
           return false;
         }  
         let diffInMilliseconds = Math.round(date2 - date1);        
-        return diffInMilliseconds <= 600000;
+        return diffInMilliseconds <= 300000; // five minutes
       }
 
       onMounted(() => {
@@ -366,7 +366,7 @@
 
         isWithinTenMinutes,
 
-        isWithinfourfiveMinutes,
+        isWithinFiveMinutes,
         
         filters,
        
@@ -396,7 +396,7 @@
           let targetTime = new Date();
           targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );       
 
-          let the_timing =  this.isWithinTenMinutes( targetTime, new Date() ) ? 100 : this.isWithinfourfiveMinutes( targetTime, new Date() ) ? 50 : 0; 
+          let the_timing =  this.isWithinFiveMinutes( targetTime, new Date() ) ? 100 : this.isWithinTenMinutes( targetTime, new Date() ) ? 50 : 0; 
           let the_completeness = (this.imageFile !== null) ? 100 : 50;
 
           let newRowData = this.rowcallData.map((row) => { 
@@ -415,7 +415,7 @@
                 })
           }          
          
-           setTimeout(() => {      
+          setTimeout(() => {      
               store.dispatch(`${ this.Attendance_APP_STORE_MODULE_NAME }/updateAttendance`, { 
               attendance : { period : "", done: the_timing === 100 ? 1 : the_timing === 50 ? 2 : the_timing === 0 ? -1 : 0 },
               id: Number(attId[1]),              
@@ -425,7 +425,7 @@
               .then(response => { 
                   console.log("Attendance 1st Phase done: " + response.data.success );                         
               });
-           },1200);
+          },1200);
          
 
           store.dispatch(`${ this.Attendance_APP_STORE_MODULE_NAME }/updateAttendanceRowcall`, newRowData )
