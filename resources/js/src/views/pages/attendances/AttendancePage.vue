@@ -142,7 +142,7 @@
 
                 <b-row class="filter-padding">
 
-                  <b-button variant="success" class="mr-2 col-md-12" type="button" @click="exportToCSV">
+                  <b-button variant="danger" class="mr-2 col-md-12" type="button" @click="exportToCSV">
                     Export Result(s) ( {{ filters.exportResult }} )
                   </b-button>
 
@@ -864,7 +864,9 @@
         attendanceItems,
         isLoadingInner,
 
-        searchValues
+        searchValues,
+
+        Attendance_APP_STORE_MODULE_NAME
 
       }
     },
@@ -921,7 +923,7 @@
 
               const sef = this; 
               sef.classOptions = []; 
-              store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : this.filters.schoolId, teacher: value })
+              store.dispatch(`${this.Attendance_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : this.filters.schoolId, teacher: value })
               .then(response => { 
                 let myval = response.data.data;
                 myval.forEach(obj => {
@@ -930,7 +932,7 @@
               });
 
               sef.subjectOptions = [];     
-              store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: value })
+              store.dispatch(`${this.Attendance_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: value })
               .then(response => { 
                 let myval = response.data.data;
                 myval.forEach(obj => {
