@@ -1065,10 +1065,20 @@
 
         convertToCSV(data) {
             const headers = Object.keys(data[0]);
-            const rows = data.map((row) =>
-              headers.map((fieldName) => JSON.stringify(row[fieldName])).join(",")
-            );
-            return [headers.join(","), ...rows].join("\n");
+            const csvRows = [];
+
+            // Push the headers as the first row
+            csvRows.push(headers.join(','));
+
+            for (const row of data) {
+                const values = headers.map(header => {
+                    const escaped = String(row[header]).replace(/"/g, '""'); // Handle double quotes inside values
+                    return `"${escaped}"`;
+                });
+                csvRows.push(values.join(','));
+            }
+
+            return csvRows.join('\n');
         },
 
       teacherGrab(value){
