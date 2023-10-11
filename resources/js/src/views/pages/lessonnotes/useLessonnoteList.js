@@ -13,6 +13,7 @@ export default function useLessonnoteList() {
   const isLessonnoteSidebarActive = ref(false)
   const isManagementSidebarActive = ref(false)
   const isLoading = ref(false)
+  const isLoadingInner = ref(false)
   const userData = ref({});
   const storedItems = JSON.parse(localStorage.getItem('userData'));
   if (storedItems){
@@ -61,12 +62,14 @@ export default function useLessonnoteList() {
 
   const perPage = ref(10)
   const totalLessonnotes = ref(0)
+  const totalExportLessonnotes = ref(0)
   const currentPage = ref(1)
   const perPageOptions = [10, 25, 50, 100]
   const searchQuery = ref('')
   const sortBy = ref('id')
   const isSortDirDesc = ref(true)   
   const LessonnoteItems = ref([])
+  const lessonnoteExportItems = ref([])
 
   const filters = ref({
     schoolgroup: null,
@@ -80,6 +83,7 @@ export default function useLessonnoteList() {
     status: null,    
     dateFrom: null,
     dateTo: null,
+    exportResult: 0,
 
     hasClasswork: true,
     hasHomework: true,
@@ -121,6 +125,59 @@ export default function useLessonnoteList() {
   watch([currentPage, perPage, searchQuery], () => {
     refetchData()
   })
+
+  const fetchExportLessonnotes = (ctx) => {
+    
+    let dateF = filters.value.dateFrom !== null ? String(filters.value.dateFrom) + " 00:00:00" : null;
+    let dateT = filters.value.dateTo !== null ? String(filters.value.dateTo) + " 00:00:00" : null;
+    isLoadingInner.value = true;
+  
+    store.dispatch('app-Attendance/fetchLessonnoteExport', {
+      school: filters.value.schoolId,
+      class: filters.value.classIndex,
+      calendar: filters.value.calendarId,
+      teacher: filters.value.teacherId,
+      subject:  filters.value.subjectId,
+      week: filters.value.week,
+      status: filters.value.status,
+      datefrom: dateF,
+      dateto: dateT
+    }) 
+    .then(response => {
+      const { lessonnotemanagement, totalItems } = response.data
+      
+      const otherlsn = lessonnotemanagement.map(lsn => {
+        let lsnobj = {};        
+        // Other data
+        lsnobj.teacher = lsn.lsn_id.teacher.fname
+        lsnobj.class = lsn.lsn_id.class_index
+        
+        lsnobj.subject = lsn.lsn_id.subject.name
+        lsnobj.session = lsn.lsn_id.calendar.session
+        lsnobj.term = lsn.lsn_id.calendar.term
+        lsnobj.week = lsn.lsn_id.week
+        lsnobj.submission =  lsn.lsn_id.submission
+        lsnobj.management =  lsn.management
+        lsnobj.sub_perf_classwork =  lsn.sub_perf_classwork
+        lsnobj.sub_perf_homework =  lsn.sub_perf_homework
+        lsnobj.sub_perf_test =  lsn.sub_perf_test
+        lsnobj.action =  lsn.action
+
+        return lsnobj
+    })
+
+      lessonnoteExportItems.value = otherlsn
+      filters.value.exportResult = Number(totalItems)  
+
+      isLoadingInner.value = false;   
+
+    })
+    .catch((e) => {
+      console.log("Fetch Lessonnotes error: " + e);
+      isLoadingInner.value = false;   
+    })
+
+  }
 
   const fetchLessonnotes = (ctx) => {
   
@@ -266,6 +323,7 @@ export default function useLessonnoteList() {
 
   return {
     fetchLessonnotes,
+    fetchExportLessonnotes,
     handlePageChange,
     handleChange,
 

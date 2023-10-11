@@ -81,5 +81,13 @@ export default {
                     .catch(error => reject(error))
             })
         },
+        updateAttendanceRowcall(ctx, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .put($themeConfig.app.baseURL + '/rowcall/obs/' + payload.id , payload )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        }
     },
 }

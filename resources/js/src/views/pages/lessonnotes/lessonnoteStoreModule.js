@@ -24,6 +24,14 @@ export default {
                     .catch(error => reject(error))
             })
         },
+        fetchLessonnoteExport(ctx, queryParams) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/lessonnote/exportTeachers', { params: queryParams })
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
         fetchLessonnote(ctx, {id}) {
             return new Promise((resolve, reject) => {
                 axios
@@ -56,7 +64,7 @@ export default {
                     .catch(error => reject(error))
             })
         }, 
-        fetchCalendars(ctx, {id}) {
+        fetchCalendars(ctx, {id}) { 
             return new Promise((resolve, reject) => {
                 axios
                     .get($themeConfig.app.baseURL + '/calendar/school/' + id)

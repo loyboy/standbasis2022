@@ -14,7 +14,7 @@ export default {
                     .get($themeConfig.app.baseURL + '/attendance/paginateTeachers', { params: queryParams })
                     .then(response => resolve(response))
                     .catch(error => reject(error))
-            })
+            }) 
         },
         fetchAttendanceManagements(ctx, queryParams) {
             return new Promise((resolve, reject) => {

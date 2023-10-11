@@ -229,6 +229,11 @@
                 </b-row>
 
                 <b-row class="filter-padding">
+
+                  <b-button variant="danger" class="mr-2 col-md-12" type="button" @click="exportToCSV">
+                    Export Result(s) ( {{ filters.exportResult }} )
+                  </b-button>
+                  
                   <b-button variant="success" class="mr-2 col-md-12" type="submit">
                     Filter Page
                   </b-button>
@@ -882,7 +887,7 @@
             v-else
             class="mt-2"
             variant="outline-danger"
-            block
+            block 
           >
               <div class="text-center text-danger my-2">
                 <b-spinner class="align-middle"></b-spinner>
@@ -1210,6 +1215,7 @@
           
           const {
             fetchLessonnotes,
+            fetchExportLessonnotes,
             tableColumns,
             tableColumnsPrincipal,
             perPage,
@@ -1276,6 +1282,7 @@
             isLoading,
       
             fetchLessonnotes,
+            fetchExportLessonnotes,
             tableColumns,
             tableColumnsPrincipal,
             perPage,
@@ -1531,7 +1538,73 @@
                 });
           },
 
+        exportToCSV() {
+              // Convert the data array to a CSV string
+              const csvContent = this.convertToCSV(this.attendanceExportItems);
+
+              // Create a blob with the CSV content
+              const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+
+              // Create a temporary URL for the blob
+              const url = window.URL.createObjectURL(blob);
+
+              // Create an anchor element to trigger the download
+              const a = document.createElement("a");
+              a.style.display = "none";
+              a.href = url;
+              a.download = "exported_attendance_log_data_" + new Date().toDateString() + ".csv";
+
+              // Trigger a click event on the anchor element to initiate the download
+              document.body.appendChild(a);
+              a.click();
+
+            // Clean up resources
+              window.URL.revokeObjectURL(url);
+              document.body.removeChild(a);
+        },
+
+          convertToCSV(data) {
+            const headers = Object.keys(data[0]);
+            const csvRows = [];
+
+            // Push the headers as the first row
+            csvRows.push(headers.join(','));
+
+            for (const row of data) {
+                const values = headers.map(header => {
+                    const escaped = String(row[header]).replace(/"/g, '""'); // Handle double quotes inside values
+                    return `"${escaped}"`;
+                });
+                csvRows.push(values.join(','));
+            }
+
+            return csvRows.join('\r\n');
+          },
+
+          changeTeacher(value){
+              const sef = this; 
+              sef.classOptions = []; 
+              store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchClassrooms`, { id : this.filters.schoolId, teacher: value })
+              .then(response => { 
+                let myval = response.data.data;
+                myval.forEach(obj => {
+                  sef.classOptions.push( { value: obj.clsId , text: obj.title + ' ' + obj.ext} )
+                });             
+              });
+
+              sef.subjectOptions = [];     
+              store.dispatch(`${this.Lessonnote_APP_STORE_MODULE_NAME}/fetchSubjects`, { teacher: value })
+              .then(response => { 
+                let myval = response.data.data;
+                myval.forEach(obj => {
+                  sef.subjectOptions.push( { value: obj.subId , text: obj.name } )
+                });            
+              });
+              this.fetchExportLessonnotes();
+          },
+
           teacherGrab(value){
+              this.changeTeacher(value);
               var values = this.teacherOptions.map(function(o) { return o.value })
               var index = values.indexOf(value) 
               let choiceText = this.teacherOptions[index].text          
@@ -1549,7 +1622,7 @@
                 this.searchValues.push(choiceText);
               }         
 
-            // console.log( "Teacher Grabbed : " + JSON.stringify(this.searchValues) )
+              this.fetchExportLessonnotes();
           },
 
           classGrab(value){
@@ -1569,7 +1642,7 @@
               this.searchValuesCurrent.class = choiceText;
               this.searchValues.push(choiceText);
             }
-          
+             this.fetchExportLessonnotes();
           },
 
           calendarGrab(value){
@@ -1588,7 +1661,8 @@
             if (!found){
               this.searchValuesCurrent.calendar = choiceText;
               this.searchValues.push(choiceText);
-            }       
+            }   
+             this.fetchExportLessonnotes();    
           },
 
           subjectGrab(value){
@@ -1607,7 +1681,8 @@
             if (!found){
               this.searchValuesCurrent.subject = choiceText;
               this.searchValues.push(choiceText);
-            }       
+            } 
+             this.fetchExportLessonnotes();      
           },
 
           weekGrab(value){
@@ -1626,7 +1701,8 @@
             if (!found){
               this.searchValuesCurrent.week = choiceText;
               this.searchValues.push(choiceText);
-            }       
+            } 
+             this.fetchExportLessonnotes();      
           },
 
           statusGrab(value){
@@ -1645,7 +1721,8 @@
             if (!found){
               this.searchValuesCurrent.status = choiceText;
               this.searchValues.push(choiceText);
-            }       
+            }
+             this.fetchExportLessonnotes();       
           },
 
           principalActionApprove(id){       

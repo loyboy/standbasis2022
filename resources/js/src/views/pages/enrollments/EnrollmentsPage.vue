@@ -415,7 +415,7 @@
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
       }
   
-      return {
+      return { 
         // Sidebar
         isSearchSchoolSidebarActive,
         userData,

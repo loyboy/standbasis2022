@@ -351,6 +351,17 @@
                 {{ data.item.status === 1 ? "Present" : data.item.status === 0 ? "Absent" : "Excused"  }}
               </b-badge>
             </template>
+
+              <!-- Column: Observation -->
+            <template #cell(action)="data">
+              <b-badge
+                pill
+                :variant="`light-${resolveVariantObs(data.item.observation)}`"
+                class="text-capitalize"
+              >
+                {{ data.item.observation }}
+              </b-badge>
+            </template>
     
             <!-- Column: Actions -->
             <template #cell(actions)="data">
@@ -370,6 +381,11 @@
                 <b-dropdown-item :to="{ name: 'attendances-student-home-view', params: { id: data.item.rowcallId } }">
                   <feather-icon icon="FileTextIcon" />
                   <span class="align-middle ml-50">View Details</span>
+                </b-dropdown-item>
+
+                <b-dropdown-item>
+                  <feather-icon icon="CornerLeftUpIcon"  @click= " triggerModal( data.item.rowcallId, data.item.student.name ) " />
+                  <span class="align-middle ml-50">Add observations</span>
                 </b-dropdown-item>              
                 
                 <b-dropdown-item :to="{ name: 'schools-home-view', params: { id: data.item.student.school.schId } }">
@@ -430,6 +446,52 @@
           </div>
 
         </b-card>
+
+         <!-- modal  -->
+         <b-modal
+          ref="my-modal-add-obs"
+          hide-footer
+          :title="modalTitle"
+          no-close-on-backdrop
+          content-class="shadow"
+        >      
+          <b-form>
+
+            <b-form-group
+              label="Add an Observation:"
+              label-for="max-input"
+            >             
+                    <b-form-select
+                          v-model="addObservation"
+                          :options="obsOptions"
+                        />
+                     
+            </b-form-group>
+                      
+          </b-form>
+
+          <b-button
+            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+            class="mt-3"
+            variant="outline-secondary"
+            block
+            @click="hideModal"
+          >
+            Cancel
+          </b-button>
+
+          <b-button
+            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+            class="mt-2"
+            variant="outline-success"
+            block
+            @click=" addObservations( modalAttendance ) "
+          >
+            Add An Observation
+          </b-button>
+
+        </b-modal>
+
 
     </div>
   </template>
@@ -523,6 +585,13 @@
       //  { value: null, text: "Please select A Student" }
       ]
 
+      let obsOptions = [
+        { value: null, text: "Please select An Observation" },
+        { value: "uncomfortable", text: "Student is uncomfortable." },
+        { value: "distracted", text: "Student is always distracted." },
+        { value: "unhappy", text: "Student is really unhappy." }
+      ]
+
       return {         
         teacherOptions,
          classOptions,
@@ -537,7 +606,11 @@
             subject: "nil",
             status: "nil",
             student: "nil"
-         }  
+         },
+         addObservation: "" ,
+         modalTitle: "" ,
+         modalAttendance: null,
+         obsOptions
       } 
 
     },
@@ -546,7 +619,6 @@
         if(this.userData.role !== "proprietor"){
             setTimeout(() => {
                         this.loadOtherValues( this.teacherData.school.schId );
-                      //  console.log("run mounted")
             },2000);        
         }
     },
@@ -605,6 +677,7 @@
 
         // UI       
         resolveVariant,
+        resolveVariantObs,
         isAttendanceSidebarActive, 
         isLoading,
 
@@ -672,7 +745,8 @@
         teacherData,
   
         // UI
-        resolveVariant        
+        resolveVariant,
+        resolveVariantObs       
       
       }
     },
@@ -928,7 +1002,59 @@
           this.searchValuesCurrent.student = choiceText;
           this.searchValues.push(choiceText);
         }       
-      }
+      },
+
+      showModal() {
+        this.$refs['my-modal-add-obs'].show()
+      },
+      hideModal() {
+        this.$refs['my-modal-add-obs'].hide()
+      },
+      triggerModal(id, student){
+        this.modalTitle = "Add Observation to this student: "+ student ;
+        this.modalAttendance = id;
+        this.showModal();
+      },
+
+      addObservations(rowcallid){
+        
+            const sef = this;          
+            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceRowcall`, { observation: this.addObservation, id: rowcallid  } )
+            .then(response => { 
+                sef.modalTitle = "";
+                      
+                sef.$toast({
+                  component: ToastificationContent,
+                  props: {
+                  title: 'Observation has been added.',
+                  icon: 'AlertTriangleIcon',
+                  variant: 'success'
+                },
+                });  
+
+                sef.hideModal();
+                sef.addObservation = "";
+
+                sef.handleChange();
+
+            }).catch((exception) => { 
+                sef.modalTitle = "";              
+                
+                sef.$toast({
+                  component: ToastificationContent,
+                  props: {
+                    title: 'There is an issue with the adding of observation.',
+                    icon: 'AlertTriangleIcon',
+                    variant: 'danger'
+                  }
+                }); 
+                sef.addObservation = "";
+                sef.hideModal();
+
+		        }); 
+         
+      },
+
       
     }
 

@@ -21,6 +21,7 @@ export default function useAttendanceList() {
     { key: 'attendance.timetable.class_stream.ext',label: 'Class Arm',  sortable: true },
     { key: 'attendance.timetable.subject.name',label: 'Subject Name',  sortable: true },
     { key: 'attendance.attId',label: 'Attendance ID',  sortable: true , thStyle: { width: "10%" } },
+    { key: 'observation',label: 'Observation',  sortable: true , thStyle: { width: "10%" } },
     { key: 'status',label: 'Status',  sortable: true },
     { key: 'remark',label: 'Remark',  sortable: true },
     { key: 'actions' }
@@ -139,6 +140,14 @@ export default function useAttendanceList() {
     return 'primary'
   }
 
+  const resolveVariantObs = status => {
+    if (status === "uncomfortable") return 'warning'
+    if (status === "distracted") return 'warning'
+    if (status === "unhappy") return 'danger'
+    if (status === "") return 'success'
+    return 'primary'
+  }
+
   return {
     fetchAttendances,
     handlePageChange,
@@ -161,6 +170,7 @@ export default function useAttendanceList() {
     refAttendanceListTable,
 
     resolveVariant,
+    resolveVariantObs,
     isAttendanceSidebarActive,
     isLoading,
 

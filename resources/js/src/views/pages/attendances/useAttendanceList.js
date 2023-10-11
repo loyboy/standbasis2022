@@ -109,7 +109,7 @@ export default function useAttendanceList() {
       attendancedone: filters.value.status,
       datefrom: dateF,
       dateto: dateT
-    })
+    }) 
     .then(response => {
       const { attendancemanagement, totalItems } = response.data
       
