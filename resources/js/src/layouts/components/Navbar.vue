@@ -18,7 +18,12 @@
 
     <!-- Left Col -->
     <div class="bookmark-wrapper align-items-center flex-grow-1 d-none d-lg-flex">
+
       <dark-Toggler class="d-none d-lg-block" />
+      <p class="user-name font-weight-bolder align-items-center d-md-flex mb-0">
+          {{userData.cal_txt}}
+      </p>
+
     </div>
 
     <b-navbar-nav class="nav align-items-center ml-auto">
