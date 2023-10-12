@@ -750,7 +750,8 @@
   
         // UI
         resolveVariant,
-        resolveVariantObs       
+        resolveVariantObs,
+        Attendance_APP_STORE_MODULE_NAME       
       
       }
     },
@@ -1024,7 +1025,7 @@
       addObservations(rowcallid){
         
             const sef = this;          
-            store.dispatch( `${Attendance_APP_STORE_MODULE_NAME}/updateAttendanceRowcall`, { observation: this.addObservation, id: rowcallid  } )
+            store.dispatch( `${this.Attendance_APP_STORE_MODULE_NAME}/updateAttendanceRowcall`, { observation: this.addObservation, id: rowcallid  } )
             .then(response => { 
                 sef.modalTitle = "";
                       
