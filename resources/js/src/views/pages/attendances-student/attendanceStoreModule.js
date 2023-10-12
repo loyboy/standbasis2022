@@ -84,7 +84,7 @@ export default {
         updateAttendanceRowcall(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
-                    .put($themeConfig.app.baseURL + '/rowcall/obs/' + payload.id , payload )
+                    .put($themeConfig.app.baseURL + '/attendance/rowcall/obs/' + payload.id , payload )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
