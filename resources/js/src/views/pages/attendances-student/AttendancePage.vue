@@ -549,7 +549,7 @@
       BSpinner,
       BTable, 
       BSidebar,
-      BForm,
+      BForm, 
       BFormTags,
       BMedia,
       BAvatar,
@@ -1015,6 +1015,7 @@
         this.$refs['my-modal-add-obs'].hide()
       },
       triggerModal(id, student){
+        console.log("trigger xxx");
         this.modalTitle = "Add Observation to this student: "+ student ;
         this.modalAttendance = id;
         this.showModal();

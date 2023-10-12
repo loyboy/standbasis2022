@@ -145,6 +145,7 @@ export default function useAttendanceList() {
     if (status === "distracted") return 'warning'
     if (status === "unhappy") return 'danger'
     if (status === "") return 'success'
+    if (status === null) return 'success'
     return 'primary'
   }
 
