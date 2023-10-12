@@ -1030,9 +1030,10 @@
 
       searchChange(val){
           this.searchQuery = val;
-          console.log("search :" + this.searchQuery);
+         // console.log("search :" + this.searchQuery);
           this.handleChange();
       },
+
       reset(){
          this.isLessonnoteSidebarActive = false;
 
@@ -1090,10 +1091,11 @@
       
          this.filters.dateFrom = null;
          this.filters.dateTo = null;
-         console.log("Calendar tins: " +  this.filters.calendarId );
+         
          this.filters.calendarId = this.userData.cal_id;
          this.fetchLessonnotes();
       },
+      
       async loadOtherValues(value){
             this.searchValues = [];
 

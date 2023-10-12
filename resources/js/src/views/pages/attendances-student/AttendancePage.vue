@@ -383,8 +383,8 @@
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>
 
-                <b-dropdown-item>
-                  <feather-icon icon="CornerLeftUpIcon"  @click= " triggerModal( data.item.rowcallId, data.item.student.name ) " />
+                <b-dropdown-item @click= " triggerModal( data.item.rowcallId, data.item.student.name ) " >
+                  <feather-icon icon="CornerLeftUpIcon"   />
                   <span class="align-middle ml-50">Add observations</span>
                 </b-dropdown-item>              
                 
