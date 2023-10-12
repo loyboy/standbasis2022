@@ -529,8 +529,7 @@
   import formValidation from '@core/comp-functions/forms/form-validation'
   
   // Notification
-  // import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
-  
+  import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
   import useAttendanceList from './useAttendanceList'
   import attendanceStoreModule from './attendanceStoreModule'
   
