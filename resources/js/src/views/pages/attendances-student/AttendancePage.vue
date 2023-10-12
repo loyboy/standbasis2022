@@ -359,7 +359,7 @@
                 :variant="`light-${resolveVariantObs(data.item.observation)}`"
                 class="text-capitalize"
               >
-                {{ data.item.observation }}
+                {{ data.item.observation === null || data.item.observation === "" ? "Normal" : data.item.observation }}
               </b-badge>
             </template>
     
@@ -504,6 +504,7 @@
     BFormInput,
     BFormGroup,
     BFormSelect,
+    BModal,
     BButton,
     BSpinner,
     BTable,
@@ -526,8 +527,10 @@
   import { ref, onUnmounted, onMounted } from '@vue/composition-api'
   import { avatarText } from '@core/utils/filter'
   import formValidation from '@core/comp-functions/forms/form-validation'
+  
   // Notification
- // import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+  // import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+  
   import useAttendanceList from './useAttendanceList'
   import attendanceStoreModule from './attendanceStoreModule'
   
@@ -541,6 +544,7 @@
       BFormInput,
       BFormGroup,
       BFormSelect,
+      BModal,
       BButton,
       BSpinner,
       BTable, 
