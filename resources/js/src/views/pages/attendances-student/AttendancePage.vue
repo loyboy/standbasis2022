@@ -359,7 +359,7 @@
                 :variant="`light-${resolveVariantObs(data.item.observation)}`"
                 class="text-capitalize"
               >
-                {{ data.item.observation === null || data.item.observation === "" ? "Normal" : data.item.observation }}
+                {{ (data.item.observation === null || data.item.observation === "") ? "Normal" : data.item.observation }}
               </b-badge>
             </template>
     
