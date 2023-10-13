@@ -56,7 +56,7 @@ export default {
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
-        },  //jhjhjh
+        },  
         fetchStudents(ctx, {id}) {
             return new Promise((resolve, reject) => {
                 axios
