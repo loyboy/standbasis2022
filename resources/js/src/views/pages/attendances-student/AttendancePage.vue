@@ -353,7 +353,7 @@
             </template>
 
               <!-- Column: Observation -->
-            <template #cell(action)="data">
+            <template #cell(observation)="data">
               <b-badge
                 pill
                 :variant="`light-${resolveVariantObs(data.item.observation)}`"
