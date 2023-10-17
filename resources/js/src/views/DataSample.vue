@@ -5,12 +5,41 @@
         <!-- First Column -->
         <div class="row mb-3 ">
           <div class="col min-vh-50 d-flex">
-            <div class="border p-3 flex-grow-1"> <iframe width="485" height="320" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdDownloadButton=True&wdInConfigurator=True&wdInConfigurator=True"></iframe> </div>
+            <div class="border p-3 flex-grow-1"> <iframe width="500" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe> </div>
           </div>
           <div class="col min-vh-50 d-flex">
-            <div class="border p-3 flex-grow-1">Row 1, Column 2</div>
+            <div class="row"> 
+                <div class="col-6">
+                    <table>
+                        <tr>
+                            <th>Areas</th>
+                            <th>Standbasis</th>
+                            <th>School</th>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #e74c3c; color: white;">Red Area</td>
+                            <td>Value 1</td>
+                            <td>Value A</td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #f1c40f; color: white;">Yellow Area</td>
+                            <td>Value 2</td>
+                            <td>Value B</td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #27ae60; color: white;">Green Area</td>
+                            <td>Value 3</td>
+                            <td>Value C</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <div> School Rating and Grading of Schools in the group baed on one or more criteria </div>
+                </div>
+            </div>
           </div>
         </div>
+
         <div class="row">
           <div class="col min-vh-50 d-flex">
             <div class="border p-3">Row 2, Column 1</div>
@@ -176,5 +205,27 @@
   
   <style lang="scss">
   @import '~@core/scss/vue/libs/vue-select.scss';
+  /* CSS to style the table */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px; /* Adjust this for spacing */
+    border: 1px solid white; /* White border */
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #3498db; /* Blue background for the first column header */
+    color: white; /* White text color */
+  }
+
+  td:nth-child(2), td:nth-child(3) {
+    background-color: #c3e6c1; /* Light green background for the second and third columns */
+    color: black; /* Black text color */
+  }
   </style>
   
