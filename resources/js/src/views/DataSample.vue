@@ -1,21 +1,21 @@
 <template>
     <div class="container mt-5">
     <div class="row justify-content-center">
-      <div class="col-md-6">
+      <div class="col-md-12">
         <!-- First Column -->
-        <div class="row mb-3">
-          <div class="col">
-            <div class="border p-3">Row 1, Column 1</div>
+        <div class="row mb-3 ">
+          <div class="col min-vh-50 d-flex">
+            <div class="border p-3 flex-grow-1">Row 1, Column 1</div>
           </div>
-          <div class="col">
-            <div class="border p-3">Row 1, Column 2</div>
+          <div class="col min-vh-50 d-flex">
+            <div class="border p-3 flex-grow-1">Row 1, Column 2</div>
           </div>
         </div>
         <div class="row">
-          <div class="col">
+          <div class="col min-vh-50 d-flex">
             <div class="border p-3">Row 2, Column 1</div>
           </div>
-          <div class="col">
+          <div class="col min-vh-50 d-flex">
             <div class="border p-3">Row 2, Column 2</div>
           </div>
         </div>
