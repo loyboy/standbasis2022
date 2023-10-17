@@ -822,7 +822,7 @@ const router = new VueRouter({
             path: '/data-analytics-sample',
             name: 'data-analytics-sample-home',
             component: () =>
-                import ('@/views/pages/data-analytics/HomePage.vue'),
+                import ('@/views/DataSample.vue'),
             meta: {
                 layout: 'full',
                 resource: 'Auth'
