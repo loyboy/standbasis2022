@@ -824,12 +824,8 @@ const router = new VueRouter({
             component: () =>
                 import ('@/views/pages/data-analytics/HomePage.vue'),
             meta: {
-                pageTitle: 'Data Analytics Dashboard',
-                breadcrumb: [{ 
-                        text: 'Manage Your School',
-                        active: true
-                    }
-                ]
+                layout: 'full',
+                resource: 'Auth'
             }
         },
 
