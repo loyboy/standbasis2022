@@ -36,6 +36,13 @@ export default [
         permission: ["evaluator"]
     },
 
+    {
+        title: 'School Data Analytics Dashboard',
+        route: 'data-analytics-home',
+        icon: 'ListIcon',
+        permission: []
+    },
+
    /* {
         title: 'Evaluation Trends',
         route: 'evaluation-trending',

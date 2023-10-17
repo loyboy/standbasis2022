@@ -124,7 +124,7 @@ export default function useLessonnoteList() {
 
   watch([currentPage, perPage, searchQuery], () => {
     refetchData()
-  })
+  }) 
 
   const fetchExportLessonnotes = (ctx) => {
     

@@ -817,6 +817,22 @@ const router = new VueRouter({
             }
         },
 
+        //Data analytics screen
+        {            
+            path: '/data-analytics-sample',
+            name: 'data-analytics-sample-home',
+            component: () =>
+                import ('@/views/pages/data-analytics/HomePage.vue'),
+            meta: {
+                pageTitle: 'Data Analytics Dashboard',
+                breadcrumb: [{ 
+                        text: 'Manage Your School',
+                        active: true
+                    }
+                ]
+            }
+        },
+
          //Parent dashboard begin here
          {
             path: '/parent',
