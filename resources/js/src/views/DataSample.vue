@@ -92,8 +92,8 @@
     },
 
     mounted(){
-        const width = 800;
-        const height = 500;
+        const width = 500;
+        const height = 300;
         const svg = d3.select("#num1").attr("width", width).attr("height", height);
         const g = svg.append("g");
 
@@ -146,7 +146,7 @@
 
         //6. Appending a path to the Chart
         g.append("path")
-        .datum(data)
+        .datum(this.chartdata)
         .attr("fill", "none")
         .attr("stroke", "steelblue")
         .attr("stroke-width", 1.5)
