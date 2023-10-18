@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-5">
+    <div class="container mt-2">
     <div class="row justify-content-center">
       <div class="col-md-12">
 
@@ -7,10 +7,9 @@
         <div class="row">
           <div class="col">
             <!-- Divider with Centralized Header -->
-            <div class="text-center">
-              <hr>
+            <div class="text-center">             
               <h2> School Standards Improvement System </h2>
-              <hr>
+              <hr/>
             </div>
           </div>
         </div>
@@ -19,7 +18,7 @@
 
           <div class="col min-vh-50 d-flex">
             <div class="border flex-grow-1 align-self-stretch"> 
-              <iframe width="550" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe> 
+              <iframe width="620" height="400" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe> 
             </div>
           </div>
 
@@ -70,7 +69,7 @@
                     </table>
                 </div>
 
-                <div class="col-4">                    
+                <div class="col-4 h-100">                    
                     <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
                       <p class="align-left">
                          <ul style=" list-style-type: square; "> 
@@ -91,9 +90,9 @@
           <div class="col">
             <!-- Divider with Centralized Header -->
             <div class="text-center">
-              <hr>
+              <hr/>
               <h2> Teacher Quality Evaluator </h2>
-              <hr>
+              <hr/>
             </div>
           </div>
         </div>
@@ -102,7 +101,7 @@
 
           <div class="col min-vh-50 d-flex align-self-stretch">
             <div class="border flex-grow-1"> 
-              <iframe width="520" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%203&wdInConfigurator=True&wdInConfigurator=True"></iframe>
+              <iframe width="620" height="400" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%203&wdInConfigurator=True&wdInConfigurator=True"></iframe>
             </div>
           </div>
 
@@ -149,7 +148,7 @@
                     </table>
                 </div>
 
-                <div class="col-4">                    
+                <div class="col-4 h-100">                    
                     <div class="rounded p-4 text-center d-flex" style="background-color: #002060; color: #fff;">
                       <p class="align-left flex-grow-1" style="line-height: 16px;">
                                             Is my teacher asset quality up to standard? <br/>  <br/>
@@ -178,10 +177,9 @@
         </div>
         <!-- Third Column -->
         <div class="row mb-3 ">
-
           <div class="col min-vh-50 d-flex">
             <div class="border flex-grow-1"> 
-              <iframe width="605" height="390" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211811&authkey=%21AG56i9iY2cmpFOM&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe>
+              <iframe width="620" height="400" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211811&authkey=%21AG56i9iY2cmpFOM&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe>
             </div>
           </div>
 
@@ -195,22 +193,22 @@
                         </tr>
                         <tr>
                             <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching Processes Compliance</td>
-                            <td style="background-color: #e9ebf5; color: black;"> 0 % </td>
+                            <td style="background-color: #e9ebf5; color: black;"> 0  </td>
                            
                         </tr>
                         <tr>
                             <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching Processes Administration</td>
-                            <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 </td>
                           
                         </tr>
                         <tr>
                             <td colspan="2" style="background-color: #cfd5ea; color: black;">Asssessment Performance</td>
-                            <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 </td>
                            
                         </tr>
                          <tr>
                             <td colspan="2" style="background-color: #cfd5ea; color: black;">Student Socio-Motor Indicators</td>
-                            <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 </td>
                            
                         </tr>
                          <tr>
@@ -227,9 +225,9 @@
                     </table>
                 </div>
 
-                <div class="col-4">                    
+                <div class="col-4 h-100">                    
                     <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
-                      <p class="align-left" style="line-height: 16px;">
+                      <p class="align-left" style="line-height: 18px;">
                                            Curriculum teaching is the core business of schools.
                                            Standards-based-operation, real-time monitoring, near real-time quality assurance administration are key. <br/>
                                            Acquire quantitative insights and dashboard management
