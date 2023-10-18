@@ -3,11 +3,12 @@
     <div class="row justify-content-center">
       <div class="col-md-12">
         <!-- First Column -->
-        <div class="row mb-3 ">
+        <div class="row mb-3">
 
           <div class="col min-vh-50 d-flex">
             <div class="border p-3 flex-grow-1"> 
-              <iframe width="550" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe> </div>
+              <iframe width="550" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe> 
+            </div>
           </div>
 
           <div class="col min-vh-50 d-flex">
@@ -67,14 +68,138 @@
           </div>
         </div>
 
-        <div class="row">
+        <div class="row mb-3 ">
+
           <div class="col min-vh-50 d-flex">
-            <div class="border p-3">Row 2, Column 1</div>
+            <div class="border p-3 flex-grow-1"> 
+              <iframe width="520" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%203&wdInConfigurator=True&wdInConfigurator=True"></iframe>
+            </div>
           </div>
+
           <div class="col min-vh-50 d-flex">
-            <div class="border p-3">Row 2, Column 2</div>
+            <div class="row"> 
+                <div class="col-8">
+                    <table>
+                        <tr>
+                            <th>Areas</th>
+                            <th>Standbasis</th>
+                            <th>School</th>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #2e75b6; color: black;">Teacher Quality Asset General (TQ GEN)</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #c55a11; color: black;">Teacher Quality Asset Premium (TQ GEN P)</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #afabab; color: black;">Teacher Quality Asset Science / General (TQ SC GEN)</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
+                        </tr>
+                         <tr>
+                            <td style="background-color: #ffc000; color: black;">Teacher Quality Asset Science / Premium (TQ SC P)</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
+                        </tr>
+                         <tr>
+                            <td style="background-color: #00b0f0; color: black;">Arts and Social Science / General (TQ A&O GEN)</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #92d050; color: black;">Arts and Social Science / Premium (TQ A&O P)</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
+                        </tr>
+                       
+                    </table>
+                </div>
+
+                <div class="col-4">                    
+                    <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
+                      <p class="align-middle">
+                                            Is my teacher asset quality up to standard? <br/>
+                                              What is my premium performance? <br/>
+                                              In which direction are they changing? <br/>
+                                              Is the change planned?
+                      </p>
+                    </div>
+                </div>
+
+            </div>
           </div>
+
         </div>
+
+        <div class="row mb-3 ">
+
+          <div class="col min-vh-50 d-flex">
+            <div class="border p-3 flex-grow-1"> 
+              <iframe width="605" height="390" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211811&authkey=%21AG56i9iY2cmpFOM&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe>
+            </div>
+          </div>
+
+          <div class="col min-vh-50 d-flex">
+            <div class="row"> 
+                <div class="col-8">
+                    <table>
+                        <tr>
+                            <th colspan="3">Live Teaching Processes Management Indicators</th>
+                            
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching Processes Compliance</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 0 % </td>
+                           
+                        </tr>
+                        <tr>
+                            <td style="background-color: #cfd5ea; color: black;">Teaching Processes Administration</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
+                          
+                        </tr>
+                        <tr>
+                            <td style="background-color: #cfd5ea; color: black;">Asssessment Performance</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
+                           
+                        </tr>
+                         <tr>
+                            <td style="background-color: #cfd5ea; color: black;">Student Socio-Motor Indicators</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
+                           
+                        </tr>
+                         <tr>
+                            <td style="background-color: #cfd5ea; color: black;">Quality assurance interventions</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
+                           
+                        </tr>
+                        <tr>
+                            <td style="background-color: #cfd5ea; color: black;">Teaching resources capacity utilization</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
+                           
+                        </tr>
+                       
+                    </table>
+                </div>
+
+                <div class="col-4">                    
+                    <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
+                      <p class="align-middle">
+                                           Curriculum teaching is the core business of schools.
+                                           Standards-based-operation, real-time monitoring, nearreal-time quality assurance administration are key. 
+                                           Acquire quantitative insights and dashboard management
+                      </p>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </div>
