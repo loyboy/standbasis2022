@@ -4,12 +4,15 @@
       <div class="col-md-12">
         <!-- First Column -->
         <div class="row mb-3 ">
+
           <div class="col min-vh-50 d-flex">
-            <div class="border p-3 flex-grow-1"> <iframe width="500" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe> </div>
+            <div class="border p-3 flex-grow-1"> 
+              <iframe width="500" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe> </div>
           </div>
+
           <div class="col min-vh-50 d-flex">
             <div class="row"> 
-                <div class="col-6">
+                <div class="col-8">
                     <table>
                         <tr>
                             <th>Areas</th>
@@ -17,25 +20,49 @@
                             <th>School</th>
                         </tr>
                         <tr>
-                            <td style="background-color: #e74c3c; color: white;">Red Area</td>
-                            <td>Value 1</td>
-                            <td>Value A</td>
+                            <td style="background-color: #2e75b6; color: black;">Teaching Processes</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td style="background-color: #f1c40f; color: white;">Yellow Area</td>
-                            <td>Value 2</td>
-                            <td>Value B</td>
+                            <td style="background-color: #c55a11; color: black;">Teacher Resource</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td style="background-color: #27ae60; color: white;">Green Area</td>
-                            <td>Value 3</td>
-                            <td>Value C</td>
+                            <td style="background-color: #afabab; color: black;">Learning Environment</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
+                        </tr>
+                         <tr>
+                            <td style="background-color: #ffc000; color: black;">Sustainability</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
+                        </tr>
+                         <tr>
+                            <td style="background-color: #00b0f0; color: black;">Student Development</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #92d050; color: black;">Academic Performance</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
+                        </tr>
+                        <tr>
+                            <td style="background-color: #1f4e79; color: black;">Safety Health Environ. Sec.</td>
+                            <td> 100 %</td>
+                            <td> 70 % </td>
                         </tr>
                     </table>
                 </div>
-                <div class="col-6">
-                    <div> School Rating and Grading of Schools in the group baed on one or more criteria </div>
+
+                <div class="col-4">                    
+                    <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
+                      <p class="align-middle">School Rating and Grading of Schools in the group based on one or more criteria</p>
+                    </div>
                 </div>
+
             </div>
           </div>
         </div>
@@ -120,71 +147,7 @@
       }
     },
 
-    mounted(){
-        const width = 500;
-        const height = 300;
-        const svg = d3.select("#num1").attr("width", width).attr("height", height);
-        const g = svg.append("g");
-
-        //2. Parse the dates
-        const parseTime = d3.timeParse("%d-%b-%y");
-
-        //3. Creating the Chart Axes
-        const x = d3
-        .scaleTime()
-        .domain(
-            d3.extent(this.chartdata, function (d) {
-            return parseTime(d.date);
-            })
-        )
-        .rangeRound([0, width]);
-
-        const y = d3
-        .scaleLinear()
-        .domain(
-            d3.extent(this.chartdata, function (d) {
-            return d.amount;
-            })
-        )
-        .rangeRound([height, 0]);
-
-        //4. Creating a Line
-        const line = d3
-        .line()
-        .x(function (d) {
-            return x(parseTime(d.date));
-        })
-        .y(function (d) {
-            return y(d.amount);
-        });
-
-        //5. Appending the Axes to the Chart
-        g.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
-
-        g.append("g")
-        .call(d3.axisLeft(y))
-        .append("text")
-        .attr("fill", "#000")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", "0.71em")
-        .attr("text-anchor", "end")
-        .text("Price ($)");    
-
-        //6. Appending a path to the Chart
-        g.append("path")
-        .datum(this.chartdata)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue")
-        .attr("stroke-width", 1.5)
-        .attr("d", line);
-    },
-
-    setup() {   
-
-     
+    setup(){  
       return { 
        
       }
@@ -219,12 +182,12 @@
   }
 
   th {
-    background-color: #3498db; /* Blue background for the first column header */
+    background-color: #002060; /* Blue background for the first column header */
     color: white; /* White text color */
   }
 
   td:nth-child(2), td:nth-child(3) {
-    background-color: #c3e6c1; /* Light green background for the second and third columns */
+    background-color: #a6e6a2; /* Light green background for the second and third columns */
     color: black; /* Black text color */
   }
   </style>
