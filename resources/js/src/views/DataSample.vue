@@ -2,11 +2,23 @@
     <div class="container mt-5">
     <div class="row justify-content-center">
       <div class="col-md-12">
+
+        <!-- Header First Column -->
+        <div class="row">
+          <div class="col">
+            <!-- Divider with Centralized Header -->
+            <div class="text-center">
+              <hr>
+              <h2> School Standards Improvement System </h2>
+              <hr>
+            </div>
+          </div>
+        </div>
         <!-- First Column -->
         <div class="row mb-3">
 
           <div class="col min-vh-50 d-flex">
-            <div class="border p-3 flex-grow-1"> 
+            <div class="border flex-grow-1 align-self-stretch"> 
               <iframe width="550" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe> 
             </div>
           </div>
@@ -60,7 +72,13 @@
 
                 <div class="col-4">                    
                     <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
-                      <p class="align-middle">School Rating and Grading of Schools in the group based on one or more criteria</p>
+                      <p class="align-left">
+                         <ul style=" list-style-type: square; "> 
+                            <li> School Evaluation  </li>
+                            <li> School Grading  </li>
+                            <li> School Improvement  </li>
+                         </ul>
+                      </p>
                     </div>
                 </div>
 
@@ -68,10 +86,22 @@
           </div>
         </div>
 
+        <!-- Header Second Column -->
+        <div class="row">
+          <div class="col">
+            <!-- Divider with Centralized Header -->
+            <div class="text-center">
+              <hr>
+              <h2> Teacher Quality Evaluator </h2>
+              <hr>
+            </div>
+          </div>
+        </div>
+        <!-- Second Column -->
         <div class="row mb-3 ">
 
-          <div class="col min-vh-50 d-flex">
-            <div class="border p-3 flex-grow-1"> 
+          <div class="col min-vh-50 d-flex align-self-stretch">
+            <div class="border flex-grow-1"> 
               <iframe width="520" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%203&wdInConfigurator=True&wdInConfigurator=True"></iframe>
             </div>
           </div>
@@ -120,11 +150,11 @@
                 </div>
 
                 <div class="col-4">                    
-                    <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
-                      <p class="align-middle">
-                                            Is my teacher asset quality up to standard? <br/>
-                                              What is my premium performance? <br/>
-                                              In which direction are they changing? <br/>
+                    <div class="rounded p-4 text-center d-flex" style="background-color: #002060; color: #fff;">
+                      <p class="align-left flex-grow-1" style="line-height: 16px;">
+                                            Is my teacher asset quality up to standard? <br/>  <br/>
+                                              What is my premium performance? <br/>  <br/>
+                                              In which direction are they changing? <br/>  <br/>
                                               Is the change planned?
                       </p>
                     </div>
@@ -135,10 +165,22 @@
 
         </div>
 
+        <!-- Header Second Column -->
+        <div class="row">
+          <div class="col">
+            <!-- Divider with Centralized Header -->
+            <div class="text-center">
+              <hr>
+              <h2> Teacher Quality Evaluator </h2>
+              <hr>
+            </div>
+          </div>
+        </div>
+        <!-- Third Column -->
         <div class="row mb-3 ">
 
           <div class="col min-vh-50 d-flex">
-            <div class="border p-3 flex-grow-1"> 
+            <div class="border flex-grow-1"> 
               <iframe width="605" height="390" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211811&authkey=%21AG56i9iY2cmpFOM&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe>
             </div>
           </div>
@@ -157,28 +199,28 @@
                            
                         </tr>
                         <tr>
-                            <td style="background-color: #cfd5ea; color: black;">Teaching Processes Administration</td>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching Processes Administration</td>
                             <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
                           
                         </tr>
                         <tr>
-                            <td style="background-color: #cfd5ea; color: black;">Asssessment Performance</td>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Asssessment Performance</td>
                             <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
                            
                         </tr>
                          <tr>
-                            <td style="background-color: #cfd5ea; color: black;">Student Socio-Motor Indicators</td>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Student Socio-Motor Indicators</td>
                             <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
                            
                         </tr>
                          <tr>
-                            <td style="background-color: #cfd5ea; color: black;">Quality assurance interventions</td>
-                            <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Quality assurance interventions</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 </td>
                            
                         </tr>
                         <tr>
-                            <td style="background-color: #cfd5ea; color: black;">Teaching resources capacity utilization</td>
-                            <td style="background-color: #e9ebf5; color: black;"> 100 %</td>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching resources capacity utilization</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 </td>
                            
                         </tr>
                        
@@ -187,9 +229,9 @@
 
                 <div class="col-4">                    
                     <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
-                      <p class="align-middle">
+                      <p class="align-left" style="line-height: 16px;">
                                            Curriculum teaching is the core business of schools.
-                                           Standards-based-operation, real-time monitoring, nearreal-time quality assurance administration are key. 
+                                           Standards-based-operation, real-time monitoring, near real-time quality assurance administration are key. <br/>
                                            Acquire quantitative insights and dashboard management
                       </p>
                     </div>
@@ -297,14 +339,15 @@
   table {
     width: 100%;
     border-collapse: separate;
-    border-spacing: 10px; /* Adjust this for spacing */
+    
+    border-spacing: 5px; /* Adjust this for spacing */
     border: 1px solid white; /* White border */
   }
 
   th, td {
     padding: 10px;
     text-align: center;
-  }
+  }                
 
   th {
     background-color: #002060; /* Blue background for the first column header */
