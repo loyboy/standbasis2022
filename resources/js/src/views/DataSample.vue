@@ -27,43 +27,43 @@
                 <div class="col-8">
                     <table>
                         <tr>
-                            <th>Areas</th>
-                            <th>Standbasis</th>
+                            <th colspan="2">Areas</th>
+                            
                             <th>School</th>
                         </tr>
                         <tr>
-                            <td style="background-color: #2e75b6; color: black;">Teaching Processes</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #2e75b6; color: black;">Teaching Processes</td>
+                         
                             <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td style="background-color: #c55a11; color: black;">Teacher Resource</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #c55a11; color: black;">Teacher Resource</td>
+                            
                             <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td style="background-color: #afabab; color: black;">Learning Environment</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #afabab; color: black;">Learning Environment</td>
+                           
                             <td> 70 % </td>
                         </tr>
                          <tr>
-                            <td style="background-color: #ffc000; color: black;">Sustainability</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #ffc000; color: black;">Sustainability</td>
+                           
                             <td> 70 % </td>
                         </tr>
                          <tr>
-                            <td style="background-color: #00b0f0; color: black;">Student Development</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #00b0f0; color: black;">Student Development</td>
+                           
                             <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td style="background-color: #92d050; color: black;">Academic Performance</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #92d050; color: black;">Academic Performance</td>
+                            
                             <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td style="background-color: #1f4e79; color: black;">Safety Health Environ. Sec.</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #1f4e79; color: black;">Safety Health Environ. Sec.</td>
+                           
                             <td> 70 % </td>
                         </tr>
                     </table>
@@ -170,7 +170,7 @@
             <!-- Divider with Centralized Header -->
             <div class="text-center">
               <hr>
-              <h2> Teacher Quality Evaluator </h2>
+              <h2> Curriculum Teaching Processes Management </h2>
               <hr>
             </div>
           </div>
