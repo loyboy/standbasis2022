@@ -239,6 +239,161 @@
 
         </div>
 
+        <!-- Header Third Column -->
+        <div class="row">
+          <div class="col">
+            <!-- Divider with Centralized Header -->
+            <div class="text-center">
+              <hr>
+              <h2> Curriculum Teaching Processes Management </h2>
+              <hr>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Third Column -->
+        <div class="row mb-3 ">
+          
+          <div class="col min-vh-50 d-flex">
+            <div class="border flex-grow-1"> 
+              <iframe width="620" height="400" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211811&authkey=%21AG56i9iY2cmpFOM&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe>
+            </div>
+          </div>
+
+          <div class="col min-vh-50 d-flex">
+            <div class="row"> 
+                <div class="col-8">
+                    <table>
+                        <tr>
+                            <th colspan="3">Live Teaching Processes Management Indicators</th>
+                            
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching Processes Compliance</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 0  </td>
+                           
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching Processes Administration</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 </td>
+                          
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Asssessment Performance</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 </td>
+                           
+                        </tr>
+                         <tr>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Student Socio-Motor Indicators</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 </td>
+                           
+                        </tr>
+                         <tr>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Quality assurance interventions</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 </td>
+                           
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching resources capacity utilization</td>
+                            <td style="background-color: #e9ebf5; color: black;"> 100 </td>
+                           
+                        </tr>
+                       
+                    </table>
+                </div>
+
+                <div class="col-4 h-100">                    
+                    <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
+                      <p class="align-left" style="line-height: 18px;">
+                                           Curriculum teaching is the core business of schools.
+                                           Standards-based-operation, real-time monitoring, near real-time quality assurance administration are key. <br/>
+                                           Acquire quantitative insights and dashboard management
+                      </p>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+
+        </div>
+
+         <!-- Header Fourth Column -->
+        <div class="row">
+          <div class="col">
+            <!-- Divider with Centralized Header -->
+            <div class="text-center">
+              <hr>
+              <h2> Academic Performance </h2>
+              <hr>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Fourth Column -->
+        <div class="row mb-3 ">
+          
+          <div class="col min-vh-50 d-flex">
+            <div class="border flex-grow-1">
+              <iframe width="620" height="400" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRK6k8lAzX4wKmc_ZnfTb-Y3BJU9d3cMS7OSTm43QDa0vNF1gAIqrD7ssqKOJKyu0xnxCLW-IgDsPJ/pubchart?oid=542621565&amp;format=image"></iframe>
+            </div>
+          </div>
+
+          <div class="col min-vh-50 d-flex">
+            <div class="row"> 
+                <div class="col-8">
+                    <table>
+                        <tr>
+                            <th colspan="3"></th>
+                            <th>Term 1</th>
+                            <th>Term 2</th>
+                            <th>Term 3</th>
+                            <th>WAEC</th>                            
+                        </tr>
+                        <tr>
+                            <td style="background-color: #cfd5ea; color: black;">School</td>
+                            <td style="background-color: #cfd5ea; color: black;"> Grade "A"  </td>
+                            <td style="background-color: #cfd5ea; color: black;"> Grade "A"  </td>
+                            <td style="background-color: #cfd5ea; color: black;"> Grade "C"  </td>
+                            <td style="background-color: #cfd5ea; color: black;"> Grade "A"  </td>                           
+                        </tr>
+                        <tr>
+                            <td style="background-color: #cfd5ea; color: black;">Transition Index</td>
+                            <td style="background-color: #cfd5ea; color: black;"> 0.75  </td>
+                            <td style="background-color: #cfd5ea; color: black;"> 0.8  </td>
+                            <td style="background-color: #cfd5ea; color: black;"> 0.8  </td>
+                            <td style="background-color: #cfd5ea; color: black;"> 0.95 </td>  
+                          
+                        </tr>
+                        <tr>
+                            <td style="background-color: #cfd5ea; color: black;">Drag Index</td>
+                            <td style="background-color: #cfd5ea; color: black;"> 0.08  </td>
+                            <td style="background-color: #cfd5ea; color: black;"> 0.06  </td>
+                            <td style="background-color: #cfd5ea; color: black;"> 0.04  </td>
+                            <td style="background-color: #cfd5ea; color: black;"> 0.06 </td>  
+                          
+                        </tr>
+                       
+                    </table>
+                </div>
+
+                <div class="col-4 h-100">                    
+                    <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
+                      <p class="align-left" style="line-height: 18px;">
+                                      <ul>
+                                          <li> Track your school’s academic performance every term and session. </li>
+                                          <li> Track the gap between internal and external examination performance yearly. </li>
+                                          <li> Flaunt your improved or sustained academic grade to parents. </li>
+                                          <li>  Watch for Hints of decline or ominous gap between internal and external performance. </li>
+                                      </ul>
+                      </p>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </div>
