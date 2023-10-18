@@ -27,43 +27,43 @@
                 <div class="col-8">
                     <table>
                         <tr>
-                            <th colspan="2">Areas</th>
-                            
+                            <th>Areas</th>
+                            <th>Standbasis</th>
                             <th>School</th>
                         </tr>
                         <tr>
-                            <td colspan="2" style="background-color: #2e75b6; color: black;">Teaching Processes</td>
-                         
+                            <td style="background-color: #2e75b6; color: black;">Teaching Processes</td>
+                            <td> 100 %</td>
                             <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="background-color: #c55a11; color: black;">Teacher Resource</td>
-                            
+                            <td style="background-color: #c55a11; color: black;">Teacher Resource</td>
+                            <td> 100 %</td>
                             <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="background-color: #afabab; color: black;">Learning Environment</td>
-                           
+                            <td style="background-color: #afabab; color: black;">Learning Environment</td>
+                            <td> 100 %</td>
                             <td> 70 % </td>
                         </tr>
                          <tr>
-                            <td colspan="2" style="background-color: #ffc000; color: black;">Sustainability</td>
-                           
+                            <td style="background-color: #ffc000; color: black;">Sustainability</td>
+                            <td> 100 %</td>
                             <td> 70 % </td>
                         </tr>
                          <tr>
-                            <td colspan="2" style="background-color: #00b0f0; color: black;">Student Development</td>
-                           
+                            <td style="background-color: #00b0f0; color: black;">Student Development</td>
+                            <td> 100 %</td>
                             <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="background-color: #92d050; color: black;">Academic Performance</td>
-                            
+                            <td style="background-color: #92d050; color: black;">Academic Performance</td>
+                            <td> 100 %</td>
                             <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td colspan="2" style="background-color: #1f4e79; color: black;">Safety Health Environ. Sec.</td>
-                           
+                            <td style="background-color: #1f4e79; color: black;">Safety Health Environ. Sec.</td>
+                            <td> 100 %</td>
                             <td> 70 % </td>
                         </tr>
                     </table>
@@ -110,38 +110,37 @@
                 <div class="col-8">
                     <table>
                         <tr>
-                            <th>Areas</th>
-                            <th>Standbasis</th>
-                            <th>School</th>
+                            <th colspan="2" >Areas</th>                            
+                            <th>Quality</th>
                         </tr>
                         <tr>
-                            <td style="background-color: #2e75b6; color: black;">Teacher Quality Asset General (TQ GEN)</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #2e75b6; color: black;">Teacher Quality Asset General (TQ GEN)</td>
+                            
                             <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td style="background-color: #c55a11; color: black;">Teacher Quality Asset Premium (TQ GEN P)</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #c55a11; color: black;">Teacher Quality Asset Premium (TQ GEN P)</td>
+                            
                             <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td style="background-color: #afabab; color: black;">Teacher Quality Asset Science / General (TQ SC GEN)</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #afabab; color: black;">Teacher Quality Asset Science / General (TQ SC GEN)</td>
+                            
                             <td> 70 % </td>
                         </tr>
                          <tr>
-                            <td style="background-color: #ffc000; color: black;">Teacher Quality Asset Science / Premium (TQ SC P)</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #ffc000; color: black;">Teacher Quality Asset Science / Premium (TQ SC P)</td>
+                            
                             <td> 70 % </td>
                         </tr>
                          <tr>
-                            <td style="background-color: #00b0f0; color: black;">Arts and Social Science / General (TQ A&O GEN)</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #00b0f0; color: black;">Arts and Social Science / General (TQ A&O GEN)</td>
+                            
                             <td> 70 % </td>
                         </tr>
                         <tr>
-                            <td style="background-color: #92d050; color: black;">Arts and Social Science / Premium (TQ A&O P)</td>
-                            <td> 100 %</td>
+                            <td colspan="2" style="background-color: #92d050; color: black;">Arts and Social Science / Premium (TQ A&O P)</td>
+                            
                             <td> 70 % </td>
                         </tr>
                        
