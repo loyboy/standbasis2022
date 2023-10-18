@@ -343,7 +343,7 @@
                 <div class="col-8">
                     <table>
                         <tr>
-                            <th colspan="3"></th>
+                            <th> &nbsp;&nbsp;&nbsp;&nbsp;</th>
                             <th>Term 1</th>
                             <th>Term 2</th>
                             <th>Term 3</th>
