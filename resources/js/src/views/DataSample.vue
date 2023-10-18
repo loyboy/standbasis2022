@@ -7,7 +7,7 @@
 
           <div class="col min-vh-50 d-flex">
             <div class="border p-3 flex-grow-1"> 
-              <iframe width="500" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe> </div>
+              <iframe width="550" height="350" frameborder="0" scrolling="no" src="https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True"></iframe> </div>
           </div>
 
           <div class="col min-vh-50 d-flex">
