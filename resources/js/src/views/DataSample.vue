@@ -74,8 +74,11 @@
                       <p class="text-left" style="font-size: 11px;">
                          <ul style=" list-style-type: square; "> 
                             <li> School Evaluation  </li>
+                            <li> School Rating  </li>
                             <li> School Grading  </li>
-                            <li> School Improvement  </li>
+                            <li> Budget Planning  </li>
+                            <li> Impact Evaluation  </li>
+                            <li> Marketing Pitch  </li>
                          </ul>
                       </p>
                     </div>
