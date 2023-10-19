@@ -34,37 +34,37 @@
                         <tr>
                             <td style="background-color: #2e75b6; color: black;">Teaching Processes</td>
                             <td> 98 %</td>
-                            <td> 70 ? </td>
+                            <td> GR ? </td>
                         </tr>
                         <tr>
                             <td style="background-color: #c55a11; color: black;">Teacher Resource</td>
                             <td> 75 %</td>
-                            <td> 70 ? </td>
+                            <td> GR ? </td>
                         </tr>
                         <tr>
                             <td style="background-color: #afabab; color: black;">Learning Environment</td>
                             <td> 80 %</td>
-                            <td> 70 ?  </td>
+                            <td> GR ?  </td>
                         </tr>
                          <tr>
                             <td style="background-color: #ffc000; color: black;">Sustainability</td>
                             <td> 54 %</td>
-                            <td> 70 ?</td>
+                            <td> GR ?</td>
                         </tr>
                          <tr>
                             <td style="background-color: #00b0f0; color: black;">Student Development</td>
                             <td> 64 %</td>
-                            <td> 70 ? </td>
+                            <td> GR ? </td>
                         </tr>
                         <tr>
                             <td style="background-color: #92d050; color: black;">Academic Performance</td>
                             <td> 82 %</td>
-                            <td> 70 ? </td>
+                            <td> GR ? </td>
                         </tr>
                         <tr>
                             <td style="background-color: #1f4e79; color: black;">Safety Health Environ. Sec.</td>
                             <td> 68 %</td>
-                            <td> 70 ? </td>
+                            <td> GR ? </td>
                         </tr>
                     </table>
                 </div>
