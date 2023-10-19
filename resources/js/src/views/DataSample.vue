@@ -33,45 +33,45 @@
                         </tr>
                         <tr>
                             <td style="background-color: #2e75b6; color: black;">Teaching Processes</td>
-                            <td> 100 %</td>
-                            <td> 70 % </td>
+                            <td> 98 %</td>
+                            <td> 70 ? </td>
                         </tr>
                         <tr>
                             <td style="background-color: #c55a11; color: black;">Teacher Resource</td>
-                            <td> 100 %</td>
-                            <td> 70 % </td>
+                            <td> 75 %</td>
+                            <td> 70 ? </td>
                         </tr>
                         <tr>
                             <td style="background-color: #afabab; color: black;">Learning Environment</td>
-                            <td> 100 %</td>
-                            <td> 70 % </td>
+                            <td> 80 %</td>
+                            <td> 70 ?  </td>
                         </tr>
                          <tr>
                             <td style="background-color: #ffc000; color: black;">Sustainability</td>
-                            <td> 100 %</td>
-                            <td> 70 % </td>
+                            <td> 54 %</td>
+                            <td> 70 ?</td>
                         </tr>
                          <tr>
                             <td style="background-color: #00b0f0; color: black;">Student Development</td>
-                            <td> 100 %</td>
-                            <td> 70 % </td>
+                            <td> 64 %</td>
+                            <td> 70 ? </td>
                         </tr>
                         <tr>
                             <td style="background-color: #92d050; color: black;">Academic Performance</td>
-                            <td> 100 %</td>
-                            <td> 70 % </td>
+                            <td> 82 %</td>
+                            <td> 70 ? </td>
                         </tr>
                         <tr>
                             <td style="background-color: #1f4e79; color: black;">Safety Health Environ. Sec.</td>
-                            <td> 100 %</td>
-                            <td> 70 % </td>
+                            <td> 68 %</td>
+                            <td> 70 ? </td>
                         </tr>
                     </table>
                 </div>
 
                 <div class="col-4 h-100">                    
                     <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
-                      <p class="align-left">
+                      <p class="text-left">
                          <ul style=" list-style-type: square; "> 
                             <li> School Evaluation  </li>
                             <li> School Grading  </li>
@@ -149,7 +149,7 @@
 
                 <div class="col-4 h-100">                    
                     <div class="rounded p-4 text-center d-flex" style="background-color: #002060; color: #fff;">
-                      <p class="align-left flex-grow-1" style="line-height: 16px;">
+                      <p class="text-left flex-grow-1" style="line-height: 16px;">
                                             Is my teacher asset quality up to standard? <br/>  <br/>
                                               What is my premium performance? <br/>  <br/>
                                               In which direction are they changing? <br/>  <br/>
@@ -226,7 +226,7 @@
 
                 <div class="col-4 h-100">                    
                     <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
-                      <p class="align-left" style="line-height: 18px;">
+                      <p class="text-left" style="line-height: 18px;">
                                            Curriculum teaching is the core business of schools.
                                            Standards-based-operation, real-time monitoring, near real-time quality assurance administration are key. <br/>
                                            Acquire quantitative insights and dashboard management
@@ -256,7 +256,7 @@
           
           <div class="col min-vh-50 d-flex">
             <div class="border flex-grow-1">
-              <iframe width="620" height="400" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRK6k8lAzX4wKmc_ZnfTb-Y3BJU9d3cMS7OSTm43QDa0vNF1gAIqrD7ssqKOJKyu0xnxCLW-IgDsPJ/pubchart?oid=542621565&amp;format=image"></iframe>
+                <iframe width="620" height="400" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRK6k8lAzX4wKmc_ZnfTb-Y3BJU9d3cMS7OSTm43QDa0vNF1gAIqrD7ssqKOJKyu0xnxCLW-IgDsPJ/pubchart?oid=542621565&amp;format=interactive"></iframe>
             </div>
           </div>
 
@@ -300,7 +300,7 @@
 
                 <div class="col-4 h-100">                    
                     <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
-                      <p class="align-left" style="line-height: 18px;">
+                      <p class="text-left" style="line-height: 18px;">
                                       <ul>
                                           <li> Track your school’s academic performance every term and session. </li>
                                           <li> Track the gap between internal and external examination performance yearly. </li>
