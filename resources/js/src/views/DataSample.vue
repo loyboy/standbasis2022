@@ -5,6 +5,17 @@
 
         <!-- Header First Column -->
         <div class="row">
+          <div class="col mb-4">
+            <!-- Divider with Centralized Header -->
+            <div class="text-left">             
+              <h2> <b> Standbasis Sample School </b> </h2>
+              <hr/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header First Column -->
+        <div class="row">
           <div class="col">
             <!-- Divider with Centralized Header -->
             <div class="text-center">             
