@@ -22,7 +22,7 @@
             </div>
           </div>
 
-          <div class="col min-vh-50 d-flex">
+          <div class="col min-vh-50">
             <div class="row"> 
                 <div class="col-8">
                     <table>
@@ -70,8 +70,8 @@
                 </div>
 
                 <div class="col-4 h-100">                    
-                    <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
-                      <p class="text-left">
+                    <div class="rounded p-2 text-left" style="background-color: #002060; color: #fff;">
+                      <p class="text-left" style="font-size: 11px;">
                          <ul style=" list-style-type: square; "> 
                             <li> School Evaluation  </li>
                             <li> School Grading  </li>
@@ -105,7 +105,7 @@
             </div>
           </div>
 
-          <div class="col min-vh-50 d-flex">
+          <div class="col min-vh-50">
             <div class="row"> 
                 <div class="col-8">
                     <table>
@@ -148,8 +148,8 @@
                 </div>
 
                 <div class="col-4 h-100">                    
-                    <div class="rounded p-4 text-center d-flex" style="background-color: #002060; color: #fff;">
-                      <p class="text-left flex-grow-1" style="line-height: 16px;">
+                    <div class="rounded p-2 text-left" style="background-color: #002060; color: #fff;">
+                      <p class="text-left" style="line-height: 16px; font-size: 11px;">
                                             Is my teacher asset quality up to standard? <br/>  <br/>
                                               What is my premium performance? <br/>  <br/>
                                               In which direction are they changing? <br/>  <br/>
@@ -182,7 +182,7 @@
             </div>
           </div>
 
-          <div class="col min-vh-50 d-flex">
+          <div class="col min-vh-50">
             <div class="row"> 
                 <div class="col-8">
                     <table>
@@ -225,8 +225,8 @@
                 </div>
 
                 <div class="col-4 h-100">                    
-                    <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
-                      <p class="text-left" style="line-height: 18px;">
+                    <div class="rounded p-2 text-left" style="background-color: #002060; color: #fff;">
+                      <p class="text-left" style="line-height: 20px; font-size: 11px;">
                                            Curriculum teaching is the core business of schools.
                                            Standards-based-operation, real-time monitoring, near real-time quality assurance administration are key. <br/>
                                            Acquire quantitative insights and dashboard management
@@ -260,7 +260,7 @@
             </div>
           </div>
 
-          <div class="col min-vh-50 d-flex">
+          <div class="col min-vh-50">
             <div class="row"> 
                 <div class="col-8">
                     <table>
@@ -299,8 +299,8 @@
                 </div>
 
                 <div class="col-4 h-100">                    
-                    <div class="rounded p-4 text-center" style="background-color: #002060; color: #fff;">
-                      <p class="text-left" style="line-height: 18px;">
+                    <div class="rounded p-2 text-left" style="background-color: #002060; color: #fff;">
+                      <p class="text-left" style="line-height: 18px; font-size: 11px;">
                                       <ul>
                                           <li> Track your school’s academic performance every term and session. </li>
                                           <li> Track the gap between internal and external examination performance yearly. </li>
