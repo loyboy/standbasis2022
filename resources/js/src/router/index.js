@@ -829,6 +829,22 @@ const router = new VueRouter({
             }
         },
 
+        //
+        {            
+            path: '/data-analytics-user',
+            name: 'data-analytics-user-home',
+            component: () =>
+                import ('@/views/pages/data-analytics-user/User.vue'),
+            meta: {
+                    pageTitle: 'Data Analytics',
+                    breadcrumb: [{
+                            text: 'Data Analytics',
+                            active: true
+                        }
+                    ]
+            }
+        },
+
          //Parent dashboard begin here
          {
             path: '/parent',
