@@ -436,6 +436,7 @@
       const Dashboard_APP_STORE_MODULE_NAME = 'app-dashboard';
    
       const { baseURL } = $themeConfig.app; 
+      const userData = ref({});
 
       // Register module
       if (!store.hasModule(Dashboard_APP_STORE_MODULE_NAME)) store.registerModule(Dashboard_APP_STORE_MODULE_NAME, analyticsStoreModule )
