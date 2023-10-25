@@ -1,7 +1,7 @@
 <template>
     <div>         
 
-      <div class="row" v-if=" takeAttendance === true "> 
+      <div class="row"> 
         <b-col lg="12" sm="12">
 
           <div class="row justify-content-center">
