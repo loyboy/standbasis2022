@@ -38,13 +38,6 @@ export default [
 
     {
         title: 'School Data Analytics Dashboard',
-        route: 'data-analytics-home',
-        icon: 'ListIcon',
-        permission: []
-    },
-
-    {
-        title: 'School Data Analytics Dashboard',
         route: 'data-analytics-user-home',
         icon: 'ListIcon',
         permission: [ "dashboarduser" ]
