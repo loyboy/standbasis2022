@@ -9,7 +9,7 @@
 
             <!-- Header First Column -->
             <div class="row">
-              <div class="col mb-4">
+              <div class="col mt-2 mb-4">
                 <!-- Divider with Centralized Header -->
                 <div class="text-left">             
                   <h2> <b> {{ userData.schName }} </b> </h2>
@@ -35,7 +35,7 @@
               <div class="col min-vh-50 d-flex">
                 <div class="border flex-grow-1 align-self-stretch"> 
                   <!-- https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True -->
-                  <iframe width="620" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"></iframe> 
+                  <iframe width="550" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"></iframe> 
                 </div>
               </div>
 
@@ -121,7 +121,7 @@
 
               <div class="col min-vh-50 d-flex align-self-stretch">
                 <div class="border flex-grow-1"> 
-                    <iframe width="620" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"></iframe>
+                    <iframe width="550" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"></iframe>
                 </div>
               </div>
 
@@ -198,7 +198,7 @@
             <div class="row mb-3 ">
               <div class="col min-vh-50 d-flex">
                 <div class="border flex-grow-1"> 
-                    <iframe width="620" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"> </iframe>
+                    <iframe width="550" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"> </iframe>
                 </div>
               </div>
 
@@ -277,7 +277,7 @@
               <div class="col min-vh-50 d-flex">
                 <div class="border flex-grow-1">
                   <!-- <iframe width="620" height="400" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRK6k8lAzX4wKmc_ZnfTb-Y3BJU9d3cMS7OSTm43QDa0vNF1gAIqrD7ssqKOJKyu0xnxCLW-IgDsPJ/pubchart?oid=542621565&amp;format=interactive"></iframe>-->
-                    <iframe width="620" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"> </iframe>
+                    <iframe width="550" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"> </iframe>
                 </div>
               </div>
 
@@ -516,5 +516,28 @@
   
   <style lang="scss">
   @import '~@core/scss/vue/libs/vue-select.scss';
+  /* CSS to style the table */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    
+    border-spacing: 5px; /* Adjust this for spacing */
+    border: 1px solid white; /* White border */
+  }
+
+  th, td {
+    padding: 10px;
+    text-align: center;
+  }                
+
+  th {
+    background-color: #002060; /* Blue background for the first column header */
+    color: white; /* White text color */
+  }
+
+  td:nth-child(2), td:nth-child(3) {
+    background-color: #a6e6a2; /* Light green background for the second and third columns */
+    color: black; /* Black text color */
+  }
   </style>
   
