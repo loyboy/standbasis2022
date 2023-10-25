@@ -464,8 +464,7 @@
         standardItem,
         teacherItem,
         curriculumItem,
-        academicItem,
-        userData
+        academicItem
 
       } = useUserList();
 
