@@ -470,7 +470,7 @@
 
       if( findIfDashisPresent ){
           
-          filters.value.schoolId = findIfDashisPresent && userData.value ? userData.value.school.schId : null;
+          filters.value.schoolId = findIfDashisPresent && userData.value ? userData.value.schId : null;
           
       }
 
