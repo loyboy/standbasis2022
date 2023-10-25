@@ -12,7 +12,7 @@
               <div class="col mb-4">
                 <!-- Divider with Centralized Header -->
                 <div class="text-left">             
-                  <h2> <b> {{ userData.school.name }} </b> </h2>
+                  <h2> <b> {{ userData.schName }} </b> </h2>
                   <hr/>
                 </div>
               </div>
