@@ -121,7 +121,7 @@
 
               <div class="col min-vh-50 d-flex align-self-stretch">
                 <div class="border flex-grow-1"> 
-                    <iframe width="550" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"></iframe>
+                    <iframe width="550" height="400" frameborder="0" scrolling="no" :src="teacherItem.graph_link"></iframe>
                 </div>
               </div>
 
@@ -198,7 +198,7 @@
             <div class="row mb-3 ">
               <div class="col min-vh-50 d-flex">
                 <div class="border flex-grow-1"> 
-                    <iframe width="550" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"> </iframe>
+                    <iframe width="550" height="400" frameborder="0" scrolling="no" :src="curriculumItem.graph_link"> </iframe>
                 </div>
               </div>
 
@@ -277,7 +277,7 @@
               <div class="col min-vh-50 d-flex">
                 <div class="border flex-grow-1">
                   <!-- <iframe width="620" height="400" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRK6k8lAzX4wKmc_ZnfTb-Y3BJU9d3cMS7OSTm43QDa0vNF1gAIqrD7ssqKOJKyu0xnxCLW-IgDsPJ/pubchart?oid=542621565&amp;format=interactive"></iframe>-->
-                    <iframe width="550" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"> </iframe>
+                    <iframe width="550" height="400" frameborder="0" scrolling="no" :src="academicItem.graph_link"> </iframe>
                 </div>
               </div>
 
