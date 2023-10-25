@@ -836,12 +836,8 @@ const router = new VueRouter({
             component: () =>
                 import ('@/views/pages/data-analytics-user/User.vue'),
             meta: {
-                    pageTitle: 'Data Analytics',
-                    breadcrumb: [{
-                            text: 'Data Analytics',
-                            active: true
-                        }
-                    ]
+                    pageTitle: 'Data Dashboard',
+                    breadcrumb: []
             }
         },
 
