@@ -139,11 +139,7 @@
           </b-form>
         </validation-observer>
 
-        <p class="text-center mt-2">
-          <b-link :to="{name:'auth-login'}">
-            <feather-icon icon="ChevronLeftIcon" /> Back to login
-          </b-link>
-        </p>
+       
 
       </b-card>
     <!-- /Reset Password v1 -->
