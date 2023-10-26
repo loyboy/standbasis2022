@@ -35,7 +35,7 @@
             <b-form-group>
                <div class="d-flex justify-content-between">
                   <label for="password">Password</label>
-                  <b-link :to="{name:'auth-forgot-password-v1'}">
+                  <b-link :to="{name:'auth-forgot-password'}">
                     <small>Forgot Password?</small>
                   </b-link>
                </div>
@@ -139,8 +139,8 @@ export default {
   data() {
     return {
       status: "",
-      password: "test_standbasis",
-      username: 'user_standbasis',
+      password: "",
+      username: '',
       sideImg: require("@/assets/images/pages/login-v2.svg"),
       // validation rulesimport store from '@/store/index'
       required,
@@ -167,7 +167,7 @@ export default {
           axios
             .post( this.baseURL + "/auth/signin", user)
             .then(async function (response) {
-                console.log("Response here : " + JSON.stringify(response))
+               // console.log("Response here : " + JSON.stringify(response))
                 let res = response.data;
                 if (res.access_token) {
                     try {

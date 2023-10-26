@@ -884,6 +884,18 @@ const router = new VueRouter({
                 redirectIfLoggedIn: true,
             },
         },
+
+        {
+            path: '/change-password',
+            name: 'auth-forgot-password',
+            component: () =>
+                import ('@/views/ResetPassword.vue'),
+            meta: {
+                layout: 'full',
+                resource: 'Auth',
+                redirectIfLoggedIn: true,
+            },
+        },
       
         {
             path: '/verified',
@@ -895,6 +907,7 @@ const router = new VueRouter({
                 resource: 'Auth',
             },
         },
+        
         {
             path: '/not-authorized',
             name: 'misc-not-authorized',

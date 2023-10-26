@@ -64,6 +64,17 @@
 
         <b-dropdown-divider />
 
+        <b-dropdown-item link-class="d-flex align-items-center" :to="{ name: 'auth-forgot-password'}">
+          <feather-icon
+            size="16"
+            icon="HashIcon"
+            class="mr-50"
+          />
+          <span>Change Password</span>
+        </b-dropdown-item>
+
+        <b-dropdown-divider />
+
         <b-dropdown-item link-class="d-flex align-items-center"  @click="logout">
           <feather-icon
             size="16"
