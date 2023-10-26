@@ -233,9 +233,10 @@ export default {
             .post( this.baseURL + "/auth/changePassword", user)
             .then(async function (response) {
                 let res = response.data;
+                console.log("Result : " + JSON.stringify(res) )
                 //success
                 if (res.success){
-                     this.$toast({
+                     sef.$toast({
                         component: ToastificationContent,
                         position: "top-right",
                         props: {
