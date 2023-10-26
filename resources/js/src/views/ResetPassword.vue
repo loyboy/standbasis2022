@@ -28,15 +28,6 @@
             @submit.prevent="validationForm"
           >
 
-            <!-- username -->
-            <b-form-group label-for="username" label="Username">
-              <validation-provider #default="{ errors }" name="Username" rules="required">
-                <b-form-input id="username" v-model="username" name="login-username" :state="errors.length > 0 ? false:null"
-                  placeholder="Enter the username you created." autofocus />
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
-
            <!-- Old password -->
             <b-form-group
               label="Old Password"
@@ -180,6 +171,7 @@ import axios from "axios";
 import { required } from '@validations'
 import { $themeConfig } from "@themeConfig";
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
 
 export default {
   components: {
@@ -212,6 +204,9 @@ export default {
       password1FieldType: 'password',
       password2FieldType: 'password',
     }
+  },
+  mounted(){
+    this.username = this.userData.username;
   },
   computed: {
     password1ToggleIcon() {
@@ -275,9 +270,15 @@ export default {
   },
   setup(_, { emit }) {    
     const { baseURL } = $themeConfig.app;
+    const userData = ref({});
+    const storedItems = JSON.parse(localStorage.getItem('userData'));
+    if (storedItems){
+        userData.value = storedItems;
+    }
 
     return {    
-        baseURL
+        baseURL,
+        userData
     }
   }
 }

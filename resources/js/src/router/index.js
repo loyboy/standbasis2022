@@ -891,9 +891,7 @@ const router = new VueRouter({
             component: () =>
                 import ('@/views/ResetPassword.vue'),
             meta: {
-                layout: 'full',
-                resource: 'Auth',
-                redirectIfLoggedIn: true,
+                pageTitle: 'Change Password'
             },
         },
       
