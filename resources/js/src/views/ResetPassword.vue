@@ -66,7 +66,7 @@
                 #default="{ errors }"
                 name="Password"
                 vid="Password"
-                rules="required|password"
+                rules="required"
               >
                 <b-input-group
                   class="input-group-merge"
