@@ -168,6 +168,8 @@ import { required } from '@validations'
 import { $themeConfig } from "@themeConfig";
 import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
+import useJwt from '@/auth/jwt/useJwt'
+import { initialAbility } from '@/libs/acl/config'
 
 export default {
   components: {
@@ -244,7 +246,8 @@ export default {
                         icon: 'EditIcon',
                         variant: 'success',
                         },
-                    })
+                    });
+                    sef.logout();
                 }
             })
             .catch((error) => {
@@ -264,6 +267,21 @@ export default {
         }
       })
     },
+    logout() {
+      // Remove userData from localStorage
+      // ? You just removed token from localStorage. If you like, you can also make API call to backend to blacklist used token
+      localStorage.removeItem(useJwt.jwtConfig.storageTokenKeyName)
+      localStorage.removeItem(useJwt.jwtConfig.storageRefreshTokenKeyName)
+
+      // Remove userData from localStorage
+      localStorage.removeItem('userData')
+
+      // Reset ability
+      this.$ability.update(initialAbility)
+
+      // Redirect to login page
+      this.$router.push({ name: 'auth-login' })
+    }
   },
   setup(_, { emit }) {    
     const { baseURL } = $themeConfig.app;
