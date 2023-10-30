@@ -3,7 +3,7 @@ import store from '@/store'
 
 // Notification
 import { useToast } from 'vue-toastification/composition'
-import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+//import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
 export default function useSchoolList( Owner = null ) {
   // Use toast
@@ -19,10 +19,23 @@ export default function useSchoolList( Owner = null ) {
     {
       key: 'gender',
       label: 'Gender of Students',
+      sortable: true
+    },
+
+    {
+      key: 'passwordchange',
+      label: 'Dashboard Password',
+      sortable: true,
+    },
+
+    {
+      key: 'dashboarduser',
+      label: 'Is DashboardUser?',
       sortable: true,
     },
     
     { key: 'status', label: 'School Status',  sortable: true },
+
     { key: 'actions' },
   ]
   const perPage = ref(10)
@@ -64,26 +77,25 @@ export default function useSchoolList( Owner = null ) {
         q: searchQuery.value,
         owner: Owner ? Owner : filters.value.schoolgroup
       })
-      .then(response => {
+      .then(async response => {
         const { schools, totalItems, totalSecondary, totalPrimary } = response.data
 
-        callback(schools)
+        for(let i = 0; i < schools.length; i++) {
+         let eventres = await store.dispatch('app-school/getSchoolDashboard', { id: schools[i].schId });
+
+         let event = eventres.data.data;
+
+         schools[i]["passwordchange"] = event !== null ? true : false;
+        }
+
+        callback(schools);
         totalSchools.value = totalItems
         totalSecondarySchools.value = totalSecondary
         totalPrimarySchools.value = totalPrimary
-      //  totalInactiveSchools.value = totalInactive
 
       })
       .catch((e) => {
-        console.log("Fetch schools error: " + e)
-        /*toast({
-          component: ToastificationContent,
-          props: {
-            title: 'Error fetching schools list',
-            icon: 'AlertTriangleIcon',
-            variant: 'danger',
-          },
-        })*/
+        console.log("Fetch schools error: " + e);
       })
   }
 
@@ -100,6 +112,19 @@ export default function useSchoolList( Owner = null ) {
     if (status === 'pending') return 'warning'
     if (status === 'active') return 'success'
     if (status === 'inactive') return 'secondary'
+    return 'primary'
+  }
+
+  const resolveDashboardVariant = status => {
+    if (status === 0) return 'warning'
+    if (status === 1) return 'success'
+    
+    return 'primary'
+  }
+
+  const resolvePasswordVariant = status => {
+    if (status === false) return 'warning'
+    if (status === true) return 'success'    
     return 'primary'
   }
 
@@ -122,6 +147,8 @@ export default function useSchoolList( Owner = null ) {
     filters,
 
     resolveUserStatusVariant,
+    resolveDashboardVariant,
+    resolvePasswordVariant,
     refetchData
 
   }

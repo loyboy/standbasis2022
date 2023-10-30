@@ -48,5 +48,13 @@ export default {
                     .catch(error => reject(error))
             })
         },
+        getSchoolDashboard(ctx, {id}) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .put($themeConfig.app.baseURL + '/event/dashboard/'+ id )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        }
     },
 }

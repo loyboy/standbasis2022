@@ -100,7 +100,7 @@
 
                 let response3 = await store.dispatch('app-school/countTeacherBySchool', { id: router.currentRoute.params.id  })
                 if (response3.data.data){
-                    console.log("Response in three: " + response3.data.data[0] )
+                   // console.log("Response in three: " + response3.data.data[0] )
                     this.teacherCount = response3.data.data[0];                                          
                 }
 

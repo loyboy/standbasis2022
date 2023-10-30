@@ -142,6 +142,28 @@
                 {{ data.item.status === 1 ? "Active" : data.item.status === 0 ? "Inactive" : "Deleted"  }}
               </b-badge>
             </template>
+
+             <!-- Column: Dashboard -->
+            <template #cell(dashboarduser)="data">
+              <b-badge
+                pill
+                :variant="`light-${resolveDashboardVariant(data.item.dashboarduser)}`"
+                class="text-capitalize"
+              >
+                {{ data.item.dashboarduser === 1 ? "Active" : data.item.dashboarduser === 0 ? "Inactive" : "Inactive"  }}
+              </b-badge>
+            </template>
+
+              <!-- Column: Password -->
+            <template #cell(passwordchange)="data">
+              <b-badge
+                pill
+                :variant="`light-${resolvePasswordVariant(data.item.passwordchange)}`"
+                class="text-capitalize"
+              >
+                {{ data.item.dashboarduser === 1 && data.item.passwordchange === true ? "Changed" : data.item.dashboarduser === 1 && data.item.passwordchange === false ? "Not Yet" : "Not A Dashboard User Yet"  }}
+              </b-badge>
+            </template>
     
             <!-- Column: Actions -->
             <template #cell(actions)="data">
@@ -354,7 +376,9 @@
         filters,
 
         // UI       
-        resolveUserStatusVariant
+        resolveUserStatusVariant,
+        resolveDashboardVariant,
+        resolvePasswordVariant,
 
       } = useSchoolList( schoolOwner );
 
@@ -389,7 +413,9 @@
         filters,
   
         // UI
-        resolveUserStatusVariant
+        resolveUserStatusVariant,
+        resolveDashboardVariant,
+        resolvePasswordVariant
       
       }
     },
