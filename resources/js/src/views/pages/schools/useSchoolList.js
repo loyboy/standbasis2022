@@ -82,11 +82,11 @@ export default function useSchoolList( Owner = null ) {
         const { schools, totalItems, totalSecondary, totalPrimary } = response.data
 
         for(let i = 0; i < schools.length; i++) {
-         let eventres = await store.dispatch('app-school/getSchoolDashboard', { id: schools[i].schId });
-         console.log("Event pull: "+ JSON.stringify(eventres))
-         let event = eventres.data.data;
+            let eventres = await store.dispatch('app-school/getSchoolDashboard', { id: schools[i].schId });
+            console.log("Event pull: "+ JSON.stringify(eventres))
+            let event = eventres.data.data;
 
-         schools[i]["passwordchange"] = event !== null ? true : false;
+            schools[i]["passwordchange"] = event !== null ? true : false;
         }
 
         callback(schools);
