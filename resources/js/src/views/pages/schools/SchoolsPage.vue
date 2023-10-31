@@ -161,7 +161,7 @@
                 :variant="`light-${resolvePasswordVariant(data.item.passwordchange)}`"
                 class="text-capitalize"
               >
-                {{ data.item.passwordchange === 1 && data.item.passwordchange === true ? "Changed" : data.item.passwordchange === 1 && data.item.passwordchange === false ? "Not Yet" : "Not A Dashboard User Yet"  }}
+                {{ data.item.dashboarduser === 1 && data.item.passwordchange === true ? "Changed" : data.item.dashboarduser === 1 && data.item.passwordchange === false ? "Not Yet" : "Not A Dashboard User Yet"  }}
               </b-badge>
             </template>    
     
