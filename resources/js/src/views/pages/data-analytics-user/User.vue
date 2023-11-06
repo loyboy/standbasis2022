@@ -50,44 +50,44 @@
                             </tr>
                             <tr>
                                 <td style="background-color: #2e75b6; color: black;">Teaching Processes</td>
-                                <td v-if=" standardItem._one >= standardItem._one_min "> {{ standardItem._one }} % </td>
-                                <td v-else style="background-color: #e55152;" > {{ standardItem._one }} % </td>
+                                <td > {{ standardItem._one }} % </td>
+                                
                                 <td  > {{ standardItem._one_min }} % </td>
                             </tr>
                             <tr>
                                 <td style="background-color: #c55a11; color: black;">Teacher Resource</td>
-                                <td v-if=" standardItem._two >= standardItem._two_min "> {{ standardItem._two }} % </td>
-                                <td v-else style="background-color: #e55152;" > {{ standardItem._two }} % </td>
+                                <td > {{ standardItem._two }} % </td>
+                               
                                 <td> {{ standardItem._two_min }} % </td>
                             </tr>
                             <tr>
                                 <td style="background-color: #afabab; color: black;">Learning Environment</td>
-                                <td v-if=" standardItem._three >= standardItem._three_min "> {{ standardItem._three }} % </td>
-                                <td v-else style="background-color: #e55152;" > {{ standardItem._three }} % </td>
+                                <td > {{ standardItem._three }} % </td>
+                               
                                 <td> {{ standardItem._three_min }} %  </td>
                             </tr>
                             <tr>
                                 <td style="background-color: #ffc000; color: black;">Sustainability</td>
-                                <td v-if=" standardItem._four >= standardItem._four_min "> {{ standardItem._four }} % </td>
-                                <td v-else style="background-color: #e55152;" > {{ standardItem._four }} % </td>
+                                <td> {{ standardItem._four }} % </td>
+                               
                                 <td> {{ standardItem._four_min }} % </td>
                             </tr>
                             <tr>
                                 <td style="background-color: #00b0f0; color: black;">Student Development</td>
-                                <td v-if=" standardItem._five >= standardItem._five_min "> {{ standardItem._five }} % </td>
-                                <td v-else style="background-color: #e55152;" > {{ standardItem._five }} % </td>
+                                <td > {{ standardItem._five }} % </td>
+                               
                                 <td> {{ standardItem._five_min }} % </td>
                             </tr>
                             <tr>
                                 <td style="background-color: #92d050; color: black;">Academic Performance</td>
-                                <td v-if=" standardItem._six >= standardItem._six_min "> {{ standardItem._six }} % </td>
-                                <td v-else style="background-color: #e55152;" > {{ standardItem._six }} % </td>
+                                <td > {{ standardItem._six }} % </td>
+                                
                                 <td> {{ standardItem._six_min }} % </td>
                             </tr>
                             <tr>
                                 <td style="background-color: #1f4e79; color: black;">Safety Health Environ. Sec.</td>
-                                <td v-if=" standardItem._seven >= standardItem._seven_min "> {{ standardItem._seven }} % </td>
-                                <td v-else style="background-color: #e55152;" > {{ standardItem._seven }} % </td>
+                                <td> {{ standardItem._seven }} % </td>
+                               
                                 <td> {{ standardItem._seven_min }} % </td>
                             </tr>
                         </table>
@@ -219,32 +219,32 @@
                             </tr>
                             <tr>
                                 <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching Processes Compliance</td>
-                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._one }} % </td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._one }} </td>
                               
                             </tr>
                             <tr>
                                 <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching Processes Administration</td>
-                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._two }} %  </td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._two }}  </td>
                               
                             </tr>
                             <tr>
                                 <td colspan="2" style="background-color: #cfd5ea; color: black;">Asssessment Performance</td>
-                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._three }} %  </td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._three }}  </td>
                               
                             </tr>
                             <tr>
                                 <td colspan="2" style="background-color: #cfd5ea; color: black;">Student Socio-Motor Indicators</td>
-                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._four }} %  </td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._four }}  </td>
                               
                             </tr>
                             <tr>
                                 <td colspan="2" style="background-color: #cfd5ea; color: black;">Quality assurance interventions</td>
-                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._five }} %  </td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._five }}  </td>
                               
                             </tr>
                             <tr>
                                 <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching resources capacity utilization</td>
-                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._six }} %  </td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._six }}  </td>
                               
                             </tr>
                           
