@@ -232,7 +232,7 @@
         </b-card>
       </b-col>  
 
-      <b-col lg="4">        
+      <b-col lg="4" v-if=" userData.role !== 'dashboarduser' && userData.role !== 'proprietor' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
