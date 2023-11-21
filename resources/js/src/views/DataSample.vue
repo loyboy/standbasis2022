@@ -356,7 +356,6 @@
   } from 'bootstrap-vue';
   import StatisticCardHorizontal from "@core/components/statistics-cards/StatisticCardHorizontal.vue";
   import vSelect from 'vue-select'
-  import * as d3 from 'd3'
   
   export default {
     components: {
