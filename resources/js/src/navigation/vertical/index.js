@@ -43,6 +43,27 @@ export default [
         permission: [ "dashboarduser" ]
     },
 
+    {
+        title: 'School Data Analytics FAQ',
+        route: 'data-analytics-user-faq',
+        icon: 'ListIcon',
+        permission: [ "dashboarduser" ]
+    },
+
+    {
+        title: 'School Data Analytics Forum',
+        route: 'data-analytics-user-forum',
+        icon: 'ListIcon',
+        permission: [ "dashboarduser" ]
+    },
+
+    {
+        title: 'School Data Analytics Upload',
+        route: 'data-analytics-user-upload',
+        icon: 'ListIcon',
+        permission: [ "dashboarduser" ]
+    },
+
    /* {
         title: 'Evaluation Trends',
         route: 'evaluation-trending',

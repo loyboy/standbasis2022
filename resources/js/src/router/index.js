@@ -841,6 +841,42 @@ const router = new VueRouter({
             }
         },
 
+         //
+        {            
+            path: '/data-analytics-faq',
+            name: 'data-analytics-user-faq',
+            component: () =>
+                import ('@/views/pages/data-analytics-user/Faq.vue'),
+            meta: {
+                    pageTitle: 'Data Dashboard',
+                    breadcrumb: []
+            }
+        },
+
+        {            
+            path: '/data-analytics-forum',
+            name: 'data-analytics-user-forum',
+            beforeEnter() {
+                window.open('https://www.standbasis.com/', '_blank')
+            },
+            meta: {
+                    pageTitle: 'Data Dashboard',
+                    breadcrumb: []
+            }
+        },
+
+        {            
+            path: '/data-analytics-data-upload',
+            name: 'data-analytics-user-data-upload',
+            beforeEnter() {
+                window.open('https://www.standbasis.com/', '_blank')
+            },
+            meta: {
+                    pageTitle: 'Data Dashboard',
+                    breadcrumb: []
+            }
+        },
+
          //Parent dashboard begin here
          {
             path: '/parent',

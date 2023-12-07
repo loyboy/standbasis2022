@@ -431,10 +431,9 @@
       vSelect
     },
 
-    data() {
-
+    data() {        
         return {  
-        
+         
         }
     },
 
