@@ -1,22 +1,35 @@
 <template>
     <div> 
-        <div id="app" class="container mt-5">
-            <div v-for="(section, index) in faqSections" :key="index">
-                <div class="accordion" id="faqAccordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="heading{{ index }}">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse' + index" aria-expanded="true" aria-controls="collapse{{ index }}">
-                        {{ section.question }}
-                    </button>
-                    </h2>
-                    <div :id="'collapse' + index" class="accordion-collapse collapse" :class="{ 'show': index === activeIndex }" aria-labelledby="heading{{ index }}" data-bs-parent="#faqAccordion">
-                    <div class="accordion-body">
-                        {{ section.answer }}
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
+        <div class="row"> 
+            <b-col lg="12" sm="12">
+                <section >
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+
+								<h1 class="pt-4">Frequent Asked Questions</h1>
+								
+
+								<section>
+									
+									<div  v-for="(faq, index) in faqItems" :key="index">
+										<div class="faq">
+                                            <p class="question" @click="toggleAnswer">
+                                            {{ faq.q }}
+                                            </p>
+                                            <p class="answer" ref="answer">
+                                            {{ faq.a }}
+                                            </p>
+                                        </div>
+									</div>
+
+							   </section>
+							</div>
+						</div>
+					</div>
+				</section>  
+                    
+            </b-col> 
         </div>
     </div>
 </template>   
@@ -105,11 +118,25 @@
     data() {
         
         return {  
-          faqSections: [
-            { question: 'Question 1?', answer: 'Answer 1.' },
-            { question: 'Question 2?', answer: 'Answer 2.' }
-          ],
-          activeIndex: null
+            faqItems: [
+				{
+					q: "What is ChatGPT?",
+					a:
+						"ChatGPT is a language generation model developed by OpenAI. It's based on the GPT (Generative Pre-trained Transformer) architecture and is designed to generate human-like text and engage in natural-sounding conversations."
+				},
+				{
+					q: "How does ChatGPT work?",
+					a:
+						"ChatGPT uses a deep learning architecture called GPT, which processes input text and generates coherent and contextually relevant responses. It's trained on a vast amount of internet text to learn grammar, context, and style to generate responses that mimic human conversation."
+				},
+				{
+					q: "What can I use ChatGPT for?",
+					a:
+						"ChatGPT can be used for a variety of purposes, including drafting emails, brainstorming ideas, writing code, generating creative content, providing tutoring or information on a wide range of topics, and engaging in simulated conversations."
+				}
+		    ],
+            filterWord: "",
+            isOpen: false
         }
     },
 
@@ -142,9 +169,28 @@
       }
     },
 
-    methods: {   
+	methods: {
+		toggleAnswer() {
+			if (this.isOpen) {
+				this.collapse();
+			} else {
+				this.expand();
+			}
+			this.isOpen = !this.isOpen;
+		},
+		collapse() {
+			// select the answer element
+			const answer = this.$refs.answer;
+			answer.style.height = 0;
+		},
+		expand() {
+			// select answer element
+			const answer = this.$refs.answer;
 
-    }
+			// set its height to its normal scroll height to expand it fully
+			answer.style.height = answer.scrollHeight + "px";
+		}
+	}
 
   }
   </script>
@@ -181,5 +227,59 @@
     background-color: #a6e6a2; /* Light green background for the second and third columns */
     color: black; /* Black text color */
   }
+
+ ::selection {
+	user-select: none;
+}
+
+/* style the FAQ section */
+.question {
+	background: hsl(35 10% 30% / 0.1);
+	text-transform: uppercase;
+	cursor: pointer;
+	font-weight: bold;
+	box-shadow: 0px 4px 0px 0 #88888855;
+	padding: 10px 0;
+	transition: transform 0.2s;
+	position: relative;
+}
+
+.question:hover {
+	background: hsl(35 10% 30% / 0.15);
+}
+
+.question::before {
+	content: "✅";
+	margin: 10px;
+}
+
+/* styles when the question is clicked */
+.question:active {
+	transform: translateY(4px);
+	box-shadow: none;
+}
+
+.answer {
+	transition: 0.25s; /* smooth slide-in */
+	height: 0; /* starts collapsed */
+	overflow: hidden;
+	line-height: 1.5;
+}
+
+.answer::before {
+	content: "👉";
+	margin-right: 10px;
+}
+
+/* style the toggleIcon */
+.toggleIcon {
+	font-size: 1.5em;
+	font-weight: bold;
+	position: absolute;
+	right: 20px;
+	display: inline-block;
+	line-height: 0.5;
+	color: #666;
+}
   </style>
   
