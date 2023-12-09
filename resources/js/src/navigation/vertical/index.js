@@ -37,28 +37,28 @@ export default [
     },
 
     {
-        title: 'School Data Analytics Dashboard',
+        title: 'Home',
         route: 'data-analytics-user-home',
         icon: 'AirplayIcon',
         permission: [ "dashboarduser" ]
     },
 
     {
-        title: 'School Data Analytics FAQ',
+        title: 'FAQ',
         route: 'data-analytics-user-faq',
         icon: 'BookOpenIcon',
         permission: [ "dashboarduser" ]
     },
 
     {
-        title: 'School Data Analytics Forum',
+        title: 'Forum',
         route: 'data-analytics-user-forum',
         icon: 'MessageSquareIcon',
         permission: [ "dashboarduser" ]
     },
 
     {
-        title: 'School Data Analytics Upload',
+        title: 'Upload',
         route: 'data-analytics-user-upload',
         icon: 'ShareIcon',
         permission: [ "dashboarduser" ]
