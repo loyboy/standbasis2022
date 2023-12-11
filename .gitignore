@@ -14,5 +14,6 @@ npm-debug.log
 yarn-error.log
 /.idea
 
+/resources/js/src/assets/dashboard
 
 storage/logs/laravel.log
