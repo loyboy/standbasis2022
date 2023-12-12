@@ -285,7 +285,7 @@
                 <div class="border flex-grow-1">
                   <!-- <iframe width="620" height="400" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRK6k8lAzX4wKmc_ZnfTb-Y3BJU9d3cMS7OSTm43QDa0vNF1gAIqrD7ssqKOJKyu0xnxCLW-IgDsPJ/pubchart?oid=542621565&amp;format=interactive"></iframe>-->
                   <!-- <iframe width="640" height="400" frameborder="0" scrolling="no" :src="academicItem.graph_link"> </iframe> -->
-                  <img width="640" height="400" :src="require(academicItem.graph_link)" alt="Academic Performance"/>
+                  <img width="640" height="400" :src="require('@/assets/images/dashboard/academic/1.svg')" alt="Academic Performance"/>
                   <!-- require('@/assets/images/dashboard/academic/1.svg') -->
                 </div>
               </div>
