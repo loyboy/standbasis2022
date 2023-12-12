@@ -869,7 +869,7 @@ const router = new VueRouter({
             path: '/data-analytics-data-upload',
             name: 'data-analytics-user-data-upload',
             beforeEnter() {
-                window.open('https://www.standbasis.com/', '_blank')
+                window.open('https://forms.gle/LrdReCjS4eoudPR47', '_blank')
             },
             meta: {
                     pageTitle: 'Data Dashboard',
