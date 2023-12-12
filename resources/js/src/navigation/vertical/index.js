@@ -59,7 +59,7 @@ export default [
 
     {
         title: 'Upload',
-        route: 'data-analytics-user-upload',
+        route: 'data-analytics-user-data-upload',
         icon: 'ShareIcon',
         permission: [ "dashboarduser" ]
     },
