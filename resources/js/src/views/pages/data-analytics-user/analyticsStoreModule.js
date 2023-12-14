@@ -11,7 +11,7 @@ export default {
         fetchStandards(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/dashboard/standards/school/' + payload.id )
+                    .get($themeConfig.app.baseURL + '/dashboard/standards/school/' + payload.id + '/year/'+payload.year )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
@@ -19,7 +19,7 @@ export default {
         fetchTeachers(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/dashboard/teachers/school/' + payload.id )
+                    .get($themeConfig.app.baseURL + '/dashboard/teachers/school/' + payload.id + '/year/'+payload.year )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
@@ -27,7 +27,7 @@ export default {
         fetchCurriculum(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/dashboard/curriculum/school/' + payload.id )
+                    .get($themeConfig.app.baseURL + '/dashboard/curriculum/school/' + payload.id + '/year/'+payload.year )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
@@ -35,7 +35,7 @@ export default {
         fetchAcademic(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/dashboard/academic/school/' + payload.id )
+                    .get($themeConfig.app.baseURL + '/dashboard/academic/school/' + payload.id + '/year/'+payload.year )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 

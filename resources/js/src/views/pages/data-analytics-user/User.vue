@@ -43,6 +43,21 @@
               <div class="col min-vh-50">
                 <div class="row"> 
                     <div class="col-8">
+
+                        <table style="margin-bottom: 10px;">
+                            <tr>
+                              <td>  
+                                <b-form-group label=" Select Year" >
+                                  <b-form-select
+                                    v-model="filters.yearOptionRating"
+                                    :options="yearOptions"
+                                    @change="changeStandard"
+                                  />
+                                </b-form-group>
+                              </td>                        
+                            </tr>
+                        </table>
+
                         <table>
                             <tr>
                                 <th>Areas</th>
@@ -137,6 +152,21 @@
               <div class="col min-vh-50">
                 <div class="row"> 
                     <div class="col-8">
+
+                         <table style="margin-bottom: 10px;">
+                            <tr>
+                              <td>  
+                                <b-form-group label=" Select Year" >
+                                  <b-form-select
+                                    v-model="filters.yearOptionTeacher"
+                                    :options="yearOptions"
+                                    @change="changeTeacher"
+                                  />
+                                </b-form-group>
+                              </td>                        
+                            </tr>
+                        </table>
+
                         <table>
                             <tr>
                                 <th colspan="2" >Areas</th>                            
@@ -203,6 +233,7 @@
                 </div>
               </div>
             </div>
+
             <!-- Third Column -->
             <div class="row mb-3 ">
               <div class="col min-vh-50 d-flex">
@@ -215,6 +246,21 @@
               <div class="col min-vh-50">
                 <div class="row"> 
                     <div class="col-8">
+
+                        <table style="margin-bottom: 10px;">
+                            <tr>
+                              <td>  
+                                <b-form-group label=" Select Year" >
+                                  <b-form-select
+                                    v-model="filters.yearOptionCurricullum"
+                                    :options="yearOptions"
+                                    @change="changeCurricullum"
+                                  />
+                                </b-form-group>
+                              </td>                        
+                            </tr>
+                        </table>
+
                         <table>
                             <tr>
                                 <th colspan="3">Live Teaching Processes Management Indicators</th>
@@ -296,6 +342,21 @@
               <div class="col min-vh-50">
                 <div class="row"> 
                     <div class="col-8">
+
+                        <table style="margin-bottom: 10px;">
+                            <tr>
+                              <td>  
+                                <b-form-group label=" Select Year" >
+                                  <b-form-select
+                                    v-model="filters.yearOptionAcademic"
+                                    :options="yearOptions"
+                                    @change="changeAcademic"
+                                  />
+                                </b-form-group>
+                              </td>                        
+                            </tr>
+                        </table>
+
                         <table>
                             <tr>
                                 <th> &nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -464,11 +525,21 @@
         userData.value = storedItems;
       }
 
+      const yearOptions = ref([ { value: null, text: "Select a Year to Review" }, { value: "2022", text: "2022" }, { value: "2023", text: "2023" } , { value: "2024", text: "2024" }, { value: "2025", text: "2025" }, { value: "2026", text: "2026" }  ]);
+
       const findIfDashisPresent = ( userData.value.role === "dashboarduser"  );
 
       const {
       
         handleChange,
+
+        fetchStandards,
+
+        fetchTeachers,
+
+        fetchCurriculum,
+
+        fetchAcademic,
       
         isLoading,
 
@@ -500,6 +571,14 @@
         filters,
       
         handleChange,
+
+        fetchStandards,
+
+        fetchTeachers,
+
+        fetchCurriculum,
+
+        fetchAcademic,
       
         isLoading,
 
@@ -508,15 +587,43 @@
         curriculumItem,
         academicItem,
 
+        yearOptions,
+
         userData
 
       }
     },
 
     methods: {   
-        returnName(temp){
-          return String(temp.graph_link);
-        }
+        changeAcademic(value){
+            const sef = this;
+            sef.isLoading = true;
+
+            fetchAcademic();
+        },
+
+
+        changeTeacher(value){
+            const sef = this;
+            sef.isLoading = true;
+
+            fetchTeachers();
+        },
+
+        changeStandard(value){
+            const sef = this;
+            sef.isLoading = true;
+
+            fetchStandards();
+        },
+
+        changeCurricullum(value){
+            const sef = this;
+            sef.isLoading = true;
+
+            fetchCurriculum();
+        },
+
     }
 
   }

@@ -10,7 +10,11 @@ export default function useUserList() {
   const academicItem = ref({})
 
   const filters = ref({  
-    schoolId:null
+    schoolId:null,
+    yearOptionAcademic:null,
+    yearOptionRating:null,
+    yearOptionTeacher:null,
+    yearOptionCurricullum:null
   });
 
   const fetchStandards = (ctx) => {
@@ -18,7 +22,8 @@ export default function useUserList() {
       isLoading.value = true;
 
       store.dispatch('app-dashboard/fetchStandards', {   
-          id: filters.value.schoolId
+          id: filters.value.schoolId,
+          year: filters.value.yearOptionRating
         })
         .then(response => {
           
@@ -41,7 +46,8 @@ export default function useUserList() {
     isLoading.value = true;
 
     store.dispatch('app-dashboard/fetchTeachers', {   
-        id: filters.value.schoolId
+        id: filters.value.schoolId,
+        year: filters.value.yearOptionTeacher
       })
       .then(response => {
         
@@ -64,7 +70,8 @@ const fetchCurriculum = (ctx) => {
   isLoading.value = true;
 
   store.dispatch('app-dashboard/fetchCurriculum', {   
-        id: filters.value.schoolId
+        id: filters.value.schoolId,
+        year: filters.value.yearOptionCurricullum
     })
     .then(response => {
       
@@ -87,7 +94,8 @@ const fetchAcademic = (ctx) => {
   isLoading.value = true;
 
   store.dispatch('app-dashboard/fetchAcademic', {   
-        id: filters.value.schoolId
+        id: filters.value.schoolId,
+        year: filters.value.yearOptionAcademic
     })
     .then(response => {
       
@@ -115,6 +123,14 @@ const fetchAcademic = (ctx) => {
   return {
   
     handleChange,
+
+    fetchStandards,
+
+    fetchTeachers,
+
+    fetchCurriculum,
+
+    fetchAcademic,
   
     isLoading,
 
