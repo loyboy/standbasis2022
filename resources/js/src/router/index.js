@@ -857,7 +857,7 @@ const router = new VueRouter({
             path: '/data-analytics-forum',
             name: 'data-analytics-user-forum',
             beforeEnter() {
-                window.open('https://www.standbasis.com/', '_blank')
+                window.open('https://forum.standbasis.com/', '_blank')
             },
             meta: {
                     pageTitle: 'Data Dashboard',
