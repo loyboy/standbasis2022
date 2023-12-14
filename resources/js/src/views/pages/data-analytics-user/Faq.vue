@@ -12,7 +12,7 @@
 
 								<section>
 									
-									<div  v-for="(faq, index) in faqItems" :key="index">
+									<!--<div  v-for="(faq, index) in faqItems" :key="index">
 										<div class="faq">
                                             <p class="question" @click="toggleAnswer">
                                             {{ faq.q }}
@@ -21,9 +21,14 @@
                                             {{ faq.a }}
                                             </p>
                                         </div>
-									</div>
+									</div>-->
 
-							   </section>
+                  <VueFaqAccordion 
+                    :items="myItems"
+                  />
+
+							  </section>
+
 							</div>
 						</div>
 					</div>
@@ -81,6 +86,7 @@
   import jwtHeader from "@core/services/jwt-header";
   import useUserList from './useUserList'
   import analyticsStoreModule from './analyticsStoreModule'
+  import VueFaqAccordion from 'vue-faq-accordion'
 
 
   export default {
@@ -112,31 +118,49 @@
       BDropdownItem,
       BPagination,
       BFormCheckbox,
-      vSelect
+      vSelect,
+      VueFaqAccordion
     },
 
     data() {
         
         return {  
             faqItems: [
-				{
-					q: "What is ChatGPT?",
-					a:
-						"ChatGPT is a language generation model developed by OpenAI. It's based on the GPT (Generative Pre-trained Transformer) architecture and is designed to generate human-like text and engage in natural-sounding conversations."
-				},
-				{
-					q: "How does ChatGPT work?",
-					a:
-						"ChatGPT uses a deep learning architecture called GPT, which processes input text and generates coherent and contextually relevant responses. It's trained on a vast amount of internet text to learn grammar, context, and style to generate responses that mimic human conversation."
-				},
-				{
-					q: "What can I use ChatGPT for?",
-					a:
-						"ChatGPT can be used for a variety of purposes, including drafting emails, brainstorming ideas, writing code, generating creative content, providing tutoring or information on a wide range of topics, and engaging in simulated conversations."
-				}
-		    ],
+                {
+                  q: "What is ChatGPT?",
+                  a:
+                    "ChatGPT is a language generation model developed by OpenAI. It's based on the GPT (Generative Pre-trained Transformer) architecture and is designed to generate human-like text and engage in natural-sounding conversations."
+                },
+                {
+                  q: "How does ChatGPT work?",
+                  a:
+                    "ChatGPT uses a deep learning architecture called GPT, which processes input text and generates coherent and contextually relevant responses. It's trained on a vast amount of internet text to learn grammar, context, and style to generate responses that mimic human conversation."
+                },
+                {
+                  q: "What can I use ChatGPT for?",
+                  a:
+                    "ChatGPT can be used for a variety of purposes, including drafting emails, brainstorming ideas, writing code, generating creative content, providing tutoring or information on a wide range of topics, and engaging in simulated conversations."
+                }
+            ],
             filterWord: "",
-            isOpen: false
+            isOpen: false,
+            myItems: [
+              {
+                title: 'How many time zones are there in all?',
+                value: 'Given a 24-hour day and 360 degrees of longitude around the Earth',
+                category: 'Tab-1'
+              },
+              {
+                title: 'How long is a day and year on Venus?',
+                value: 'Venus takes 224.7 Earth days to complete one orbit around the Sun.',
+                category: 'Tab-2'
+              },
+              {
+                title: 'What animal smells like popcorn?',
+                value: 'Binturongs smell like popcorn.',
+                category: 'Tab-2'
+              }
+            ]
         }
     },
 
@@ -170,7 +194,7 @@
     },
 
 	methods: {
-		toggleAnswer() {
+		/*toggleAnswer() {
 			if (this.isOpen) {
 				this.collapse();
 			} else {
@@ -189,7 +213,7 @@
 
 			// set its height to its normal scroll height to expand it fully
 			answer.style.height = answer.scrollHeight + "px";
-		}
+		}*/
 	}
 
   }
