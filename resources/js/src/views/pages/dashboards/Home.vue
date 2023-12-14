@@ -378,11 +378,14 @@
       };
     },
     mounted() {
-    // this.$store.dispatch("tableData/getVTUProfits");
-      const storedItems = JSON.parse(localStorage.getItem('userData'));
-      if (storedItems){
-        this.userData = storedItems;
-      }
+
+        if ( this.userData.role === "dashboarduser" ) {
+          this.$router.push({ name: 'data-analytics-user-home' })
+        }
+        else{
+          this.fetchAttendances();
+          this.fetchLessonnotes();
+        }
     },
   
   /*
@@ -446,14 +449,10 @@
             filters.value.teacherId = teacherData.value ? teacherData.value.teaId : null;
         }
 
-         onMounted(() => {
-            fetchAttendances();
-            fetchLessonnotes();
-         })
-
         return {
           isLoading, 
-          filters,   
+          filters,
+          userData,   
           
           fetchAttendances,
           fetchLessonnotes
