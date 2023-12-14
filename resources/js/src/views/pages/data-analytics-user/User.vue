@@ -599,7 +599,7 @@
             const sef = this;
             sef.isLoading = true;
 
-            fetchAcademic();
+            this.fetchAcademic();
         },
 
 
@@ -607,21 +607,21 @@
             const sef = this;
             sef.isLoading = true;
 
-            fetchTeachers();
+            this.fetchTeachers();
         },
 
         changeStandard(value){
             const sef = this;
             sef.isLoading = true;
 
-            fetchStandards();
+            this.fetchStandards();
         },
 
         changeCurricullum(value){
             const sef = this;
             sef.isLoading = true;
 
-            fetchCurriculum();
+            this.fetchCurriculum();
         },
 
     }
