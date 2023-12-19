@@ -357,7 +357,6 @@
     data() {
       return {
         rangeDate: null,
-        userData: {},
         data: {},
         stats: {},
         charts: {},
