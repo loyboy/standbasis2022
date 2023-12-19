@@ -334,6 +334,7 @@
   import useHomeList from './useHomeList'
   import homeStoreModule from './homeStoreModule'
   import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
+  import { useRouter } from "vue-router"
 
   export default {
     components: {
@@ -376,16 +377,6 @@
           ],
         },
       };
-    },
-    mounted() {
-
-        if ( this.userData.role === "dashboarduser" ) {
-          this.$router.push({ name: 'data-analytics-user-home' })
-        }
-        else{
-          this.fetchAttendances();
-          this.fetchLessonnotes();
-        }
     },
   
   /*
@@ -438,6 +429,17 @@
           fetchAttendances,
           fetchLessonnotes
         } = useHomeList();
+
+        onMounted(() => {
+            const route = useRouter();
+            if ( userData.value.role === "dashboarduser" ) {
+              route.push({ name: 'data-analytics-user-home' })
+            }
+            else{
+              fetchAttendances();
+              fetchLessonnotes();
+            }
+        })
 
         if( findIfPropisPresent ){        
             filters.value.schoolgroup = teacherData.value ? teacherData.value.school.owner.id : null;
