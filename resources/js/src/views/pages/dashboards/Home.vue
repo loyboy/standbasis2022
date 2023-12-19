@@ -334,7 +334,7 @@
   import useHomeList from './useHomeList'
   import homeStoreModule from './homeStoreModule'
   import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
-  import { useRouter } from "vue-router"
+  import { $themeConfig } from '@themeConfig'
 
   export default {
     components: {
@@ -408,6 +408,7 @@
         
         const userData = ref({});
         const teacherData = ref({});
+        const { homeURL } = $themeConfig.app; 
 
         const storedItems = JSON.parse(localStorage.getItem('userData'));
         if (storedItems){
@@ -430,10 +431,11 @@
           fetchLessonnotes
         } = useHomeList();
 
-        onMounted(() => {
-            const route = useRouter();
+        onMounted(() => { 
+          //  const route = useRouter();
             if ( userData.value.role === "dashboarduser" ) {
-              route.push({ name: 'data-analytics-user-home' })
+              //route.push({ name: 'data-analytics-user-home' })
+              window.location.href = homeURL + "/data-analytics-user"
             }
             else{
               fetchAttendances();

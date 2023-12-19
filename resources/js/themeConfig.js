@@ -14,6 +14,8 @@ export const $themeConfig = {
         //http://localhost:8084
         baseURL: "https://backend.school-digital-transformation.com/api",
 
+        homeURL: "https://school-digital-transformation.com",
+
         backendURL: "https://backend.school-digital-transformation.com",
       
         // dealAdThumbnailsURL: "/deals_ads/thumb_nail/",
