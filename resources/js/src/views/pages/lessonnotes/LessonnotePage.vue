@@ -1904,28 +1904,19 @@
           },
 
           forceFileDownload(response, title) {
-            console.log(title)
-            const url = window.URL.createObjectURL(new Blob([response.data]))
+            // console.log(title)
+            // const url = window.URL.createObjectURL(new Blob([response.data]))
+            
             const link = document.createElement('a')
-            link.href = url
+            link.href = response
+            link.setAttribute('target', "_blank" )
             link.setAttribute('download', title + ".docx" )
             document.body.appendChild(link)
             link.click()
           },
 
           openfile(path, title){        
-                  const sef = this;
-                  axios({
-                    method: 'get',
-                    url: path,
-                    responseType: 'blob',
-                    headers: jwtHeader()
-                  })
-                    .then(function (response) {
-                        sef.forceFileDownload(response, title)
-                  }).catch(error => {
-                    console.log(error.response)
-                  });
+            this.forceFileDownload(path, title)
           },
 
           showModal() {
