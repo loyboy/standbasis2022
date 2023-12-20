@@ -1917,7 +1917,7 @@
                   const sef = this;
                   axios({
                     method: 'get',
-                    url: new String(this.baseURL).replace('/api','') + path,
+                    url: path,
                     responseType: 'blob',
                     headers: jwtHeader()
                   })
