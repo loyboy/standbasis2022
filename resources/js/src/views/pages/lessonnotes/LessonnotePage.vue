@@ -511,7 +511,7 @@
                   />     
                 </template>
 
-                <b-dropdown-item @click="openfile(data.item.lsnPath, data.item.title)" v-if = " data.item.submission != null " >
+                <b-dropdown-item @click="openfile(data.item._file, data.item.title)" v-if = " data.item.submission != null " >
                   <feather-icon icon="FileTextIcon"  />
                   <span class="align-middle ml-50">View Lessonnote File</span>
                 </b-dropdown-item>
@@ -621,7 +621,7 @@
                 <b-button size="sm" variant="danger"  class="mb-1"  v-if=" ( data.item.lsn_id.resubmission != null || data.item.lsn_id.submission != null ) && data.item.lsn_id.revert == null && data.item.lsn_id.approval == null " @click= " triggerDisapprove( data.item.lsn_id.title, data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId ) " >Query</b-button>
                 <b-button size="sm" variant="primary" class="mb-1" v-if=" data.item.lsn_id.approval !== null && data.item.lsn_id.closure != null  " @click= " triggerClosure( 'principal', data.item.lsn_id.title, data.item.lsn_id.lessonnoteId, data.item.lsn_id.teacher.teaId ) "  >Close</b-button>
                 
-                <b-button size="sm" variant="info" @click="openfile(data.item.lsn_id.lsnPath, data.item.lsn_id.title)" > View File </b-button>
+                <b-button size="sm" variant="info" @click="openfile(data.item.lsn_id._file, data.item.lsn_id.title)" > View File </b-button>
               </div>
             </template>
 
