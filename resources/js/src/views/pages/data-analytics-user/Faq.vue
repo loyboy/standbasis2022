@@ -156,11 +156,11 @@
               },
               {
                 title: 'Can you talk me through the dashboard?',
-                value: "Standbasis School Data Dashboard has four screens for monitoring: \\n\\r" +
-                       " ●	Academic performance indicators \\\n" +
-                       " ●	Teacher quality asset indicators \\\n"+
-                       " ●	School health status indicators \\n"+
-                       " ●	Curriculum teaching policies compliance / violation indicators \\n\\r"+
+                value: "Standbasis School Data Dashboard has four screens for monitoring: \n\r" +
+                       " ●	Academic performance indicators \n" +
+                       " ●	Teacher quality asset indicators \n"+
+                       " ●	School health status indicators \n"+
+                       " ●	Curriculum teaching policies compliance / violation indicators \n\r"+
                        " The audio on each of those screens at dashboard.standbasis.com explain the services of each of the screens.",
                 category: 'General FAQ'
               },
@@ -172,7 +172,7 @@
               {
                 title: 'What is the scope of the offer?',
                 value: "    Item      	|       Offer        |	     For how long?     |	    Beyond the offer?     \n"+
-                "____________________________________________________________________________________________________\r" +
+                "____________________________________________________________________________________\r" +
                 " Standbasis School Data Dashboard | Free: Infrastructure and web hosting | Permanent, unless redundant for 5 years. | Free \n"+
                 "----------------------------------------------------------------------------------------------------------------------------\r" +
                 " Academic Performance Indicators | Free: Data processing |  Three school terms and one external examination. Back-results, up to three years could be accepted above the offer to achieve an early trending. |  Per term subscription (single subscription for two) \n" +
@@ -264,8 +264,8 @@
   @import '~@core/scss/vue/libs/vue-select.scss';
   /* CSS to style the table */
 
-  :deep(.faq-wrapper) {
-    max-width: 1300px;
+  .faq :deep(.faq-wrapper) {
+    max-width: 1150px;
   }
 
   table {
