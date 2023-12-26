@@ -141,13 +141,13 @@
                 category: 'General FAQ'
               },
               {
-                title: 'How Does Standbasis School Data Dashboard (SSDD) work?',
+                title: '<b> How Does Standbasis School Data Dashboard (SSDD) work? </b>',
                 value: "SSDD receives data generated from your school operation and processes them into numbers and images that, at a glance, tell how the school is doing as far as the main business of the school – curriculum teaching proper and the supporting environment - are concerned. <br/>" +
                 "Standbasis collects data from your school and process them through the relevant Standbasis technologies to produce the material that the dashboard converts and organizes into simple images that tell the important stories of your school. <br/>" +
-                "SSDD is your 'ultimate independent and incorruptible' school consultant <br/>"+
-                "They tell you when to celebrate <br/>"+
-                "They tell you when to make some changes and or intervene <br/>"+
-                "They give you an incontrovertible comparison with competitors <br/>"+
+                "SSDD is your 'ultimate independent and incorruptible' school consultant. <br/>"+
+                "They tell you when to celebrate. <br/>"+
+                "They tell you when to make some changes and or intervene. <br/>"+
+                "They give you an incontrovertible comparison with competitors. <br/>"+
                 "They arm you with a veritable value proposition to parents; giving parents a scientific basis for choosing your school over competing schools, or otherwise. <br/>" +
                 "They set the agenda for 'Quality and Productivity' staff meetings. <br/>"+
                 "They provide evidence for management proposals and accounting. <br/>"+ 
@@ -155,46 +155,84 @@
                 category: 'General FAQ'
               },
               {
-                title: 'Can you talk me through the dashboard?',
+                title: '<b> Can you talk me through the dashboard? </b>',
                 value: "Standbasis School Data Dashboard has four screens for monitoring: <br/>" +
-                       " ●	Academic performance indicators <br/>" +
-                       " ●	Teacher quality asset indicators <br/>"+
-                       " ●	School health status indicators <br/>"+
-                       " ●	Curriculum teaching policies compliance / violation indicators <br/>"+
+                       " ●	Academic performance indicators. <br/>" +
+                       " ●	Teacher quality asset indicators. <br/>"+
+                       " ●	School health status indicators. <br/>"+
+                       " ●	Curriculum teaching policies compliance / violation indicators. <br/>"+
                        " The audio on each of those screens at dashboard.standbasis.com explain the services of each of the screens.",
                 category: 'General FAQ'
               },
               {
-                title: 'The dashboard has graphs already, where would my school data go?',
-                value: "The graphs that came with your dashboard have 'PLACEHOLDER' written across them. They do not represent any school right now. They would be replaced with your school graphs when you provide the data to feed them. \n\r",
+                title: '<b> The dashboard has graphs already, where would my school data go? </b>',
+                value: "The graphs that came with your dashboard have 'PLACEHOLDER' written across them. They do not represent any school right now. They would be replaced with your school graphs when you provide the data to feed them. <br/>",
                 category: 'General FAQ'
               },
               {
-                title: 'What is the scope of the offer?',
-                value: "    Item      	|       Offer        |	     For how long?     |	    Beyond the offer?     <br/>"+
-                "____________________________________________________________________________________<br/>" +
-                " Standbasis School Data Dashboard | Free: Infrastructure and web hosting | Permanent, unless redundant for 5 years. | Free <br/>"+
-                "---------------------------------------------------------------------------------------------------------------------------- <br/>" +
-                " Academic Performance Indicators | Free: Data processing |  Three school terms and one external examination. Back-results, up to three years could be accepted above the offer to achieve an early trending. |  Per term subscription (single subscription for two) \n" +
-                "---------------------------------------------------------------------------------------------------------------------------- <br/>"+
-                " Teacher Asset Quality Indicators | Free: Data processing |  Three school terms and one external examination. Back-results, up to three years could be accepted above the offer to achieve an early trending. |  Per term subscription (single subscription for two) \n" +
-                "---------------------------------------------------------------------------------------------------------------------------- <br/>" +
-                " School Health Status Indicators | Subscription only | Annually | Annual Subscription <br/>"+
-                "---------------------------------------------------------------------------------------------------------------------------- <br/>"+
-                " Teaching Processes Policy Violation Indicators | Subscription only | Annually | Annual Subscription <br/>",
+                title: '<b> What is the scope of the offer? </b>',
+                value: `<table style='border-collapse: collapse; border: 1px solid black;'>
+                  <thead>
+                    <tr style='background-color: #f2f2f2;'>
+                      <th style='border: 1px solid black; padding: 8px;'>Item</th>
+                      <th style="border: 1px solid black; padding: 8px;">Offer</th>
+                      <th style="border: 1px solid black; padding: 8px;">For how long?</th>
+                      <th style="border: 1px solid black; padding: 8px;">Beyond the offer?</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Standbasis School Data Dashboard</td>
+                      <td style="border: 1px solid black; padding: 8px;">Free: Infrastructure and web hosting</td>
+                      <td style="border: 1px solid black; padding: 8px;">Permanent, unless redundant for 5 years.</td>
+                      <td style="border: 1px solid black; padding: 8px;">Free</td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Academic Performance Indicators</td>
+                      <td style="border: 1px solid black; padding: 8px;">Free: Data processing</td>
+                      <td style="border: 1px solid black; padding: 8px;">Three school terms and one external examination. Back-results, up to three years could be accepted above the offer to achieve an early trending.</td>
+                      <td style="border: 1px solid black; padding: 8px;">Per term subscription (single subscription for two)</td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Teacher Asset Quality Indicators</td>
+                      <td style="border: 1px solid black; padding: 8px;">Free: Data processing</td>
+                      <td style="border: 1px solid black; padding: 8px;">Three school terms and one external examination. Back-results, up to three years could be accepted above the offer to achieve an early trending.</td>
+                      <td style="border: 1px solid black; padding: 8px;">Per term subscription (single subscription for two)</td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">School Health Status Indicators</td>
+                      <td style="border: 1px solid black; padding: 8px;">Subscription only</td>
+                      <td style="border: 1px solid black; padding: 8px;">Annually</td>
+                      <td style="border: 1px solid black; padding: 8px;">Annual Subscription</td>
+                    </tr>
+                    <tr>
+                      <td style="border: 1px solid black; padding: 8px;">Teaching Processes Policy Violation Indicators</td>
+                      <td style="border: 1px solid black; padding: 8px;">Subscription only</td>
+                      <td style="border: 1px solid black; padding: 8px;">Annually</td>
+                      <td style="border: 1px solid black; padding: 8px;">Annual Subscription</td>
+                    </tr>
+                  </tbody>
+                </table>`,
                 category: 'General FAQ'
               },
               {
-                title: 'Who is seeing my dashboard with me?',
+                title: '<b> Who is seeing my dashboard with me? </b>',
                 value: "Your dashboard is a private property of your school, once you change the password to yours nobody can visit your dashboard without you providing access. Conversely, it you who would flaunt favorable and outstanding performance data from your dashboard for marketing purposes.",
                 category: 'General FAQ'
               },
               {
-                title: 'What happens if I stay strictly with the free services without taking any of the subscription-only services?',
+                title: '<b>What happens if I stay strictly with the free services without taking any of the subscription-only services? </b>',
                 value: "Your academic and teacher data, made available to Standbasis, would be processed and the two screens dedicated to those services will show your graphs. The subscription-only services screens will remain with the placeholder images. <br/>" +
                 "Our service is modular, meaning that each screen can work independently and all the screens can work together. <br/>"+
                 "What if I could not subscribe to any of the four services at the end of the free offer or there is a .break in subscription; will I lose the dashboard?. <br/>"+ 
                 "The dashboard remains yours and available for deployment when you can. The dashboard resources would only be retrieved if the redundancy period gets to five years.",
+                category: 'General FAQ'
+              },
+              {
+                title: '<b>How many years data can be trended on the dashboard? </b>',
+                value: "As a matter of policy, your data is held by us for a maximum of five years.<br/>" + 
+                "In other word, you can track and trend your data generated for a period of five years and no more.<br/>" + 
+                "We are open to discuss longer periods of data retention and trending on different terms.",
                 category: 'General FAQ'
               },
             ]
