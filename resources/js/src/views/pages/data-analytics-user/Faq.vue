@@ -131,26 +131,26 @@
             myItems: [
               {
                 title: 'Standbasis School Rating and Standbasis-School-Data-Dashboard; What is the relationship?',
-                value: "Standbasis School Rating is a system of benchmarking school(s) curriculum teaching resources (infrastructure, processes and teachers) provision and performance against a set of reference quantities as a standard. It is the implementation of standards-based operation in schools.\n"+ 
-                  "Standbasis Rating is neither statutory nor formal industry standards for ranking schools. It is an independent and voluntary-adoption internal administrative tool for individual and group of schools with common owners.\n" + 
-                  "Standbasis School Rating encourages schools to leverage data and digital technologies to manage viability and sustainability imperatives in an increasingly demanding and competitive education industry.\n"+ 
-                  "Standbasis Rating empowers physically small schools and less flamboyant schools to have a common basis for pitching their strengths big schools, apple for apple, in the student enrollment market.\n"+
-                  "On the other hand, Standbasis Rating empowers parents to shop for the best possible value for their money scientifically, not on subjective and emotional grounds.\n"+
+                value: "Standbasis School Rating is a system of benchmarking school(s) curriculum teaching resources (infrastructure, processes and teachers) provision and performance against a set of reference quantities as a standard. It is the implementation of standards-based operation in schools. <br/>"+ 
+                  "Standbasis Rating is neither statutory nor formal industry standards for ranking schools. It is an independent and voluntary-adoption internal administrative tool for individual and group of schools with common owners.<br/>" + 
+                  "Standbasis School Rating encourages schools to leverage data and digital technologies to manage viability and sustainability imperatives in an increasingly demanding and competitive education industry.<br/>"+ 
+                  "Standbasis Rating empowers physically small schools and less flamboyant schools to have a common basis for pitching their strengths big schools, apple for apple, in the student enrollment market.<br/>"+
+                  "On the other hand, Standbasis Rating empowers parents to shop for the best possible value for their money scientifically, not on subjective and emotional grounds.<br/>"+
                   "Standbasis School Data Dashboard provides the visual result of Standbasis Rating at a glance, instantaneous in some cases, enterprise fashion and mobile. The dashboard provides further elaboration, departmentally, to enrich the management information derivable from school operations data."
                 ,
                 category: 'General FAQ'
               },
               {
                 title: 'How Does Standbasis School Data Dashboard (SSDD) work?',
-                value: "SSDD receives data generated from your school operation and processes them into numbers and images that, at a glance, tell how the school is doing as far as the main business of the school – curriculum teaching proper and the supporting environment - are concerned. \n" +
-                "Standbasis collects data from your school and process them through the relevant Standbasis technologies to produce the material that the dashboard converts and organizes into simple images that tell the important stories of your school. \n" +
-                "SSDD is your 'ultimate independent and incorruptible' school consultant \n\r"+
-                "They tell you when to celebrate\n"+
-                "They tell you when to make some changes and or intervene\n"+
-                "They give you an incontrovertible comparison with competitors\n"+
-                "They arm you with a veritable value proposition to parents; giving parents a scientific basis for choosing your school over competing schools, or otherwise.\n" +
-                "They set the agenda for 'Quality and Productivity' staff meetings.\n"+
-                "They provide evidence for management proposals and accounting.\n"+ 
+                value: "SSDD receives data generated from your school operation and processes them into numbers and images that, at a glance, tell how the school is doing as far as the main business of the school – curriculum teaching proper and the supporting environment - are concerned. <br/>" +
+                "Standbasis collects data from your school and process them through the relevant Standbasis technologies to produce the material that the dashboard converts and organizes into simple images that tell the important stories of your school. <br/>" +
+                "SSDD is your 'ultimate independent and incorruptible' school consultant <br/>"+
+                "They tell you when to celebrate <br/>"+
+                "They tell you when to make some changes and or intervene <br/>"+
+                "They give you an incontrovertible comparison with competitors <br/>"+
+                "They arm you with a veritable value proposition to parents; giving parents a scientific basis for choosing your school over competing schools, or otherwise. <br/>" +
+                "They set the agenda for 'Quality and Productivity' staff meetings. <br/>"+
+                "They provide evidence for management proposals and accounting. <br/>"+ 
                 "SSDD reduces an otherwise lengthy and technical analysis chores to simple observation of 'upward and downward' movement of graphs that anybody can see.",
                 category: 'General FAQ'
               },
