@@ -130,7 +130,7 @@
             isOpen: false,
             myItems: [
               {
-                title: 'Standbasis School Rating and Standbasis-School-Data-Dashboard; What is the relationship?',
+                title: '<b> Standbasis School Rating and Standbasis-School-Data-Dashboard; What is the relationship? </b>',
                 value: "Standbasis School Rating is a system of benchmarking school(s) curriculum teaching resources (infrastructure, processes and teachers) provision and performance against a set of reference quantities as a standard. It is the implementation of standards-based operation in schools. <br/>"+ 
                   "Standbasis Rating is neither statutory nor formal industry standards for ranking schools. It is an independent and voluntary-adoption internal administrative tool for individual and group of schools with common owners.<br/>" + 
                   "Standbasis School Rating encourages schools to leverage data and digital technologies to manage viability and sustainability imperatives in an increasingly demanding and competitive education industry.<br/>"+ 
