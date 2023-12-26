@@ -156,11 +156,11 @@
               },
               {
                 title: 'Can you talk me through the dashboard?',
-                value: "Standbasis School Data Dashboard has four screens for monitoring: \n\r" +
-                       " ●	Academic performance indicators \n" +
-                       " ●	Teacher quality asset indicators \n"+
-                       " ●	School health status indicators \n"+
-                       " ●	Curriculum teaching policies compliance / violation indicators \n\r"+
+                value: "Standbasis School Data Dashboard has four screens for monitoring: <br/>" +
+                       " ●	Academic performance indicators <br/>" +
+                       " ●	Teacher quality asset indicators <br/>"+
+                       " ●	School health status indicators <br/>"+
+                       " ●	Curriculum teaching policies compliance / violation indicators <br/>"+
                        " The audio on each of those screens at dashboard.standbasis.com explain the services of each of the screens.",
                 category: 'General FAQ'
               },
@@ -171,14 +171,17 @@
               },
               {
                 title: 'What is the scope of the offer?',
-                value: "    Item      	|       Offer        |	     For how long?     |	    Beyond the offer?     \n"+
-                "____________________________________________________________________________________\r" +
-                " Standbasis School Data Dashboard | Free: Infrastructure and web hosting | Permanent, unless redundant for 5 years. | Free \n"+
-                "----------------------------------------------------------------------------------------------------------------------------\r" +
+                value: "    Item      	|       Offer        |	     For how long?     |	    Beyond the offer?     <br/>"+
+                "____________________________________________________________________________________<br/>" +
+                " Standbasis School Data Dashboard | Free: Infrastructure and web hosting | Permanent, unless redundant for 5 years. | Free <br/>"+
+                "---------------------------------------------------------------------------------------------------------------------------- <br/>" +
                 " Academic Performance Indicators | Free: Data processing |  Three school terms and one external examination. Back-results, up to three years could be accepted above the offer to achieve an early trending. |  Per term subscription (single subscription for two) \n" +
+                "---------------------------------------------------------------------------------------------------------------------------- <br/>"+
                 " Teacher Asset Quality Indicators | Free: Data processing |  Three school terms and one external examination. Back-results, up to three years could be accepted above the offer to achieve an early trending. |  Per term subscription (single subscription for two) \n" +
-                " School Health Status Indicators | Subscription only | Annually | Annual Subscription \n"+
-                " Teaching Processes Policy Violation Indicators | Subscription only | Annually | Annual Subscription \n",
+                "---------------------------------------------------------------------------------------------------------------------------- <br/>" +
+                " School Health Status Indicators | Subscription only | Annually | Annual Subscription <br/>"+
+                "---------------------------------------------------------------------------------------------------------------------------- <br/>"+
+                " Teaching Processes Policy Violation Indicators | Subscription only | Annually | Annual Subscription <br/>",
                 category: 'General FAQ'
               },
               {
@@ -188,9 +191,9 @@
               },
               {
                 title: 'What happens if I stay strictly with the free services without taking any of the subscription-only services?',
-                value: "Your academic and teacher data, made available to Standbasis, would be processed and the two screens dedicated to those services will show your graphs. The subscription-only services screens will remain with the placeholder images.\n" +
-                "Our service is modular, meaning that each screen can work independently and all the screens can work together.\n"+
-                "What if I could not subscribe to any of the four services at the end of the free offer or there is a .break in subscription; will I lose the dashboard?.\n"+ 
+                value: "Your academic and teacher data, made available to Standbasis, would be processed and the two screens dedicated to those services will show your graphs. The subscription-only services screens will remain with the placeholder images. <br/>" +
+                "Our service is modular, meaning that each screen can work independently and all the screens can work together. <br/>"+
+                "What if I could not subscribe to any of the four services at the end of the free offer or there is a .break in subscription; will I lose the dashboard?. <br/>"+ 
                 "The dashboard remains yours and available for deployment when you can. The dashboard resources would only be retrieved if the redundancy period gets to five years.",
                 category: 'General FAQ'
               },
