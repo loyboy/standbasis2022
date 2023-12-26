@@ -125,41 +125,75 @@
     data() {
         
         return {  
-            faqItems: [
-                {
-                  q: "What is ChatGPT?",
-                  a:
-                    "ChatGPT is a language generation model developed by OpenAI. It's based on the GPT (Generative Pre-trained Transformer) architecture and is designed to generate human-like text and engage in natural-sounding conversations."
-                },
-                {
-                  q: "How does ChatGPT work?",
-                  a:
-                    "ChatGPT uses a deep learning architecture called GPT, which processes input text and generates coherent and contextually relevant responses. It's trained on a vast amount of internet text to learn grammar, context, and style to generate responses that mimic human conversation."
-                },
-                {
-                  q: "What can I use ChatGPT for?",
-                  a:
-                    "ChatGPT can be used for a variety of purposes, including drafting emails, brainstorming ideas, writing code, generating creative content, providing tutoring or information on a wide range of topics, and engaging in simulated conversations."
-                }
-            ],
             filterWord: "",
+
             isOpen: false,
             myItems: [
               {
-                title: 'How many time zones are there in all?',
-                value: 'Given a 24-hour day and 360 degrees of longitude around the Earth',
-                category: 'Tab-1'
+                title: 'Standbasis School Rating and Standbasis-School-Data-Dashboard; What is the relationship?',
+                value: "Standbasis School Rating is a system of benchmarking school(s) curriculum teaching resources (infrastructure, processes and teachers) provision and performance against a set of reference quantities as a standard. It is the implementation of standards-based operation in schools.\n"+ 
+                  "Standbasis Rating is neither statutory nor formal industry standards for ranking schools. It is an independent and voluntary-adoption internal administrative tool for individual and group of schools with common owners.\n" + 
+                  "Standbasis School Rating encourages schools to leverage data and digital technologies to manage viability and sustainability imperatives in an increasingly demanding and competitive education industry.\n"+ 
+                  "Standbasis Rating empowers physically small schools and less flamboyant schools to have a common basis for pitching their strengths big schools, apple for apple, in the student enrollment market.\n"+
+                  "On the other hand, Standbasis Rating empowers parents to shop for the best possible value for their money scientifically, not on subjective and emotional grounds.\n"+
+                  "Standbasis School Data Dashboard provides the visual result of Standbasis Rating at a glance, instantaneous in some cases, enterprise fashion and mobile. The dashboard provides further elaboration, departmentally, to enrich the management information derivable from school operations data."
+                ,
+                category: 'General FAQ'
               },
               {
-                title: 'How long is a day and year on Venus?',
-                value: 'Venus takes 224.7 Earth days to complete one orbit around the Sun.',
-                category: 'Tab-2'
+                title: 'How Does Standbasis School Data Dashboard (SSDD) work?',
+                value: "SSDD receives data generated from your school operation and processes them into numbers and images that, at a glance, tell how the school is doing as far as the main business of the school – curriculum teaching proper and the supporting environment - are concerned. \n" +
+                "Standbasis collects data from your school and process them through the relevant Standbasis technologies to produce the material that the dashboard converts and organizes into simple images that tell the important stories of your school. \n" +
+                "SSDD is your 'ultimate independent and incorruptible' school consultant \n\r"+
+                "They tell you when to celebrate\n"+
+                "They tell you when to make some changes and or intervene\n"+
+                "They give you an incontrovertible comparison with competitors\n"+
+                "They arm you with a veritable value proposition to parents; giving parents a scientific basis for choosing your school over competing schools, or otherwise.\n" +
+                "They set the agenda for 'Quality and Productivity' staff meetings.\n"+
+                "They provide evidence for management proposals and accounting.\n"+ 
+                "SSDD reduces an otherwise lengthy and technical analysis chores to simple observation of 'upward and downward' movement of graphs that anybody can see.",
+                category: 'General FAQ'
               },
               {
-                title: 'What animal smells like popcorn?',
-                value: 'Binturongs smell like popcorn.',
-                category: 'Tab-2'
-              }
+                title: 'Can you talk me through the dashboard?',
+                value: "Standbasis School Data Dashboard has four screens for monitoring: \n\r" +
+                       " ●	Academic performance indicators \n" +
+                       " ●	Teacher quality asset indicators \n"+
+                       " ●	School health status indicators \n"+
+                       " ●	Curriculum teaching policies compliance / violation indicators \n\r"+
+                       " The audio on each of those screens at dashboard.standbasis.com explain the services of each of the screens.",
+                category: 'General FAQ'
+              },
+              {
+                title: 'The dashboard has graphs already, where would my school data go?',
+                value: "The graphs that came with your dashboard have 'PLACEHOLDER' written across them. They do not represent any school right now. They would be replaced with your school graphs when you provide the data to feed them. \n\r",
+                category: 'General FAQ'
+              },
+              {
+                title: 'What is the scope of the offer?',
+                value: "    Item      	|       Offer        |	     For how long?     |	    Beyond the offer?     \n"+
+                "____________________________________________________________________________________________________\r" +
+                " Standbasis School Data Dashboard | Free: Infrastructure and web hosting | Permanent, unless redundant for 5 years. | Free \n"+
+                "----------------------------------------------------------------------------------------------------------------------------\r" +
+                " Academic Performance Indicators | Free: Data processing |  Three school terms and one external examination. Back-results, up to three years could be accepted above the offer to achieve an early trending. |  Per term subscription (single subscription for two) \n" +
+                " Teacher Asset Quality Indicators | Free: Data processing |  Three school terms and one external examination. Back-results, up to three years could be accepted above the offer to achieve an early trending. |  Per term subscription (single subscription for two) \n" +
+                " School Health Status Indicators | Subscription only | Annually | Annual Subscription \n"+
+                " Teaching Processes Policy Violation Indicators | Subscription only | Annually | Annual Subscription \n",
+                category: 'General FAQ'
+              },
+              {
+                title: 'Who is seeing my dashboard with me?',
+                value: "Your dashboard is a private property of your school, once you change the password to yours nobody can visit your dashboard without you providing access. Conversely, it you who would flaunt favorable and outstanding performance data from your dashboard for marketing purposes.",
+                category: 'General FAQ'
+              },
+              {
+                title: 'What happens if I stay strictly with the free services without taking any of the subscription-only services?',
+                value: "Your academic and teacher data, made available to Standbasis, would be processed and the two screens dedicated to those services will show your graphs. The subscription-only services screens will remain with the placeholder images.\n" +
+                "Our service is modular, meaning that each screen can work independently and all the screens can work together.\n"+
+                "What if I could not subscribe to any of the four services at the end of the free offer or there is a .break in subscription; will I lose the dashboard?.\n"+ 
+                "The dashboard remains yours and available for deployment when you can. The dashboard resources would only be retrieved if the redundancy period gets to five years.",
+                category: 'General FAQ'
+              },
             ]
         }
     },
@@ -226,9 +260,14 @@
 
   </style>
   
-  <style lang="scss">
+  <style lang="scss" scoped>
   @import '~@core/scss/vue/libs/vue-select.scss';
   /* CSS to style the table */
+
+  :deep(.faq-wrapper) {
+    width: 100%;
+  }
+
   table {
     width: 100%;
     border-collapse: separate;
