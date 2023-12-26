@@ -156,11 +156,11 @@
               },
               {
                 title: 'Can you talk me through the dashboard?',
-                value: "Standbasis School Data Dashboard has four screens for monitoring: \n\r" +
-                       " ●	Academic performance indicators \n" +
-                       " ●	Teacher quality asset indicators \n"+
-                       " ●	School health status indicators \n"+
-                       " ●	Curriculum teaching policies compliance / violation indicators \n\r"+
+                value: "Standbasis School Data Dashboard has four screens for monitoring: \\n\\r" +
+                       " ●	Academic performance indicators \\\n" +
+                       " ●	Teacher quality asset indicators \\\n"+
+                       " ●	School health status indicators \\n"+
+                       " ●	Curriculum teaching policies compliance / violation indicators \\n\\r"+
                        " The audio on each of those screens at dashboard.standbasis.com explain the services of each of the screens.",
                 category: 'General FAQ'
               },
@@ -265,7 +265,7 @@
   /* CSS to style the table */
 
   :deep(.faq-wrapper) {
-    width: 100%;
+    max-width: 1300px;
   }
 
   table {
