@@ -36,7 +36,7 @@
                 <div class="border flex-grow-1 align-self-stretch"> 
                   <!-- https://onedrive.live.com/embed?resid=25784E9435CEB7C5%211809&authkey=%21AMSOQvqB2XE3hlg&em=2&wdAllowInteractivity=False&Item=Chart%201&wdInConfigurator=True&wdInConfigurator=True -->
                   <!--<iframe width="640" height="400" frameborder="0" scrolling="no" :src="standardItem.graph_link"></iframe> -->
-                  <img width="600" height="400" :src="standardItem.graph_link" alt="School Standards Improvement System"/>
+                  <img width="600" height="400" :src=" standardItem.graph_link != '' && standardItem.graph_link != null ? 'https://drive.google.com/uc?export=download&id=1QNIrAdVlfKUEzWaS8r8O7QvHqBGaNmIv' : standardItem.graph_link" alt="School Standards Improvement System"/>
                 </div>
               </div>
 
@@ -145,7 +145,7 @@
               <div class="col min-vh-50 d-flex align-self-stretch">
                 <div class="border flex-grow-1"> 
                    <!-- <iframe width="640" height="400" frameborder="0" scrolling="no" :src="teacherItem.graph_link"></iframe>-->
-                    <img width="600" height="400" :src="teacherItem.graph_link" alt="Teacher Quality Evaluator"/>
+                    <img width="600" height="400" :src=" teacherItem.graph_link != '' && teacherItem.graph_link != null ? 'https://drive.google.com/uc?export=download&id=1xIp5-yisO5UHu7yYKSvDUJjMQyPOMTPE' : teacherItem.graph_link" alt="Teacher Quality Evaluator"/>
                 </div>
               </div>
 
@@ -239,7 +239,7 @@
               <div class="col min-vh-50 d-flex">
                 <div class="border flex-grow-1"> 
                     <!--<iframe width="640" height="400" frameborder="0" scrolling="no" :src="curriculumItem.graph_link"> </iframe> -->
-                    <img width="600" height="400" :src="curriculumItem.graph_link" alt="Curriculum Teaching Processes Management"/>
+                    <img width="600" height="400" :src="curriculumItem.graph_link != '' && curriculumItem.graph_link != null ? 'https://drive.google.com/uc?export=download&id=1oEYZ934nK6UfFgfeuiuv3C0PPaJUpIvj' : curriculumItem.graph_link" alt="Curriculum Teaching Processes Management"/>
                 </div>
               </div>
 
@@ -334,7 +334,7 @@
                 <div class="border flex-grow-1">
                   <!-- <iframe width="620" height="400" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSRK6k8lAzX4wKmc_ZnfTb-Y3BJU9d3cMS7OSTm43QDa0vNF1gAIqrD7ssqKOJKyu0xnxCLW-IgDsPJ/pubchart?oid=542621565&amp;format=interactive"></iframe>-->
                   <!-- <iframe width="640" height="400" frameborder="0" scrolling="no" :src="academicItem.graph_link"> </iframe> -->
-                  <img width="600" height="400" :src="academicItem.graph_link" alt="Academic Performance"/>
+                  <img width="600" height="400" :src="academicItem.graph_link != '' && academicItem.graph_link != null ? 'https://drive.google.com/uc?export=download&id=1ffc9V6zFMm1zdPQPupubVX2UdV5tR-RQ' : academicItem.graph_link " alt="Academic Performance"/>
                   <!-- require('@/assets/images/dashboard/academic/1.svg') -->
                 </div>
               </div>
