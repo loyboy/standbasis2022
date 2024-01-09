@@ -12,10 +12,10 @@
         </b-link>
 
         <b-card-title class="mb-1">
-              Welcome to Standbasis! 👋
+              Welcome to Standbasis!
         </b-card-title>
         <b-card-text class="mb-2">
-          Please sign-in to your account and then we can start this adventure 😁
+          Please sign-in to your account and then we can start this adventure
         </b-card-text>
 
         <!-- form -->
