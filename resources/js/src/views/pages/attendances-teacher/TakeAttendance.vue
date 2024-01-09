@@ -397,6 +397,9 @@
           targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );       
 
           let the_timing =  this.isWithinFiveMinutes( targetTime, new Date() ) ? 100 : this.isWithinTenMinutes( targetTime, new Date() ) ? 50 : 0; 
+          console.log("Target Time: " + targetTime );
+          console.log("Real Time: " + new Date() );
+
           let the_completeness = (this.imageFile !== null) ? 100 : 50;
 
           let newRowData = this.rowcallData.map((row) => { 
@@ -468,6 +471,9 @@
             let targetTime = new Date( dateOfAtt );
             targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );
 
+            console.log("Target Time: " + targetTime );
+            console.log("Real Time: " + new Date() );
+          
             if ( this.isWithinOneHour( targetTime, new Date() ) ) { 
 
                 this.takeAttendance = true;
