@@ -11,7 +11,7 @@
   <title>Standbasis - Administrative Panel</title>
 
   <!-- Splash Screen/Loader Styles -->
-  <link rel="stylesheet" type="text/css" href="{{ asset(mix('css/loader.css')) }}" />
+  <link rel="stylesheet" type="text/css" href="{{ asset(mix('css/loader.css')) }}" defer />
 
   <!-- Styles -->
   <link rel="stylesheet" href="{{ asset(mix('css/app.css')) . "&sid=" . Str::random(16) }} ">
@@ -20,20 +20,13 @@
   <link rel="shortcut icon" href="{{ asset('images/logo/favicon.png') }}">
 
   <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" defer>
 
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/drilldown.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
-
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
-  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-
-
-
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" defer>
+  
   <style>
     .flex-right{
-          display: -webkit-flex !important;
+        display: -webkit-flex !important;
         display: flex !important;
         list-style-type: none;
         padding-bottom: 10px !important;
@@ -168,7 +161,10 @@
   </div>
 
   <script src="{{ asset(mix('js/app.js')) }}&time={{ time() }} "></script>
-  <!--<script src="{{ asset( 'js/app.js?time=') }} {{ time() }}" defer></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<!--  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/drilldown.js"></script>-->
 
 </body>
 
