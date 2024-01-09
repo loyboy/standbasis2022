@@ -6,16 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico"> -->
-
   <title>Standbasis - Administrative Panel</title>
 
   <!-- Splash Screen/Loader Styles -->
   <link rel="stylesheet" type="text/css" href="{{ asset(mix('css/loader.css')) }}" defer />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="{{ asset(mix('css/app.css')) . "&sid=" . Str::random(16) }} ">
 
+  <link rel="stylesheet" href="{{ asset('css/app.css') }} ">
   <!-- Favicon -->
   <link rel="shortcut icon" href="{{ asset('images/logo/favicon.png') }}">
 
@@ -147,24 +145,29 @@
     <strong>We're sorry but Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template doesn't work properly without
       JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
- <!-- <div id="loading-bg">
-    <div class="loading-logo">
-      <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 200px;" />
+
+    <div id="loading-bg">
+      <div class="loading-logo">
+        <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 200px;" />
+      </div>
+      <div class="loading">
+        <div class="effect-1 effects"></div>
+        <div class="effect-2 effects"></div>
+        <div class="effect-3 effects"></div>
+      </div>
     </div>
-    <div class="loading">
-      <div class="effect-1 effects"></div>
-      <div class="effect-2 effects"></div>
-      <div class="effect-3 effects"></div>
-    </div>
-  </div>-->
+
   <div id="app">
   </div>
 
-  <script src="{{ asset(mix('js/app.js')) }}&time={{ time() }} "></script>
+  <script src=" {{ asset('js/app.js') }} "></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
   <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <!--  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/drilldown.js"></script>-->
+  <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+   <link rel="stylesheet" href="{{ asset(mix('css/app.css')) . "&sid=" . Str::random(16) }} "> 
+   <script src="{{ asset(mix('js/app.js')) }}&time={{ time() }} "></script>
+  -->
 
 </body>
 
