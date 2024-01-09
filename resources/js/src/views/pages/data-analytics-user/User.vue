@@ -374,18 +374,18 @@
                             </tr>
                             <tr>
                                 <td style="background-color: #cfd5ea; color: black;">Transition Index</td>
-                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._transitionIndex_term_one }}   </td>
-                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._transitionIndex_term_two }}  </td>
-                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._transitionIndex_term_three }}  </td>
-                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._transitionIndex_term_external }} </td>  
+                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._transition_index_term_one }}   </td>
+                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._transition_index_term_two }}  </td>
+                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._transition_index_term_three }}  </td>
+                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._transition_index_term_external }} </td>  
                               
                             </tr>
                             <tr>
                                 <td style="background-color: #cfd5ea; color: black;">Drag Index</td>
-                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._dragIndex_term_one }}  </td>
-                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._dragIndex_term_two }}  </td>
-                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._dragIndex_term_three }}  </td>
-                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._dragIndex_external }} </td>  
+                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._drag_index_term_one }}  </td>
+                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._drag_index_term_two }}  </td>
+                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._drag_index_term_three }}  </td>
+                                <td style="background-color: #cfd5ea; color: black;"> {{ academicItem._drag_index_external }} </td>  
                               
                             </tr>
                           
@@ -509,7 +509,7 @@
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
       const Dashboard_APP_STORE_MODULE_NAME = 'app-dashboard';
    
-      const { baseURL } = $themeConfig.app; 
+      const { baseURL, homeURL } = $themeConfig.app; 
       const userData = ref({});
 
       // Register module
@@ -559,7 +559,12 @@
       }
 
       onMounted(() => {
-          handleChange()
+          if ( userData.value.temp_pass === 1 ) {
+              window.location.href = homeURL + "/change-password"
+          }
+          else{
+            handleChange()
+          }          
       })
       
       return {
