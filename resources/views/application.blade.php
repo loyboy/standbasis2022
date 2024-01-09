@@ -147,7 +147,7 @@
     <strong>We're sorry but Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template doesn't work properly without
       JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
-  <div id="loading-bg">
+ <!-- <div id="loading-bg">
     <div class="loading-logo">
       <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 200px;" />
     </div>
@@ -156,7 +156,7 @@
       <div class="effect-2 effects"></div>
       <div class="effect-3 effects"></div>
     </div>
-  </div>
+  </div>-->
   <div id="app">
   </div>
 
