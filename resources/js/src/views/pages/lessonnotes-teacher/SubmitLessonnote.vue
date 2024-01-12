@@ -38,25 +38,25 @@
                    </b-col>
                   <b-col cols="4" md="12">
                     <b-form-group label=" Reverted Lesson Note had bad grammar?" label-for="">
-                       <span> <b> {{ filters.revertedGrammar === true ? " Yes, please re-check " : "No, it' fine"}} </b> </span>
+                       <span> <b> {{ filters.revertedGrammar === true ? " Yes, please re-check " : "No"}} </b> </span>
                     </b-form-group>
                   </b-col>
 
                   <b-col cols="4" md="12">
                     <b-form-group label=" Reverted Lesson Note had bad Arrangement? " label-for="">
-                      <span> <b> {{ filters.revertedArrangement === true ? " Yes, please re-check " : "No, it' fine" }} </b> </span>
+                      <span> <b> {{ filters.revertedArrangement === true ? " Yes, please re-check " : "No" }} </b> </span>
                     </b-form-group>
                   </b-col>
 
                   <b-col cols="4" md="12">
                     <b-form-group label=" Reverted Lesson Note had lack of understanding of the subject matter? " label-for="">
-                     <span> <b> {{ filters.revertedSubject === true ? "  Yes, please re-check " : "No, it' fine" }} </b> </span>
+                     <span> <b> {{ filters.revertedSubject === true ? "  Yes, please re-check " : "No" }} </b> </span>
                     </b-form-group>
                   </b-col>
 
                   <b-col cols="4" md="12">
                     <b-form-group label=" Reverted Lesson Note was incomplete with either a missing classwork/test/homework? " label-for="">
-                     <span> <b> {{ filters.revertedIncomplete === true ? " Yes, please re-check" : "No, it' fine" }} </b> </span>
+                     <span> <b> {{ filters.revertedIncomplete === true ? " Yes, please re-check" : "No" }} </b> </span>
                     </b-form-group>
                   </b-col>
 
