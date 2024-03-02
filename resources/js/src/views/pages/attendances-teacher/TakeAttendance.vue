@@ -271,7 +271,7 @@
       const userData = ref({});
     //  const camera = ref(null);
       const teacherData = ref({});
-      const dayData = ref([ "Monday", "Tuesday" , "Wednesday" , "Thursday" , "Friday" ]);
+      const dayData = ref([ "Monday", "Tuesday" , "Wednesday" , "Thursday" , "Friday", "Saturday" ]);
       const attendanceOptions = ref([  { value: null, text: "Please select Attendance for you" } ]);
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
