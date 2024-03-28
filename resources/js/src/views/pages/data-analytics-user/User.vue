@@ -165,14 +165,104 @@
 
                 <br />
                 <br />
-                <ve-table
-                    rowKeyFieldName="rowKey"
-                    :fixed-header="true"
-                    :columns="columns"
-                    :table-data="teacher"
-                    :cell-selection-option="cellSelectionOption"
-                    :row-style-option="rowStyleOption"
-                />
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Level</th>
+                      <th>Teacher Registration Council</th>
+                      <th>Academic Background</th>
+                      <th>Qualification in Education</th>
+                      <th>Type of Engagement</th>
+                      <th>Discipline Option</th>
+                      <th>Highest experience Option</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(t, index) in teacher" :key="index">
+                      <td>{{ t.name }}</td>
+                      <td>
+                                <select
+                                  v-model="t.level_option"
+                                  class="form-select form-select-sm rounded bg-light"
+                                >
+                                  <option value="null">Select Level</option>
+                                  <option value="primary">Primary</option>
+                                  <option value="secondary">Secondary</option>
+                                </select>
+                      </td>
+
+                      <td>
+                                <select
+                                  v-model="t.trcc_option"
+                                  class="form-select form-select-sm rounded bg-light"
+                                >
+                                  <option value="null">Select Teacher Registration Council Certificate</option>
+                                  <option value="0">No, He doesn't have this certificate</option>
+                                  <option value="1">Yes, He has this certificate</option>
+                                </select>
+                      </td>
+
+                      <td>
+                               <select
+                                  v-model="t.academic_option"
+                                  class="form-select form-select-sm rounded bg-light"
+                                >
+                                  <option value="null">Select Academic Certificate</option>
+                                  <option value="waec">Waec O' Level</option>
+                                  <option value="ttc">TTC</option>
+                                  <option value="hnd">HND</option>
+                                  <option value="ond">OND</option>
+                                  <option value="bsc">Bachelors</option>
+                                  <option value="pgd">PGD</option>
+                                  <option value="masters">Masters</option>
+                                  <option value="doctorate">Doctorate</option>
+                                </select>
+                      </td>
+
+                       <td>
+                              <select
+                                  v-model="t.qualification_in_education_option"     
+                                  class="form-select form-select-sm rounded bg-light"
+                                >
+                                  <option value="null">Select Qualification in Education</option>
+                                  <option value="edu">Education Certificate</option>
+                                  <option value="nce">NCE</option>
+                                  <option value="bed">B.Ed</option>
+                                  <option value="pgd">P.GD</option>
+                                  <option value="med">M.Ed</option>
+                                  <option value="phded">PHD. Ed</option>
+                                </select>
+                      </td>
+
+                      <td>
+                              <select
+                                  v-model="t.type_of_engagement_option"
+                                  class="form-select form-select-sm rounded bg-light"
+                                >
+                                  <option value="null">Select type of Engagement</option>
+                                  <option value="intern">Intern</option>
+                                  <option value="parttime">Part Time</option>
+                                  <option value="permanent">Permanent</option>
+                                </select>
+                      </td>
+
+                      <td>
+                                <select
+                                  v-model="t.discipline_option"
+                                  class="form-select form-select-sm rounded bg-light"
+                                >
+                                  <option value="null">Select type of Discipline</option>
+                                  <option value="stem">STEM</option>
+                                  <option value="arts">Arts</option>
+                                  <option value="social_science">Social Science</option>
+                                </select>
+                      </td>                      
+                      
+                    </tr>
+                  </tbody>
+              </table>
+
             </div>
 
             <!-- Second Column -->
@@ -617,209 +707,7 @@
     },
 
     mounted(){
-        this.columns = [
-           {
-                        field: "",
-                        key: "a",
-                        title: "",
-                        width: 50,
-                        align: "center",
-                        operationColumn: true,
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return ++rowIndex;
-                        },
-                    },
-                    {
-                        field: "name",
-                        key: "name",
-                        title: "Name",
-                        align: "left",
-                        width: "15%",
-                    },
-                    {
-                        field: "level_option",
-                        key: "level_option",
-                        title: "What level are you practising in?",
-                        align: "center",
-                        width: "10%",
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return (                             
-
-                                <select
-                                  v-model={row['level_option']}
-                                  v-on:change={(val) => {
-                                        row["level_option"] = val;
-                                        this.cellDataChange(row, column, val);
-                                  }}
-                                  class="form-select form-select-sm rounded bg-light"
-                                >
-                                  <option value="null">Select Level</option>
-                                  <option value="primary">Primary</option>
-                                  <option value="secondary">Secondary</option>
-                                </select>
-
-                            );
-                        },
-                    },
-                    {
-                        field: "trcc_option",
-                        key: "trcc_option",
-                        title: "Do you have the Teacher Registration Council Certificate?",
-                        align: "center",
-                        width: "10%",
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return (
-                                <select
-                                  v-model={row['trcc_option']}
-                                  v-on:change={(val) => {
-                                        row["trcc_option"] = val;
-                                        this.cellDataChange(row, column, val);
-                                  }}
-                                  class="form-select form-select-sm rounded bg-light"
-                                >
-                                  <option value="null">Select Teacher Registration Council Certificate</option>
-                                  <option value="0">No, He doesn't have this certificate</option>
-                                  <option value="1">Yes, He has this certificate</option>
-                                </select>
-                            );
-                        },
-                    },
-                    {
-                        field: "academic_option",
-                        key: "academic_option",
-                        title: "What is your highest Academic Certificate?",
-                        align: "center",
-                        width: "10%",
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return (
-                                <select
-                                  v-model={row['academic_option']}
-                                  v-on:change={(val) => {
-                                        row["academic_option"] = val;
-                                        this.cellDataChange(row, column, val);
-                                  }}
-                                  class="form-select form-select-sm rounded bg-light"
-                                >
-                                  <option value="null">Select Academic Certificate</option>
-                                  <option value="waec">Waec O' Level</option>
-                                  <option value="ttc">TTC</option>
-                                  <option value="hnd">HND</option>
-                                  <option value="ond">OND</option>
-                                  <option value="bsc">Bachelors</option>
-                                  <option value="pgd">PGD</option>
-                                  <option value="masters">Masters</option>
-                                  <option value="doctorate">Doctorate</option>
-                                </select>
-                            );
-                        },
-                    },
-                    {
-                        field: "qualification_in_education_option",
-                        key: "qualification_in_education_option",
-                        title: "What is your highest Qualification in Education?",
-                        align: "center",
-                        width: "10%",
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return (
-
-                                <select
-                                  v-model={row['qualification_in_education_option']}
-                                  v-on:change={(val) => {
-                                        row["qualification_in_education_option"] = val;
-                                        this.cellDataChange(row, column, val);
-                                  }}
-                                  class="form-select form-select-sm rounded bg-light"
-                                >
-                                  <option value="null">Select Qualification in Education</option>
-                                  <option value="edu">Education Certificate</option>
-                                  <option value="nce">NCE</option>
-                                  <option value="bed">B.Ed</option>
-                                  <option value="pgd">P.GD</option>
-                                  <option value="med">M.Ed</option>
-                                  <option value="phded">PHD. Ed</option>
-                                </select>
-                                
-                            );
-                        },
-                    },
-                    {
-                        field: "type_of_engagement_option",
-                        key: "type_of_engagement_option",
-                        title: "What type of Engagement do you have?",
-                        align: "center",
-                        width: "10%",
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return (
-
-                                <select
-                                  v-model={row['type_of_engagement_option']}
-                                  v-on:change={(val) => {
-                                        row["type_of_engagement_option"] = val;
-                                        this.cellDataChange(row, column, val);
-                                  }}
-                                  class="form-select form-select-sm rounded bg-light"
-                                >
-                                  <option value="null">Select type of Engagement</option>
-                                  <option value="intern">Intern</option>
-                                  <option value="parttime">Part Time</option>
-                                  <option value="permanent">Permanent</option>
-                                </select>
-                            );
-                        },
-                    },
-
-                    {
-                        field: "discipline_option",
-                        key: "discipline_option",
-                        title: "What discipline do you have?",
-                        align: "center",
-                        width: "10%",
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return (
-
-                                <select
-                                  v-model={row['discipline_option']}
-                                  v-on:change={(val) => {
-                                        row["discipline_option"] = val;
-                                        this.cellDataChange(row, column, val);
-                                  }}
-                                  class="form-select form-select-sm rounded bg-light"
-                                >
-                                  <option value="null">Select type of Discipline</option>
-                                  <option value="stem">STEM</option>
-                                  <option value="arts">Arts</option>
-                                  <option value="social_science">Social Science</option>
-                                </select>
-                            );
-                        },
-                    },
-
-                    {
-                        field: "highest_experience_option",
-                        key: "highest_experience_option",
-                        title: "What years of experience do you have?",
-                        align: "center",
-                        width: "10%",
-                        renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return (
-
-                                <select
-                                  v-model={row['highest_experience_option']}
-                                  v-on:change={(val) => {
-                                        row["highest_experience_option"] = val;
-                                        this.cellDataChange(row, column, val);
-                                  }}
-                                  class="form-select form-select-sm rounded bg-light"
-                                >
-                                  <option value="null">Select type of experience level</option>
-                                  <option value="not_available">No experience</option>
-                                  <option value="less">Less than Five years</option>
-                                  <option value="more">More than Five years</option>
-                                </select>
-                            );
-                        },
-                    },
-        ]
+       
     },
 
     setup() {
@@ -976,13 +864,13 @@
               
             let baseValues =  {  
                 name:  "",
-                level_option:    null,
-                trcc_option:     null,
-                academic_option: null,
-                qualification_in_education_option: null,
-                type_of_engagement_option:  null,
-                discipline_option:          null,
-                highest_experience_option:  null,
+                level_option:    "null",
+                trcc_option:     "null",
+                academic_option: "null",
+                qualification_in_education_option: "null",
+                type_of_engagement_option:  "null",
+                discipline_option:          "null",
+                highest_experience_option:  "null",
                 rowKey: null
             };
             const teacherArray = [];
@@ -999,7 +887,7 @@
         },
 
         // cell data change
-        cellDataChange(row, column, cellValue) {
+        /*cellDataChange(row, column, cellValue) {
             const { submitData } = this;
 
             let currentCell = submitData.find(
@@ -1016,6 +904,10 @@
                 };
                 this.submitData.push(newCell);
             }
+        },*/
+
+        handleSelectChange(index){
+
         },
 
         submit() {
