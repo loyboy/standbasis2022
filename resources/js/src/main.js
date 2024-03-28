@@ -31,9 +31,11 @@ import loadDrillDown from 'highcharts/modules/drilldown';
 import Skeleton from 'vue-loading-skeleton';
 import vueNumeralFilterInstaller from 'vue-numeral-filter';
 import VuePlaceAutocomplete from 'vue-place-autocomplete';
+import "vue-easytable/libs/theme-default/index.css";
+import VueEasytable from "vue-easytable";
 
 Vue.use(VuePlaceAutocomplete);
-
+Vue.use(VueEasytable);
 
 import VueGmaps from 'vue-gmaps'
 Vue.use(VueGmaps, {

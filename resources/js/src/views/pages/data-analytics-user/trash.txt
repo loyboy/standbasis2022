@@ -1,0 +1,446 @@
+ <!-- Header Second Column -->
+            <div class="row">
+              <div class="col">
+                <!-- Divider with Centralized Header -->
+                <div class="text-center">
+                  <hr/>
+                  <h2> Teacher Quality Evaluator </h2>
+                  <hr/>
+                </div>
+              </div>
+            </div>
+            <!-- Second Column -->
+            <div class="row mb-3 ">
+
+              <div class="col min-vh-50 d-flex align-self-stretch">
+                <div class="border flex-grow-1"> 
+                   <!-- <iframe width="640" height="400" frameborder="0" scrolling="no" :src="teacherItem.graph_link"></iframe>-->
+                    <img width="600" height="400" :src=" teacherItem.graph_link != '' && teacherItem.graph_link != null ? teacherItem.graph_link : 'https://drive.google.com/uc?export=download&id=1xIp5-yisO5UHu7yYKSvDUJjMQyPOMTPE' " alt="Teacher Quality Evaluator"/>
+                </div>
+              </div>
+
+              <div class="col min-vh-50">
+                <div class="row"> 
+                    <div class="col-8">
+
+                         <table style="margin-bottom: 10px;">
+                            <tr>
+                              <td>  
+                                <b-form-group label=" Select Year" >
+                                  <b-form-select
+                                    v-model="filters.yearOptionTeacher"
+                                    :options="yearOptions"
+                                    @change="changeTeacher"
+                                  />
+                                </b-form-group>
+                              </td>                        
+                            </tr>
+                        </table>
+
+                        <table>
+                            <tr>
+                                <th colspan="2" >Areas</th>                            
+                                <th>Quality</th>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #2e75b6; color: black;">Teacher Quality Asset General (TQ GEN)</td>
+                                
+                                <td> {{ teacherItem._one }} % </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #c55a11; color: black;">Teacher Quality Asset Premium (TQ GEN P)</td>
+                                
+                                <td> {{ teacherItem._two }} % </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #afabab; color: black;">Teacher Quality Asset Science / General (TQ SC GEN)</td>
+                                
+                                <td> {{ teacherItem._three }} % </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #ffc000; color: black;">Teacher Quality Asset Science / Premium (TQ SC P)</td>
+                                
+                                <td> {{ teacherItem._four }} % </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #00b0f0; color: black;">Arts and Social Science / General (TQ A&O GEN)</td>
+                                
+                                <td> {{ teacherItem._five }} % </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #92d050; color: black;">Arts and Social Science / Premium (TQ A&O P)</td>
+                                
+                                <td> {{ teacherItem._six }} % </td>
+                            </tr>
+                          
+                        </table>
+                    </div>
+
+                    <div class="col-4 h-100">                    
+                        <div class="rounded p-2 text-left" style="background-color: #002060; color: #fff;">
+                          <p class="text-left" style="line-height: 16px; font-size: 11px;">
+                                                Is my teacher asset quality up to standard? <br/>  <br/>
+                                                  What is my premium performance? <br/>  <br/>
+                                                  In which direction are they changing? <br/>  <br/>
+                                                  Is the change planned?
+                          </p>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+
+            </div>
+
+
+            //-----------------------------------------------------------------------------------------------------------------------------
+
+
+             <!-- Header Third Column -->
+            <div class="row">
+              <div class="col">
+                <!-- Divider with Centralized Header -->
+                <div class="text-center">
+                  <hr>
+                  <h2> Curriculum Teaching Processes Management </h2>
+                  <hr>
+                </div>
+              </div>
+            </div>
+
+            <!-- Third Column -->
+            <div class="row mb-3 ">
+              <div class="col min-vh-50 d-flex">
+                <div class="border flex-grow-1"> 
+                    <!--<iframe width="640" height="400" frameborder="0" scrolling="no" :src="curriculumItem.graph_link"> </iframe> -->
+                    <img width="600" height="400" :src="curriculumItem.graph_link != '' && curriculumItem.graph_link != null ? curriculumItem.graph_link : 'https://drive.google.com/uc?export=download&id=1oEYZ934nK6UfFgfeuiuv3C0PPaJUpIvj' " alt="Curriculum Teaching Processes Management"/>
+                </div>
+              </div>
+
+              <div class="col min-vh-50">
+                <div class="row"> 
+                    <div class="col-8">
+
+                        <table style="margin-bottom: 10px;">
+                            <tr>
+                              <td>  
+                                <b-form-group label=" Select Year" >
+                                  <b-form-select
+                                    v-model="filters.yearOptionCurricullum"
+                                    :options="yearOptions"
+                                    @change="changeCurricullum"
+                                  />
+                                </b-form-group>
+                              </td>                        
+                            </tr>
+                        </table>
+
+                        <table>
+                            <tr>
+                                <th colspan="3">Live Teaching Processes Management Indicators</th>
+                                
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching Processes Compliance</td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._one }} </td>
+                              
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching Processes Administration</td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._two }}  </td>
+                              
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #cfd5ea; color: black;">Asssessment Performance</td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._three }}  </td>
+                              
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #cfd5ea; color: black;">Student Socio-Motor Indicators</td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._four }}  </td>
+                              
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #cfd5ea; color: black;">Quality assurance interventions</td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._five }}  </td>
+                              
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="background-color: #cfd5ea; color: black;">Teaching resources capacity utilization</td>
+                                <td style="background-color: #e9ebf5; color: black;"> {{ curriculumItem._six }}  </td>
+                              
+                            </tr>
+                          
+                        </table>
+                    </div>
+
+                    <div class="col-4 h-100">                    
+                        <div class="rounded p-2 text-left" style="background-color: #002060; color: #fff;">
+                          <p class="text-left" style="line-height: 20px; font-size: 11px;">
+                                              Curriculum teaching is the core business of schools.
+                                              Standards-based-operation, real-time monitoring, near real-time quality assurance administration are key. <br/>
+                                              Acquire quantitative insights and dashboard management
+                          </p>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+
+            </div>
+
+
+            //--------------------------------------------------------------------------------------------------
+
+
+             <!-- First Column -->
+            <div class="row mb-3">
+
+              <div class="col min-vh-50 d-flex">
+                <div class="border flex-grow-1 align-self-stretch"> 
+                  <img width="600" height="400" :src=" standardItem.graph_link != '' && standardItem.graph_link != null ? standardItem.graph_link : 'https://drive.google.com/uc?export=download&id=1QNIrAdVlfKUEzWaS8r8O7QvHqBGaNmIv' " alt="School Standards Improvement System"/>
+                </div>
+              </div>
+
+              <div class="col min-vh-50">
+                <div class="row"> 
+                    <div class="col-8">
+
+                        <table style="margin-bottom: 10px;">
+                            <tr>
+                              <td>  
+                                <b-form-group label=" Select Year" >
+                                  <b-form-select
+                                    v-model="filters.yearOptionRating"
+                                    :options="yearOptions"
+                                    @change="changeStandard"
+                                  />
+                                </b-form-group>
+                              </td>                        
+                            </tr>
+                        </table>
+
+                        <table>
+                            <tr>
+                                <th>Areas</th>
+                                <th>Standbasis</th>
+                                <th>School</th>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #2e75b6; color: black;">Teaching Processes</td>
+                                <td > {{ standardItem._one }} % </td>
+                                
+                                <td  > {{ standardItem._one_min }} % </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #c55a11; color: black;">Teacher Resource</td>
+                                <td > {{ standardItem._two }} % </td>
+                               
+                                <td> {{ standardItem._two_min }} % </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #afabab; color: black;">Learning Environment</td>
+                                <td > {{ standardItem._three }} % </td>
+                               
+                                <td> {{ standardItem._three_min }} %  </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #ffc000; color: black;">Sustainability</td>
+                                <td> {{ standardItem._four }} % </td>
+                               
+                                <td> {{ standardItem._four_min }} % </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #00b0f0; color: black;">Student Development</td>
+                                <td > {{ standardItem._five }} % </td>
+                               
+                                <td> {{ standardItem._five_min }} % </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #92d050; color: black;">Academic Performance</td>
+                                <td > {{ standardItem._six }} % </td>
+                                
+                                <td> {{ standardItem._six_min }} % </td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #1f4e79; color: black;">Safety Health Environ. Sec.</td>
+                                <td> {{ standardItem._seven }} % </td>
+                               
+                                <td> {{ standardItem._seven_min }} % </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="col-4 h-100">                    
+                        <div class="rounded p-2 text-left" style="background-color: #002060; color: #fff;">
+                          <p class="text-left" style="font-size: 11px;">
+                            <ul style=" list-style-type: square; "> 
+                                <li> School Evaluation  </li>
+                                <li> School Rating  </li>
+                                <li> School Grading  </li>
+                                <li> Budget Planning  </li>
+                                <li> Impact Evaluation  </li>
+                                <li> Marketing Pitch  </li>
+                            </ul>
+                          </p>
+                        </div>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+            /****************************************************************************************/
+
+
+             <!-- modal Teacher -->
+      <b-modal
+          ref="my-modal-add-teacher"
+          hide-footer
+          :title="modalTitleTeacher"
+          no-close-on-backdrop
+          content-class="shadow"
+        >      
+          <b-form>
+
+            <div class="row p-4">
+              <div class="col-6 mt-2">
+                  <b-form-group label="year" label-for="year" label-class="mb-1">
+                    <b-form-radio-group
+                      id="year"
+                      v-model="teacher.year"
+                      :options="yOptions"
+                      value="2019"
+                    />
+                  </b-form-group>
+              </div>
+              <div class="col-6 mt-2">
+                  <b-form-group label="type" label-for="type" label-class="mb-1">
+                    <b-form-radio-group
+                      id="type"
+                      v-model="teacher.type"
+                      :options="tOptions"
+                      value="waec"
+                    />
+                  </b-form-group>
+              </div>
+            </div>  
+
+            <b-form-group label=" Do you have Teacher Registration Council Certificate? " >
+              <b-form-select
+                v-model="teacher.trcc_option"
+                :options="trccOptions"
+              />
+            </b-form-group>
+
+            <b-form-group label=" What level are you practising in? " >
+              <b-form-select
+                v-model="teacher.level_option"
+                :options="levelOptions"
+              />
+            </b-form-group>
+
+            <b-form-group label=" What is your highest Academic Certificate? " >
+              <b-form-select
+                v-model="teacher.academic_option"
+                :options="academicOptions"
+              />
+            </b-form-group>
+
+            <b-form-group label=" What is your highest Qualification in Education? " >
+              <b-form-select
+                v-model="teacher.qualification_in_education_option"
+                :options="qualificationInEducationOptions"
+              />
+            </b-form-group>
+
+            <b-form-group label=" What type of Engagement do you have? " >
+              <b-form-select
+                v-model="teacher.type_of_engagement_option"
+                :options="typeOfEngagementOptions"
+              />
+            </b-form-group>
+
+            <b-form-group label=" What discipline do yo? " >
+              <b-form-select
+                v-model="teacher.type_of_engagement_option"
+                :options="typeOfEngagementOptions"
+              />
+            </b-form-group>
+
+          </b-form>
+
+          <b-button
+            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+            class="mt-3"
+            variant="outline-secondary"
+            block
+            @click="hideModalAcademic"
+          >
+            Cancel
+          </b-button>
+          <b-button
+            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+            class="mt-2"
+            variant="outline-success"
+            block
+            @click="addAcademic"
+          >
+            Add Academic Details For Your School
+          </b-button>
+
+      </b-modal>
+
+
+      ///////////////////////////////////////////////////
+
+      const levelOptions = [
+          { text: "Primary", value: "primary" },
+          { text: "Secondary", value: "secondary" },
+        ];
+
+        const trccOptions = [
+          { text: "No, I don't have this certificate", value: 0 },
+          { text: "Yes, I have this certificate", value: 1 },
+        ];
+
+        const academicOptions = [
+          { text: "Waec O' Level", value: "waec" },
+          { text: "TTC", value: "ttc" },
+          { text: "HND", value: "hnd" },
+          { text: "OND", value: "ond" },
+          { text: "Bachelors", value: "bsc" },
+          { text: "PGD", value: "pgd" },
+          { text: "Masters", value: "masters" },
+          { text: "Doctorate", value: "doctorate" },
+        ];
+
+        const qualificationInEducationOptions = [
+          { text: "Education Certificate", value: "edu" },
+          { text: "NCE", value: "nce" },
+          { text: "B.Ed", value: "bed" },
+          { text: "P.GD", value: "pgd" },
+          { text: "M.Ed", value: "med" },
+          { text: "PHD. Ed", value: "phded" },
+        ];
+
+        const typeOfEngagementOptions = [
+          { text: "Intern", value: "intern" },
+          { text: "Part Time", value: "parttime" },
+          { text: "Permanent", value: "permanent" },
+        ];
+
+        const disciplineOptions = [
+          { text: "STEM", value: "stem" },
+          { text: "Arts", value: "arts" },
+          { text: "Social Science", value: "social_science" },
+        ];    
+
+        const highestExperienceOptions = [
+          { text: "No experience", value: "not_available" },
+          { text: "Less than Five", value: "less" },
+          { text: "More than Five", value: "more" },
+        ]; 
