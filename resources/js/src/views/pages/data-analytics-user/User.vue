@@ -617,7 +617,7 @@
   import useUserList from './useUserList'
   import analyticsStoreModule from './analyticsStoreModule'
   import VueApexCharts from 'vue-apexcharts'
-  import { lineChartOptions } from './chartOptions'
+
 
   export default {
     components: {    
