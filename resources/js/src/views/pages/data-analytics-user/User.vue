@@ -643,20 +643,21 @@
                         align: "center",
                         width: "10%",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
-                            return (
-                                <el-select
-                                    size="small"
-                                    value={row["level_option"]}
-                                    on-input={(val) => {
+                            return (                             
+
+                                <select
+                                  v-model={row['level_option']}
+                                  v-on:change={(val) => {
                                         row["level_option"] = val;
                                         this.cellDataChange(row, column, val);
-                                    }}
-                                    placeholder=""
+                                  }}
+                                  class="form-select form-select-sm rounded bg-light"
                                 >
-                                    <el-option label="Select Level" value="null"></el-option>
-                                    <el-option label="Primary" value="primary"></el-option>
-                                    <el-option label="Secondary" value="secondary"></el-option>
-                                </el-select>
+                                  <option value="null">Select Level</option>
+                                  <option value="primary">Primary</option>
+                                  <option value="secondary">Secondary</option>
+                                </select>
+
                             );
                         },
                     },
@@ -668,19 +669,18 @@
                         width: "10%",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return (
-                                <el-select
-                                    size="small"
-                                    value={row["trcc_option"]}
-                                    on-input={(val) => {
+                                <select
+                                  v-model={row['trcc_option']}
+                                  v-on:change={(val) => {
                                         row["trcc_option"] = val;
                                         this.cellDataChange(row, column, val);
-                                    }}
-                                    placeholder=""
+                                  }}
+                                  class="form-select form-select-sm rounded bg-light"
                                 >
-                                    <el-option label="Select Teacher Registration Council Certificate" value="null"></el-option>
-                                    <el-option label="No, He doesn't have this certificate" value="0"></el-option>
-                                    <el-option label="Yes, He has this certificate" value="1"></el-option>
-                                </el-select>
+                                  <option value="null">Select Teacher Registration Council Certificate</option>
+                                  <option value="0">No, He doesn't have this certificate</option>
+                                  <option value="1">Yes, He has this certificate</option>
+                                </select>
                             );
                         },
                     },
@@ -692,25 +692,24 @@
                         width: "10%",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return (
-                                <el-select
-                                    size="small"
-                                    value={row["academic_option"]}
-                                    on-input={(val) => {
+                                <select
+                                  v-model={row['academic_option']}
+                                  v-on:change={(val) => {
                                         row["academic_option"] = val;
                                         this.cellDataChange(row, column, val);
-                                    }}
-                                    placeholder=""
+                                  }}
+                                  class="form-select form-select-sm rounded bg-light"
                                 >
-                                    <el-option label="Select Academic Certificate" value="null"></el-option>
-                                    <el-option label="Waec O' Level" value="waec"></el-option>
-                                    <el-option label="TTC" value="ttc"></el-option>
-                                    <el-option label="HND" value="hnd"></el-option>
-                                    <el-option label="OND" value="ond"></el-option>
-                                    <el-option label="Bachelors" value="bsc"></el-option>
-                                    <el-option label="PGD" value="pgd"></el-option>
-                                    <el-option label="Masters" value="masters"></el-option>
-                                    <el-option label="Doctorate" value="doctorate"></el-option>
-                                </el-select>
+                                  <option value="null">Select Academic Certificate</option>
+                                  <option value="waec">Waec O' Level</option>
+                                  <option value="ttc">TTC</option>
+                                  <option value="hnd">HND</option>
+                                  <option value="ond">OND</option>
+                                  <option value="bsc">Bachelors</option>
+                                  <option value="pgd">PGD</option>
+                                  <option value="masters">Masters</option>
+                                  <option value="doctorate">Doctorate</option>
+                                </select>
                             );
                         },
                     },
@@ -722,24 +721,24 @@
                         width: "10%",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return (
-                                <el-select
-                                    size="small"
-                                    value={row["qualification_in_education_option"]}
-                                    on-input={(val) => {
+
+                                <select
+                                  v-model={row['qualification_in_education_option']}
+                                  v-on:change={(val) => {
                                         row["qualification_in_education_option"] = val;
                                         this.cellDataChange(row, column, val);
-                                    }}
-                                    placeholder=""
+                                  }}
+                                  class="form-select form-select-sm rounded bg-light"
                                 >
-                               
-                                    <el-option label="Select Qualification in Education" value="null"></el-option>
-                                    <el-option label="Education Certificate" value="edu"></el-option>
-                                    <el-option label="NCE" value="nce"></el-option>
-                                    <el-option label="B.Ed" value="bed"></el-option>
-                                    <el-option label="P.GD" value="pgd"></el-option>
-                                    <el-option label="M.Ed" value="med"></el-option>
-                                    <el-option label="PHD. Ed" value="phded"></el-option>
-                                </el-select>
+                                  <option value="null">Select Qualification in Education</option>
+                                  <option value="edu">Education Certificate</option>
+                                  <option value="nce">NCE</option>
+                                  <option value="bed">B.Ed</option>
+                                  <option value="pgd">P.GD</option>
+                                  <option value="med">M.Ed</option>
+                                  <option value="phded">PHD. Ed</option>
+                                </select>
+                                
                             );
                         },
                     },
@@ -751,20 +750,20 @@
                         width: "10%",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return (
-                                <el-select
-                                    size="small"
-                                    value={row["type_of_engagement_option"]}
-                                    on-input={(val) => {
+
+                                <select
+                                  v-model={row['type_of_engagement_option']}
+                                  v-on:change={(val) => {
                                         row["type_of_engagement_option"] = val;
                                         this.cellDataChange(row, column, val);
-                                    }}
-                                    placeholder=""
-                                >      
-                                    <el-option label="Select type of Engagement" value="null"></el-option>
-                                    <el-option label="Intern" value="intern"></el-option>
-                                    <el-option label="Part Time" value="parttime"></el-option>
-                                    <el-option label="Permanent" value="permanent"></el-option>
-                                </el-select>
+                                  }}
+                                  class="form-select form-select-sm rounded bg-light"
+                                >
+                                  <option value="null">Select type of Engagement</option>
+                                  <option value="intern">Intern</option>
+                                  <option value="parttime">Part Time</option>
+                                  <option value="permanent">Permanent</option>
+                                </select>
                             );
                         },
                     },
@@ -777,21 +776,20 @@
                         width: "10%",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return (
-                                <el-select
-                                    size="small"
-                                    value={row["discipline_option"]}
-                                    on-input={(val) => {
+
+                                <select
+                                  v-model={row['discipline_option']}
+                                  v-on:change={(val) => {
                                         row["discipline_option"] = val;
                                         this.cellDataChange(row, column, val);
-                                    }}
-                                    placeholder=""
-                                >      
-                                
-                                    <el-option label="Select type of Discipline" value="null"></el-option>
-                                    <el-option label="STEM" value="stem"></el-option>
-                                    <el-option label="Arts" value="arts"></el-option>
-                                    <el-option label="Social Science" value="social_science"></el-option>
-                                </el-select>
+                                  }}
+                                  class="form-select form-select-sm rounded bg-light"
+                                >
+                                  <option value="null">Select type of Discipline</option>
+                                  <option value="stem">STEM</option>
+                                  <option value="arts">Arts</option>
+                                  <option value="social_science">Social Science</option>
+                                </select>
                             );
                         },
                     },
@@ -804,20 +802,20 @@
                         width: "10%",
                         renderBodyCell: ({ row, column, rowIndex }, h) => {
                             return (
-                                <el-select
-                                    size="small"
-                                    value={row["highest_experience_option"]}
-                                    on-input={(val) => {
+
+                                <select
+                                  v-model={row['highest_experience_option']}
+                                  v-on:change={(val) => {
                                         row["highest_experience_option"] = val;
                                         this.cellDataChange(row, column, val);
-                                    }}
-                                    placeholder=""
-                                >      
-                                    <el-option label="Select type of Discipline" value="null"></el-option>
-                                    <el-option label="No experience" value="not_available"></el-option>
-                                    <el-option label="Less than Five years" value="less"></el-option>
-                                    <el-option label="More than Five years" value="more"></el-option>
-                                </el-select>
+                                  }}
+                                  class="form-select form-select-sm rounded bg-light"
+                                >
+                                  <option value="null">Select type of experience level</option>
+                                  <option value="not_available">No experience</option>
+                                  <option value="less">Less than Five years</option>
+                                  <option value="more">More than Five years</option>
+                                </select>
                             );
                         },
                     },
@@ -926,7 +924,6 @@
             this.fetchAcademic();
         },
 
-
         changeTeacher(value){
             const sef = this;
             sef.isLoading = true;
@@ -975,7 +972,6 @@
         },
 
         handleInputChange(event) {
-          // Access the input value using event.target.value
           const inputValue = event.target.value;
               
             let baseValues =  {  
@@ -1041,27 +1037,29 @@
   <style lang="scss">
   @import '~@core/scss/vue/libs/vue-select.scss';
   /* CSS to style the table */
-  table {
+
+  /*table {
     width: 100%;
     border-collapse: separate;
     
-    border-spacing: 5px; /* Adjust this for spacing */
-    border: 1px solid white; /* White border */
-  }
+    border-spacing: 5px;
+    border: 1px solid white; 
+  }*/
 
-  th, td {
+  /*th, td {
     padding: 10px;
     text-align: center;
-  }                
+  } */               
 
-  th {
-    background-color: #002060; /* Blue background for the first column header */
-    color: white; /* White text color */
-  }
+  /*th {
+    background-color: #002060; 
+    color: white; 
+  }*/
 
-  td:nth-child(2), td:nth-child(3) {
-    background-color: #a6e6a2; /* Light green background for the second and third columns */
-    color: black; /* Black text color */
-  }
+  /*td:nth-child(2), td:nth-child(3) {
+    background-color: #a6e6a2; 
+    color: black; 
+  }*/
+
   </style>
   
