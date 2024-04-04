@@ -843,6 +843,18 @@ const router = new VueRouter({
 
          //
         {            
+            path: '/data-analytics-user-upload',
+            name: 'data-analytics-user-home-upload',
+            component: () =>
+                import ('@/views/pages/data-analytics-user/User_upload.vue'),
+                meta: {
+                    pageTitle: 'Data Upload Into Dashboard',
+                    breadcrumb: []
+                }
+        },
+
+         //
+        {            
             path: '/data-analytics-faq',
             name: 'data-analytics-user-faq',
             component: () =>
