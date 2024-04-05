@@ -39,6 +39,40 @@ export default {
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
+        },
+
+        fetchAcademicInput(ctx, queryParams) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/dashboard/academicinput' , { params: queryParams } )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            }) 
+        },
+
+        fetchTeacherInput(ctx, queryParams) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/dashboard/teacherinput' , { params: queryParams } )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            }) 
+        },
+        updateAcademic(ctx, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post($themeConfig.app.baseURL + '/academic' , payload )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
+        updateTeacher(ctx, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post($themeConfig.app.baseURL + '/teacher' , payload )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
         }
     },
 }

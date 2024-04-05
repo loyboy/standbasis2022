@@ -51,7 +51,7 @@
                         <b-form-group label=" Select Year" >
                           <b-form-select
                               v-model="academic._year"
-                              :options="yOptions"
+                              :options="academicYear"
                             />
                         </b-form-group>
                       </td>
@@ -59,7 +59,7 @@
                       <td class="p-4 w-25"> 
                          <b-form-select
                             v-model="academic._type"
-                            :options="tOptions"
+                            :options="academicTerm"
                           />
                       </td>
 
@@ -259,13 +259,13 @@
                       <td class="p-4 w-25"> 
                          <b-form-select
                             v-model="teacherBase._year"
-                            :options="yOptions"
+                            :options="teacherYear"
                           />
                       </td>
                       <td class="p-4 w-25"> 
                          <b-form-select
                             v-model="teacherBase._type"
-                            :options="tOptions"
+                            :options="teacherTerm"
                           />
                       </td>
                     </tr>
@@ -366,6 +366,18 @@
                                   <option value="arts">Arts</option>
                                   <option value="social_science">Social Science</option>
                                 </select>
+                      </td>   
+
+                      <td>
+                                <select
+                                  v-model="t.highest_experience_option"
+                                  class="form-select form-select-sm rounded bg-light"
+                                >
+                                  <option value="null">Select Highest Years of Experience </option>
+                                  <option value="not_available">No experience</option>
+                                  <option value="less">Less than Five</option>
+                                  <option value="more">More than Five</option>
+                                </select>
                       </td>                      
                       
                     </tr>
@@ -422,6 +434,7 @@
   import { $themeConfig } from "@themeConfig";
   import analyticsStoreModule from './analyticsStoreModule'
   import VueApexCharts from 'vue-apexcharts'
+  import useUserList from './useUserList'
 
   export default {
     components: {    
@@ -464,6 +477,12 @@
         const tOptions = [ { value: "null", text: "Select a Term" }, { value: "1st_term", text: "1st Term" }, { value: "2nd_term", text: "2nd Term" } , { value: "3rd_term", text: "3rd term" } ];
         
         return {  
+
+          academicYear:        [],
+          teacherYear:         [],
+          academicTerm:        [],
+          teacherTerm:         [],
+
           academic:{
             _year:                 null,
             _type:                 null,
@@ -499,6 +518,13 @@
        
     },
 
+    created(){
+      this.academicYear = this.yOptions;
+      this.teacherYear  = this.yOptions;
+      this.academicTerm = this.tOptions;
+      this.teacherTerm  = this.tOptions;
+    },
+
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
       const Dashboard_APP_STORE_MODULE_NAME = 'app-dashboard';
@@ -521,10 +547,32 @@
 
       const findIfDashisPresent = ( userData.value.role === "dashboarduser"  );
 
+      const {
+
+        fetchAcademicInput,
+      
+        isLoading,
+
+        filters,
+
+        academicInputList,
+
+        teacherInputList
+
+      } = useUserList();
+
+      if( findIfDashisPresent ){
+          
+          filters.value.schoolId = findIfDashisPresent && userData.value ? userData.value.sch_id : null;
+          
+      }
+
       onMounted(() => {
           if ( userData.value.temp_pass === 1 ) {
               window.location.href = homeURL + "/change-password"
-          }       
+          }
+          
+          fetchAcademicInput();
       })
       
       return {
@@ -533,9 +581,61 @@
 
         baseURL,
 
-        userData
+        userData,
+
+        fetchAcademicInput,
+      
+        isLoading,
+
+        filters,
+
+        academicInputList,
+
+        teacherInputList
 
       }
+    },
+
+    watch: {
+      academicInputList: {
+        handler: function (val, oldVal) {
+          if (val.length > 0) {
+              val.forEach((word,i) => {
+                  if( this.yOptions.some(el => el.value === word._year) ){
+                      this.academicYear = this.academicYear.filter(e => e.value !== word._year);
+                  }
+                  if( this.tOptions.some(el => el.value === word._term) ){
+                      this.academicTerm = this.academicTerm.filter(e => e.value !== word._term);
+                  }
+              })
+          }
+          else{
+            this.academicYear = this.yOptions;
+            this.academicTerm = this.tOptions;
+          }
+        },
+        deep: true
+      },
+      teacherInputList: {
+        handler: function (val, oldVal) {
+          if (val.length > 0) {
+              val.forEach((word,i) => {
+                  if( this.yOptions.some(el => el.value === word._year) ){
+                      this.teacherYear = this.teacherYear.filter(e => e.value !== word._year);
+                  }
+                  if( this.tOptions.some(el => el.value === word._term) ){
+                      this.teacherTerm = this.teacherTerm.filter(e => e.value !== word._term);
+                  }
+              })
+          }
+          else{
+            this.teacherYear = this.yOptions;
+            this.teacherTerm = this.tOptions;
+          }
+        },
+        deep: true
+      },
+      
     },
 
     methods: {   
@@ -543,7 +643,9 @@
         handleInputChange(event) {
           const inputValue = event.target.value;
               
-            let baseValues =  {  
+            let baseValues =  { 
+                _year: "",
+                _term: "", 
                 name:  "",
                 level_option:    "null",
                 trcc_option:     "null",
@@ -552,7 +654,7 @@
                 type_of_engagement_option:  "null",
                 discipline_option:          "null",
                 highest_experience_option:  "null",
-                rowKey: null
+                sch_id: null
             };
             const teacherArray = [];
 
@@ -560,11 +662,10 @@
               const teacher = { ...baseValues };
               teacher.name = `Teacher ${i}`;
               teacher.rowKey = i - 1;
+              teacher.sch_id = this.filters.schoolId;
               teacherArray.push(teacher);
             }
-
-            this.teacher = teacherArray;
-          
+            this.teacher = teacherArray;          
         },
 
         handleSelectChange(index){
@@ -572,12 +673,21 @@
         },
 
         submitAcademic() {
-          alert(JSON.stringify(this.academic));
+          store.dispatch(`${ this.Dashboard_APP_STORE_MODULE_NAME }/updateAcademic`, { ...this.academic, sch_id: this.filters.schoolId } )
+          .then(response => { 
+              console.log("Academic updating: " + response.data.success );                         
+          });
         },
 
         submitTeacher() {
-          alert(JSON.stringify(this.teacher));
+          store.dispatch(`${ this.Dashboard_APP_STORE_MODULE_NAME }/updateTeacher`, { ...this.teacher, sch_id: this.filters.schoolId } )
+          .then(response => { 
+              console.log("Teacher updating: " + response.data.success );                         
+          });
         },
+
+        //1. add bulk teacher sending as list
+        //2. validate array of teacher b4 submission
 
     }
 

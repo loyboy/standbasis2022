@@ -8,13 +8,15 @@ export default function useUserList() {
   const teacherItem = ref({})
   const curriculumItem = ref({})
   const academicItem = ref({})
+  const academicInputList = ref([])
+  const teacherInputList = ref([])
 
   const filters = ref({  
-    schoolId:null,
-    yearOptionAcademic:null,
-    yearOptionRating:null,
-    yearOptionTeacher:null,
-    yearOptionCurricullum:null
+      schoolId:null,
+      yearOptionAcademic:null,
+      yearOptionRating:null,
+      yearOptionTeacher:null,
+      yearOptionCurricullum:null
   });
 
   const fetchStandards = (ctx) => {
@@ -113,11 +115,36 @@ const fetchAcademic = (ctx) => {
 
 }
 
+const fetchAcademicInput = (ctx) => {
+     
+  isLoading.value = true;
+
+  store.dispatch('app-dashboard/fetchAcademicInput', {   
+        id: filters.value.schoolId,
+    })
+    .then(response => {
+      
+      const { data } = response.data; 
+  
+      academicInputList.value = data
+      
+      isLoading.value = false;   
+
+    })
+    .catch((e) => {
+      console.log("Fetch Academic Input: " + e);
+      isLoading.value = false;   
+  })
+
+}
+
   const handleChange = () => {
     fetchStandards();
     fetchTeachers();
     fetchCurriculum();
     fetchAcademic();
+
+    
   }
 
   return {
@@ -131,6 +158,8 @@ const fetchAcademic = (ctx) => {
     fetchCurriculum,
 
     fetchAcademic,
+
+    fetchAcademicInput,
   
     isLoading,
 
@@ -139,7 +168,8 @@ const fetchAcademic = (ctx) => {
     standardItem,
     teacherItem,
     curriculumItem,
-    academicItem
+    academicItem,
+    academicInputList
 
   }
 }
