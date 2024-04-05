@@ -641,7 +641,7 @@
     methods: {   
 
         handleInputChange(event) {
-          const inputValue = event.target.value;
+            const inputValue = event.target.value;
               
             let baseValues =  { 
                 _year: "",
@@ -661,29 +661,57 @@
             for (let i = 1; i <= Number(inputValue); i++) {
               const teacher = { ...baseValues };
               teacher.name = `Teacher ${i}`;
-              teacher.rowKey = i - 1;
               teacher.sch_id = this.filters.schoolId;
               teacherArray.push(teacher);
             }
+
             this.teacher = teacherArray;          
         },
 
-        handleSelectChange(index){
+        validateArrayOfObjects(arr) {
+          for (let obj of arr) {
+            for (let key in obj) {
+              if ( obj[key] === "" || obj[key] === "null" || obj[key] === null ) {
+                return false;
+              }
+            }
+          }
+          return true;
+        },
 
+        validateObjects(obj) {
+          for (let key in obj) {
+              if ( obj[key] === "" || obj[key] === "null" || obj[key] === null ) {
+                return false;
+              }
+          }
+          return true;
         },
 
         submitAcademic() {
-          store.dispatch(`${ this.Dashboard_APP_STORE_MODULE_NAME }/updateAcademic`, { ...this.academic, sch_id: this.filters.schoolId } )
-          .then(response => { 
-              console.log("Academic updating: " + response.data.success );                         
-          });
+          let isValid = this.validateObjects(this.academic);
+          if (isValid){
+              store.dispatch(`${ this.Dashboard_APP_STORE_MODULE_NAME }/updateAcademic`, { ...this.academic, sch_id: this.filters.schoolId } )
+              .then(response => { 
+                  console.log("Academic updating: " + response.data.success );                         
+              });
+          }
+          else{
+            alert("Some values are not yet completed. Complete all the values before proceeding.")
+          }
         },
 
         submitTeacher() {
-          store.dispatch(`${ this.Dashboard_APP_STORE_MODULE_NAME }/updateTeacher`, { ...this.teacher, sch_id: this.filters.schoolId } )
-          .then(response => { 
-              console.log("Teacher updating: " + response.data.success );                         
-          });
+          let isValid = this.validateArrayOfObjects(this.teacher);
+          if (isValid){
+              store.dispatch(`${ this.Dashboard_APP_STORE_MODULE_NAME }/updateTeacher`, this.teacher )
+              .then(response => { 
+                  console.log("Teacher updating: " + response.data.success );                         
+              });
+          }
+          else{
+            alert("Some values are not yet completed. Complete all the values before proceeding.")
+          }          
         },
 
         //1. add bulk teacher sending as list
