@@ -700,7 +700,7 @@
             alert("Some values are not yet completed. Complete all the values before proceeding.")
           }
         },
-
+ 
         submitTeacher() {
           let isValid = this.validateArrayOfObjects(this.teacher);
           if (isValid){

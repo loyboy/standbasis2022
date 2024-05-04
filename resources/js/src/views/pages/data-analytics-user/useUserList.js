@@ -114,7 +114,7 @@ const fetchAcademic = (ctx) => {
   })
 
 }
-
+ 
 const fetchAcademicInput = (ctx) => {
      
   isLoading.value = true;
@@ -143,8 +143,6 @@ const fetchAcademicInput = (ctx) => {
     fetchTeachers();
     fetchCurriculum();
     fetchAcademic();
-
-    
   }
 
   return {

@@ -61,7 +61,7 @@ export default {
         updateAcademic(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
-                    .post($themeConfig.app.baseURL + '/academic' , payload )
+                    .post($themeConfig.app.baseURL + '/dashboard/academic' , payload )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
@@ -69,7 +69,7 @@ export default {
         updateTeacher(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
-                    .post($themeConfig.app.baseURL + '/teacher' , payload )
+                    .post($themeConfig.app.baseURL + '/dashboard/teacher' , payload )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
