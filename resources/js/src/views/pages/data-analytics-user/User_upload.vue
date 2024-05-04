@@ -718,7 +718,9 @@
           if (isValid){
               store.dispatch(`${ this.Dashboard_APP_STORE_MODULE_NAME }/updateAcademic`, { ...this.academic, sch_id: this.filters.schoolId } )
               .then(response => { 
-                  console.log("Academic updating: " + response.data.success );                         
+                  //console.log("Academic updating: " + response.data.success );    
+                  alert("Your teacher academic records have been inserted successfully")
+                  window.location.reload();                     
               });
           }
           else{
@@ -731,7 +733,8 @@
           if (isValid){
               store.dispatch(`${ this.Dashboard_APP_STORE_MODULE_NAME }/updateTeacher`, this.teacher )
               .then(response => { 
-                  console.log("Teacher updating: " + response.data.success );                         
+                  alert("All your teacher's professional records have been inserted successfully")
+                  window.location.reload();                         
               });
           }
           else{
