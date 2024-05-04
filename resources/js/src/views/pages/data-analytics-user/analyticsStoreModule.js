@@ -41,19 +41,19 @@ export default {
             }) 
         },
 
-        fetchAcademicInput(ctx, queryParams) {
+        fetchAcademicInput(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/dashboard/academicinput' , { params: queryParams } )
+                    .get($themeConfig.app.baseURL + '/dashboard/academicinput/' + payload.id )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
         },
 
-        fetchTeacherInput(ctx, queryParams) {
+        fetchTeacherInput(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/dashboard/teacherinput' , { params: queryParams } )
+                    .get($themeConfig.app.baseURL + '/dashboard/teacherinput/' + payload.id )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
