@@ -255,17 +255,20 @@
                       </td>
                       <td class="p-4 w-25">
                         <input type="number" class="form-control" @change="handleInputChange" placeholder="Enter number of teachers in your school">
+                        <label style="font-size: 8px; font-style: italic;"> Any change here will reset your data table!</label>
                       </td>
                       <td class="p-4 w-25"> 
                          <b-form-select
                             v-model="teacherBase._year"
                             :options="teacherYear"
+                            @change="handleTeacherYear"
                           />
                       </td>
                       <td class="p-4 w-25"> 
                          <b-form-select
                             v-model="teacherBase._type"
                             :options="teacherTerm"
+                            @change="handleTeacherTerm"
                           />
                       </td>
                     </tr>
@@ -642,6 +645,8 @@
 
         handleInputChange(event) {
             const inputValue = event.target.value;
+
+
               
             let baseValues =  { 
                 _year: "",
@@ -659,13 +664,33 @@
             const teacherArray = [];
 
             for (let i = 1; i <= Number(inputValue); i++) {
-              const teacher = { ...baseValues };
+              let teacher = { ...baseValues };
+              teacher._year = this.teacherBase._type ? this.teacherBase._type : "";
+              teacher._term = this.teacherBase._term ? this.teacherBase._term : "";
               teacher.name = `Teacher ${i}`;
               teacher.sch_id = this.filters.schoolId;
               teacherArray.push(teacher);
             }
 
             this.teacher = teacherArray;          
+        },
+
+        handleTeacherYear(event){
+            const inputValue = event.target.value;
+            if (this.teacher.length > 0){
+              this.teacher.forEach((val,i) => {
+                val._year = inputValue;
+              })
+            }           
+        },
+
+        handleTeacherTerm(event){
+            const inputValue = event.target.value;
+            if (this.teacher.length > 0){
+              this.teacher.forEach((val,i) => {
+                val._term = inputValue;
+              })
+            }           
         },
 
         validateArrayOfObjects(arr) {
