@@ -607,11 +607,13 @@
           if (val.length > 0) {
               console.log("academicInputList changed");
               val.forEach((word,i) => {
-                  if( this.yOptions.some(el => el.value === word._year) ){
-                      this.academicYear = this.academicYear.filter(e => e.value !== word._year);
+                  if( this.yOptions.some(el => Number(el.value) == Number(word._year) ) ){
+                      this.academicYear = this.academicYear.filter(e => Number(e.value) != Number(word._year) );
+                      console.log("academicYear changed" + JSON.stringify(this.academicYear));
                   }
-                  if( this.tOptions.some(el => el.value === word._term) ){
-                      this.academicTerm = this.academicTerm.filter(e => e.value !== word._term);
+                  if( this.tOptions.some(el => el.value == word._type) ){
+                      this.academicTerm = this.academicTerm.filter(e => e.value != word._term);
+                      console.log("academicTerm changed" + JSON.stringify(this.academicTerm));
                   }
               });
           }
