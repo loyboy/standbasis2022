@@ -125,6 +125,8 @@ const fetchAcademicInput = (ctx) => {
     .then(response => {
       
       const { data } = response.data; 
+
+      console.log(data);
   
       academicInputList.value = data
       

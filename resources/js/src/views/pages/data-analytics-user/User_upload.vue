@@ -576,6 +576,8 @@
           }
           
           fetchAcademicInput();
+
+          setTimeout(() => { academicInputList.value.push({ dashId: null }) }, 1200 );
       })
       
       return {
