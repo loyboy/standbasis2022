@@ -605,6 +605,7 @@
       academicInputList: {
         handler: function (val, oldVal) {
           if (val.length > 0) {
+              console.log("academicInputList changed");
               val.forEach((word,i) => {
                   if( this.yOptions.some(el => el.value === word._year) ){
                       this.academicYear = this.academicYear.filter(e => e.value !== word._year);
@@ -612,7 +613,7 @@
                   if( this.tOptions.some(el => el.value === word._term) ){
                       this.academicTerm = this.academicTerm.filter(e => e.value !== word._term);
                   }
-              })
+              });
           }
           else{
             this.academicYear = this.yOptions;
@@ -624,6 +625,7 @@
       teacherInputList: {
         handler: function (val, oldVal) {
           if (val.length > 0) {
+              console.log("teacherInputList changed");
               val.forEach((word,i) => {
                   if( this.yOptions.some(el => el.value === word._year) ){
                       this.teacherYear = this.teacherYear.filter(e => e.value !== word._year);
