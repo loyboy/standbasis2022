@@ -612,7 +612,7 @@
                       console.log("academicYear changed" + JSON.stringify(this.academicYear));
                   }
                   if( this.tOptions.some(el => el.value == word._type) ){
-                      this.academicTerm = this.academicTerm.filter(e => e.value != word._term);
+                      this.academicTerm = this.academicTerm.filter(e => e.value != word._type);
                       console.log("academicTerm changed" + JSON.stringify(this.academicTerm));
                   }
               });
