@@ -749,8 +749,12 @@
           this.$loading(true);
           this.academicInputList.forEach((word,i) => {
               if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
-                this.academicTerm = this.academicTerm.filter(e => e.value != word._type);
+                this.academicTerm = this.tOptions.filter(e => e.value != word._type);
               }
+              else{
+                this.academicTerm = this.tOptions;
+              }
+
           });
           this.$loading(false);
         },
