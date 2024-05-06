@@ -677,8 +677,8 @@
             this.teacher = teacherArray;          
         },
 
-        handleTeacherYear(event){
-            const inputValue = event.target.value;
+        handleTeacherYear(value){
+            const inputValue = value;
             if (this.teacher.length > 0){
               this.teacher.forEach((val,i) => {
                 val._year = inputValue;
@@ -686,8 +686,8 @@
             }           
         },
 
-        handleTeacherTerm(event){
-            const inputValue = event.target.value;
+        handleTeacherTerm(value){
+            const inputValue = value;
             if (this.teacher.length > 0){
               this.teacher.forEach((val,i) => {
                 val._term = inputValue;
@@ -744,9 +744,8 @@
           }          
         },
 
-        checkYear(event){
-          
-          const inputValue = event.target.value;
+        checkYear(value){          
+          const inputValue = value;
           this.$loading(true);
           academicInputList.forEach((word,i) => {
               if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
