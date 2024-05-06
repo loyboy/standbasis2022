@@ -52,6 +52,7 @@
                           <b-form-select
                               v-model="academic._year"
                               :options="academicYear"
+                              @change="checkTerm"
                             />
                         </b-form-group>
                       </td>
@@ -60,6 +61,7 @@
                          <b-form-select
                             v-model="academic._type"
                             :options="academicTerm"
+                            @change="checkYear"
                           />
                       </td>
 
@@ -605,15 +607,12 @@
       academicInputList: {
         handler: function (val, oldVal) {
           if (val.length > 0) {
-              console.log("academicInputList changed");
               val.forEach((word,i) => {
                   if( this.yOptions.some(el => Number(el.value) == Number(word._year) ) ){
                       this.academicYear = this.academicYear.filter(e => Number(e.value) != Number(word._year) );
-                      console.log("academicYear changed" + JSON.stringify(this.academicYear));
                   }
                   if( this.tOptions.some(el => el.value == word._type) ){
                       this.academicTerm = this.academicTerm.filter(e => e.value != word._type);
-                      console.log("academicTerm changed" + JSON.stringify(this.academicTerm));
                   }
               });
           }
@@ -627,13 +626,12 @@
       teacherInputList: {
         handler: function (val, oldVal) {
           if (val.length > 0) {
-              console.log("teacherInputList changed");
               val.forEach((word,i) => {
-                  if( this.yOptions.some(el => el.value === word._year) ){
-                      this.teacherYear = this.teacherYear.filter(e => e.value !== word._year);
+                  if( this.yOptions.some( el => Number(el.value) == Number(word._year) ) ){
+                      this.teacherYear = this.teacherYear.filter(e => Number(e.value) != Number(word._year) );
                   }
-                  if( this.tOptions.some(el => el.value === word._term) ){
-                      this.teacherTerm = this.teacherTerm.filter(e => e.value !== word._term);
+                  if( this.tOptions.some(el => el.value == word._type) ){
+                      this.teacherTerm = this.teacherTerm.filter(e => e.value != word._type);
                   }
               })
           }
@@ -650,10 +648,7 @@
     methods: {   
 
         handleInputChange(event) {
-            const inputValue = event.target.value;
-
-
-              
+            const inputValue = event.target.value;              
             let baseValues =  { 
                 _year: "",
                 _term: "", 
@@ -748,8 +743,16 @@
           }          
         },
 
-        //1. add bulk teacher sending as list
-        //2. validate array of teacher b4 submission
+        checkYear(event){
+          this.$loading(true);
+          const inputValue = event.target.value;
+          academicInputList.forEach((word,i) => {
+              if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
+                this.academicTerm = this.academicTerm.filter(e => e.value != word._type);
+              }
+          });
+          this.$loading(false);
+        },
 
     }
 
