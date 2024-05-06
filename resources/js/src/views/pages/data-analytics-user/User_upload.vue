@@ -753,6 +753,7 @@
               console.log("term now: " + this.tOptions.some(el => el.value == word._type) );
               if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
                 this.academicTerm = this.tOptions.filter(e => e.value != word._type);
+                console.log("academicTerm: " + this.academicTerm.length );
               }
               else{
                 this.academicTerm = this.tOptions;
