@@ -52,7 +52,7 @@
                           <b-form-select
                               v-model="academic._year"
                               :options="academicYear"
-                              @change="checkTerm"
+                              @change="checkYear"
                             />
                         </b-form-group>
                       </td>
@@ -61,7 +61,7 @@
                          <b-form-select
                             v-model="academic._type"
                             :options="academicTerm"
-                            @change="checkYear"
+                            
                           />
                       </td>
 
