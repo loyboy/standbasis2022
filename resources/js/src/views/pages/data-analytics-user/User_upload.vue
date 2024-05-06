@@ -58,11 +58,12 @@
                       </td>
 
                       <td class="p-4 w-25"> 
+                        <b-form-group label=" Select Term" >
                          <b-form-select
                             v-model="academic._type"
-                            :options="academicTerm"
-                            
+                            :options="academicTerm"                            
                           />
+                        </b-form-group>
                       </td>
 
                     </tr>
@@ -744,8 +745,9 @@
         },
 
         checkYear(event){
-          this.$loading(true);
+          
           const inputValue = event.target.value;
+          this.$loading(true);
           academicInputList.forEach((word,i) => {
               if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
                 this.academicTerm = this.academicTerm.filter(e => e.value != word._type);
