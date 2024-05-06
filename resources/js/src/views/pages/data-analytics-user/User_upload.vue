@@ -749,6 +749,8 @@
           const inputValue = value;
           console.log("year: " + inputValue);
           this.academicInputList.forEach((word,i) => {
+              console.log("** " + Number(word._year) == Number(inputValue) );
+              console.log("** " + this.tOptions.some(el => el.value == word._type) );
               if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
                 this.academicTerm = this.tOptions.filter(e => e.value != word._type);
               }
