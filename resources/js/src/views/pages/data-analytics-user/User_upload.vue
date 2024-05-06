@@ -604,7 +604,7 @@
     },
 
     watch: {
-      academicInputList: {
+      /*academicInputList: {
         handler: function (val, oldVal) {
           if (val.length > 0) {
               val.forEach((word,i) => {
@@ -641,7 +641,7 @@
           }
         },
         deep: true
-      },
+      },**/
       
     },
 
