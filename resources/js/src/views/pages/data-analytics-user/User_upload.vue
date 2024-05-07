@@ -680,7 +680,7 @@
               teacherArray.push(teacher);
             }
 
-            this.teacher = teacherArray;          
+             this.teacher = teacherArray;          
         },
 
         checkYearTeacher(value){

@@ -64,6 +64,13 @@ export default [
         permission: [ "dashboarduser" ]
     },
 
+    {
+        title: 'Data Visualization',
+        route: 'data-analytics-user-home-new',
+        icon: 'TrendingUpIcon',
+        permission: [ "dashboarduser" ]
+    },
+
    /* {
         title: 'Evaluation Trends',
         route: 'evaluation-trending',

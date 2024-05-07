@@ -853,6 +853,17 @@ const router = new VueRouter({
                 }
         },
 
+        {            
+            path: '/data-analytics-user-new',
+            name: 'data-analytics-user-home-new',
+            component: () =>
+                import ('@/views/pages/data-analytics-user/User_new.vue'),
+                meta: {
+                    pageTitle: 'Data Visualization Into Dashboard',
+                    breadcrumb: []
+                }
+        },
+
          //
         {            
             path: '/data-analytics-faq',
