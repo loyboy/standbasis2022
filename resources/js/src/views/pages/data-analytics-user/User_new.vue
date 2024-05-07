@@ -38,6 +38,7 @@
   export default {
     components: {
       Skeleton,
+      Highcharts,
     },
     data() {
       return { };
