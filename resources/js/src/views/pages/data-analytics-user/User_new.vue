@@ -33,7 +33,8 @@
   import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
   import { $themeConfig } from "@themeConfig";
   import useUserList from './useUserList';
-  import analyticsStoreModule from './analyticsStoreModule'
+  import analyticsStoreModule from './analyticsStoreModule';
+  import Highcharts from 'highcharts-vue';
   export default {
     components: {
       Skeleton,

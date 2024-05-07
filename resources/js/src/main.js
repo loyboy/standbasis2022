@@ -29,7 +29,7 @@ import VueHighcharts from 'highcharts-vue';
 import Highcharts from 'highcharts';
 import loadDrillDown from 'highcharts/modules/drilldown';
 import Skeleton from 'vue-loading-skeleton';
-import vueNumeralFilterInstaller from 'vue-numeral-filter';
+import vueNumeralFilterInstaller from 'vue-numeral-filter'; 
 import VuePlaceAutocomplete from 'vue-place-autocomplete';
 import "vue-easytable/libs/theme-default/index.css";
 import VueEasytable from "vue-easytable";
