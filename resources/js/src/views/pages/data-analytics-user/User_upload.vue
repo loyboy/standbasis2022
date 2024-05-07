@@ -18,14 +18,14 @@
             </div>
 
             <!-- Header First Column -->
-            <div class="row">
+           <!-- <div class="row">
               <div class="col">
-                <div class="text-center">             
+              <div class="text-center">             
                   <h2> School Standards Improvement System </h2>
                   <hr/>
                 </div>
               </div>
-            </div>
+            </div>-->
 
             <!-- Header Fourth Column -->
             <div class="row">
@@ -52,7 +52,7 @@
                           <b-form-select
                               v-model="academic._year"
                               :options="academicYear"
-                              @change="checkYear"
+                              @change="checkYearAcademic"
                             />
                         </b-form-group>
                       </td>
@@ -264,14 +264,13 @@
                          <b-form-select
                             v-model="teacherBase._year"
                             :options="teacherYear"
-                            @change="handleTeacherYear"
+                            @change="checkYearTeacher"
                           />
                       </td>
                       <td class="p-4 w-25"> 
                          <b-form-select
                             v-model="teacherBase._type"
-                            :options="teacherTerm"
-                            @change="handleTeacherTerm"
+                            :options="teacherTerm"                            
                           />
                       </td>
                     </tr>
@@ -677,22 +676,18 @@
             this.teacher = teacherArray;          
         },
 
-        handleTeacherYear(value){
-            const inputValue = value;
-            if (this.teacher.length > 0){
-              this.teacher.forEach((val,i) => {
-                val._year = inputValue;
-              })
-            }           
-        },
-
-        handleTeacherTerm(value){
-            const inputValue = value;
-            if (this.teacher.length > 0){
-              this.teacher.forEach((val,i) => {
-                val._term = inputValue;
-              })
-            }           
+        checkYearTeacher(value){
+          this.$loading(true);
+          const inputValue = value;
+          this.teacherInputList.forEach((word,i) => {
+              if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
+                this.teacherTerm = this.tOptions.filter(e => e.value != word._type);
+              }
+              else{
+                this.teacherTerm = this.tOptions;
+              }
+          });
+          this.$loading(false);        
         },
 
         validateArrayOfObjects(arr) {
@@ -731,6 +726,7 @@
         },
  
         submitTeacher() {
+          console.log(JSON.stringify(this.teacher));
           let isValid = this.validateArrayOfObjects(this.teacher);
           if (isValid){
               store.dispatch(`${ this.Dashboard_APP_STORE_MODULE_NAME }/updateTeacher`, this.teacher )
@@ -744,16 +740,12 @@
           }          
         },
 
-        checkYear(value){               
+        checkYearAcademic(value){               
           this.$loading(true);
           const inputValue = value;
-          console.log("year: " + inputValue);
           this.academicInputList.forEach((word,i) => {
-              console.log( Number(word._year) == Number(inputValue) );
-              console.log("term now: " + this.tOptions.some(el => el.value == word._type) );
               if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
                 this.academicTerm = this.tOptions.filter(e => e.value != word._type);
-                console.log("academicTerm: " + this.academicTerm.length );
               }
               else{
                 this.academicTerm = this.tOptions;
