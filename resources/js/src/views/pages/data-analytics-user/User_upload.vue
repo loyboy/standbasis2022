@@ -658,7 +658,7 @@
             const inputValue = event.target.value;              
             let baseValues =  { 
                 _year: "",
-                _term: "", 
+                _type: "", 
                 name:  "",
                 level_option:    "null",
                 trcc_option:     "null",
@@ -673,8 +673,8 @@
 
             for (let i = 1; i <= Number(inputValue); i++) {
               let teacher = { ...baseValues };
-              teacher._year = this.teacherBase._type ? this.teacherBase._type : "";
-              teacher._term = this.teacherBase._term ? this.teacherBase._term : "";
+              teacher._year = this.teacherBase._year ? this.teacherBase._year : "";
+              teacher._type = this.teacherBase._type ? this.teacherBase._type : "";
               teacher.name = `Teacher ${i}`;
               teacher.sch_id = this.filters.schoolId;
               teacherArray.push(teacher);
