@@ -693,8 +693,10 @@
           }
           this.teacherInputList.forEach((word,i) => {
               if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
-                console.log("Log: "+ word._type)
-                this.teacherTerm = this.tOptions.filter(e => e.value != word._type);
+                this.teacherTerm = this.teacherTerm.filter(e => e.value != word._type);
+              }
+              else if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value != word._type)) ){
+                this.teacherTerm = this.tOptions;
               }
           });          
           this.$loading(false);        
@@ -763,7 +765,10 @@
           const inputValue = value;
           this.academicInputList.forEach((word,i) => {
               if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
-                this.academicTerm = this.tOptions.filter(e => e.value != word._type);
+                this.academicTerm = this.academicTerm.filter(e => e.value != word._type);
+              }
+              else if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value != word._type)) ){
+                this.academicTerm = this.tOptions;
               }
           });
           this.$loading(false);
