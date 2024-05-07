@@ -695,9 +695,9 @@
               if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
                 this.teacherTerm = this.teacherTerm.filter(e => e.value != word._type);
               }
-              else if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value != word._type)) ){
+              else{
                 this.teacherTerm = this.tOptions;
-              }
+              }             
           });          
           this.$loading(false);        
         },
@@ -767,7 +767,7 @@
               if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
                 this.academicTerm = this.academicTerm.filter(e => e.value != word._type);
               }
-              else if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value != word._type)) ){
+              else{
                 this.academicTerm = this.tOptions;
               }
           });
