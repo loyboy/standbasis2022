@@ -15,7 +15,12 @@
                 <div class="row" style="max-height: 450px; overflow-y: scroll">
                     <div class="col-6">
                         <figure class="highcharts-figure">
-                          <highcharts :options="chartOptions" class="chart"></highcharts>
+                          <highcharts :options="chartOptionsTaq" class="chart"></highcharts>
+                        </figure>
+                    </div>
+                    <div class="col-6">
+                        <figure class="highcharts-figure">
+                          <highcharts :options="chartOptionsTaq2" class="chart"></highcharts>
                         </figure>
                     </div>
                 </div>
@@ -42,7 +47,8 @@
     },
     data() {
       return {
-        chartOptions: {},
+        chartOptionsTaq: {},
+        chartOptionsTaq2: {},
       };
     },
     setup() {
@@ -90,51 +96,131 @@
         }
     },
     mounted(){
-        this.displayTaq();
+        this.displayTaqColumn();
+        this.displayTaqLine();
     },
     methods: {
       //Teacher Asset Quality
-      displayTaq() {        
-        this.chartOptions = {          
-            chart: {
-                type: 'bar',
-            },
+      displayTaqColumn() {        
+        this.chartOptionsTaq = {  
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'Teacher Asset Quality',
+              align: 'center'
+          },
+          xAxis: {
+              categories: ['TQ GEN', 'TQ GEN P', 'TQ SC GEN', 'TQ SC P', 'TQ A&O GEN', 'TQ A&O P'],
+              crosshair: true,
+              accessibility: {
+                  description: 'Teacher asset quality'
+              }
+          },
+          yAxis: {
+              min: 0,
+              max: 10,
+              title: {
+                  text: '(Units)'
+              }
+          },
+          tooltip: {
+              valueSuffix: ' (Units)'
+          },
+          plotOptions: {
+              column: {
+                  pointPadding: 0.1,
+                  borderWidth: 0
+              }
+          },
+          series: [
+              {
+                  name: '2020',
+                  data: [4.2, 3.8, 3.8, 4.4, 4.4, 4.2]
+              },
+              {
+                  name: '2021',
+                  data: [4.4, 3.6, 4.4, 4.2, 4.2, 4.0]
+              },
+              {
+                  name: '2022',
+                  data: [4.6, 4.0, 4.0, 3.4, 3.5, 3.6]
+              }
+          ]        
+        }  
+      },
+      displayTaqLine() {        
+        this.chartOptions = {
+
+          chart: {
+              type: 'line'
+          },
+
+          title: {
+            text: 'Teacher Asset Quality',
+            align: 'left'
+          },
+
+          yAxis: {
             title: {
-                text: 'Teacher Asset Quality',
-            },
-            xAxis: {
-                categories: ['Variable 1', 'Variable 2', 'Variable 3', 'Variable 4', 'Variable 5', 'Variable 6'],
-            },
-            yAxis: {
-                min: 0,
-                max: 10,
-                title: {
-                    text: 'Units',
-                },
-            },
-            plotOptions: {
-                series: {
-                    stacking: 'normal',
-                },
-            },
-            series: [
-            {
-                name: '2020',
-                data: [5, 3, 4, 7, 2, 6],
-                color: '#4CAF50', // Green
-            },
-            {
-                name: '2021',
-                data: [2, 6, 3, 5, 4, 7],
-                color: '#FF9800', // Orange
-            },
-            {
-                name: '2022',
-                data: [4, 5, 6, 3, 7, 5],
-                color: '#2196F3', // Blue
-            },
-            ],
+              text: 'Unit'
+            }
+          },
+
+          xAxis: {
+              categories: ['TQ GEN', 'TQ GEN P', 'TQ SC GEN', 'TQ SC P', 'TQ A&O GEN', 'TQ A&O P'],
+              crosshair: true,
+              accessibility: {
+                  description: 'Teacher asset quality'
+              }
+          },
+
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+          },
+
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false
+              },
+              pointStart: 2020
+            }
+          },
+
+          series: [{
+                  name: '2020',
+                  data: [4.2, 3.8, 3.8, 4.4, 4.4, 4.2]
+              },
+              {
+                  name: '2021',
+                  data: [4.4, 3.6, 4.4, 4.2, 4.2, 4.0]
+              },
+              {
+                  name: '2022',
+                  data: [4.6, 4.0, 4.0, 3.4, 3.5, 3.6]
+              }
+          ],
+
+          responsive: {
+            rules: [{
+              condition: {
+                maxWidth: 500
+              },
+              chartOptions: {
+                legend: {
+                  layout: 'horizontal',
+                  align: 'center',
+                  verticalAlign: 'center'
+                }
+              }
+            }]
           }
+
+
+        }
       },
     },
   };
