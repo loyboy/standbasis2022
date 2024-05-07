@@ -15,7 +15,7 @@
                 <div class="row" style="max-height: 450px; overflow-y: scroll">
                     <div class="col-6">
                         <figure class="highcharts-figure">
-                            <div id="taq"></div>
+                          <highcharts :options="chartOptions" class="chart"></highcharts>
                         </figure>
                     </div>
                 </div>
@@ -34,14 +34,16 @@
   import { $themeConfig } from "@themeConfig";
   import useUserList from './useUserList';
   import analyticsStoreModule from './analyticsStoreModule';
-  import Highcharts from 'highcharts-vue';
+  import { Chart } from 'highcharts-vue'
   export default {
     components: {
       Skeleton,
-      Highcharts,
+      highcharts: Chart,
     },
     data() {
-      return { };
+      return {
+        chartOptions: {},
+      };
     },
     setup() {
         const Dashboard_APP_STORE_MODULE_NAME = 'app-dashboard';
@@ -92,9 +94,8 @@
     },
     methods: {
       //Teacher Asset Quality
-      displayTaq() {
-        
-        Highcharts.chart("taq", {          
+      displayTaq() {        
+        this.chartOptions = {          
             chart: {
                 type: 'bar',
             },
@@ -133,7 +134,7 @@
                 color: '#2196F3', // Blue
             },
             ],
-        });
+          }
       },
     },
   };
