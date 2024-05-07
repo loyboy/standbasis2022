@@ -705,7 +705,7 @@
         checkTermTeacher(value){
           if (this.teacher.length > 0){
             this.teacher.forEach((val,i) => {
-              val._term = value;
+              val._type = value;
             })
           }
         },
