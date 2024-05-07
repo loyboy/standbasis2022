@@ -115,30 +115,51 @@ const fetchAcademic = (ctx) => {
 
 }
  
-const fetchAcademicInput = (ctx) => {
-     
-  isLoading.value = true;
-
-  store.dispatch('app-dashboard/fetchAcademicInput', {   
-        id: filters.value.schoolId,
-    })
-    .then(response => {
+  const fetchAcademicInput = (ctx) => {
       
-      const { data } = response.data; 
+    isLoading.value = true;
 
-      console.log(data);
-  
-      academicInputList.value = data
-      
-      isLoading.value = false;   
+    store.dispatch('app-dashboard/fetchAcademicInput', {   
+          id: filters.value.schoolId,
+      })
+      .then(response => {
+        
+        const { data } = response.data; 
+    
+        academicInputList.value = data
+        
+        isLoading.value = false;   
 
+      })
+      .catch((e) => {
+        console.log("Fetch Academic Input: " + e);
+        isLoading.value = false;   
     })
-    .catch((e) => {
-      console.log("Fetch Academic Input: " + e);
-      isLoading.value = false;   
-  })
 
-}
+  }
+
+  const fetchTeacherInput = (ctx) => {
+      
+    isLoading.value = true;
+
+    store.dispatch('app-dashboard/fetchTeacherInput', {   
+          id: filters.value.schoolId,
+      })
+      .then(response => {
+        
+        const { data } = response.data; 
+    
+        teacherInputList.value = data
+        
+        isLoading.value = false;   
+
+      })
+      .catch((e) => {
+        console.log("Fetch Teacher Input: " + e);
+        isLoading.value = false;   
+    })
+
+  }
 
   const handleChange = () => {
     fetchStandards();
@@ -160,6 +181,8 @@ const fetchAcademicInput = (ctx) => {
     fetchAcademic,
 
     fetchAcademicInput,
+
+    fetchTeacherInput,
   
     isLoading,
 
@@ -169,7 +192,8 @@ const fetchAcademicInput = (ctx) => {
     teacherItem,
     curriculumItem,
     academicItem,
-    academicInputList
+    academicInputList,
+    teacherInputList
 
   }
 }

@@ -555,6 +555,8 @@
       const {
 
         fetchAcademicInput,
+
+        fetchTeacherInput,
       
         isLoading,
 
@@ -591,6 +593,8 @@
         userData,
 
         fetchAcademicInput,
+
+        fetchTeacherInput,
       
         isLoading,
 
