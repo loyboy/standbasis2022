@@ -270,7 +270,8 @@
                       <td class="p-4 w-25"> 
                          <b-form-select
                             v-model="teacherBase._type"
-                            :options="teacherTerm"                            
+                            :options="teacherTerm"
+                            @change="checkTermTeacher"                            
                           />
                       </td>
                     </tr>
@@ -581,7 +582,9 @@
           
           fetchAcademicInput();
 
-          setTimeout(() => { academicInputList.value.push({ dashId: null }) }, 1200 );
+          fetchTeacherInput();
+
+         // setTimeout(() => { academicInputList.value.push({ dashId: null }) }, 1200 );
       })
       
       return {
@@ -683,6 +686,11 @@
         checkYearTeacher(value){
           this.$loading(true);
           const inputValue = value;
+          if (this.teacher.length > 0){
+            this.teacher.forEach((val,i) => {
+              val._year = inputValue;
+            })
+          }
           this.teacherInputList.forEach((word,i) => {
               if( Number(word._year) == Number(inputValue) && (this.tOptions.some(el => el.value == word._type)) ){
                 this.teacherTerm = this.tOptions.filter(e => e.value != word._type);
@@ -690,8 +698,16 @@
               else{
                 this.teacherTerm = this.tOptions;
               }
-          });
+          });          
           this.$loading(false);        
+        },
+
+        checkTermTeacher(value){
+          if (this.teacher.length > 0){
+            this.teacher.forEach((val,i) => {
+              val._term = inputValue;
+            })
+          }
         },
 
         validateArrayOfObjects(arr) {
