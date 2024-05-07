@@ -33,6 +33,7 @@
   import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
   import { $themeConfig } from "@themeConfig";
   import useUserList from './useUserList';
+  import analyticsStoreModule from './analyticsStoreModule'
   export default {
     components: {
       Skeleton,
@@ -85,7 +86,7 @@
         }
     },
     mounted(){
-        displayTaq();
+        this.displayTaq();
     },
     methods: {
       //Teacher Asset Quality
