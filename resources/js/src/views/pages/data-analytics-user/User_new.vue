@@ -12,7 +12,7 @@
                     </div>
                 </div>
 
-                <div class="row" style="max-height: 450px; overflow-y: scroll">
+                <div class="row" style="max-height: 600px; overflow-y: scroll">
                     <div class="col-6">
                         <figure class="highcharts-figure">
                           <highcharts :options="chartOptionsTaq" class="chart"></highcharts>
@@ -158,7 +158,7 @@
 
           title: {
             text: 'Teacher Asset Quality',
-            align: 'left'
+            align: 'center'
           },
 
           yAxis: {
@@ -168,11 +168,7 @@
           },
 
           xAxis: {
-              categories: ['TQ GEN', 'TQ GEN P', 'TQ SC GEN', 'TQ SC P', 'TQ A&O GEN', 'TQ A&O P'],
-              crosshair: true,
-              accessibility: {
-                  description: 'Teacher asset quality'
-              }
+              type: 'category'
           },
 
           legend: {
@@ -192,15 +188,15 @@
 
           series: [{
                   name: '2020',
-                  data: [4.2, 3.8, 3.8, 4.4, 4.4, 4.2]
+                  data: [ ['TQ GEN',4.2], ['TQ GEN P',3.8], ['TQ SC GEN',3.8], ['TQ SC P',4.4], ['TQ A&O GEN',4.0], ['TQ A&O P',4.2]]
               },
               {
                   name: '2021',
-                  data: [4.4, 3.6, 4.4, 4.2, 4.2, 4.0]
+                  data: [ ['TQ GEN',4.0], ['TQ GEN P',3.4], ['TQ SC GEN',3.6], ['TQ SC P',4.2], ['TQ A&O GEN',4.0], ['TQ A&O P',4.6]]
               },
               {
                   name: '2022',
-                  data: [4.6, 4.0, 4.0, 3.4, 3.5, 3.6]
+                  data: [ ['TQ GEN',4.0], ['TQ GEN P',3.4], ['TQ SC GEN',3.6], ['TQ SC P',4.2], ['TQ A&O GEN',4.0], ['TQ A&O P',4.6]]
               }
           ],
 

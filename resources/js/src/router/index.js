@@ -859,7 +859,7 @@ const router = new VueRouter({
             component: () =>
                 import ('@/views/pages/data-analytics-user/User_new.vue'),
                 meta: {
-                    pageTitle: 'Data Visualization Into Dashboard',
+                    pageTitle: 'Data Visualization',
                     breadcrumb: []
                 }
         },
