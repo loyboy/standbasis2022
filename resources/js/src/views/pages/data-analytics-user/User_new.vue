@@ -180,6 +180,7 @@
           ]        
         }  
       },
+      //Teacher Asset Quality
       displayTaqLine() {        
         this.chartOptionsTaq2 = {
 
@@ -249,7 +250,7 @@
 
         }
       },
-
+      //Track School Health Status
       displayTshsColumn() {        
         this.chartOptionsTshs = {  
           chart: {
@@ -314,6 +315,7 @@
           ]        
         }  
       },
+      //Track School Health Status
       displayTshsLine() {        
         this.chartOptionsTshs2 = {
 
@@ -398,7 +400,7 @@
 
         }
       },
-
+      //Track Academic Performance
       displayAcademicColumn() {        
         this.chartOptionsAcademic = {  
           chart: {
@@ -447,6 +449,7 @@
           ]        
         }  
       },
+      //Track Academic Performance
       displayAcademicLine() {        
         this.chartOptionsAcademic2 = {
 
@@ -484,16 +487,16 @@
           },
 
           series: [{
-                  name: 'Term 1',
-                  data: [ ['School Grade',8.2], ['Transition Index',0.65], ['Drag Index',0.45]]
+                  name: 'School Grade',
+                  data: [ ['Term 1',8.2], ['Term 2',8.65], ['Term 3',8.45]]
               },
               {
-                  name: 'Term 2',
-                  data: [ ['School Grade',8.0], ['Transition Index',0.75], ['Drag Index',0.27]]
+                  name: 'Transition Index',
+                  data: [ ['Term 1',0.65], ['Term 2',0.35], ['Term 3',0.45]]
               },
               {
-                  name: 'Term 3',
-                  data: [ ['School Grade',7.5], ['Transition Index',0.70], ['Drag Index',0.16]]
+                  name: 'Drag Index',
+                  data: [ ['Term 1',0.45], ['Term 2',0.27], ['Term 3',0.16]]
               },
           ],
 
