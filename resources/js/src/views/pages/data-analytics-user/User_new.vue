@@ -110,6 +110,8 @@
     mounted(){
         this.displayTaqColumn();
         this.displayTaqLine();
+        this.displayTshsColumn();
+        this.displayTshsLine();
     },
     methods: {
       //Teacher Asset Quality
