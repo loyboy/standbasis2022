@@ -35,6 +35,17 @@
                         </figure>
                     </div>
 
+                    <div class="col-6">
+                        <figure class="highcharts-figure">
+                          <highcharts :options="chartOptionsAcademic" class="chart"></highcharts>
+                        </figure>
+                    </div>
+                    <div class="col-6">
+                        <figure class="highcharts-figure">
+                          <highcharts :options="chartOptionsAcademic2" class="chart"></highcharts>
+                        </figure>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -62,7 +73,9 @@
         chartOptionsTaq: {},
         chartOptionsTaq2: {},
         chartOptionsTshs: {},
-        chartOptionsTshs2: {}
+        chartOptionsTshs2: {},
+        chartOptionsAcademic: {},
+        chartOptionsAcademic2: {},
       };
     },
     setup() {
@@ -114,6 +127,8 @@
         this.displayTaqLine();
         this.displayTshsColumn();
         this.displayTshsLine();
+        this.displayAcademicColumn();
+        this.displayAcademicLine();
     },
     methods: {
       //Teacher Asset Quality
@@ -313,7 +328,7 @@
 
           yAxis: {
             title: {
-              text: 'Unit'
+              text: '(Units)'
             }
           },
 
@@ -363,6 +378,123 @@
                   name: 'SSHE',
                   data: [ ['2020',3.1], ['2021',3.1], ['2022',3.9]]
               }
+          ],
+
+          responsive: {
+            rules: [{
+              condition: {
+                maxWidth: 500
+              },
+              chartOptions: {
+                legend: {
+                  layout: 'horizontal',
+                  align: 'center',
+                  verticalAlign: 'center'
+                }
+              }
+            }]
+          }
+
+
+        }
+      },
+
+      displayAcademicColumn() {        
+        this.chartOptionsAcademic = {  
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'Track Academic Performance',
+              align: 'center'
+          },
+          xAxis: {
+              categories: ['Term 1', 'Term 2', 'Term 3'],
+              crosshair: true,
+              accessibility: {
+                description: 'Track Academic Performance'
+              }
+          },
+          yAxis: {
+              min: 0,
+              max: 10,
+              title: {
+                text: '(Units)'
+              }
+          },
+          tooltip: {
+              valueSuffix: ' (Units)'
+          },
+          plotOptions: {
+              column: {
+                pointPadding: 0.2,
+                borderWidth: 4
+              }
+          },
+          series: [
+              {
+                  name: 'School Grade',
+                  data: [8.2, 8.0, 8.5]
+              },
+              {
+                  name: 'Transition Index',
+                  data: [0.65, 0.55, 0.35]
+              },
+              {
+                  name: 'Drag Index',
+                  data: [0.1, 0.1, 0.1]
+              }
+          ]        
+        }  
+      },
+      displayAcademicLine() {        
+        this.chartOptionsAcademic2 = {
+
+          chart: {
+              type: 'line'
+          },
+
+          title: {
+            text: 'Track Academic Performance',
+            align: 'center'
+          },
+
+          yAxis: {
+            title: {
+              text: '(Units)'
+            }
+          },
+
+          xAxis: {
+              type: 'category'
+          },
+
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+          },
+
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false
+              },
+            }
+          },
+
+          series: [{
+                  name: 'Term 1',
+                  data: [ ['School Grade',8.2], ['Transition Index',0.65], ['Drag Index',0.45]]
+              },
+              {
+                  name: 'Term 2',
+                  data: [ ['School Grade',8.0], ['Transition Index',0.75], ['Drag Index',0.27]]
+              },
+              {
+                  name: 'Term 3',
+                  data: [ ['School Grade',7.5], ['Transition Index',0.70], ['Drag Index',0.16]]
+              },
           ],
 
           responsive: {
