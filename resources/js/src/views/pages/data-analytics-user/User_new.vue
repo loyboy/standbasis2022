@@ -61,6 +61,8 @@
       return {
         chartOptionsTaq: {},
         chartOptionsTaq2: {},
+        chartOptionsTshs: {},
+        chartOptionsTshs2: {}
       };
     },
     setup() {
