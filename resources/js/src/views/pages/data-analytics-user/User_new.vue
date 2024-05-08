@@ -150,7 +150,7 @@
         }  
       },
       displayTaqLine() {        
-        this.chartOptions = {
+        this.chartOptionsTaq2 = {
 
           chart: {
               type: 'line'
