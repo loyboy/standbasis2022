@@ -23,6 +23,18 @@
                           <highcharts :options="chartOptionsTaq2" class="chart"></highcharts>
                         </figure>
                     </div>
+
+                    <div class="col-6">
+                        <figure class="highcharts-figure">
+                          <highcharts :options="chartOptionsTshs" class="chart"></highcharts>
+                        </figure>
+                    </div>
+                    <div class="col-6">
+                        <figure class="highcharts-figure">
+                          <highcharts :options="chartOptionsTshs2" class="chart"></highcharts>
+                        </figure>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -197,6 +209,155 @@
               {
                   name: '2022',
                   data: [ ['TQ GEN',4.0], ['TQ GEN P',3.4], ['TQ SC GEN',3.6], ['TQ SC P',4.2], ['TQ A&O GEN',4.0], ['TQ A&O P',4.6]]
+              }
+          ],
+
+          responsive: {
+            rules: [{
+              condition: {
+                maxWidth: 500
+              },
+              chartOptions: {
+                legend: {
+                  layout: 'horizontal',
+                  align: 'center',
+                  verticalAlign: 'center'
+                }
+              }
+            }]
+          }
+
+
+        }
+      },
+
+      displayTshsColumn() {        
+        this.chartOptionsTshs = {  
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'School Health Status',
+              align: 'center'
+          },
+          xAxis: {
+              categories: ['2020', '2021', '2022'],
+              crosshair: true,
+              accessibility: {
+                description: 'School Health Status'
+              }
+          },
+          yAxis: {
+              min: 0,
+              max: 5,
+              title: {
+                text: '(Units)'
+              }
+          },
+          tooltip: {
+              valueSuffix: ' (Units)'
+          },
+          plotOptions: {
+              column: {
+                pointPadding: 0.1,
+                borderWidth: 0
+              }
+          },
+          series: [
+              {
+                  name: 'Teaching Processes',
+                  data: [4.2, 3.2, 3.8]
+              },
+              {
+                  name: 'Teacher Resources',
+                  data: [4.4, 3.3, 4.4]
+              },
+              {
+                  name: 'Learning Environment',
+                  data: [2.6, 4.0, 4.3]
+              },
+              {
+                  name: 'Sustainability',
+                  data: [4.6, 4.5, 4.0]
+              },
+              {
+                  name: 'Student Development',
+                  data: [4.6, 4.0, 3.4]
+              },
+              {
+                  name: 'Academic Performance',
+                  data: [4.2, 3.4, 4.4]
+              },
+              {
+                  name: 'SSHE',
+                  data: [3.2, 3.4, 3.0]
+              }
+          ]        
+        }  
+      },
+      displayTshsLine() {        
+        this.chartOptionsTshs2 = {
+
+          chart: {
+              type: 'line'
+          },
+
+          title: {
+            text: 'School Health Status',
+            align: 'center'
+          },
+
+          yAxis: {
+            title: {
+              text: 'Unit'
+            }
+          },
+
+          xAxis: {
+              type: 'category'
+          },
+
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+          },
+
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false
+              },
+            }
+          },
+
+          series: [{
+                  name: 'Teaching Processes',
+                  data: [ ['2020',4.2], ['2021',3.8], ['2022',3.8]]
+              },
+              {
+                  name: 'Teacher Resources',
+                  data: [ ['2020',3.4], ['2021',3.0], ['2022',3.6]]
+              },
+              {
+                  name: 'Learning Environment',
+                  data: [ ['2020',3.5], ['2021',3.3], ['2022',3.4]]
+              },
+              {
+                  name: 'Sustainability',
+                  data: [ ['2020',2.5], ['2021',3.8], ['2022',3.3]]
+              },
+              {
+                  name: 'Student Development',
+                  data: [ ['2020',3.2], ['2021',3.4], ['2022',3.0]]
+              },
+              {
+                  name: 'Academic Performance',
+                  data: [ ['2020',3.6], ['2021',3.6], ['2022',3.8]]
+              },
+              {
+                  name: 'SSHE',
+                  data: [ ['2020',3.1], ['2021',3.1], ['2022',3.9]]
               }
           ],
 
