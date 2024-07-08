@@ -36,11 +36,36 @@
                     </div>
 
                     <div class="col-6">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <select class="form-select form-select-sm rounded bg-light mb-3" v-model="academicBarYear" @change="triggerAcademicColumn">
+                              <option selected value="null">Select an option</option>
+                              <option value="2020">2020</option>
+                              <option value="2021">2021</option>
+                              <option value="2022">2022</option>
+                              <option value="2023">2023</option>
+                              <option value="2024">2024</option>
+                            </select>
+                          </div>
+                        </div>
                         <figure class="highcharts-figure">
                           <highcharts :options="chartOptionsAcademic" class="chart"></highcharts>
                         </figure>
                     </div>
+
                     <div class="col-6">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <select class="form-select form-select-sm rounded bg-light mb-3" v-model="academicLineYear" @change="triggerAcademicLine">
+                              <option selected value="null">Select an option</option>
+                              <option value="2020">2020</option>
+                              <option value="2021">2021</option>
+                              <option value="2022">2022</option>
+                              <option value="2023">2023</option>
+                              <option value="2024">2024</option>
+                            </select>
+                          </div>
+                        </div>
                         <figure class="highcharts-figure">
                           <highcharts :options="chartOptionsAcademic2" class="chart"></highcharts>
                         </figure>
@@ -75,7 +100,7 @@
         chartOptionsTshs: {},
         chartOptionsTshs2: {},
         chartOptionsAcademic: {},
-        chartOptionsAcademic2: {},
+        chartOptionsAcademic2: {}        
       };
     },
     setup() {
@@ -102,6 +127,34 @@
 
             filters,
 
+            displayTaqColumnApi,
+
+            displayTaqLineApi,
+
+            displayTshsColumnApi,
+
+            displayTshsLineApi,
+
+            displayAcademicColumnApi,
+
+            displayAcademicLineApi,
+
+            displayTaqColumnData,
+
+            displayTaqLineData,
+
+            displayTshsColumnData,
+
+            displayTshsLineData,
+
+            displayAcademicColumnData,
+
+            displayAcademicLineData,
+
+            academicBarYear,
+
+            academicLineYear,
+
         } = useUserList();
 
         if( findIfDashisPresent ){
@@ -120,19 +173,47 @@
 
             filters,
 
+            displayTaqColumnApi,
+
+            displayTaqLineApi,
+
+            displayTshsColumnApi,
+
+            displayTshsLineApi,
+
+            displayAcademicColumnApi,
+
+            displayAcademicLineApi,
+
+            academicBarYear,
+
+            academicLineYear,
+
+            displayTaqColumnData,
+
+            displayTaqLineData,
+
+            displayTshsColumnData,
+
+            displayTshsLineData,
+
+            displayAcademicColumnData,
+
+            displayAcademicLineData,
+
         }
     },
-    mounted(){
-        this.displayTaqColumn();
-        this.displayTaqLine();
-        this.displayTshsColumn();
-        this.displayTshsLine();
-        this.displayAcademicColumn();
-        this.displayAcademicLine();
+    async mounted(){        
+        this.displayTaqColumn( this.displayTaqColumnData.categories, this.displayTaqColumnData.series );
+        this.displayTaqLine( this.displayTaqLineData.series );
+        this.displayTshsColumn( this.displayTshsColumnData.categories, this.displayTshsColumnData.series );
+        this.displayTshsLine( this.displayTshsLineData.series );
+        this.displayAcademicColumn(this.displayAcademicColumnData.categories, this.displayAcademicColumnData.series);
+        this.displayAcademicLine( this.displayAcademicLineData.series );
     },
     methods: {
       //Teacher Asset Quality
-      displayTaqColumn() {        
+      displayTaqColumn(cat, series) {        
         this.chartOptionsTaq = {  
           chart: {
               type: 'column'
@@ -142,7 +223,7 @@
               align: 'center'
           },
           xAxis: {
-              categories: ['TQ GEN', 'TQ GEN P', 'TQ SC GEN', 'TQ SC P', 'TQ A&O GEN', 'TQ A&O P'],
+              categories: cat,
               crosshair: true,
               accessibility: {
                   description: 'Teacher asset quality'
@@ -164,7 +245,9 @@
                   borderWidth: 0
               }
           },
-          series: [
+          series: series,
+          /**
+           * [
               {
                   name: '2020',
                   data: [4.2, 3.8, 3.8, 4.4, 4.4, 4.2]
@@ -177,11 +260,12 @@
                   name: '2022',
                   data: [4.6, 4.0, 4.0, 3.4, 3.5, 3.6]
               }
-          ]        
+          ]
+           *  */        
         }  
       },
       //Teacher Asset Quality
-      displayTaqLine() {        
+      displayTaqLine(series) {        
         this.chartOptionsTaq2 = {
 
           chart: {
@@ -218,7 +302,9 @@
             }
           },
 
-          series: [{
+          series: series,
+          /**
+           * [{
                   name: '2020',
                   data: [ ['TQ GEN',4.2], ['TQ GEN P',3.8], ['TQ SC GEN',3.8], ['TQ SC P',4.4], ['TQ A&O GEN',4.0], ['TQ A&O P',4.2]]
               },
@@ -230,7 +316,9 @@
                   name: '2022',
                   data: [ ['TQ GEN',4.0], ['TQ GEN P',3.4], ['TQ SC GEN',3.6], ['TQ SC P',4.2], ['TQ A&O GEN',4.0], ['TQ A&O P',4.6]]
               }
-          ],
+          ]
+           * 
+           */
 
           responsive: {
             rules: [{
@@ -251,7 +339,7 @@
         }
       },
       //Track School Health Status
-      displayTshsColumn() {        
+      displayTshsColumn(cat, series) {        
         this.chartOptionsTshs = {  
           chart: {
               type: 'column'
@@ -261,7 +349,7 @@
               align: 'center'
           },
           xAxis: {
-              categories: ['2020', '2021', '2022'],
+              categories: cat,
               crosshair: true,
               accessibility: {
                 description: 'School Health Status'
@@ -283,7 +371,9 @@
                 borderWidth: 0
               }
           },
-          series: [
+          series: series,
+          /**
+           * [
               {
                   name: 'Teaching Processes',
                   data: [4.2, 3.2, 3.8]
@@ -312,11 +402,12 @@
                   name: 'SSHE',
                   data: [3.2, 3.4, 3.0]
               }
-          ]        
+          ]
+           *  */        
         }  
       },
       //Track School Health Status
-      displayTshsLine() {        
+      displayTshsLine(series) {        
         this.chartOptionsTshs2 = {
 
           chart: {
@@ -352,7 +443,9 @@
             }
           },
 
-          series: [{
+          series: series,
+          /***
+           * [{
                   name: 'Teaching Processes',
                   data: [ ['2020',4.2], ['2021',3.8], ['2022',3.8]]
               },
@@ -380,8 +473,9 @@
                   name: 'SSHE',
                   data: [ ['2020',3.1], ['2021',3.1], ['2022',3.9]]
               }
-          ],
-
+          ]
+           * 
+           */
           responsive: {
             rules: [{
               condition: {
@@ -401,7 +495,7 @@
         }
       },
       //Track Academic Performance
-      displayAcademicColumn() {        
+      displayAcademicColumn(cat, series) {        
         this.chartOptionsAcademic = {  
           chart: {
               type: 'column'
@@ -411,7 +505,7 @@
               align: 'center'
           },
           xAxis: {
-              categories: ['Term 1', 'Term 2', 'Term 3'],
+              categories: cat,
               crosshair: true,
               accessibility: {
                 description: 'Track Academic Performance'
@@ -433,7 +527,9 @@
                 borderWidth: 4
               }
           },
-          series: [
+          series: series,
+          /**
+           * [
               {
                   name: 'School Grade',
                   data: [8.2, 8.0, 8.5]
@@ -446,11 +542,12 @@
                   name: 'Drag Index',
                   data: [0.1, 0.1, 0.1]
               }
-          ]        
+          ] 
+           *  */       
         }  
       },
       //Track Academic Performance
-      displayAcademicLine() {        
+      displayAcademicLine(series) {        
         this.chartOptionsAcademic2 = {
 
           chart: {
@@ -486,7 +583,9 @@
             }
           },
 
-          series: [{
+          series: series,
+          /**
+           * [{
                   name: 'School Grade',
                   data: [ ['Term 1',8.2], ['Term 2',8.65], ['Term 3',8.45]]
               },
@@ -498,8 +597,9 @@
                   name: 'Drag Index',
                   data: [ ['Term 1',0.45], ['Term 2',0.27], ['Term 3',0.16]]
               },
-          ],
-
+          ]
+           * 
+           */
           responsive: {
             rules: [{
               condition: {
@@ -518,6 +618,27 @@
 
         }
       },
+
+      async triggerAcademicColumn(value) {
+          let isValid = value != null || value != "null";
+          if (isValid){
+             await this.displayAcademicColumnApi();
+          }
+          else{
+            alert("The academic year is NULL, please select an appropriate year.")
+          }          
+      },
+
+      async triggerAcademicLine(value) {
+          let isValid = value != null || value != "null";
+          if (isValid){
+             await this.displayAcademicLineApi();
+          }
+          else{
+            alert("The academic year is NULL, please select an appropriate year.")
+          }          
+      },
+
     },
   };
   </script>

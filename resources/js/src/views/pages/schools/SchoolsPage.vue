@@ -26,7 +26,7 @@
               icon="UserCheckIcon"
               color="success"
               :statistic="totalPrimarySchools === undefined ? 0 : totalPrimarySchools"
-              statistic-title="Primary"
+              statistic-title="Junior Secondary"
             />
           </b-col>
         </div>

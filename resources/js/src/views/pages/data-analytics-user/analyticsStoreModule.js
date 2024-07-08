@@ -40,7 +40,6 @@ export default {
                     .catch(error => reject(error))
             }) 
         },
-
         fetchAcademicInput(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
@@ -49,7 +48,6 @@ export default {
                     .catch(error => reject(error))
             }) 
         },
-
         fetchTeacherInput(ctx, payload) {
             return new Promise((resolve, reject) => {
                 axios
@@ -73,6 +71,54 @@ export default {
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })
-        }
+        },
+        displayTaqColumn(ctx, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/dashboard/displaytaqcolumn/' + payload.id )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
+        displayTaqLine(ctx, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/dashboard/displaytaqline/' + payload.id )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
+        displayTshsColumn(ctx, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/dashboard/displaytshscolumn/' + payload.id )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
+        displayTshsLine(ctx, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/dashboard/displaytshsline/' + payload.id )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
+        displayAcademicColumn(ctx, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/dashboard/displayacademiccolumn/' + payload.id + '/year/' + payload.year  )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
+        displayAcademicLine(ctx, payload) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/dashboard/displayacademicline/' + payload.id + '/year/' + payload.year  )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            })
+        },
     },
 }

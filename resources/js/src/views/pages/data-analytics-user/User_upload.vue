@@ -58,10 +58,10 @@
                       </td>
 
                       <td class="p-4 w-25"> 
-                        <b-form-group label=" Select Term" >
+                        <b-form-group label=" Select Type" >
                          <b-form-select
                             v-model="academic._type"
-                            :options="academicTerm"                            
+                            :options="tOptionsAcademic"                            
                           />
                         </b-form-group>
                       </td>
@@ -75,7 +75,7 @@
                 <table class="table">
                   <tbody>
                     <tr>
-                      <td> Enter Enrollee Count(Number of Students only that wrote exam) </td>
+                      <td> Enter Enrollee Count (Number of Students only that wrote exam) </td>
                       <td>
                                          
                           <b-form-input             
@@ -257,8 +257,8 @@
                         <button @click="submitTeacher()" class="btn btn-primary">Submit</button>
                       </td>
                       <td class="p-4 w-25">
-                        <input type="number" class="form-control" @change="handleInputChange" placeholder="Enter number of teachers in your school">
-                        <label style="font-size: 8px; font-style: italic;"> Any change here will reset your data table!</label>
+                        <input type="number" class="form-control" @change="handleInputChange" placeholder="Total teachers in school">
+                        <!--<label style="font-size: 8px; font-style: italic;"> Any change here will reset your data table!</label>-->
                       </td>
                       <td class="p-4 w-25"> 
                          <b-form-select
@@ -274,6 +274,12 @@
                             @change="checkTermTeacher"                            
                           />
                       </td>
+                      <td class="p-4 w-25"> 
+                         <b-form-select
+                            v-model="teacherBase._level"
+                            :options="lOptions"                            
+                          />
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -284,7 +290,6 @@
                   <thead>
                     <tr>
                       <th>Name</th>
-                      <th>Level</th>
                       <th>Teacher Registration Council</th>
                       <th>Academic Background</th>
                       <th>Qualification in Education</th>
@@ -296,25 +301,15 @@
                   <tbody>
                     <tr v-for="(t, index) in teacher" :key="index">
                       <td>{{ t.name }}</td>
-                      <td>
-                                <select
-                                  v-model="t.level_option"
-                                  class="form-select form-select-sm rounded bg-light"
-                                >
-                                  <option value="null">Select Level</option>
-                                  <option value="primary">Primary</option>
-                                  <option value="secondary">Secondary</option>
-                                </select>
-                      </td>
 
                       <td>
                                 <select
                                   v-model="t.trcc_option"
                                   class="form-select form-select-sm rounded bg-light"
                                 >
-                                  <option value="null">Select Teacher Registration Council Certificate</option>
-                                  <option value="0">No, He doesn't have this certificate</option>
-                                  <option value="1">Yes, He has this certificate</option>
+                                  <option value="null">None</option>
+                                  <option value="no">No, He doesn't have this certificate</option>
+                                  <option value="yes">Yes, He has this certificate</option>
                                 </select>
                       </td>
 
@@ -323,7 +318,7 @@
                                   v-model="t.academic_option"
                                   class="form-select form-select-sm rounded bg-light"
                                 >
-                                  <option value="null">Select Academic Certificate</option>
+                                  <option value="null">None</option>
                                   <option value="waec">Waec O' Level</option>
                                   <option value="ttc">TTC</option>
                                   <option value="hnd">HND</option>
@@ -340,11 +335,11 @@
                                   v-model="t.qualification_in_education_option"     
                                   class="form-select form-select-sm rounded bg-light"
                                 >
-                                  <option value="null">Select Qualification in Education</option>
+                                  <option value="null">None</option>
                                   <option value="edu">Education Certificate</option>
                                   <option value="nce">NCE</option>
                                   <option value="bed">B.Ed</option>
-                                  <option value="pgd">P.GD</option>
+                                  <option value="pgde">P.GD</option>
                                   <option value="med">M.Ed</option>
                                   <option value="phded">PHD. Ed</option>
                                 </select>
@@ -355,7 +350,7 @@
                                   v-model="t.type_of_engagement_option"
                                   class="form-select form-select-sm rounded bg-light"
                                 >
-                                  <option value="null">Select type of Engagement</option>
+                                  <option value="null">None</option>
                                   <option value="intern">Intern</option>
                                   <option value="parttime">Part Time</option>
                                   <option value="permanent">Permanent</option>
@@ -367,7 +362,7 @@
                                   v-model="t.discipline_option"
                                   class="form-select form-select-sm rounded bg-light"
                                 >
-                                  <option value="null">Select type of Discipline</option>
+                                  <option value="null">None</option>
                                   <option value="stem">STEM</option>
                                   <option value="arts">Arts</option>
                                   <option value="social_science">Social Science</option>
@@ -379,10 +374,10 @@
                                   v-model="t.highest_experience_option"
                                   class="form-select form-select-sm rounded bg-light"
                                 >
-                                  <option value="null">Select Highest Years of Experience </option>
+                                  <option value="null">None </option>
                                   <option value="not_available">No experience</option>
                                   <option value="less">Less than Five</option>
-                                  <option value="more">More than Five</option>
+                                  <option value="more">Five years or more</option>
                                 </select>
                       </td>                      
                       
@@ -478,9 +473,13 @@
 
     data() {   
        
-        const yOptions = [ { value: "null", text: "Select a Year to Review" }, { value: "2019", text: "2019" }, { value: "2020", text: "2020" } , { value: "2021", text: "2021" }, { value: "2022", text: "2022" }, { value: "2023", text: "2023" }  ];
+        const yOptions = [ { value: "null", text: "Select a Year" }, { value: "2019", text: "2019" }, { value: "2020", text: "2020" } , { value: "2021", text: "2021" }, { value: "2022", text: "2022" }, { value: "2023", text: "2023" }  ];
         
         const tOptions = [ { value: "null", text: "Select a Term" }, { value: "1st_term", text: "1st Term" }, { value: "2nd_term", text: "2nd Term" } , { value: "3rd_term", text: "3rd term" } ];
+        
+        const tOptionsAcademic = [ { value: "null", text: "Select a Term" }, { value: "1st_term", text: "1st Term" }, { value: "2nd_term", text: "2nd Term" } , { value: "3rd_term", text: "3rd term" }, { value: "external", text: "WAEC" } ];
+        
+        const lOptions = [ { value: "null", text: "Select Level" }, { value: "primary", text: "Primary" }, { value: "secondary", text: "Secondary" } ];
         
         return {  
 
@@ -510,10 +509,13 @@
 
           yOptions,
           tOptions,
+          lOptions,
+          tOptionsAcademic,
 
           teacherBase: {
             _year:  null,
             _type:  null,
+            _level: null
           },
           
           teacher:[],
@@ -673,8 +675,9 @@
 
             for (let i = 1; i <= Number(inputValue); i++) {
               let teacher = { ...baseValues };
-              teacher._year = this.teacherBase._year ? this.teacherBase._year : "";
-              teacher._type = this.teacherBase._type ? this.teacherBase._type : "";
+              teacher._year =  this.teacherBase._year ? this.teacherBase._year : "";
+              teacher._type =  this.teacherBase._type ? this.teacherBase._type : "";
+              teacher.level_option = this.teacherBase._level ? this.teacherBase._level : "";
               teacher.name = `Teacher ${i}`;
               teacher.sch_id = this.filters.schoolId;
               teacherArray.push(teacher);
@@ -735,7 +738,6 @@
           if (isValid){
               store.dispatch(`${ this.Dashboard_APP_STORE_MODULE_NAME }/updateAcademic`, { ...this.academic, sch_id: this.filters.schoolId } )
               .then(response => { 
-                  //console.log("Academic updating: " + response.data.success );    
                   alert("Your teacher academic records have been inserted successfully")
                   window.location.reload();                     
               });
@@ -746,7 +748,6 @@
         },
  
         submitTeacher() {
-          console.log(JSON.stringify(this.teacher));
           let isValid = this.validateArrayOfObjects(this.teacher);
           if (isValid){
               store.dispatch(`${ this.Dashboard_APP_STORE_MODULE_NAME }/updateTeacher`, this.teacher )
