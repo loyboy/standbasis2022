@@ -224,7 +224,7 @@ export default {
       this.infoModal.content = ''
     },
     onFiltered(filteredItems) {
-      // Trigger pagination to update the number of buttons/pages due to filtering
+      // Trigger pagination to update the number of buttons/pages due to filtering nnn
       this.totalRows = filteredItems.length
       this.currentPage = 1
     },
