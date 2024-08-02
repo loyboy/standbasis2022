@@ -66,11 +66,11 @@
             >
               <validation-provider
                 #default="validationContext"
-                name="School Type"
+                name="School Jurisdiction"
                 rules="required"
               >
                 <b-form-group
-                  label="School Type"
+                  label="School Jurisdiction"
                   label-for="sch-type"
                   class="mb-2 bolden"
                 >
@@ -78,6 +78,35 @@
                   <b-form-select
                     v-model="schoolDetails.schType"
                     :options="typeOptions"
+                  />
+
+                  <b-form-invalid-feedback>
+                    {{ validationContext.errors[0] }}
+                  </b-form-invalid-feedback>
+                </b-form-group>
+              </validation-provider>
+            </b-col>
+
+             <!-- School Type -->
+             <b-col
+              cols="12"
+              md="4"
+              class="mb-2"
+            >
+              <validation-provider
+                #default="validationContext"
+                name="School Zone"
+                rules="required"
+              >
+                <b-form-group
+                  label="School Zone"
+                  label-for="sch-zone"
+                  class="mb-2 bolden"
+                >
+
+                  <b-form-select
+                    v-model="schoolDetails.schZone"
+                    :options="zoneOptions"
                   />
 
                   <b-form-invalid-feedback>
@@ -558,42 +587,65 @@ export default {
   data() {
 
       let stateOptions = [
-        { value: "", text: "Please select your School's state of residence. " },
-        { value: "akwaibom", text: "Akwa Ibom state" }
+        { value: "", text: "" },
+        { value: "01", text: "Akwa Ibom state" },
+        { value: "02", text: "Lagos state" },
+        { value: "03", text: "Abia state" },
+      ];
+
+      let zoneOptions = [
+        { value: "", text: "" },
+        { value: "zoneA", text: "Zone A" },
+        { value: "zoneB", text: "Zone B" },
+        { value: "zoneC", text: "Zone C" },
+        { value: "zoneD", text: "Zone D" },
+        { value: "zoneE", text: "Zone E" },
+        { value: "zoneF", text: "Zone F" },
+        { value: "zoneG", text: "Zone G" },
+        { value: "zoneH", text: "Zone H" },
+        { value: "zoneI", text: "Zone I" },
+        { value: "zoneJ", text: "Zone J" },
+        { value: "zoneK", text: "Zone K" },
+        { value: "zoneL", text: "Zone L" },
+        { value: "zoneM", text: "Zone M" },
+        { value: "zoneN", text: "Zone N" },
+        { value: "zoneO", text: "Zone O" },
+        { value: "zoneP", text: "Zone P" },
       ];
 
       let ownerOptions = [];
 
       let typeOptions = [
-        { value: "", text: "Please select your School's type " },
-        { value: "primary", text: "Primary" }, 
-        { value: "secondary", text: "Secondary" },
-        { value: "both", text: "Both Secondary & Primary" }
+        { value: "", text: "" },
+        { value: "subeb", text: "Primary & Junior Secondary School only (SUBEB)" }, 
+        { value: "semb", text: "Senior Secondary School only (SEMB)" },
+        { value: "subeb+semb", text: "Junior Secondary School & Senior Secondary School (SUBEB & SEMB)" },
+        { value: "tveb", text: "Technical and Vocational School (TVEB)" },
       ];
 
       let schFaithOptions = [
-        { value: "", text: "Please select your School's faith. " },
+        { value: "", text: "" },
         { value: "christian", text: "Christian" },
         { value: "islamic", text: "Islamic" },
         { value: "neutral", text: "Neutral" }
       ];
      
       let schOperatorOptions = [
-        { value: "", text: "Please select your Operator type. " },
+        { value: "", text: "" },
         { value: "government", text: "Government" },
         { value: "private-single", text: "Private Single" },
         { value: "private-group", text: "Private Group" }
       ]; 
       
       let schGenderOptions = [
-        { value: "", text: "Please select your Gender student type. " },
+        { value: "", text: "" },
         { value: "mixed", text: "Mixed" },
         { value: "boys-only", text: "Boys Only" },
         { value: "girls-only", text: "Girls Only" }
       ]; 
 
       let schResidenceOptions = [
-        { value: "", text: "Please select if your School has a Boarding Option. " },
+        { value: "", text: "" },
         { value: "boarding", text: "Boarding only" },
         { value: "day", text: "Day only" },
         { value: "day-boarding", text: "Day & Boarding" }
@@ -601,7 +653,7 @@ export default {
 
        let lgaOptions = {
           "akwaibom" : [
-              { value: "", text: "Please select an LGA in Akwa Ibom state" },
+              { value: "", text: "" },
               { value: "abak", text: "ABAK" },
               { value: "eastern obolo", text: "E. OBOLO" },
               { value: "eket", text: "EKET" },
@@ -633,12 +685,56 @@ export default {
               { value: "uruan", text: "URUAN" },
               { value: "urue offong oruko", text: "URUE OFFONG ORUKO" },
               { value: "uyo", text: "UYO" }
-          ]
+          ],
+          "lagos": [
+            { value: "", text: "" },
+            { value: "agege", text: "AGEGE" },
+            { value: "alimosho", text: "ALIMOSHO" },
+            { value: "apapa", text: "APAPA" },
+            { value: "ifako-ijaye", text: "IFAKO-IJAYE" },
+            { value: "ikeja", text: "IKEJA" },
+            { value: "kosofe", text: "KOSOFE" },
+            { value: "mushin", text: "MUSHIN" },
+            { value: "oshodi-isolo", text: "OSHODI-ISOLO" },
+            { value: "shomolu", text: "SHOMOLU" },
+            { value: "eti-osa", text: "ETI-OSA" },
+            { value: "lagos-island", text: "LAGOS ISLAND" },
+            { value: "lagos-mainland", text: "LAGOS MAINLAND" },
+            { value: "surulere", text: "SURULERE" },
+            { value: "ojo", text: "OJO" },
+            { value: "ajeromi-ifelodun", text: "AJEROMI-IFELODUN" },
+            { value: "amuwo-odofin", text: "AMUWO-ODOFIN" },
+            { value: "badagry", text: "BADAGRY" },
+            { value: "ikorodu", text: "IKORODU" },
+            { value: "ibeju-lekki", text: "IBEJU-LEKKI" },
+            { value: "epe", text: "EPE" }
+          ],
+          "abia": [
+            { value: "", text: "" },
+            { value: "aba-north", text: "ABA NORTH" },
+            { value: "aba-south", text: "ABA SOUTH" },
+            { value: "arochukwu", text: "AROCHUKWU" },
+            { value: "bende", text: "BENDE" },
+            { value: "ikwuano", text: "IKWUANO" },
+            { value: "isiala-ngwa-north", text: "ISIALA NGWA NORTH" },
+            { value: "isiala-ngwa-south", text: "ISIALA NGWA SOUTH" },
+            { value: "isiukwuato", text: "ISIUKWUATO" },
+            { value: "obingwa", text: "OBINGWA" },
+            { value: "ohafia", text: "OHAFIA" },
+            { value: "osisioma-ngwa", text: "OSISIOMA NGWA" },
+            { value: "ugwunagbo", text: "UGWUNAGBO" },
+            { value: "ukwa-east", text: "UKWA EAST" },
+            { value: "ukwa-west", text: "UKWA WEST" },
+            { value: "umuahia-north", text: "UMUAHIA NORTH" },
+            { value: "umuahia-south", text: "UMUAHIA SOUTH" },
+            { value: "umu-neochi", text: "UMU NNEOCHI" }
+        ]
        };
 
 
     return {  
       stateOptions,
+      zoneOptions,
       lgaOptions,
       typeOptions,
       schFaithOptions,
@@ -670,8 +766,7 @@ export default {
           let contents = data.data;
           for (let i = 0; i < contents.length; ++i) {
             sef.ownerOptions.push( { value: Number(contents[i].id), text: contents[i].name } )
-          }        
-
+          }      
         }); 
     }
   },

@@ -43,7 +43,7 @@
         icon="feather icon-upload-cloud"
         :before-change="validateClassroomAsync"
       >
-        <classroom-details @next-step="formWizardNextStep" :classroom-details="classroomDetails"  />
+        <classroom-details @next-step="formWizardNextStep" :classroom-details="classroomDetails" :school-details="schoolDetails"  />
       </tab-content>
 
       <tab-content
@@ -51,7 +51,7 @@
         icon="feather icon-upload-cloud"
         :before-change="validateStudentAsync"
       >
-        <student-details @next-step="formWizardNextStep" :student-details="studentDetails"  />
+        <student-details @next-step="formWizardNextStep" :student-details="studentDetails" :school-details="schoolDetails"  />
       </tab-content>
 
       <tab-content
@@ -59,7 +59,7 @@
         icon="feather icon-upload-cloud"
         :before-change="validateTimetableAsync"
       >
-        <timetable-details @next-step="formWizardNextStep" :timetable-details="timetableDetails"  />
+        <timetable-details @next-step="formWizardNextStep" :timetable-details="timetableDetails" :school-details="schoolDetails"  />
       </tab-content>
 
       <tab-content
@@ -150,6 +150,7 @@ export default {
           schOwner: 0,
           schState: "",
           schLga: "",
+          schZone: "",
           schTown: "",
           schFaith:"",
           schOperator: "",
@@ -276,32 +277,32 @@ export default {
       
       if (name === "sch-details"){
         this.schoolDetails.schFilled = true;
-        console.log( "School details: " + JSON.stringify(this.schoolDetails) )
+       // console.log( "School details: " + JSON.stringify(this.schoolDetails) )
         this.refFormWizard.nextTab();
       }
       else if (name === "teacher-details"){
         this.teacherDetails.teaFilled = true;
-        console.log( "Teacher details: " + JSON.stringify(this.teacherDetails) )
+       // console.log( "Teacher details: " + JSON.stringify(this.teacherDetails) )
         this.refFormWizard.nextTab();
       }
       else if (name === "classroom-details"){
         this.classroomDetails.classroomFilled = true;
-        console.log( "Classroom details: " + JSON.stringify(this.classroomDetails) )
+       // console.log( "Classroom details: " + JSON.stringify(this.classroomDetails) )
         this.refFormWizard.nextTab();
       }
       else if (name === "student-details"){
         this.studentDetails.studentFilled = true;
-        console.log( "Student details: " + JSON.stringify(this.studentDetails) )
+       // console.log( "Student details: " + JSON.stringify(this.studentDetails) )
         this.refFormWizard.nextTab();
       }
       else if (name === "timetable-details"){
         this.timetableDetails.timetableFilled = true;
-        console.log( "Timetable details: " + JSON.stringify(this.timetableDetails) )
+       // console.log( "Timetable details: " + JSON.stringify(this.timetableDetails) )
         this.refFormWizard.nextTab();
       }
       else if (name === "account-details"){
         this.accountDetails.accountFilled = true;
-        console.log( "Account details: " + JSON.stringify(this.accountDetails) )
+       // console.log( "Account details: " + JSON.stringify(this.accountDetails) )
         this.refFormWizard.nextTab();
       }
       else if (name === "sch-finish"){
@@ -328,6 +329,7 @@ export default {
           "type_of": this.schoolDetails.schType,
           "owner": this.schoolDetails.schOwner,
           "state": this.schoolDetails.schState,
+          "zone": this.schoolDetails.schZone,
           "lga": this.schoolDetails.schLga,
           "town": this.schoolDetails.schTown,
           "faith": this.schoolDetails.schFaith,
@@ -409,6 +411,7 @@ export default {
         };
 		
 		const formPayload = { schRequest, teaRequest, classRequest, pupRequest, timeRequest, accountRequest };
+
 		const sef = this;
         this.$loading(true);
         axios.post( this.baseURL + "/auth/onboard", formPayload)

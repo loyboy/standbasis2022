@@ -152,6 +152,10 @@ export default {
         classroomDetails: {
             type: Object,
             required: true,
+        },
+        schoolDetails: {
+            type: Object,
+            required: true,
         }
    },
    data() {
@@ -232,9 +236,9 @@ export default {
         a.every((val, index) => val === b[index]);
     },
     loadData(file) {
-        console.log("Reading a file ");
+       // console.log("Reading a file ");
         this.items = [];
-        let myitems = [];
+        //let myitems = [];
         let reader = new FileReader();
          reader.readAsText(file);
          reader.onload = (evt) => {
@@ -245,7 +249,7 @@ export default {
             let lines = content.split("\r");
             let firstRow = lines[0].split(",");
             
-            //loop all rows except the firt row
+            //loop all rows except the first row
             if ( this.arraysEqual( csvHeaders.sort() , firstRow.sort() ) === false ) {
                 alert("Please make sure the Column names are exactly as the Template for Teacher we gave is.")
                 return false;
@@ -265,9 +269,28 @@ export default {
             });
 
             this.items = this.items.filter(n => n && n['class_ext'] );
+            let classTitleExpected = [ ];
+            let classIndexExpected = [ ];
 
-            let classTitleExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
-            let classIndexExpected = [ 7, 8, 9, 10, 11, 12 ];
+            let the_type_of_school = this.schoolDetails.schType;
+            
+            if(the_type_of_school == 'subeb'){
+                classTitleExpected = [ "jss1", "jss2", "jss3" ];
+                classIndexExpected = [ 7, 8, 9 ];
+            }
+            else if(the_type_of_school == 'semb'){
+                classTitleExpected = [ "ss1", "ss2", "ss3" ];
+                classIndexExpected = [ 10, 11, 12 ];
+            }
+            else if(the_type_of_school == 'subeb+semb'){
+                classTitleExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
+                classIndexExpected = [ 7, 8, 9, 10, 11, 12 ];
+            } 
+            else if(the_type_of_school == 'tveb'){
+                classTitleExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
+                classIndexExpected = [ 7, 8, 9, 10, 11, 12 ];
+            }            
+            
             let classTitleError, classIndexError = false;
 
             for (let i = 0; i < this.items.length; ++i) {
@@ -310,7 +333,7 @@ export default {
             }
 
             this.totalRows = this.items.length;
-            console.log(  " Final " + JSON.stringify( this.items ) );   
+          //  console.log(  " Final " + JSON.stringify( this.items ) );   
 
          };
     },

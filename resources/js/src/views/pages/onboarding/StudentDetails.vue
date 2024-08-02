@@ -153,6 +153,10 @@ export default {
         studentDetails: {
             type: Object,
             required: true,
+        },
+        schoolDetails: {
+            type: Object,
+            required: true,
         }
    },
    data() {
@@ -234,7 +238,7 @@ export default {
         a.every((val, index) => val === b[index]);
     },
     loadData(file) {
-        console.log("Reading a file ");
+       // console.log("Reading a file ");
         this.items = [];
         let myitems = [];
         let reader = new FileReader();
@@ -270,7 +274,23 @@ export default {
 
             this.items = this.items.filter(n => n && n['student_class'] );
 
-            let classTitleExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
+            let classTitleExpected = [];
+
+            let the_type_of_school = this.schoolDetails.schType;
+            
+            if(the_type_of_school == 'subeb'){
+                classTitleExpected = [ "jss1", "jss2", "jss3" ];
+            }
+            else if(the_type_of_school == 'semb'){
+                classTitleExpected = [ "ss1", "ss2", "ss3" ];
+            }
+            else if(the_type_of_school == 'subeb+semb'){
+                classTitleExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
+            }   
+            else if(the_type_of_school == 'tveb'){
+                classNameExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
+            }  
+
             let genderExpected = [ "m", "f" ];
             let classTitleError, genderError = false;
 
@@ -280,14 +300,14 @@ export default {
                 let rc2 =  String(tempLine["student_gender"]).toLowerCase().trim();
 
                 if ( genderExpected.indexOf(rc2) === -1 ) {
-                    console.log(" Gender >>> " + rc2 + " >>" + genderExpected.indexOf(rc2) ) 
+                   // console.log(" Gender >>> " + rc2 + " >>" + genderExpected.indexOf(rc2) ) 
                     this.items = [];
                     genderError = true; 
                     break;                   
                 }
 
                 if ( classTitleExpected.indexOf(rc) === -1 ) {
-                    console.log(" Class title >>> " + rc + " >>" + classTitleExpected.indexOf(rc) ) 
+                 //   console.log(" Class title >>> " + rc + " >>" + classTitleExpected.indexOf(rc) ) 
                     this.items = [];
                     classTitleError = true;    
                     break;                
@@ -308,7 +328,7 @@ export default {
             }
 
             this.totalRows = this.items.length;
-            console.log(  " Final " + JSON.stringify( this.items ) );   
+           // console.log(  " Final " + JSON.stringify( this.items ) );   
 
          };
     },

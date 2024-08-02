@@ -153,6 +153,10 @@ export default {
         timetableDetails: {
             type: Object,
             required: true,
+        },
+        schoolDetails: {
+            type: Object,
+            required: true,
         }
    },
    data() {
@@ -235,7 +239,7 @@ export default {
         a.every((val, index) => val === b[index]);
     },
     loadData(file) {
-        console.log("Reading a file ");
+       // console.log("Reading a file ");
         this.items = [];
         let reader = new FileReader();
          reader.readAsText(file);
@@ -253,9 +257,7 @@ export default {
                 return false;
             }
 
-            delete lines[0];
-
-            
+            delete lines[0];            
 
             this.items = lines.map((line,index) => {
                     var rowContent = line.split(","); 
@@ -273,7 +275,24 @@ export default {
 
             this.items = this.items.filter(n => n && n['class_name'] );
 
-            let classNameExpected = [  "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
+            let classNameExpected = [];
+           // let classTitleExpected = [];
+
+            let the_type_of_school = this.schoolDetails.schType;
+
+            if(the_type_of_school == 'subeb'){
+                classNameExpected = [ "jss1", "jss2", "jss3" ];
+            }
+            else if(the_type_of_school == 'semb'){
+                classNameExpected = [ "ss1", "ss2", "ss3" ];
+            }
+            else if(the_type_of_school == 'subeb+semb'){
+                classNameExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
+            }
+            else if(the_type_of_school == 'tveb'){
+                classNameExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
+            }   
+
             let subjectExpected = [ "Mathematics","English Language","Yoruba","Hausa","Igbo","Basic Science",
             "Basic Technology","Information Technology","Physical & Health Education",
             "Christian Religious Knowledge","Civic Education","Islamic studies",
@@ -353,7 +372,7 @@ export default {
             }
 
             this.totalRows = this.items.length;
-            console.log(  " Final " + JSON.stringify( this.items ) );   
+            //console.log(  " Final " + JSON.stringify( this.items ) );   
 
          };
     },
