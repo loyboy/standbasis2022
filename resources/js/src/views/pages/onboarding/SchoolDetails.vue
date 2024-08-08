@@ -652,7 +652,7 @@ export default {
       ]; 
 
        let lgaOptions = {
-          "akwaibom" : [
+          "01" : [
               { value: "", text: "" },
               { value: "abak", text: "ABAK" },
               { value: "eastern obolo", text: "E. OBOLO" },
@@ -686,7 +686,7 @@ export default {
               { value: "urue offong oruko", text: "URUE OFFONG ORUKO" },
               { value: "uyo", text: "UYO" }
           ],
-          "lagos": [
+          "02": [
             { value: "", text: "" },
             { value: "agege", text: "AGEGE" },
             { value: "alimosho", text: "ALIMOSHO" },
@@ -709,7 +709,7 @@ export default {
             { value: "ibeju-lekki", text: "IBEJU-LEKKI" },
             { value: "epe", text: "EPE" }
           ],
-          "abia": [
+          "03": [
             { value: "", text: "" },
             { value: "aba-north", text: "ABA NORTH" },
             { value: "aba-south", text: "ABA SOUTH" },
