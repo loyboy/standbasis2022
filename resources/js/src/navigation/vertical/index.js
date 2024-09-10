@@ -4,7 +4,7 @@ export default [
         route: 'superadmin-home',
         icon: 'HomeIcon',
         permission: ["admin"]
-    },
+    }, 
 
     {
         title: 'Dashboard',
@@ -113,12 +113,12 @@ export default [
     { 
         title: 'School Data',
         icon: 'ArchiveIcon',
-        permission: ["admin", "proprietor", "principal"],
+        permission: ["admin", "proprietor", "principal" , "supervisor" ],
         children: [
             {
                 title: 'Schools',
                 route: 'schools-home'  ,
-                permission: [ "admin" , "proprietor" ]            
+                permission: [ "admin" , "proprietor", "supervisor" ]            
             },
             {
                 title: 'Teachers',
@@ -193,7 +193,7 @@ export default [
     {
         title: 'School M&E',
         icon: 'ActivityIcon',
-        permission: ["teacher" ,"principal", "proprietor"],
+        permission: ["teacher" ,"principal", "proprietor", "supervisor"],
         children: [
             {
                 title: 'Attendance M&E',
@@ -216,7 +216,7 @@ export default [
     {
         title: 'School Flags',
         icon: 'FlagIcon',
-        permission: ["proprietor" ,"principal"],
+        permission: ["proprietor" ,"principal", "supervisor"],
         children: [
             {
                 title: 'Attendance Flags',

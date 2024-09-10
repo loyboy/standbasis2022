@@ -16,7 +16,7 @@
             <b-card-text class="mb-0 bolden">
               Step 6
             </b-card-text>
-            <b-card-text class="mb-0 bolden">Enter your school default user account details in this step.</b-card-text>
+            <b-card-text class="mb-0 bolden">Enter your school default Principal account details in this step.</b-card-text>
           </b-card>
         </div>
       </b-col>
@@ -314,7 +314,7 @@ export default {
                   }); 
 
                  let isValid = await sef.$refs.refFormObserver.validate();
-                 console.log("Valid form: " + isValid);
+                 //console.log("Valid form: " + isValid);
                   if (isValid){
                     sef.$emit('next-step',"account-details");  
                   }
@@ -348,7 +348,7 @@ export default {
                  
           }).catch((exception) => { 
 
-            console.log("Exception: " + JSON.stringify(exception));
+           // console.log("Exception: " + JSON.stringify(exception));
             
             sef.$toast({
               component: ToastificationContent,

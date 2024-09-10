@@ -13,11 +13,15 @@ export default function useAttendanceList() {
     { key: 'expected',label: 'Expected Count',  sortable: true },
     { key: 'value',label: 'Actual',  sortable: true }
   ]  
+
+ // const reversedLgaCodes = ref(store.getters['app-config/lgaCodes'])
+  const reversedLgaCodes = computed(() => store.getters['app-config/lgaCodes']);
   
   const filters = ref({
     dateTo: new Date().toISOString().slice(0, 10),
     schoolgroup: null, 
     schoolId: null,
+    supervisor: null,
     classId: null,//unused
     calendarId: null,
     teacherId:null,//unused
@@ -83,6 +87,8 @@ export default function useAttendanceList() {
     isLoading,
 
     refetchData,
+
+    reversedLgaCodes,
 
     filters,
 

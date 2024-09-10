@@ -154,7 +154,7 @@
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>-->
     
-                <b-dropdown-item v-if=" userData.role !== 'proprietor' " :to="{ name: 'timetables-home-edit', params: { id: data.item.timeId } }">
+                <b-dropdown-item v-if=" userData.role === 'principal' " :to="{ name: 'timetables-home-edit', params: { id: data.item.timeId } }">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Edit Timetable Details </span>
                 </b-dropdown-item>
@@ -308,7 +308,8 @@
 
       const findIfPropisPresent = ( userData.value.role === "proprietor"  );
       const findIfTeacherisPresent = ( userData.value.role === "teacher" );
-      const findIfPrinisPresent = ( userData.value.role === "principal" );  
+      const findIfPrinisPresent = ( userData.value.role === "principal" ); 
+      const findIfSupervisorisPresent = ( userData.value.role === "supervisor" );  
   
       const {
         fetchTimetables,
@@ -338,10 +339,11 @@
 
       } = useTimetableList( school, teacher );
 
-      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
+      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent){
           filters.value.teacherid = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolid = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
+          filters.value.supervisor = (findIfSupervisorisPresent) && userData.value ? userData.value.code : null;
       }
   
       return {

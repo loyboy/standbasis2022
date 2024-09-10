@@ -328,7 +328,7 @@ export default {
             }
             if (classIndexError) {
                 this.file = null;
-                alert("Check that the Class Index Column has the correct values i.e between 7 -> 12.");
+                alert("Check that you are in the correct category of jurisdiction before uploading your classes.");
                 return;
             }
 

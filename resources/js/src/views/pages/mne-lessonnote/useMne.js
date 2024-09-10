@@ -22,6 +22,7 @@ export default function useEvaluation() {
     teacherId: null,
     enrolId: null,
     schoolgroup: null,
+    supervisor: null,
 
     typeone: null, 
     typetwo_student: null,
@@ -74,7 +75,7 @@ export default function useEvaluation() {
   // For teacher lessonnote
   const fetchMneVariant2 = () => {
     isLoading.value = true;
-
+      // For teachers MNE loading
       store.dispatch('app-MneLessonnote/fetchMneTeacher', { teacher: filters.value.typetwo_teacher, calendar: filters.value.typefour, week: filters.value.typethree  })
       .then(response => {
         
@@ -96,8 +97,8 @@ export default function useEvaluation() {
 
   const fetchMneVariant3 = () => {
     isLoading.value = true;
-
-      store.dispatch('app-MneLessonnote/fetchMneTwo', {group: filters.value.schoolgroup, school: filters.value.schoolId, calendar: filters.value.typefour, week: filters.value.typethree  })
+      // For propreitors MNE loading
+      store.dispatch('app-MneLessonnote/fetchMneTwo', {group: filters.value.schoolgroup, school: filters.value.schoolId, calendar: filters.value.typefour, week: filters.value.typethree })
       .then(response => {
         
         const { teacher_management, head_admin } = response.data;
@@ -139,6 +140,11 @@ export default function useEvaluation() {
     }
 
     else if ( userData.value.role === "proprietor" && filters.value.schoolgroup  ) {
+      fetchMneVariant3();
+      window.scrollBy(0, 200);
+    }
+
+    else if ( userData.value.role === "supervisor" && filters.value.supervisor  ) {
       fetchMneVariant3();
       window.scrollBy(0, 200);
     }

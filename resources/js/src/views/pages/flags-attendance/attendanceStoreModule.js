@@ -11,7 +11,7 @@ export default {
         fetchAttendances(ctx, queryParams) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/attendance/mneTeachers', { params: queryParams })
+                    .get($themeConfig.app.baseURL + '/attendance/flagTeachers', { params: queryParams })
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
@@ -24,10 +24,10 @@ export default {
                     .catch(error => reject(error))
             })
         },
-        fetchSchools(ctx, {id}) {
+        fetchSchools(ctx, {id, is_supervisor = false}) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/school/group/' + id)
+                    .get($themeConfig.app.baseURL + '/school/group/' + id + '/supervisor/' + is_supervisor )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             })

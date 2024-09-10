@@ -3,7 +3,7 @@ import store from '@/store'
 
 // Notification
 import { useToast } from 'vue-toastification/composition'
-import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
+//import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
 export default function useAttendanceList() {
   // Use toast

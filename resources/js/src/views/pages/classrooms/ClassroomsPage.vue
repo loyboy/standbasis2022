@@ -12,7 +12,11 @@
             />
           </b-col>
 
-          <b-col lg="3" sm="6"  v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary' " >
+          <b-col lg="3" sm="6"  v-if=" 
+            ( teacherData.school && (teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary')) || 
+            ( userData.role === 'supervisor' && String(userData.code).split('-').length === 1 ) ||
+            ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' )
+          " >
             <statistic-card-horizontal             
               icon="UserCheckIcon"
               color="success"
@@ -23,7 +27,10 @@
             />
           </b-col>
 
-          <b-col lg="3" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary' ">
+          <b-col lg="3" sm="6" v-if=" (teacherData.school && (teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary')) ||
+                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length === 1 ) ||
+                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
+          ">
             <statistic-card-horizontal              
               icon="UserCheckIcon"
               color="danger"
@@ -34,7 +41,10 @@
             />
           </b-col>
 
-           <b-col lg="3" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary' ">
+           <b-col lg="3" sm="6" v-if=" (teacherData.school && (teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary')) ||
+                                       ( userData.role === 'supervisor' && String(userData.code).split('-').length === 1 ) ||
+                                       ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'semb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb'  ) )
+          ">
             <statistic-card-horizontal              
               icon="UserCheckIcon"
               color="success"
@@ -45,27 +55,7 @@
             />
           </b-col>
 
-          <b-col lg="3" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary' ">
-            <statistic-card-horizontal              
-              icon="UserCheckIcon"
-              color="danger"
-              :statistic="
-                totalSecondaryUndeployed === undefined ? 0 : totalSecondaryUndeployed
-              "
-              statistic-title="UnDeployed Secondary"
-            />
-          </b-col>
-
-          <b-col lg="3" sm="6" v-if=" teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary' ">
-            <statistic-card-horizontal               
-              icon="UserCheckIcon"
-              color="success"
-              :statistic="
-                totalPrimaryUndeployed === undefined ? 0 : totalPrimaryUndeployed
-              "
-              statistic-title="UnDeployed Primary"
-            />
-          </b-col>
+        
 
         </div>
   
@@ -201,7 +191,7 @@
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>
     
-                <b-dropdown-item v-if=" userData.role !== 'proprietor' " :to="{ name: 'classrooms-home-edit', params: { id: data.item.clsId } }">
+                <b-dropdown-item v-if=" userData.role === 'principal' " :to="{ name: 'classrooms-home-edit', params: { id: data.item.clsId } }">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Edit Classroom </span>
                 </b-dropdown-item>
@@ -355,6 +345,7 @@
       const findIfPropisPresent = ( userData.value.role === "proprietor"  );
       const findIfTeacherisPresent = ( userData.value.role === "teacher" );
       const findIfPrinisPresent = ( userData.value.role === "principal" );
+      const findIfSupervisorisPresent = ( userData.value.role === "supervisor" );
   
       const {
         fetchClassrooms,
@@ -384,9 +375,10 @@
 
       } = useClassroomList( school );
 
-      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
-          filters.value.schoolid = (findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.schId : null;
+      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent ){
+          filters.value.schoolid    = (findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
+          filters.value.supervisor  = (findIfSupervisorisPresent) && userData.value ? userData.value.code : null;
       }
   
       return {
@@ -441,4 +433,5 @@
   <style lang="scss">
   @import '~@core/scss/vue/libs/vue-select.scss';
   </style>
+  
   

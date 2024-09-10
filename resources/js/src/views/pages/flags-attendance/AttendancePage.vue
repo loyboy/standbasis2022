@@ -7,7 +7,7 @@
                 @reset.prevent="resetForm"
               >
         <b-card-body> 
-          <b-row  v-if=" userData.role === 'supervisor' ">
+         <!-- <b-row  v-if=" userData.role === 'proprietor' ">
                   <b-col cols="12" md="12"  class="mb-md-0 mb-2">
                     <b-form-group label="Select School Group" label-for="schoolgroup">
                       <b-form-select
@@ -18,6 +18,7 @@
                     </b-form-group>
                   </b-col>
           </b-row>
+        -->
 
           <b-row>
             <b-col
@@ -159,7 +160,7 @@
   import vSelect from 'vue-select'
   import router from '@/router'
   import store from '@/store'
-  import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
+  import { ref, onUnmounted ,onMounted, watch, computed } from '@vue/composition-api'
   import { avatarText } from '@core/utils/filter'
   import formValidation from '@core/comp-functions/forms/form-validation'
   // Notification
@@ -240,12 +241,8 @@
       const teacherData = ref({});
       const schoolOptions = ref([ { value: null, label: "All Schools" } ]);
       const schoolGroupOptions = ref([]);
-      const LocalGovtOptions = ref(
-        { "001" : "abak", "002": "eastern obolo", "003" : "eket",  "004" : "esit eket", "005" : "essien udim"   } 
-      );
-      const StateGovtOptions = ref(
-        { "01" : "akwaibom" } 
-      ); 
+      const stateGovtOptions = computed(() => store.getters['appConfig/stateCodes']);
+      const reversedLgaCodes = computed(() => store.getters['appConfig/lgaCodes']);
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
       if (storedItems){
@@ -281,9 +278,10 @@
       if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent){
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
+          filters.value.supervisor = findIfSupervisorisPresent && userData.value ? userData.value.code : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
-          filters.value.schoolState = findIfSupervisorisPresent ?  StateGovtOptions.value[ new String(userData.value.code).split("-")[2] ] : null;
-          filters.value.schoolLga = findIfSupervisorisPresent ?  LocalGovtOptions.value[ new String(userData.value.code).split("-")[3] ] : null;       
+        //  filters.value.schoolState = findIfSupervisorisPresent ?  new String(userData.value.code).split("-")[0] : null;
+        //  filters.value.schoolLga = findIfSupervisorisPresent ?  new String(userData.value.code).split("-")[3]  : null;       
       }
 
       (async function () {
@@ -296,10 +294,10 @@
         }
         
         else if( findIfSupervisorisPresent ){
-          const resp2 = await store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSchoolByState`, { state : filters.value.schoolState, lga: filters.value.schoolLga });
+          const resp2 = await store.dispatch(`${Attendance_APP_STORE_MODULE_NAME}/fetchSchools`, { id : filters.value.supervisor, is_supervisor: true });
           let myval = resp2.data.data;
           myval.forEach(obj => {
-            schoolOptions.value.push( { value: obj.schId , label: obj.name + "--" + obj.state + "--" + obj.lga } )
+            schoolOptions.value.push( { value: obj.schId , label: obj.name + "--" + stateGovtOptions.value[obj.state] + "--" + reversedLgaCodes.value[obj.lga_code] } )
           });
         }
        
@@ -317,6 +315,7 @@
         tableColumns,
       
         refAttendanceListTable,
+        reversedLgaCodes,
 
         handleChange,
         
@@ -405,7 +404,6 @@
             .then(response => { 
               let myval = response.data.data;
               myval.forEach(obj => {
-                //sef.calendarOptions.push( { value: obj.CalendarId , label: obj.session + ' ' + obj.term + ' Term'} )
                 let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
                 sef.calendarOptions.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
               });             

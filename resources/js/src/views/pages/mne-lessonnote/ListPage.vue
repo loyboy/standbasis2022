@@ -2,7 +2,7 @@
     <div>
 
       <b-form
-                v-if=" userData.role !== 'proprietor' "
+                v-if=" userData.role !== 'proprietor' && userData.role !== 'supervisor' "
                 class="p-2 myborder"
                 @submit.prevent="handleChange()"
                 @reset.prevent="resetForm"
@@ -215,7 +215,7 @@
       </b-form>
         
       <!-- Table Container Card -->
-      <b-card-code title="Filtered M&E Results" class="my-4 mx-1" v-if=" userData.role !== 'proprietor' ">
+      <b-card-code title="Filtered M&E Results" class="my-4 mx-1" v-if=" userData.role !== 'proprietor' && userData.role !== 'supervisor' ">
 
             <b-table            
               class="position-relative"
@@ -359,7 +359,7 @@
   import router from '@/router'
   import axios from "axios";
   import store from '@/store'
-  import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
+  import { ref, onUnmounted ,onMounted, watch, computed } from '@vue/composition-api'
   import { avatarText } from '@core/utils/filter'
   import formValidation from '@core/comp-functions/forms/form-validation'
   import { $themeConfig } from "@themeConfig";
@@ -455,7 +455,9 @@
       const teacherData = ref({}); 
       const calendarOptions = ref([ { value: null, text: "Please select A Calendar" } ]);
       const schoolOptions = ref([ { value: null, text: "All Schools" } ]);
-
+      const stateGovtOptions = computed(() => store.getters['appConfig/stateCodes']);
+      const reversedLgaCodes = computed(() => store.getters['appConfig/lgaCodes']);
+      
       const storedItems = JSON.parse(localStorage.getItem('userData'));
       if (storedItems){
         userData.value = storedItems;
@@ -469,6 +471,7 @@
       const findIfPropisPresent = ( userData.value.role === "proprietor"  );
       const findIfTeacherisPresent = ( userData.value.role === "teacher" );
       const findIfPrinisPresent = ( userData.value.role === "principal" ); 
+      const findIfSupervisorisPresent = ( userData.value.role === "supervisor" );
 
       const {     
          
@@ -490,10 +493,11 @@
 
       } = useMne();
 
-      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
+      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent){
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = (findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
+          filters.value.supervisor  = (findIfSupervisorisPresent) &&  userData.value ? userData.value.code : null;
       } 
 
       (async function () {       
@@ -501,17 +505,26 @@
       })();
 
       onMounted(() => {
-          setTimeout( async () => {
+        setTimeout( async () => {
+
+        if ( findIfSupervisorisPresent === true ){
+              const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { group : filters.value.supervisor, is_supervisor: true });
+              let myval = resp.data.data;
+              myval.forEach(obj => { 
+                schoolOptions.value.push( { value: obj.schId , text: obj.name + "--" + stateGovtOptions.value[obj.state] + "--" + reversedLgaCodes.value[obj.lga_code] } )
+              });
+              handleChange();
+        }
            
-           if ( findIfPropisPresent === false ){
-          const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : filters.value.schoolId });
-          let myval = resp.data.data;
-          myval.forEach(obj => { 
-                let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
-          //  if (Number(obj.term) !== -99){
-                calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
-          //  }            
-          });
+        else if ( findIfPropisPresent === false ){
+            const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : filters.value.schoolId });
+            let myval = resp.data.data;
+            myval.forEach(obj => { 
+                  let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
+            //  if (Number(obj.term) !== -99){
+                  calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+            //  }            
+            });
         }
 
         else if( findIfPropisPresent === true ){
@@ -522,9 +535,9 @@
           });
 
           handleChange();
-        } 
+        }         
           
-          }, 1000)       
+        }, 1000)       
       })
       
       return {
@@ -649,7 +662,7 @@
         },
 
         changeCalendar(value){
-          console.log("Value is here: " + value)
+         // console.log("Value is here: " + value)
         }
        
     }

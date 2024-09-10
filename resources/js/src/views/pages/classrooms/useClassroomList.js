@@ -28,7 +28,8 @@ export default function useClassroomList(School = null) {
   const isSortDirDesc = ref(true)
   const filters = ref({
     schoolgroup: null,
-    schoolid: null
+    schoolid: null,
+    supervisor: null
   });
  
   const totalPrimar = ref(0);
@@ -61,7 +62,8 @@ export default function useClassroomList(School = null) {
         page: currentPage.value - 1,
         q: searchQuery.value,
         school: School ? School : filters.value.schoolid,
-        schoolgroup: School ? null : filters.value.schoolgroup
+        schoolgroup: School ? null : filters.value.schoolgroup,
+        supervisor: filters.value.supervisor
       })
       .then(response => {
         const { classrooms, totalItems, totalPrimary, totalSJunior, totalSSenior, totalSUndeployed , totalPUndeployed } = response.data
@@ -74,7 +76,7 @@ export default function useClassroomList(School = null) {
         totalSecondaryUndeployed.value = totalSUndeployed
         totalPrimaryUndeployed.value = totalPUndeployed
 
-        console.log( "TotalSecondary: " +  totalSecondarySenior.value + " >>> " + totalSecondaryJunior.value );
+      //  console.log( "TotalSecondary: " +  totalSecondarySenior.value + " >>> " + totalSecondaryJunior.value );
 
       })
       .catch((e) => {

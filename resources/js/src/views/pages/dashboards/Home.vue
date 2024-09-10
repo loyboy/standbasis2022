@@ -131,7 +131,7 @@
              
              <b-row class="match-height">
                <b-col lg="6">   
-                  <router-link v-if=" userData.role === 'proprietor' " to = "/schools-list">Schools</router-link>
+                  <router-link v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' " to = "/schools-list">Schools</router-link>
                   <router-link to = "/teachers-list">Teachers</router-link>
                   <router-link to = "/enrollments-list">Enrollments</router-link>
                   <router-link to = "/classrooms-list">Classrooms</router-link>
@@ -232,7 +232,7 @@
         </b-card>
       </b-col>  
 
-      <b-col lg="4" v-if=" userData.role !== 'dashboarduser' && userData.role !== 'proprietor' ">        
+      <b-col lg="4" v-if=" userData.role !== 'dashboarduser' && userData.role !== 'proprietor' && userData.role !== 'supervisor' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
@@ -299,21 +299,7 @@
 
           </b-card-body>
         </b-card>
-      </b-col>   
-
-      <!-- Revenue Report Card -->
-     <!-- <b-col lg="6">
-        <revenue-report :data="data.revenue" :charts="charts" />
-      </b-col> -->
-      <!--/ Revenue Report Card -->
-<!-- <bottom-table /> -->
-     <!--   
-      <b-col cols="12">       
-        <event-list :teacherId="filters.teacherId" v-if=" userData.role === 'teacher'  "/>
-        <event-list :schoolId="filters.schoolId" v-if=" userData.role === 'principal'  "/>
-        <event-list :schoolgroupId="filters.schoolgroup" v-if=" userData.role === 'proprietor'  "/>
-      </b-col>  -->
-
+      </b-col>
     </b-row>
   </section>
 </template>
@@ -381,16 +367,6 @@
   /*
     watch: {
       rangeDate: function (value, mutation) {
-        this.$store.dispatch("tableData/getVTUProfits", value);
-        useJwt
-          .getDashboardCharts(value)
-          .then((response) => {
-            this.charts = response;
-            this.stats = response.data;
-          })
-          .catch((error) => {
-            // TODO
-          });
       },
     },*/
 
@@ -419,7 +395,8 @@
           teacherData.value = storedItems2;
         }
 
-        const findIfPropisPresent = ( userData.value.role === "proprietor"  );      
+        const findIfPropisPresent = ( userData.value.role === "proprietor"  );  
+        //const findIfSupervisorisPresent = ( userData.value.role === "supervisor"  );      
         const findIfPrinisPresent = ( userData.value.role === "principal" ); 
         const findIfTeacherisPresent = ( userData.value.role === "teacher" );
 
@@ -445,6 +422,7 @@
         if( findIfPropisPresent ){        
             filters.value.schoolgroup = teacherData.value ? teacherData.value.school.owner.id : null;
         } 
+    
         if ( findIfPrinisPresent ){         
             filters.value.schoolId = teacherData.value ? teacherData.value.school.schId : null;
         }
@@ -465,7 +443,7 @@
 
   };
   </script>
-  <<style scoped>      
+  <style scoped>      
     
     .b-avatar{
       background-color: white !important;

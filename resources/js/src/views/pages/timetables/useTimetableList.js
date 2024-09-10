@@ -35,7 +35,8 @@ export default function useTimetableList(School = null, Teacher = null) {
   const filters = ref({
     schoolgroup: null,
     schoolid: null,
-    teacherid: null
+    teacherid: null,
+    supervisor: null
   });
  
   const totalActiveTimetables = ref(0)
@@ -67,7 +68,8 @@ export default function useTimetableList(School = null, Teacher = null) {
         q: searchQuery.value,
         schoolgroup: School || Teacher ? null: filters.value.schoolgroup,
         school: School ? School : filters.value.schoolid,
-        teacher: Teacher ? Teacher : filters.value.teacherid
+        teacher: Teacher ? Teacher : filters.value.teacherid,
+        supervisor: filters.value.supervisor
       })
       .then(response => {
         const { timetables, totalItems, totalActive, totalInactive, totalDeleted } = response.data

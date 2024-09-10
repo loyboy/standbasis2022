@@ -40,10 +40,10 @@ export default {
                     .catch(error => reject(error))
             }) 
         },
-        fetchSchools(ctx, {group}) {
+        fetchSchools(ctx, {group , is_supervisor = false}) {
             return new Promise((resolve, reject) => {
                 axios
-                    .get($themeConfig.app.baseURL + '/school/group/' + group )
+                    .get($themeConfig.app.baseURL + '/school/group/' + group + '/supervisor/' + is_supervisor )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 
@@ -52,6 +52,14 @@ export default {
             return new Promise((resolve, reject) => {
                 axios
                     .get($themeConfig.app.baseURL + '/calendar/school/' + id )
+                    .then(response => resolve(response))
+                    .catch(error => reject(error))
+            }) 
+        },
+        fetchCalendarSupervisor(ctx, {id}) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get($themeConfig.app.baseURL + '/calendar/supervisor/' + id )
                     .then(response => resolve(response))
                     .catch(error => reject(error))
             }) 

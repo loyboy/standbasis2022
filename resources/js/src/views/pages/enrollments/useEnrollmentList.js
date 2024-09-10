@@ -32,7 +32,8 @@ export default function useEnrollmentList(School = null) {
   const isSortDirDesc = ref(true)
   const filters = ref({
     schoolgroup: null,
-    schoolid: null
+    schoolid: null,
+    supervisor: null
   });
  
   const totalPrimaryEnrollmentsMale =  ref(0);
@@ -66,7 +67,8 @@ export default function useEnrollmentList(School = null) {
         page: currentPage.value - 1,
         q: searchQuery.value,
         schoolgroup: School ? null: filters.value.schoolgroup,
-        school: School ? School : filters.value.schoolid
+        school: School ? School : filters.value.schoolid,
+        supervisor: filters.value.supervisor
       })
       .then(response => {
         const { enrollments, totalItems, totalPMale, totalPFemale , totalJunSecMale , totalJunSecFemale, totalSenSecMale , totalSenSecFemale } = response.data
@@ -82,15 +84,7 @@ export default function useEnrollmentList(School = null) {
 
       })
       .catch((e) => {
-        console.log("Fetch Enrollments error: " + e)
-        /*toast({
-          component: ToastificationContent,
-          props: {
-            title: 'Error fetching schools list',
-            icon: 'AlertTriangleIcon',
-            variant: 'danger',
-          },
-        })*/
+        console.log("Fetch Enrollments error: " + e);
       })
   }
 

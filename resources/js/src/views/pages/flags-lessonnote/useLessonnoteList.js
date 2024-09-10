@@ -17,6 +17,7 @@ export default function useLessonnoteList() {
   const filters = ref({
     schoolgroup: null, 
     schoolId: null,
+    supervisor: null,
     classId: null,//unused
     schoolyear: null,
     schoolterm: null,
@@ -45,7 +46,7 @@ export default function useLessonnoteList() {
         week: filters.value.week,
         schoolyear: filters.value.schoolyear,
         schoolterm: filters.value.schoolterm,
-
+        
         class: filters.value.classId,
         teacher: filters.value.teacherId,
         subject:  filters.value.subjectId,
@@ -71,7 +72,7 @@ export default function useLessonnoteList() {
         
         isLoading.value = false;   
 
-        store
+      store
         .dispatch('app-LessonnoteMNE/fetchLessonnotesStudents', {
           q: "",
           schoolgroup: filters.value.schoolgroup,
@@ -79,7 +80,7 @@ export default function useLessonnoteList() {
           class: filters.value.classId,
           schoolyear: filters.value.schoolyear,
           schoolterm: filters.value.schoolterm,
-          
+
           calendar: filters.value.calendarId,
           student: null,
           subject:  filters.value.subjectId,

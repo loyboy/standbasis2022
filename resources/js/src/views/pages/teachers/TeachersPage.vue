@@ -186,7 +186,7 @@
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>
     
-                <b-dropdown-item v-if=" userData.role !== 'proprietor' " :to="{ name: 'teachers-home-edit', params: { id: data.item.teaId } }">
+                <b-dropdown-item v-if=" userData.role === 'principal' " :to="{ name: 'teachers-home-edit', params: { id: data.item.teaId } }">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50">Edit Teacher </span>
                 </b-dropdown-item>
@@ -348,6 +348,7 @@
       const findIfPropisPresent = ( userData.value.role === "proprietor"  );
       const findIfTeacherisPresent = ( userData.value.role === "teacher" );
       const findIfPrinisPresent = ( userData.value.role === "principal" );
+      const findIfSupervisorisPresent = ( userData.value.role === "supervisor" );
   
       const {
         fetchTeachers,
@@ -377,9 +378,10 @@
 
       } = useTeacherList( school );
 
-      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
-          filters.value.schoolid = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
+      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent ){
+          filters.value.schoolid    = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
+          filters.value.supervisor  = (findIfSupervisorisPresent) && userData.value ? userData.value.code : null;
       }
   
       return {

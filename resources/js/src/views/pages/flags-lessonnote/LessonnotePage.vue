@@ -8,7 +8,7 @@
               >
         <b-card-body> 
         
-          <b-row>
+        <!--  <b-row>
                   <b-col cols="12" md="12" v-if=" userData.role === 'supervisor' ">
                     <b-form-group label="Select School Group" label-for="schoolgroup">
                       <b-form-select
@@ -18,7 +18,7 @@
                       />
                     </b-form-group>
                   </b-col>
-          </b-row>
+          </b-row> -->
  
           <b-row> 
 
@@ -215,7 +215,7 @@
   import vSelect from 'vue-select'
   import router from '@/router'
   import store from '@/store'
-  import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
+  import { ref, onUnmounted ,onMounted, watch, computed } from '@vue/composition-api'
   import { avatarText } from '@core/utils/filter'
   import formValidation from '@core/comp-functions/forms/form-validation'
   // Notification
@@ -285,15 +285,15 @@
     },
 
     mounted(){
-        if(this.userData.role !== "proprietor"){
+        if(this.userData.role !== "proprietor" && this.userData.role !== "supervisor"){
             setTimeout(() => {
                 this.loadOtherValues( this.teacherData.school.schId );              
             },800);  
             
             setTimeout(() => {
                let cal_obj             =   this.calendarOptions.filter(c => c.value === this.calendarId )  
-               const regexPattern = /(\d{4}\/\d{4})---Term (\d+)/;
-               const match = cal_obj[0].label.match(regexPattern);
+               const regexPattern      =   /(\d{4}\/\d{4})---Term (\d+)/;
+               const match             =   cal_obj[0].label.match(regexPattern);
                this.filters.week       =   this.weekOptions[0].value; 
                this.filters.schoolyear =   match[1];
                this.filters.schoolterm =   Number(match[2]);
@@ -321,6 +321,9 @@
       const schoolGroupOptions = ref([ { value: null, label: "Select a School Group" } ]);
       const schoolyearOptions = ref([ { value: null, label: "Select a School Year" } ]);
       const schooltermOptions = ref([ { value: null, label: "Select a School Term" } ]);
+
+      const stateGovtOptions = computed(() => store.getters['appConfig/stateCodes']);
+      const reversedLgaCodes = computed(() => store.getters['appConfig/lgaCodes']);
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
       if (storedItems){
@@ -353,11 +356,12 @@
 
       } = useLessonnoteList();
 
-      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
+      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent ){
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
           filters.value.calendarId = (findIfPrinisPresent || findIfTeacherisPresent) && userData.value ? userData.value.cal_id : null;
+          filters.value.supervisor = (findIfSupervisorisPresent) && userData.value ? userData.value.code : null;
       }
 
       (async function () {
@@ -377,10 +381,10 @@
           });
         }
         else if( findIfSupervisorisPresent ){
-          const resp = await store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSchoolGroups`);
-          let myval = resp.data.data;
+          const resp2 = await store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchSchools`, { id : filters.value.supervisor, is_supervisor: true });
+          let myval = resp2.data.data;
           myval.forEach(obj => {
-            schoolGroupOptions.value.push( { value: obj.id , label: obj.name } )
+            schoolOptions.value.push( { value: obj.schId , label: obj.name + "--" + stateGovtOptions.value[obj.state] + "--" + reversedLgaCodes.value[obj.lga_code] } )
           });
         }
       })();

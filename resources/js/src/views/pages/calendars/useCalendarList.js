@@ -30,7 +30,8 @@ export default function useCalendarList(School = null) {
   const isSortDirDesc = ref(true)
   const filters = ref({
     schoolgroup: null,
-    schoolid: null
+    schoolid: null,
+    supervisor: null
   });
 
   const totalActiveCalendars = ref(0)
@@ -60,7 +61,8 @@ export default function useCalendarList(School = null) {
         page: currentPage.value - 1,
         q: searchQuery.value,
         school: School ? School : filters.value.schoolid,
-        schoolgroup: School ? null : filters.value.schoolgroup
+        schoolgroup: School ? null : filters.value.schoolgroup,
+        supervisor: filters.value.supervisor
       })
       .then(response => {
         const { calendars, totalItems, totalActive, totalInactive } = response.data

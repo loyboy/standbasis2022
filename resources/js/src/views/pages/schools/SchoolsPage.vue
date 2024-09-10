@@ -1,6 +1,6 @@
 <template>
 
-    <div v-if=" userData.role === 'proprietor' || userData.role === 'admin' " >
+    <div v-if=" userData.role === 'proprietor' || userData.role === 'admin' || userData.role === 'supervisor' " >
   
         <div class="row">
           <b-col lg="4" sm="6">
@@ -16,17 +16,25 @@
               icon="UserCheckIcon"
               color="success"
               :statistic="
-                totalSecondarySchools === undefined ? 0 : totalSecondarySchools 
+                totalSeniorSecondarySchools === undefined ? 0 : totalSeniorSecondarySchools 
               "
-              statistic-title="Secondary"
+              statistic-title="SEMB Schools"
             />
           </b-col>
           <b-col lg="4" sm="6">
             <statistic-card-horizontal
               icon="UserCheckIcon"
               color="success"
-              :statistic="totalPrimarySchools === undefined ? 0 : totalPrimarySchools"
-              statistic-title="Junior Secondary"
+              :statistic="totalJuniorSecondarySchools === undefined ? 0 : totalJuniorSecondarySchools"
+              statistic-title="SUBEB Schools"
+            />
+          </b-col>
+          <b-col lg="4" sm="6">
+            <statistic-card-horizontal
+              icon="UserCheckIcon"
+              color="success"
+              :statistic="totalBothSchools === undefined ? 0 : totalBothSchools"
+              statistic-title="SUBEB & SEMB Schools"
             />
           </b-col>
         </div>
@@ -185,7 +193,7 @@
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>
     
-                <b-dropdown-item v-if=" userData.role !== 'proprietor' " :to="{ name: 'schools-home-edit', params: { id: data.item.schId } }">
+                <b-dropdown-item v-if=" userData.role === 'principal' " :to="{ name: 'schools-home-edit', params: { id: data.item.schId } }">
                   <feather-icon icon="EditIcon" />
                   <span class="align-middle ml-50"> Edit School </span>
                 </b-dropdown-item>
@@ -355,6 +363,7 @@
       const findIfPropisPresent = ( userData.value.role === "proprietor"  );
       const findIfTeacherisPresent = ( userData.value.role === "teacher" );
       const findIfPrinisPresent = ( userData.value.role === "principal" );  
+      const findIfSupervisorisPresent = ( userData.value.role === "supervisor"  );   
   
       const {
         fetchSchools,
@@ -362,8 +371,9 @@
         perPage,
         currentPage,
         totalSchools,
-        totalSecondarySchools,
-        totalPrimarySchools,
+        totalSeniorSecondarySchools,
+        totalJuniorSecondarySchools,
+        totalBothSchools,
         
         dataMeta,
         perPageOptions,
@@ -382,10 +392,10 @@
 
       } = useSchoolList( schoolOwner );
 
-      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
-          //filters.value.schoolgroup = findIfTeacherisPresent && teacherData.value ? null : null;
+      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent ){
           filters.value.schoolid = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
+          filters.value.supervisor = (findIfSupervisorisPresent) && userData.value ? userData.value.code : null;
       }
   
       return {
@@ -398,8 +408,9 @@
         perPage,
         currentPage,
         totalSchools,
-        totalSecondarySchools,
-        totalPrimarySchools,
+        totalSeniorSecondarySchools,
+        totalJuniorSecondarySchools,
+        totalBothSchools,
         
         dataMeta,
         perPageOptions,
