@@ -147,6 +147,7 @@ export default {
       schoolDetails:{
           schName: "",
           schType: "",
+          schType2: "",
           schOwner: 0,
           schState: "",
           schLga: "",

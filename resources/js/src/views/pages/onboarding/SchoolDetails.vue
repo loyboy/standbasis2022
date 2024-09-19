@@ -78,7 +78,35 @@
                   <b-form-select
                     v-model="schoolDetails.schType"
                     :options="typeOptions"
+                    @change="handleJurisdiction"
                   />
+
+                  <b-form-invalid-feedback>
+                    {{ validationContext.errors[0] }}
+                  </b-form-invalid-feedback>
+                </b-form-group>
+              </validation-provider>
+            </b-col>
+
+             <!-- State -->
+             <b-col
+              cols="12"
+              md="4"
+            >
+              <validation-provider
+                #default="validationContext"
+                name="School Type"
+                rules="required"
+              >
+                <b-form-group
+                  label="School Type"
+                  label-for="user-school-type"
+                  class="mb-2 bolden"
+                >
+                <b-form-select
+                  v-model="schoolDetails.schType2"
+                  :options="schTypeOptions"
+                />
 
                   <b-form-invalid-feedback>
                     {{ validationContext.errors[0] }}
@@ -617,10 +645,10 @@ export default {
 
       let typeOptions = [
         { value: "", text: "" },
-        { value: "subeb", text: "Primary & Junior Secondary School only (SUBEB)" }, 
-        { value: "semb", text: "Senior Secondary School only (SEMB)" },
-        { value: "subeb+semb", text: "Junior Secondary School & Senior Secondary School (SUBEB & SEMB)" },
-        { value: "tveb", text: "Technical and Vocational School (TVEB)" },
+        { value: "subeb", text: "SUBEB" }, 
+        { value: "semb", text: "SEMB" },
+       /* { value: "subeb+semb", text: "Junior Secondary School & Senior Secondary School (SUBEB & SEMB)" },
+        { value: "tveb", text: "Technical and Vocational School (TVEB)" }*/
       ];
 
       let schFaithOptions = [
@@ -633,8 +661,15 @@ export default {
       let schOperatorOptions = [
         { value: "", text: "" },
         { value: "government", text: "Government" },
-        { value: "private-single", text: "Private Single" },
-        { value: "private-group", text: "Private Group" }
+        { value: "private-single", text: "Private" },
+        
+      ]; 
+
+      let schTypeOptions = [
+        { value: "", text: "" },
+        { value: "js", text: "Junior Secondary School" },
+        { value: "ss", text: "Senior Secondary School" },
+        
       ]; 
       
       let schGenderOptions = [
@@ -737,6 +772,7 @@ export default {
       zoneOptions,
       lgaOptions,
       typeOptions,
+      schTypeOptions,
       schFaithOptions,
       schOperatorOptions,
       schGenderOptions,
@@ -754,6 +790,16 @@ export default {
       }).catch((error) => {
         this.schoolDetails.schFilled = false;
       });     
+    },
+    handleJurisdiction(value){
+      if(value === "subeb"){
+        this.schTypeOptions = [];
+        this.schTypeOptions = [{ value: "js", text: "Junior Secondary School" }];
+      }
+      else if(value === "semb"){
+        this.schTypeOptions = [];
+        this.schTypeOptions = [{ value: "ss", text: "Senior Secondary School" }];
+      }
     },
     getOwners(){
         this.$loading(true);
