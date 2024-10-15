@@ -61,7 +61,7 @@ export default function useEvaluation() {
 
         mnelistItems.value = mnecolumndata;
         tableKey.value = tableKey.value++;
-        isLoading.value = false;
+        isLoading.value = false; 
         changeFieldsStudents.value = true;
         changeFieldsTeacher.value = false;
       })

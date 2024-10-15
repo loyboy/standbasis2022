@@ -232,7 +232,7 @@
                   </div>
                 </template>
 
-                <template #head(d1)="data">
+                <template #head(d1)="data"> 
                   <th class="vertical-header">{{ data.label }}</th>
                 </template>
                 <template #head(d2)="data">
@@ -356,17 +356,11 @@
   import BCardCode from '@core/components/b-card-code'
   import StatisticCardHorizontal from "@core/components/statistics-cards/StatisticCardHorizontal.vue";
   import vSelect from 'vue-select'
-  import router from '@/router'
-  import axios from "axios";
   import store from '@/store'
   import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
-  import { avatarText } from '@core/utils/filter'
-  import formValidation from '@core/comp-functions/forms/form-validation'
   import { $themeConfig } from "@themeConfig";
-
-  import useMne from './useMne'
-  import mneStoreModule from './mneStoreModule'
-
+  import useMne from './useMne';
+  import mneStoreModule from './mneStoreModule';
 
   export default {
     directives: {
@@ -666,14 +660,5 @@
       white-space: nowrap;
       width: 10px !important; /* Adjust the width as per your requirement */
     }
-  /*th {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    white-space: nowrap; 
-    width: 30px;
-    text-align: left; 
-    padding: 0 5px; 
-    border: 1px solid #ccc; 
-  }*/
 
   </style>

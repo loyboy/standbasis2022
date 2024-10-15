@@ -36,7 +36,7 @@
                 @input="loadOtherValues"
                 class="w-100"               
                 :reduce="(val) => val.value"      
-              />
+              /> 
             </b-col>      
 
             <hr /> 
@@ -270,10 +270,22 @@
       let subjectOptions = [
         { value: null, label: "Please select a Subject" }
       ]
-
-      let weekOptions = [
-        { value: null, label: "Please select a Week" }
-      ]
+     
+        let weekOptions = [
+          { value: null, label: "Please select a Week" },
+          { value: 1 , label: "Week 1" },  
+          { value: 2 , label: "Week 2" }, 
+          { value: 3,  label: "Week 3" }, 
+          { value: 4,  label: "Week 4" }, 
+          { value: 5,  label: "Week 5" },
+          { value: 6,  label: "Week 6" },
+          { value: 7,  label: "Week 7" },
+          { value: 8,  label: "Week 8" },
+          { value: 9,  label: "Week 9" },
+          { value: 10, label: "Week 10" },
+          { value: 11, label: "Week 11" },
+          { value: 12, label: "Week 12" },
+        ]
 
       return {  
          teacherOptions,
@@ -483,34 +495,16 @@
             sef.classOptions.push( { value: 9 , label: "JSS3" } )
             sef.classOptions.push( { value: 10 , label: "SS1" } )  
             sef.classOptions.push( { value: 11 , label: "SS2" } )
-            sef.classOptions.push( { value: 12 , label: "SS3" } )
-
-            sef.weekOptions = [];     
-            sef.weekOptions.push( { value: 1 , label: "Week 1" } )  
-            sef.weekOptions.push( { value: 2 , label: "Week 2" } ) 
-            sef.weekOptions.push( { value: 3, label: "Week 3" } ) 
-            sef.weekOptions.push( { value: 4, label: "Week 4" } ) 
-            sef.weekOptions.push( { value: 5, label: "Week 5" } ) 
-            sef.weekOptions.push( { value: 6, label: "Week 6" } )
-            sef.weekOptions.push( { value: 7, label: "Week 7" } ) 
-            sef.weekOptions.push( { value: 8, label: "Week 8" } )
-            sef.weekOptions.push( { value: 9, label: "Week 9" } )
-            sef.weekOptions.push( { value: 10, label: "Week 10" } )
-            sef.weekOptions.push( { value: 11, label: "Week 11" } )
-            sef.weekOptions.push( { value: 12, label: "Week 12" } )
+            sef.classOptions.push( { value: 12 , label: "SS3" } )   
+           
 
             sef.calendarOptions = [];     
             store.dispatch(`${Lessonnote_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : value })
             .then(response => { 
               let myval = response.data.data;
-             // console.log("Calendar here: " + JSON.stringify(myval))
-              myval.forEach(obj => {
-                //if (obj.term !== -99){
-                 // console.log(" >>> " + obj.status);
-                 // sef.calendarOptions.push( { value: obj.CalendarId , label: obj.session + ' ' + obj.term + ' Term'} );
+              myval.forEach(obj => {                
                   let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
                   sef.calendarOptions.push( { value: obj.CalendarId , label: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
-                //}
               });             
             });    
       },
