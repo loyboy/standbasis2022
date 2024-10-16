@@ -91,9 +91,9 @@ export default function useLessonnoteList() {
        
           lessonnoteItems.value = [
             ...lessonnoteItems.value,
-            { parameter: "LN assessment performance: > 50% (Classwork)", value: student_classwork , expected: "0" }, 
-            { parameter: "LN assessment performance: > 50% (Homework)",  value: student_homework , expected: "0"},
-            { parameter: "LN assessment performance: > 50% (Test)",      value: student_test, expected: "0"}            
+            { parameter: "LN assessment performance: > 50% (Classwork)", value: student_classwork , expected: students }, 
+            { parameter: "LN assessment performance: > 50% (Homework)",  value: student_homework , expected: students},
+            { parameter: "LN assessment performance: > 50% (Test)",      value: student_test, expected: students}            
           ];
           
           isLoading.value = false;   
