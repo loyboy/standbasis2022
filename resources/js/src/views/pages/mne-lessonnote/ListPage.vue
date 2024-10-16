@@ -352,7 +352,7 @@
     BFormRadioGroup,
     VBToggle
   } from 'bootstrap-vue';
-
+  import formValidation from '@core/comp-functions/forms/form-validation'
   import BCardCode from '@core/components/b-card-code'
   import StatisticCardHorizontal from "@core/components/statistics-cards/StatisticCardHorizontal.vue";
   import vSelect from 'vue-select'
