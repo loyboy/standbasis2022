@@ -448,7 +448,7 @@
       const userData = ref({});   
       const teacherData = ref({}); 
       const calendarOptions = ref([ { value: null, text: "Please select A Calendar" } ]);
-      const schoolOptions = ref([ { value: null, text: "All Schools" } ]);
+      const schoolOptions   = ref([ { value: null, text: "All Schools" } ]);
 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
       if (storedItems){
@@ -497,26 +497,24 @@
       onMounted(() => {
           setTimeout( async () => {
            
-           if ( findIfPropisPresent === false ){
-          const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : filters.value.schoolId });
-          let myval = resp.data.data;
-          myval.forEach(obj => { 
-                let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
-          //  if (Number(obj.term) !== -99){
-                calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
-          //  }            
-          });
-        }
+            if ( findIfPropisPresent === false ){
+              const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : filters.value.schoolId });
+              let myval = resp.data.data;
+              myval.forEach(obj => { 
+                    let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
+                    calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )         
+              });
+            }
 
-        else if( findIfPropisPresent === true ){
-          const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { group : filters.value.schoolgroup });
-          let myval = resp.data.data;
-          myval.forEach(obj => { 
-            schoolOptions.value.push( { value: obj.schId , text: obj.name } )
-          });
+            else if( findIfPropisPresent === true ){
+              const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { group : filters.value.schoolgroup });
+              let myval = resp.data.data;
+              myval.forEach(obj => { 
+                schoolOptions.value.push( { value: obj.schId , text: obj.name } )
+              });
 
-          handleChange();
-        } 
+              handleChange();
+            } 
           
           }, 1000)       
       })

@@ -1028,9 +1028,6 @@
       import StatisticCardHorizontal from "@core/components/statistics-cards/StatisticCardHorizontal.vue";
       import vSelect from 'vue-select'
       //import router from '@/router'
-
-      import axios from "axios";
-      import jwtHeader from "@core/services/jwt-header";
       import store from '@/store'
       import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
       import { $themeConfig } from "@themeConfig";
@@ -1432,7 +1429,7 @@
             this.filters.status = null;
             this.filters.dateFrom = null;
             this.filters.dateTo = null;
-            console.log("Calendar tins: " +  this.filters.calendarId );
+          //  console.log("Calendar tins: " +  this.filters.calendarId );
             this.filters.calendarId = this.userData.cal_id;
 
             this.fetchLessonnotes();
@@ -1552,7 +1549,7 @@
               const a = document.createElement("a");
               a.style.display = "none";
               a.href = url;
-              a.download = "exported_attendance_log_data_" + new Date().toDateString() + ".csv";
+              a.download = "exported_lessonnote_log_data_" + new Date().toDateString() + ".csv";
 
               // Trigger a click event on the anchor element to initiate the download
               document.body.appendChild(a);

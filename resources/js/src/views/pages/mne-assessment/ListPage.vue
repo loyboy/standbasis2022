@@ -19,7 +19,7 @@
                         v-model="filters.typefour"
                         :options="calendarOptions"
                        
-                      />
+                      /> 
                     </b-form-group>
                   </b-col> 
           </b-row>

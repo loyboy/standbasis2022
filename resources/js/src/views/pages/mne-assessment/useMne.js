@@ -111,16 +111,21 @@ export default function useEvaluation() {
         console.log("Fetch Mne Viewing error: " + e);
         isLoading.value = false;   
       })
-  } 
+  }  
  
 
   const handleChange = (ctx) => {
-    if (  filters.value.typeone && filters.value.typetwo_student && filters.value.typefour ) {
+    if (  filters.value.typeone === "student" && filters.value.typetwo_student && filters.value.typefour ) {
       fetchMneVariant();
       window.scrollBy(0, 200);
     }
     
-    else if (  filters.value.typeone && filters.value.typetwo_teacher && filters.value.typefour ) {
+    else if (  filters.value.typeone === "teacher_me" && filters.value.typetwo_teacher && filters.value.typefour ) {
+      fetchMneVariant2();
+      window.scrollBy(0, 200);
+    }
+
+    else if (  filters.value.typeone === "teacher" && filters.value.typetwo_teacher && filters.value.typefour ) {
       fetchMneVariant2();
       window.scrollBy(0, 200);
     }

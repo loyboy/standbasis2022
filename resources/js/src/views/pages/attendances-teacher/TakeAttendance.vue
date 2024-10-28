@@ -273,7 +273,7 @@
       const teacherData = ref({});
       const dayData = ref([ "Monday", "Tuesday" , "Wednesday" , "Thursday" , "Friday", "Saturday" ]);
       const attendanceOptions = ref([  { value: null, text: "Please select Attendance for you" } ]);
-
+ 
       const storedItems = JSON.parse(localStorage.getItem('userData'));
       if (storedItems){
         userData.value = storedItems;
@@ -321,7 +321,6 @@
           return false;
         }  
         let diffInMilliseconds = Math.round(date2 - date1);
-      //  console.log("DiffinMilliseconds within 45 mins: "+ diffInMilliseconds);
         return diffInMilliseconds > 300000 && diffInMilliseconds <= 600000; // 600000 milliseconds = 10 minutes
       }
 
@@ -338,18 +337,12 @@
           fetchAttendances();
 
           setTimeout(() => {
-            attendanceItems.value.forEach(obj => {
-              //  let splitTime = String(obj.timetable.time_of).split(":")
-              //  let targetTime = new Date();
-               // targetTime.setHours( Number(splitTime[0]), splitTime[1] == "00" ? 0 : Number(splitTime[1]), splitTime[2] == "00" ? 0 : Number(splitTime[2]) );
-               // if ( isWithinOneHour( targetTime, new Date() ) ) {                    
+            const newAtt = attendanceItems.value;
+            newAtt.forEach(obj => {           
                     let done = obj.done === 0 ? "NOT DONE" : "CONCLUDED"
                     let labeltosee = obj.timetable.subject.name + "-" + obj.timetable.class_stream.title + obj.timetable.class_stream.ext + "-" + obj.timetable.time_of + "-" + new String(dayData.value[ Number(obj.timetable.day_of) - 1 ]).toUpperCase() + "-" + done  
                     let valuetosee = obj.timetable.class_stream.clsId + "!" + obj.attId + "!" + obj.timetable.class_stream.title + "!" + obj.timetable.time_of +  "!"  + obj._date
-                    attendanceOptions.value.push( { value: valuetosee , text: labeltosee } )
-              /*  } else {
-                  return;
-                }  */              
+                    attendanceOptions.value.push( { value: valuetosee , text: labeltosee } )             
             });
           }, 900)          
       })
