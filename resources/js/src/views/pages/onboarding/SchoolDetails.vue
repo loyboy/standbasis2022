@@ -559,7 +559,8 @@ export default {
 
       let stateOptions = [
         { value: "", text: "Please select your School's state of residence. " },
-        { value: "akwaibom", text: "Akwa Ibom state" }
+        { value: "akwaibom", text: "Akwa Ibom state" },
+        { value: "rivers", text: "Rivers state" }
       ];
 
       let ownerOptions = [];
@@ -633,6 +634,32 @@ export default {
               { value: "uruan", text: "URUAN" },
               { value: "urue offong oruko", text: "URUE OFFONG ORUKO" },
               { value: "uyo", text: "UYO" }
+          ],
+          "rivers": [
+            { value: "", text: "Please select an LGA in Rivers state" },
+            { value: "abua/odual", text: "ABUA/ODUAL" },
+            { value: "ahoada east", text: "AHOADA EAST" },
+            { value: "ahoada west", text: "AHOADA WEST" },
+            { value: "akuku-toru", text: "AKUKU-TORU" },
+            { value: "andoni", text: "ANDONI" },
+            { value: "asari-toru", text: "ASARI-TORU" },
+            { value: "bonny", text: "BONNY" },
+            { value: "degema", text: "DEGEMA" },
+            { value: "eleme", text: "ELEME" },
+            { value: "emohua", text: "EMOHUA" },
+            { value: "etche", text: "ETCHE" },
+            { value: "gokana", text: "GOKANA" },
+            { value: "ikwerre", text: "IKWERRE" },
+            { value: "khana", text: "KHANA" },
+            { value: "obio/akpor", text: "OBIO/AKPOR" },
+            { value: "ogba/egbema/ndon", text: "OGBA/EGHEMA/NDONI" },
+            { value: "ogu/bolo", text: "OGU/BOLOR" },
+            { value: "okrika", text: "OKRIKA" },
+            { value: "omuma", text: "OMUMA" },
+            { value: "opobo/nkoro", text: "OPOBO/NKORO" },
+            { value: "oyigbo", text: "OYIGBO" },
+            { value: "port harcourt", text: "PORT HARCOURT" },
+            { value: "tai", text: "TAI" }
           ]
        };
 
