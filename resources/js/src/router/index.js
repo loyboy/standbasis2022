@@ -12,6 +12,13 @@ const router = new VueRouter({
     },
     routes: [
         {
+            path: '/filemanager',
+            name: 'filemanager',
+            beforeEnter: (to, from, next) => {
+              window.location.href = '/filemanager/'
+            }
+        },
+        {
             path: '/',
             name: 'home',
             component: () =>
