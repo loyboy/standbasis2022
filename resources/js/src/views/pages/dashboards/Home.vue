@@ -507,7 +507,7 @@
         this.$router.push('/filemanager');
       },
       handleBulletinsClick(){
-        alert('You are being redirected to Bulletins File Manager. \n\n Your username is: bulletin-viewer\nYour Password is: 34567');
+        alert('You are being redirected to Bulletins File Manager. \n\n Your username is: bulletin.viewer\nYour Password is: 34567');
         this.$router.push('/filemanager');
       },
       handleTeachingClick(){
