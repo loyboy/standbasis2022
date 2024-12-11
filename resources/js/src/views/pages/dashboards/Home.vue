@@ -256,7 +256,7 @@
                   @click="handleNoticesClick"
                   v-if=" userData.role !== 'guardian' "
                 >
-                  Notices
+                  Notices c
                 </a>
                 <a 
                   href="#" 
