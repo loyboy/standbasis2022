@@ -251,15 +251,16 @@
              
              <b-row class="match-height">
                <b-col lg="6"> 
-                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Notices</router-link>
-                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Reports</router-link>
-                  <router-link to = "#">Bulletins</router-link>
+                  <router-link  @click.prevent="handleNoticesClick" v-if=" userData.role !== 'guardian' " to = "#">Notices</router-link>
+                  <router-link  @click.prevent="handleReportsClick"  v-if=" userData.role !== 'guardian' " to = "#">Reports</router-link>
+                  <router-link @click.prevent="handleBulletinsClick" to = "#">Bulletins</router-link>
                </b-col> 
+
                <b-col lg="6">      
-                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Teaching</router-link> 
-                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Administration</router-link>
-                 
+                  <router-link @click.prevent="handleTeachingClick" v-if=" userData.role !== 'guardian' " to = "#">Teaching</router-link> 
+                  <router-link @click.prevent="handleAdminClick" v-if=" userData.role !== 'guardian' " to = "#">Administration</router-link>                 
                </b-col> 
+
                <b-col lg="12">
                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Continuous Capacity Development </router-link>
                </b-col>
@@ -460,12 +461,35 @@
           fetchAttendances,
           fetchLessonnotes
         }
+    },
+
+    methods: {
+      handleNoticesClick() { 
+        alert('You are being redirected to Notices File Manager. \n Your username is: notice-viewer\n\nYour Password is: 12345');
+        this.$router.push('/filemanager');
+      },
+      handleReportsClick(){
+        alert('You are being redirected to Reports File Manager. \n Your username is: report-viewer\n\nYour Password is: 23456');
+        this.$router.push('/filemanager');
+      },
+      handleBulletinsClick(){
+        alert('You are being redirected to Bulletins File Manager. \n Your username is: bulletin-viewer\n\nYour Password is: 34567');
+        this.$router.push('/filemanager');
+      },
+      handleTeachingClick(){
+        alert('You are being redirected to Teaching Documents File Manager. \n Your username is: teching-doc-viewer\n\nYour Password is: 45678');
+        this.$router.push('/filemanager');
+      },
+      handleAdminClick(){
+        alert('You are being redirected to Adminsitration Documents File Manager. \n Your username is: admin-doc-viewer\n\nYour Password is: 56789');
+        this.$router.push('/filemanager');
+      }
     }
 
 
   };
   </script>
-  <<style scoped>      
+  <style scoped>      
     
     .b-avatar{
       background-color: white !important;
