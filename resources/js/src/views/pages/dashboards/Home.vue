@@ -251,14 +251,14 @@
              
              <b-row class="match-height">
                <b-col lg="6"> 
-                  <router-link  @click.prevent="handleNoticesClick" v-if=" userData.role !== 'guardian' " to = "#">Notices</router-link>
-                  <router-link  @click.prevent="handleReportsClick"  v-if=" userData.role !== 'guardian' " to = "#">Reports</router-link>
-                  <router-link @click.prevent="handleBulletinsClick" to = "#">Bulletins</router-link>
+                  <router-link  @click="handleNoticesClick" v-if=" userData.role !== 'guardian' " to = "#">Notices</router-link>
+                  <router-link  @click="handleReportsClick"  v-if=" userData.role !== 'guardian' " to = "#">Reports</router-link>
+                  <router-link @click="handleBulletinsClick" to = "#">Bulletins</router-link>
                </b-col> 
 
                <b-col lg="6">      
-                  <router-link @click.prevent="handleTeachingClick" v-if=" userData.role !== 'guardian' " to = "#">Teaching</router-link> 
-                  <router-link @click.prevent="handleAdminClick" v-if=" userData.role !== 'guardian' " to = "#">Administration</router-link>                 
+                  <router-link @click="handleTeachingClick" v-if=" userData.role !== 'guardian' " to = "#">Teaching</router-link> 
+                  <router-link @click="handleAdminClick" v-if=" userData.role !== 'guardian' " to = "#">Administration</router-link>                 
                </b-col> 
 
                <b-col lg="12">
