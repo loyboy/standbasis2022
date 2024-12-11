@@ -256,7 +256,7 @@
                   @click="handleNoticesClick"
                   v-if=" userData.role !== 'guardian' "
                 >
-                  Notices c
+                  Notices
                 </a>
                 <a 
                   href="#" 
@@ -499,28 +499,26 @@
 
     methods: {
       handleNoticesClick() { 
-        alert('You are being redirected to Notices File Manager. \n Your username is: notice-viewer\n\nYour Password is: 12345');
+        alert('You are being redirected to Notices File Manager. \n\n Your username is: notice-viewer\nYour Password is: 12345');
         this.$router.push('/filemanager');
       },
       handleReportsClick(){
-        alert('You are being redirected to Reports File Manager. \n Your username is: report-viewer\n\nYour Password is: 23456');
+        alert('You are being redirected to Reports File Manager. \n\n Your username is: report-viewer\nYour Password is: 23456');
         this.$router.push('/filemanager');
       },
       handleBulletinsClick(){
-        alert('You are being redirected to Bulletins File Manager. \n Your username is: bulletin-viewer\n\nYour Password is: 34567');
+        alert('You are being redirected to Bulletins File Manager. \n\n Your username is: bulletin-viewer\nYour Password is: 34567');
         this.$router.push('/filemanager');
       },
       handleTeachingClick(){
-        alert('You are being redirected to Teaching Documents File Manager. \n Your username is: teching-doc-viewer\n\nYour Password is: 45678');
+        alert('You are being redirected to Teaching Documents File Manager. \n\n Your username is: teching-doc-viewer\nYour Password is: 45678');
         this.$router.push('/filemanager');
       },
       handleAdminClick(){
-        alert('You are being redirected to Adminsitration Documents File Manager. \n Your username is: admin-doc-viewer\n\nYour Password is: 56789');
+        alert('You are being redirected to Adminsitration Documents File Manager. \n\n Your username is: admin-doc-viewer\nYour Password is: 56789');
         this.$router.push('/filemanager');
       }
     }
-
-
   };
   </script>
   <style scoped>      
