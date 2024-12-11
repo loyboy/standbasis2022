@@ -251,14 +251,48 @@
              
              <b-row class="match-height">
                <b-col lg="6"> 
-                  <router-link  @click="handleNoticesClick" v-if=" userData.role !== 'guardian' " to = "#">Notices</router-link>
+                <a 
+                  href="#" 
+                  @click="handleNoticesClick"
+                  v-if=" userData.role !== 'guardian' "
+                >
+                  Notices
+                </a>
+                <a 
+                  href="#" 
+                  @click="handleReportsClick"
+                  v-if=" userData.role !== 'guardian' "
+                >
+                  Reports
+                </a>
+                <a 
+                  href="#" 
+                  @click="handleBulletinsClick"
+                >
+                  Bulletins
+                </a>
+                 <!-- <router-link  @click="handleNoticesClick" v-if=" userData.role !== 'guardian' " to = "#">Notices</router-link>
                   <router-link  @click="handleReportsClick"  v-if=" userData.role !== 'guardian' " to = "#">Reports</router-link>
-                  <router-link @click="handleBulletinsClick" to = "#">Bulletins</router-link>
+                  <router-link @click="handleBulletinsClick" to = "#">Bulletins</router-link> -->
                </b-col> 
 
                <b-col lg="6">      
-                  <router-link @click="handleTeachingClick" v-if=" userData.role !== 'guardian' " to = "#">Teaching</router-link> 
-                  <router-link @click="handleAdminClick" v-if=" userData.role !== 'guardian' " to = "#">Administration</router-link>                 
+                 <!-- <router-link @click="handleTeachingClick" v-if=" userData.role !== 'guardian' " to = "#">Teaching</router-link> 
+                  <router-link @click="handleAdminClick" v-if=" userData.role !== 'guardian' " to = "#">Administration</router-link>  --> 
+                  <a 
+                    href="#" 
+                    @click="handleTeachingClick"
+                    v-if=" userData.role !== 'guardian' "
+                  >
+                   Teaching
+                  </a>
+                  <a 
+                    href="#" 
+                    @click="handleAdminClick"
+                    v-if=" userData.role !== 'guardian' "
+                  >
+                  Administration
+                  </a>                              
                </b-col> 
 
                <b-col lg="12">
