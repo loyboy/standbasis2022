@@ -776,7 +776,8 @@ export default {
             { value: "umu-neochi", text: "UMU NNEOCHI" }
         ],
           "04": [
-            { value: "buari-municipal", text: "Buari Municipal" },
+            { value: "bwari", text: "Bwari" },
+            { value: "muncipal", text: "Muncipal" },
             { value: "amac" , text: "Amac" },
             { value: "abaji", text: "Abaji" },
             { value: "kuje" , text: "Kuje" },
