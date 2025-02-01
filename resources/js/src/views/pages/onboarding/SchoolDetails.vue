@@ -58,38 +58,45 @@
               </validation-provider>
             </b-col>
 
-            <!-- School Type -->
+            <!-- State of Residence -->
             <b-col
               cols="12"
               md="4"
-              class="mb-2"
             >
               <validation-provider
                 #default="validationContext"
-                name="School Jurisdiction"
+                name="State of Residence "
                 rules="required"
               >
                 <b-form-group
-                  label="School Jurisdiction"
-                  label-for="sch-type"
+                  label="State of Residence"
+                  label-for="user-state"
                   class="mb-2 bolden"
                 >
+               <!--   <v-select
+                  v-model="schoolDetails.schState"
+                  :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                  :options="stateOptions"
+                  :reduce="(val) => val.value"
+                  :clearable="false"
+                  input-id="user-state"
+                  placeholder="Select a State within Nigeria"
+                />-->
 
-                  <b-form-select
-                    v-model="schoolDetails.schType"
-                    :options="typeOptions"
-                    @change="handleJurisdiction"
-                  />
+                <b-form-select
+                  v-model="schoolDetails.schState"
+                  :options="stateOptions"
+                />
 
                   <b-form-invalid-feedback>
                     {{ validationContext.errors[0] }}
                   </b-form-invalid-feedback>
                 </b-form-group>
               </validation-provider>
-            </b-col>
+            </b-col>            
 
-             <!-- State -->
-             <b-col
+            <!-- State -->
+            <b-col
               cols="12"
               md="4"
             >
@@ -134,7 +141,7 @@
 
                   <b-form-select
                     v-model="schoolDetails.schZone"
-                    :options="zoneOptions"
+                    :options="filteredZoneOptions"
                   />
 
                   <b-form-invalid-feedback>
@@ -181,35 +188,28 @@
             <!-- Address -->
             <hr/>
 
-            <!-- State -->
+            <!-- School Jurisdiction -->
             <b-col
               cols="12"
               md="4"
+              class="mb-2"
             >
               <validation-provider
                 #default="validationContext"
-                name="State of Residence "
+                name="School Jurisdiction"
                 rules="required"
               >
                 <b-form-group
-                  label="State of Residence"
-                  label-for="user-state"
+                  label="School Jurisdiction"
+                  label-for="sch-type"
                   class="mb-2 bolden"
                 >
-               <!--   <v-select
-                  v-model="schoolDetails.schState"
-                  :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                  :options="stateOptions"
-                  :reduce="(val) => val.value"
-                  :clearable="false"
-                  input-id="user-state"
-                  placeholder="Select a State within Nigeria"
-                />-->
 
-                <b-form-select
-                  v-model="schoolDetails.schState"
-                  :options="stateOptions"
-                />
+                  <b-form-select
+                    v-model="schoolDetails.schType"
+                    :options="filteredTypeOptions"
+                    @change="handleJurisdiction"
+                  />
 
                   <b-form-invalid-feedback>
                     {{ validationContext.errors[0] }}
@@ -619,6 +619,7 @@ export default {
         { value: "01", text: "Akwa Ibom state" },
         { value: "02", text: "Lagos state" },
         { value: "03", text: "Abia state" },
+        { value: "04", text: "FCTA" }
       ];
 
       let zoneOptions = [
@@ -641,6 +642,13 @@ export default {
         { value: "zoneP", text: "Zone P" },
       ];
 
+      let zoneOptionsFct = [
+        { value: "", text: "" },
+        { value: "urban"  , text: "Urban" },
+        { value: "rural"  , text: "Rural" },
+        { value: "private", text: "Private" }
+      ];
+
       let ownerOptions = [];
 
       let typeOptions = [
@@ -649,6 +657,12 @@ export default {
         { value: "semb", text: "SEMB" },
        /* { value: "subeb+semb", text: "Junior Secondary School & Senior Secondary School (SUBEB & SEMB)" },
         { value: "tveb", text: "Technical and Vocational School (TVEB)" }*/
+      ];
+
+      let typeOptionsFct = [
+        { value: "", text: "" },
+        { value: "fctubeb", text: "FCTUBEB" }, 
+        { value: "fctseb" , text: "FCTSEB"  }
       ];
 
       let schFaithOptions = [
@@ -661,15 +675,13 @@ export default {
       let schOperatorOptions = [
         { value: "", text: "" },
         { value: "government", text: "Government" },
-        { value: "private-single", text: "Private" },
-        
+        { value: "private-single", text: "Private" }        
       ]; 
 
       let schTypeOptions = [
         { value: "", text: "" },
         { value: "js", text: "Junior Secondary School" },
-        { value: "ss", text: "Senior Secondary School" },
-        
+        { value: "ss", text: "Senior Secondary School" }        
       ]; 
       
       let schGenderOptions = [
@@ -763,15 +775,25 @@ export default {
             { value: "umuahia-north", text: "UMUAHIA NORTH" },
             { value: "umuahia-south", text: "UMUAHIA SOUTH" },
             { value: "umu-neochi", text: "UMU NNEOCHI" }
-        ]
+        ],
+          "04": [
+            { value: "buari-municipal", text: "Buari Municipal" },
+            { value: "amac" , text: "Amac" },
+            { value: "abaji", text: "Abaji" },
+            { value: "kuje" , text: "Kuje" },
+            { value: "kwali" , text: "Kwali" },
+            { value: "gwagwalada" , text: "Gwagwalada" }
+          ]
        };
 
 
     return {  
       stateOptions,
       zoneOptions,
+      zoneOptionsFct,
       lgaOptions,
       typeOptions,
+      typeOptionsFct,
       schTypeOptions,
       schFaithOptions,
       schOperatorOptions,
@@ -783,6 +805,20 @@ export default {
   mounted(){
     this.getOwners();
   },
+  computed: {
+    filteredTypeOptions() {
+      if (this.schoolDetails.schState === "04") {
+        return this.typeOptionsFct;
+      }
+      return this.typeOptions;
+    },
+    filteredZoneOptions() {
+      if (this.schoolDetails.schState === "04") {
+        return this.zoneOptionsFct;
+      }
+      return this.zoneOptions;
+    },
+  },
   methods: {
     onSubmit() {      
       this.$refs.refFormObserver.validate().then((success) => {
@@ -792,11 +828,11 @@ export default {
       });     
     },
     handleJurisdiction(value){
-      if(value === "subeb"){
+      if(value === "subeb" || value === "fctubeb"){
         this.schTypeOptions = [];
         this.schTypeOptions = [{ value: "js", text: "Junior Secondary School" }];
       }
-      else if(value === "semb"){
+      else if(value === "semb" || value === "fctseb"){
         this.schTypeOptions = [];
         this.schTypeOptions = [{ value: "ss", text: "Senior Secondary School" }];
       }
