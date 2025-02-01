@@ -280,10 +280,10 @@ export default {
 
             let the_type_of_school = this.schoolDetails.schType;
 
-            if(the_type_of_school == 'subeb'){
+            if(the_type_of_school == 'subeb' || the_type_of_school == 'fctubeb'){
                 classNameExpected = [ "jss1", "jss2", "jss3" ];
             }
-            else if(the_type_of_school == 'semb'){
+            else if(the_type_of_school == 'semb' || the_type_of_school == 'fctseb'){
                 classNameExpected = [ "ss1", "ss2", "ss3" ];
             }
             else if(the_type_of_school == 'subeb+semb'){

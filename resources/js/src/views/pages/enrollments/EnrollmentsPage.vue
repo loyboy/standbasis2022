@@ -14,7 +14,7 @@
 
           <b-col lg="4" sm="6" v-if=" ( teacherData.school && (teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary')) || 
                                       ( userData.role === 'supervisor' && String(userData.code).split('-').length === 1 ) ||
-                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
+                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'fctubeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
           ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
@@ -28,7 +28,7 @@
 
           <b-col lg="4" sm="6" v-if=" (teacherData.school !== undefined && (teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary')) ||
                                       ( userData.role === 'supervisor' && String(userData.code).split('-').length === 1 ) || 
-                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
+                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'fctubeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
           ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
@@ -42,7 +42,7 @@
 
           <b-col lg="3" sm="6" v-if=" ( teacherData.school !== undefined && (teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary')) ||
                                       ( userData.role === 'supervisor' && String(userData.code).split('-').length === 1 ) ||
-                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
+                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'fctubeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
           ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
@@ -56,7 +56,7 @@
 
           <b-col lg="3" sm="6" v-if="( teacherData.school !== undefined && (teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary')) || 
                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length === 1 ) ||
-                                     ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
+                                     ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'fctubeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
           ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
@@ -70,7 +70,7 @@
 
             <b-col lg="3" sm="6" v-if=" ( teacherData.school !== undefined && (teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary')) ||
                                         ( userData.role === 'supervisor' && String(userData.code).split('-').length === 1 ) ||
-                                        ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'semb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
+                                        ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'semb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'fctseb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
             ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
@@ -84,7 +84,7 @@
 
           <b-col lg="3" sm="6" v-if=" ( teacherData.school !== undefined && (teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary')) ||
                                       ( userData.role === 'supervisor' && String(userData.code).split('-').length === 1 ) ||
-                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'semb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
+                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'semb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'fctseb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb' ) )
           ">
             <statistic-card-horizontal
               icon="UserCheckIcon"
@@ -98,7 +98,7 @@
 
           <b-col lg="3" sm="6" v-if=" ( teacherData.school && (teacherData.school.type_of === 'both' || teacherData.school.type_of === 'secondary')) ||
                                       ( userData.role === 'supervisor' && String(userData.code).split('-').length === 1 ) ||
-                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'semb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb'  ) )
+                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'semb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'fctseb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb'  ) )
           ">
             <statistic-card-horizontal              
               icon="UserCheckIcon"
@@ -112,7 +112,7 @@
 
           <b-col lg="3" sm="6" v-if="( teacherData.school &&  (teacherData.school.type_of === 'both' || teacherData.school.type_of === 'primary')) ||
                                      ( userData.role === 'supervisor' && String(userData.code).split('-').length === 1 ) ||
-                                     ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb'  ))
+                                     ( userData.role === 'supervisor' && String(userData.code).split('-').length > 1 && ( String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'fctubeb' || String(String(userData.code).split('-')[1]).toLowerCase() === 'subeb+semb'  ))
           ">
             <statistic-card-horizontal               
               icon="UserCheckIcon"
