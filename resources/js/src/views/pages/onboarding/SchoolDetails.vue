@@ -29,7 +29,6 @@
 
         <b-card-body>
           <b-row>
-
             <!-- School Name -->
             <b-col
               cols="12"
@@ -95,25 +94,28 @@
               </validation-provider>
             </b-col>            
 
-            <!-- State -->
-            <b-col
+             <!-- School Jurisdiction -->
+             <b-col
               cols="12"
               md="4"
+              class="mb-2"
             >
               <validation-provider
                 #default="validationContext"
-                name="School Type"
+                name="School Jurisdiction"
                 rules="required"
               >
                 <b-form-group
-                  label="School Type"
-                  label-for="user-school-type"
+                  label="School Jurisdiction"
+                  label-for="sch-type"
                   class="mb-2 bolden"
                 >
-                <b-form-select
-                  v-model="schoolDetails.schType2"
-                  :options="schTypeOptions"
-                />
+
+                  <b-form-select
+                    v-model="schoolDetails.schType"
+                    :options="filteredTypeOptions"
+                    @change="handleJurisdiction"
+                  />
 
                   <b-form-invalid-feedback>
                     {{ validationContext.errors[0] }}
@@ -122,8 +124,8 @@
               </validation-provider>
             </b-col>
 
-             <!-- School Type -->
-             <b-col
+            <!-- School Zone -->
+            <b-col
               cols="12"
               md="4"
               class="mb-2"
@@ -188,28 +190,25 @@
             <!-- Address -->
             <hr/>
 
-            <!-- School Jurisdiction -->
+            <!-- School Type -->
             <b-col
               cols="12"
               md="4"
-              class="mb-2"
             >
               <validation-provider
                 #default="validationContext"
-                name="School Jurisdiction"
+                name="School Type"
                 rules="required"
               >
                 <b-form-group
-                  label="School Jurisdiction"
-                  label-for="sch-type"
+                  label="School Type"
+                  label-for="user-school-type"
                   class="mb-2 bolden"
                 >
-
-                  <b-form-select
-                    v-model="schoolDetails.schType"
-                    :options="filteredTypeOptions"
-                    @change="handleJurisdiction"
-                  />
+                <b-form-select
+                  v-model="schoolDetails.schType2"
+                  :options="schTypeOptions"
+                />
 
                   <b-form-invalid-feedback>
                     {{ validationContext.errors[0] }}
