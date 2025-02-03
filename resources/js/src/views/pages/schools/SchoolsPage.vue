@@ -8,7 +8,7 @@
               icon="UsersIcon"
               color="primary"
               :statistic=" totalSchools === undefined ? 0 : totalSchools "
-              statistic-title="Total"
+              statistic-title="Total Schools"
             />
           </b-col>
           <b-col lg="4" sm="6">
@@ -18,7 +18,7 @@
               :statistic="
                 totalSeniorSecondarySchools === undefined ? 0 : totalSeniorSecondarySchools 
               "
-              statistic-title="SEMB Schools"
+              statistic-title="SEMB/SEB Schools"
             />
           </b-col>
           <b-col lg="4" sm="6">
@@ -26,7 +26,7 @@
               icon="UserCheckIcon"
               color="success"
               :statistic="totalJuniorSecondarySchools === undefined ? 0 : totalJuniorSecondarySchools"
-              statistic-title="SUBEB Schools"
+              statistic-title="SUBEB/UBEB Schools"
             />
           </b-col>
           <b-col lg="4" sm="6">

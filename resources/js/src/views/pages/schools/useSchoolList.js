@@ -90,7 +90,7 @@ export default function useSchoolList( Owner = null ) {
             let event = eventres.data.data;
             schools[i]["passwordchange"] = event !== null ? true : false;
         }
-
+ 
         callback(schools);
         totalSchools.value = totalItems
         totalSeniorSecondarySchools.value = totalSeniorSecondary
