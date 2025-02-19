@@ -271,45 +271,25 @@
                    <b> {{ data.item.management }} % </b>
                 </template>
 
-                <template #cell(d1)="data">
-                   <b> {{ data.item.d1 }} % </b>
+              
+
+                <template #cell(D2)="data">
+                   <b> {{ data.item.D2 }} % </b>
                 </template>
 
-                <template #cell(d2)="data">
-                   <b> {{ data.item.d2 }} % </b>
+                <template #cell(D3)="data">
+                   <b> {{ data.item.D3 }} % </b>
                 </template>
 
-                <template #cell(d3)="data">
-                   <b> {{ data.item.d3 }} % </b>
+                <template #cell(D4)="data">
+                   <b> {{ data.item.D4 }} % </b>
                 </template>
 
-                <template #cell(d4)="data">
-                   <b> {{ data.item.d4 }} % </b>
+                <template #cell(D5)="data">
+                   <b> {{ data.item.D5 }} % </b>
                 </template>
 
-                <template #cell(d5)="data">
-                   <b> {{ data.item.d5 }} % </b>
-                </template>
-
-                <template #cell(d6)="data">
-                   <b> {{ data.item.d6 }} % </b>
-                </template>
-
-                <template #cell(d7)="data">
-                   <b> {{ data.item.d7 }} % </b>
-                </template>
-
-                <template #cell(d8)="data">
-                   <b> {{ data.item.d8 }} % </b>
-                </template>
-
-                <template #cell(d9)="data">
-                   <b> {{ data.item.d9 }} % </b>
-                </template>
-
-                <template #cell(d10)="data">
-                   <b> {{ data.item.d10 }} % </b>
-                </template>
+              
 
             </b-table>
 
