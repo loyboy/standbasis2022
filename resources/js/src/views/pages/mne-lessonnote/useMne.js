@@ -77,7 +77,7 @@ export default function useEvaluation() {
 
       store.dispatch('app-MneLessonnote/fetchMneTeacher', { teacher: filters.value.typetwo_teacher, calendar: filters.value.typefour, week: filters.value.typethree  })
       .then(response => {
-        
+         
         const { mnecolumndata, mnecolumns } = response.data;
 
         dyFieldsTeacher.value = mnecolumns

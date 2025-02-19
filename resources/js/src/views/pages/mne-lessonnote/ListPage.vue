@@ -232,7 +232,7 @@
                   </div>
                 </template>
 
-                <template #head(d1)="data"> 
+               <!-- <template #head(d1)="data"> 
                   <th class="vertical-header">{{ data.label }}</th>
                 </template>
                 <template #head(d2)="data">
@@ -241,7 +241,7 @@
                 <template #head(d3)="data">
                   <th class="vertical-header">{{ data.label }}</th>
                 </template>
-                <template #head(d4)="data">
+                <template #head(d4)="data"> 
                   <th class="vertical-header">{{ data.label }}</th>
                 </template>
                 <template #head(d5)="data">
@@ -261,7 +261,7 @@
                 </template>
                 <template #head(d10)="data">
                   <th class="vertical-header">{{ data.label }}</th>
-                </template>
+                </template> -->
 
                 <template #cell(performance)="data">
                    <b> {{ data.item.performance }} % </b>
@@ -490,10 +490,6 @@
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
       } 
 
-      (async function () {       
-
-      })();
-
       onMounted(() => {
           setTimeout( async () => {
            
@@ -516,7 +512,7 @@
               handleChange();
             } 
           
-          }, 1000)       
+          }, 800)       
       })
       
       return {
