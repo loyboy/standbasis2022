@@ -123,7 +123,7 @@ export default function useEvaluation() {
         key: field.key,
         label: field.label
       }));
-      console.log("generateLegend.....")
+      console.log("generateLegend....." + JSON.stringify(legendItems.value))
   } 
 
   const handleChange = (ctx) => {

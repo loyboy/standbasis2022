@@ -4,7 +4,7 @@
       <b-form
                 v-if=" userData.role !== 'proprietor' "
                 class="p-2 myborder"
-                @submit.prevent="handleChange(); generateLegend();"
+                @submit.prevent="handleChange();"
                 @reset.prevent="resetForm"
               >
         <b-card-body>
