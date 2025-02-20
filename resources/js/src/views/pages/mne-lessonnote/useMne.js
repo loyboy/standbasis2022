@@ -117,12 +117,14 @@ export default function useEvaluation() {
   } 
 
   const generateLegend  = (ctx) => {
-    legendItems.value = dynamicFields.value
+      legendItems.value = dynamicFields.value
       .filter(field => field.key !== 'teacher_name') 
-      .map(field => ({
-        key: field.key,
-        label: field.label
-      }));
+      .map(field => {
+        return {
+          "key": field.key,
+          "label": field.label
+        }
+      });
       console.log("generateLegend....." + JSON.stringify(legendItems.value))
   } 
 
