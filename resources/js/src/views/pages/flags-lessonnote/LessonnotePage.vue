@@ -350,6 +350,7 @@
       const findIfSupervisorisPresent = ( userData.value.role === "supervisor" );       
       
       const {
+        extractValues,
         fetchLessonnotes,
         tableColumns,
     
@@ -376,7 +377,9 @@
         schoolyearOptions.value.push({ value: "2022/2023" , label: "2022/2023" });
         schoolyearOptions.value.push({ value: "2023/2024" , label: "2023/2024" });
         schoolyearOptions.value.push({ value: "2024/2025" , label: "2024/2025" });
-        
+        schoolyearOptions.value.push({ value: "2025/2026" , label: "2025/2026" });
+        schoolyearOptions.value.push({ value: "2026/2027" , label: "2026/2027" });
+
         schooltermOptions.value.push({ value: 1 , label: "1st Term" });
         schooltermOptions.value.push({ value: 2 , label: "2nd Term" });
         schooltermOptions.value.push({ value: 3 , label: "3rd Term" });
@@ -398,6 +401,7 @@
       })();
 
       onMounted(async () => {
+        extractValues();
         fetchLessonnotes();
       })
       

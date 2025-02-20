@@ -1,6 +1,8 @@
 import { ref, watch, computed } from '@vue/composition-api'
 import store from '@/store'
 
+const userDataItem = JSON.parse(localStorage.getItem('userData'));
+
 export default function useLessonnoteList() {
   
   const refLessonnoteListTable = ref(null)
@@ -18,7 +20,7 @@ export default function useLessonnoteList() {
     schoolgroup: null, 
     schoolId: null,
     classId: null,//unused
-    schoolyear: null,
+    schoolyear: "2025/2026",
     schoolterm: null,
     week: null,
     calendarId: null,//unused
@@ -30,6 +32,24 @@ export default function useLessonnoteList() {
 
   const refetchData = () => {
     refLessonnoteListTable.value.refresh()
+  }
+
+  const extractValues = () => {
+    const parts = userDataItem.cal_txt.split("|").map((part) => part.trim());
+
+    if (parts.length === 3) {
+      const weekPart = parts[0];
+      const sessionPart = parts[1];
+      const termPart = parts[2];
+
+      const weekMatch = weekPart.match(/Week (\d+)/);
+      filters.value.week = weekMatch && weekMatch[1] ? Number(weekMatch[1]) : "";
+
+      filters.value.schoolyear  = sessionPart;
+
+      const termMatch = termPart.match(/Term (\d+)/);
+      filters.value.schoolterm = termMatch && termMatch[1] ? Number(termMatch[1]) : "";
+    }
   }
 
   const fetchLessonnotes = (ctx) => {
@@ -118,6 +138,9 @@ export default function useLessonnoteList() {
   }
 
   return {
+
+    extractValues,
+
     fetchLessonnotes,
   
     handleChange,
