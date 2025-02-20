@@ -126,7 +126,7 @@ export default function useLessonnoteList() {
   }
 
   const handleChange = () => {
-    currentPage.value = 1;
+    //currentPage.value = 1;
     isLessonnoteSidebarActive.value = false;
     fetchLessonnotes();
   }
