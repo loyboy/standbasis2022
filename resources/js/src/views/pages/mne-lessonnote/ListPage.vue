@@ -220,6 +220,7 @@
             <div>
               <b-table :fields="legendFields" :items="legendItems" small bordered></b-table>
             </div>
+            <br/><br/>
 
             <b-table            
               class="position-relative"
@@ -413,7 +414,6 @@
            week_drilldown,
            cal_drilldown,
            
-           legendItems: [],
            legendFields: [
               { key: 'key', label: 'Code' },
               { key: 'label', label: 'Description' }
@@ -460,6 +460,8 @@
         filters,
 
         mnelistItems,
+
+        legendItems,
 
         dynamicFields,
 
@@ -511,6 +513,8 @@
         filters,
 
         mnelistItems,
+
+        legendItems,
 
         userData,
 
@@ -629,14 +633,7 @@
           console.log("Value is here: " + value)
         },
 
-        generateLegend() {
-          this.legendItems = this.dynamicFields
-            .filter(field => field.key !== 'teacher_name') 
-            .map(field => ({
-              key: field.key,
-              label: field.label
-            }));
-        }
+       
        
     }
 

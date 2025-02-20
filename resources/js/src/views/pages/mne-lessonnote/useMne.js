@@ -16,6 +16,7 @@ export default function useEvaluation() {
 
   const changeFieldsTeacher = ref(false)
   const dyFieldsTeacher = ref([])
+  const legendItems = ref([])
 
   const filters = ref({  
     schoolId: null,
@@ -114,32 +115,46 @@ export default function useEvaluation() {
         isLoading.value = false;   
       })
   } 
- 
+
+  const generateLegend  = (ctx) => {
+    legendItems.value = dynamicFields.value
+      .filter(field => field.key !== 'teacher_name') 
+      .map(field => ({
+        key: field.key,
+        label: field.label
+      }));
+      console.log("generateLegend.....")
+  } 
 
   const handleChange = (ctx) => {
  
     if (  filters.value.typeone === "student" && filters.value.typetwo_student && filters.value.typefour ) {
       fetchMneVariant();
+      generateLegend();
       window.scrollBy(0, 200);
     } 
 
     else if ( filters.value.typeone === "teacher_me" && filters.value.typetwo_teacher && filters.value.typefour ) {
       fetchMneVariant2();
+      generateLegend();
       window.scrollBy(0, 200);
     }
 
     else if ( filters.value.typeone === "principal_me" && filters.value.typetwo_teacher === null && filters.value.typefour ) {
       fetchMneVariant2();
+      generateLegend();
       window.scrollBy(0, 200);
     }
     
     else if (  filters.value.typeone === "teacher" && filters.value.typetwo_teacher && filters.value.typefour ) {
       fetchMneVariant2();
+      generateLegend();
       window.scrollBy(0, 200);
     }
 
     else if ( userData.value.role === "proprietor" && filters.value.schoolgroup  ) {
       fetchMneVariant3();
+      generateLegend();
       window.scrollBy(0, 200);
     }
 
@@ -147,6 +162,8 @@ export default function useEvaluation() {
       window.alert(" Please select all appropriate options before beginning the search. ")
     }    
   }
+
+ 
 
   /**
    * Use this as the table data object: 
@@ -216,6 +233,8 @@ export default function useEvaluation() {
     handleChange,
 
     mnelistItems,
+
+    legendItems,
 
     headTotal,
 
