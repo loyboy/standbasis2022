@@ -97,6 +97,7 @@ export default function useLessonnoteList() {
           schoolgroup: filters.value.schoolgroup,
           school: filters.value.schoolId,
           class: filters.value.classId,
+          week: filters.value.week,
           schoolyear: filters.value.schoolyear,
           schoolterm: filters.value.schoolterm,
           
