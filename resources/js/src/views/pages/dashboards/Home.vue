@@ -230,9 +230,38 @@
 
           </b-card-body>
         </b-card>
-      </b-col>  
+      </b-col>   
 
-      <b-col lg="4" v-if=" userData.role !== 'dashboarduser' && userData.role !== 'proprietor' ">        
+      <b-col lg="8" v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' ">        
+         <b-card bg-variant="primary" no-body>
+          <b-card-body class="d-flex justify-content-between align-items-center">
+           
+              <b-avatar
+                :variant="`light-primary`"
+                size="65"
+              >
+                <feather-icon
+                  size="26"
+                  icon="InfoIcon"                  
+                />
+              </b-avatar>             
+
+            <div class="text-column">
+              <h2> <b> School Evaluation & School Rating </b> </h2>                 
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#"> Curriculum Teaching Processes Management </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Instructor Resource  </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Total Student Development </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Learning Environment </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Sustainability </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Academic Performance </router-link> <span> 0% </span> </div>
+               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Safety, Health, Environment, Security </router-link> <span> 0% </span> </div>
+            </div>
+
+          </b-card-body>
+        </b-card>
+      </b-col>
+      
+      <b-col lg="4" v-if=" userData.role !== 'dashboarduser' ">        
          <b-card bg-variant="primary" no-body>
           <b-card-body class="d-flex justify-content-between align-items-center">
            
@@ -305,36 +334,7 @@
 
           </b-card-body>
         </b-card>
-      </b-col> 
-
-      <b-col lg="8" v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' ">        
-         <b-card bg-variant="primary" no-body>
-          <b-card-body class="d-flex justify-content-between align-items-center">
-           
-              <b-avatar
-                :variant="`light-primary`"
-                size="65"
-              >
-                <feather-icon
-                  size="26"
-                  icon="InfoIcon"                  
-                />
-              </b-avatar>             
-
-            <div class="text-column">
-              <h2> <b> School Evaluation & School Rating </b> </h2>                 
-               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#"> Curriculum Teaching Processes Management </router-link> <span> 0% </span> </div>
-               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Instructor Resource  </router-link> <span> 0% </span> </div>
-               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Total Student Development </router-link> <span> 0% </span> </div>
-               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Learning Environment </router-link> <span> 0% </span> </div>
-               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Sustainability </router-link> <span> 0% </span> </div>
-               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Academic Performance </router-link> <span> 0% </span> </div>
-               <div class="d-flex align-items-center px-2 justify-content-between">  <router-link to = "#">Safety, Health, Environment, Security </router-link> <span> 0% </span> </div>
-            </div>
-
-          </b-card-body>
-        </b-card>
-      </b-col>   
+      </b-col>
 
       <!-- Revenue Report Card -->
      <!-- <b-col lg="6">
