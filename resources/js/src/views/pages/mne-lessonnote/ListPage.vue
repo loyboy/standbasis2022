@@ -4,7 +4,7 @@
       <b-form
                 v-if=" userData.role !== 'proprietor' "
                 class="p-2 myborder"
-                @submit.prevent="handleChange()"
+                @submit.prevent="handleChange(); generateLegend();"
                 @reset.prevent="resetForm"
               >
         <b-card-body>
@@ -217,6 +217,10 @@
       <!-- Table Container Card -->
       <b-card-code title="Filtered M&E Results" class="my-4 mx-1" v-if=" userData.role !== 'proprietor' ">
 
+            <div>
+              <b-table :fields="legendFields" :items="legendItems" small bordered></b-table>
+            </div>
+
             <b-table            
               class="position-relative"
               :items="mnelistItems"
@@ -406,9 +410,14 @@
         return {           
            weekOptions,          
            userOptions,
-
            week_drilldown,
-           cal_drilldown
+           cal_drilldown,
+           
+           legendItems: [],
+           legendFields: [
+              { key: 'key', label: 'Code' },
+              { key: 'label', label: 'Description' }
+           ],
         }
     },  
 
@@ -618,6 +627,15 @@
 
         changeCalendar(value){
           console.log("Value is here: " + value)
+        },
+
+        generateLegend() {
+          this.legendItems = this.dynamicFields
+            .filter(field => field.key !== 'teacher_name') 
+            .map(field => ({
+              key: field.key,
+              label: field.label
+            }));
         }
        
     }
