@@ -251,7 +251,7 @@
             <b-table            
               class="position-relative"
               :items="mnelistItems"
-              :busy="isLoading"
+              :busy="isLoading" 
               responsive
               :fields="dynamicFields"
               :key="tableKey"

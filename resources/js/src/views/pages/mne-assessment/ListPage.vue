@@ -63,7 +63,7 @@
                       <b-form-radio v-model="filters.typeone" @change="changeType" name="principalpick" value="principal">Principal</b-form-radio>
                     </b-form-group>
                   </b-col>
-          </b-row>
+          </b-row> 
 
           <b-row>
                   <b-col cols="12" md="12" v-if=" filters.typeone === 'student' " >

@@ -45,6 +45,15 @@ export default function useEvaluation() {
 
       return fields;
   })
+
+  watch(
+    filters,
+    (newFilters, oldFilters) => {
+      console.log("Filters changed:", JSON.stringify(newFilters) );
+      console.log("Old Filters:", JSON.stringify(oldFilters));
+    },
+    { deep: true }
+  );
  
   // For student assessment
   const fetchMneVariant = () => {
