@@ -7,7 +7,7 @@
                 @submit.prevent="handleChange();"
                 @reset.prevent="resetForm"
               >
-        <b-card-body>
+        <b-card-body> 
           <!-- Fixxx the issue with Propreitor here in Calendar -->        
 
           <b-row>
