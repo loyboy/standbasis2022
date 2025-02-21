@@ -446,8 +446,8 @@
         let assessOptions = [
             { value: null, text: "Select Type of Assessment" },
             { value: "clw", text: "Classwork" },
-            { value: "hwk", text: "Week 2" },
-            { value: "tst", text: "Week 3" },
+            { value: "hwk", text: "Homework" },
+            { value: "tst", text: "Test" },
         ]
         
         let cal_drilldown = false
@@ -456,7 +456,7 @@
            weekOptions,          
            userOptions,
            assessOptions,
-           
+
            week_drilldown,
            cal_drilldown
         }
