@@ -18,7 +18,7 @@
                       <b-form-select
                         v-model="filters.typefour"
                         :options="calendarOptions"
-                       
+                        @change="changeCalendar"
                       /> 
                     </b-form-group>
                   </b-col> 
@@ -147,7 +147,8 @@
                     <b-form-group label=" Select School Calendar" >
                       <b-form-select
                         v-model="filters.typefour"
-                        :options="calendarOptions"                       
+                        :options="calendarOptions" 
+                        @change="changeCalendar"                      
                       />
                     </b-form-group>
                   </b-col>
@@ -632,6 +633,10 @@
                     sef.isLoading = false;
             });
 
+        },
+
+        changeCalendar(value){
+          console.log("Value is here: " + value)
         }
        
     }
