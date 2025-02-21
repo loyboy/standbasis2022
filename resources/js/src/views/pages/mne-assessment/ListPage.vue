@@ -33,6 +33,17 @@
           </b-row>
 
           <b-row v-if=" filters.typefour !== null ">
+                  <b-col cols="12" md="12"  >
+                    <b-form-group label=" Select Type of Assessment " >
+                      <b-form-select
+                        v-model="filters.typeassess"
+                        :options="assessOptions"
+                      />
+                    </b-form-group>
+                  </b-col>
+          </b-row>
+
+          <b-row v-if=" filters.typefour !== null ">
                   <b-col cols="12" md="3">
                     <span> <b> <h3> Choose a Category: </h3> </b> </span>
                   </b-col>
@@ -431,13 +442,21 @@
             { value: 11, text: "Week 11" },
             { value: 12, text: "Week 12" }
         ]
+
+        let assessOptions = [
+            { value: null, text: "Select Type of Assessment" },
+            { value: "clw", text: "Classwork" },
+            { value: "hwk", text: "Week 2" },
+            { value: "tst", text: "Week 3" },
+        ]
         
         let cal_drilldown = false
         let week_drilldown = false
         return {           
            weekOptions,          
            userOptions,
-
+           assessOptions,
+           
            week_drilldown,
            cal_drilldown
         }

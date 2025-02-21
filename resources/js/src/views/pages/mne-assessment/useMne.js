@@ -25,6 +25,7 @@ export default function useEvaluation() {
     typetwo_student: null,
     typetwo_teacher: null,
     typetwo_principal: null,
+    typeassess: null,
     typethree: null,
     typefour: null 
    
@@ -59,7 +60,7 @@ export default function useEvaluation() {
   const fetchMneVariant = () => {
       isLoading.value = true;
 
-      store.dispatch('app-MneLessonnote/fetchMne', {enrol: filters.value.typetwo_student, teacher: null, calendar: filters.value.typefour, week: filters.value.typethree  })
+      store.dispatch('app-MneLessonnote/fetchMne', {enrol: filters.value.typetwo_student, type: filters.value.typeassess, teacher: null, calendar: filters.value.typefour, week: filters.value.typethree  })
       .then(response => {
         
         const { mnecolumndata, mnecolumns } = response.data;
@@ -82,7 +83,7 @@ export default function useEvaluation() {
   const fetchMneVariant2 = () => {
     isLoading.value = true;
 
-      store.dispatch('app-MneLessonnote/fetchMne', {teacher: filters.value.typetwo_teacher, enrol: null, calendar: filters.value.typefour, week: filters.value.typethree  })
+      store.dispatch('app-MneLessonnote/fetchMne', {teacher: filters.value.typetwo_teacher, type: filters.value.typeassess, enrol: null, calendar: filters.value.typefour, week: filters.value.typethree  })
       .then(response => {
         
         const { mnecolumndata, mnecolumns } = response.data;
@@ -104,7 +105,7 @@ export default function useEvaluation() {
   const fetchMneVariant3 = () => {
     isLoading.value = true;
 
-      store.dispatch('app-MneLessonnote/fetchMneTwo', {group: filters.value.schoolgroup, school: filters.value.schoolId, calendar: filters.value.typefour, week: filters.value.typethree  })
+      store.dispatch('app-MneLessonnote/fetchMneTwo', {group: filters.value.schoolgroup, type: filters.value.typeassess, school: filters.value.schoolId, calendar: filters.value.typefour, week: filters.value.typethree  })
       .then(response => {
         
         const { teacher_management, head_admin } = response.data;
