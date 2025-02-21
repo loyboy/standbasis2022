@@ -497,11 +497,7 @@
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = (findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
-      } 
-
-      (async function () {       
-
-      })();
+      }
 
       onMounted(() => {
           setTimeout( async () => {
@@ -512,7 +508,7 @@
           myval.forEach(obj => { 
             let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
           //  if (Number(obj.term) !== -99){
-                calendarOptions.value.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+                calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
           //  }            
           });
         }
