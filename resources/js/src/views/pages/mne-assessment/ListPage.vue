@@ -287,45 +287,6 @@
                    <b> {{ data.item.management }} % </b>
                 </template>
 
-                <template #cell(d_one)="data">
-                   <b> {{ data.item.d_one }} % </b>
-                </template>
-
-                <template #cell(d_two)="data">
-                   <b> {{ data.item.d_two }} % </b>
-                </template>
-
-                <template #cell(d_three)="data">
-                   <b> {{ data.item.d_three }} % </b>
-                </template>
-
-                <template #cell(d_four)="data">
-                   <b> {{ data.item.d_four }} % </b>
-                </template>
-
-                <template #cell(d_five)="data">
-                   <b> {{ data.item.d_five }} % </b>
-                </template>
-
-                <template #cell(d_six)="data">
-                   <b> {{ data.item.d_six }} % </b>
-                </template>
-
-                <template #cell(d_seven)="data">
-                   <b> {{ data.item.d_seven }} % </b>
-                </template>
-
-                <template #cell(d_eight)="data">
-                   <b> {{ data.item.d_eight }} % </b>
-                </template>
-
-                <template #cell(d_nine)="data">
-                   <b> {{ data.item.d_nine }} % </b>
-                </template>
-
-                <template #cell(d_ten)="data">
-                   <b> {{ data.item.d_ten }} % </b>
-                </template>
 
             </b-table>
 
