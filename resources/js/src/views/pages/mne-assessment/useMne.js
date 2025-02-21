@@ -46,20 +46,20 @@ export default function useEvaluation() {
       return fields;
   })
 
-  watch(
+ /* watch(
     filters,
     (newFilters, oldFilters) => {
       console.log("Filters changed:", JSON.stringify(newFilters) );
       console.log("Old Filters:", JSON.stringify(oldFilters));
     },
     { deep: true }
-  );
+  );*/
  
   // For student assessment
   const fetchMneVariant = () => {
       isLoading.value = true;
 
-      store.dispatch('app-MneLessonnote/fetchMne', {enrol: filters.value.typetwo_student, calendar: filters.value.typefour, week: filters.value.typethree  })
+      store.dispatch('app-MneLessonnote/fetchMne', {enrol: filters.value.typetwo_student, teacher: null, calendar: filters.value.typefour, week: filters.value.typethree  })
       .then(response => {
         
         const { mnecolumndata, mnecolumns } = response.data;
@@ -82,7 +82,7 @@ export default function useEvaluation() {
   const fetchMneVariant2 = () => {
     isLoading.value = true;
 
-      store.dispatch('app-MneLessonnote/fetchMne', {enrol: filters.value.typetwo_teacher, calendar: filters.value.typefour, week: filters.value.typethree  })
+      store.dispatch('app-MneLessonnote/fetchMne', {teacher: filters.value.typetwo_teacher, enrol: null, calendar: filters.value.typefour, week: filters.value.typethree  })
       .then(response => {
         
         const { mnecolumndata, mnecolumns } = response.data;
