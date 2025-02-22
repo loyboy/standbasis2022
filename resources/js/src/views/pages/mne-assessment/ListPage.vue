@@ -538,7 +538,7 @@
 
     methods: {  
 
-        changeType(value){
+        changeType(value){ 
             const sef = this;  
          //   let userid = this.userData.id;            
             sef.userOptions = [];
@@ -549,7 +549,7 @@
                 .then(response => { 
                     let myval = response.data.data;
                     myval.forEach(obj => {
-                      sef.userOptions.push( { value: obj.student.pupId , text: obj.classstream.title + "----" + obj.student.name } )
+                      sef.userOptions.push( { value: obj.enrolId , text: obj.classstream.title + "----" + obj.student.name } )
                     }); 
                     sef.isLoading = false;
                 });
