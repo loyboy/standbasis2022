@@ -29,13 +29,17 @@ import VueHighcharts from 'highcharts-vue';
 import Highcharts from 'highcharts';
 import loadDrillDown from 'highcharts/modules/drilldown';
 import Skeleton from 'vue-loading-skeleton';
-import vueNumeralFilterInstaller from 'vue-numeral-filter'; 
+import vueNumeralFilterInstaller from 'vue-numeral-filter';
 import VuePlaceAutocomplete from 'vue-place-autocomplete';
 import "vue-easytable/libs/theme-default/index.css";
-import VueEasytable from "vue-easytable";
+import { VeTable, VePagination, VeIcon, VeLoading, VeLocale } from "vue-easytable"; // import library
+
+Vue.use(VeTable);
+Vue.use(VePagination);
+Vue.use(VeIcon);
+Vue.use(VeLoading);
 
 Vue.use(VuePlaceAutocomplete);
-Vue.use(VueEasytable);
 
 import VueGmaps from 'vue-gmaps'
 Vue.use(VueGmaps, {
