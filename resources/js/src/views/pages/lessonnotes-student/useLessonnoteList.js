@@ -33,7 +33,7 @@ export default function useLessonnoteList() {
             field: "",
             key: "a",
             title: "",
-            width: 50,
+            width: "10%",
             align: "center",
             renderBodyCell: ({ row, column, rowIndex }, h) => {
                 return ++rowIndex;
@@ -73,10 +73,10 @@ export default function useLessonnoteList() {
         },
 
     ]
-    const perPage = ref(100)
+    const perPage = ref(10)
     const totalLessonnotes = ref(0)
     const currentPage = ref(1)
-    const perPageOptions = [10, 25, 50, 100]
+    const perPageOptions = [10, 25, 50]
     const searchQuery = ref('')
     const sortBy = ref('id')
     const isSortDirDesc = ref(true)
