@@ -346,7 +346,7 @@
           </b-col>
         </div>
   
-        <!-- Table Container Card -->
+        <!-- Table Container Card Beginning the Container-->
         <b-card
           no-body
           class="mb-0"
@@ -526,10 +526,20 @@
                   <span class="align-middle ml-50">View Details</span>
                 </b-dropdown-item>   
 
-                <b-dropdown-item :to="{ name: 'lessonnotes-student-home', params: { id: data.item.lessonnoteId } }" v-if = " data.item.approval != null ">
+                <b-dropdown-item :to="{ name: 'lessonnotes-student-home', params: { id: data.item.lessonnoteId , type: 'classwork' } }" v-if = " data.item.approval != null ">
                   <feather-icon icon="FileTextIcon" />
-                  <span class="align-middle ml-50">Add Student's Scores</span>
+                  <span class="align-middle ml-50">Add Student's Classwork Scores</span>
                 </b-dropdown-item> 
+
+                <b-dropdown-item :to="{ name: 'lessonnotes-student-home', params: { id: data.item.lessonnoteId , type: 'homework' } }" v-if = " data.item.approval != null ">
+                  <feather-icon icon="FileTextIcon" />
+                  <span class="align-middle ml-50">Add Student's Homework Scores</span>
+                </b-dropdown-item>
+                
+                <b-dropdown-item :to="{ name: 'lessonnotes-student-home', params: { id: data.item.lessonnoteId , type: 'test' } }" v-if = " data.item.approval != null ">
+                  <feather-icon icon="FileTextIcon" />
+                  <span class="align-middle ml-50">Add Student's Test Scores</span>
+                </b-dropdown-item>
 
                 <b-dropdown-item @click="isManagementSidebarActive = true; loadManagement(data.item); "  v-if = " data.item.approval != null ">
                   <feather-icon icon="FileTextIcon" />
