@@ -40,12 +40,13 @@ export default function useLessonnoteList() {
             },
         },
         {
-            field: "_type",
+
             key: "_type",
             title: "Assessment Type",
             align: "center",
             width: "15%",
-            edit: false
+            edit: false,
+            renderBodyCell: ({ row }) => row._type === 'clw' ? 'classwork' : row._type === 'hwk' ? 'homework' : 'Test'
         },
         {
             key: "name",
@@ -69,11 +70,13 @@ export default function useLessonnoteList() {
             title: "Scores",
             align: "center",
             width: "15%",
-            edit: true
+            editRender: {
+                name: "input"
+            }
         },
 
     ]
-    const perPage = ref(10)
+    const perPage = ref(50)
     const totalLessonnotes = ref(0)
     const currentPage = ref(1)
     const perPageOptions = [10, 25, 50]

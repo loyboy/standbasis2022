@@ -388,6 +388,11 @@
                     hoverHighlight: false,
          },
          editOption: {
+              // enable editing
+              showIcon: true,
+              // edit mode: 'cell' | 'row'
+              mode: 'cell',
+              
               afterCellValueChange: ({ row, column , value}) => {
                   console.log("cellValueChange row::", row);
                   console.log("cellValueChange column::", column);
