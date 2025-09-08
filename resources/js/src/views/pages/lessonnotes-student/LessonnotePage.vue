@@ -250,54 +250,36 @@
 
           <div class="mx-2 mb-2">
             <b-row>
-    
+              <!-- Info text -->
               <b-col
                 cols="12"
                 sm="6"
                 class="d-flex align-items-center justify-content-center justify-content-sm-start"
               >
-                <span class="text-muted">Showing {{ dataMeta.from }} to {{ dataMeta.to }} of {{ dataMeta.of }} entries</span>
+                <span class="text-muted">
+                  Showing {{ dataMeta.from }} to {{ dataMeta.to }} of {{ dataMeta.of }} entries
+                </span>
               </b-col>
-              <!-- Pagination -->
+
+              <!-- vue-easytable Pagination -->
               <b-col
                 cols="12"
                 sm="6"
                 class="d-flex align-items-center justify-content-center justify-content-sm-end"
               >
-    
-                <b-pagination
-                  v-model="currentPage"
-                  :total-rows="totalLessonnotes"
-                  :per-page="perPage"
-                  first-number
-                  last-number
-                  class="mb-0 mt-1 mt-sm-0"
-                  prev-class="prev-item"
-                  next-class="next-item"
-                  @change="handlePageChange"
-                >
-                  <template #prev-text>
-                    <feather-icon
-                      icon="ChevronLeftIcon"
-                      size="18"
-                    />
-                  </template>
-                  <template #next-text>
-                    <feather-icon
-                      icon="ChevronRightIcon"
-                      size="18"
-                    />
-                  </template>
-                </b-pagination>
-    
+                <ve-pagination
+                  :total="totalLessonnotes"
+                  :page-index="currentPage"
+                  :page-size="perPage"
+                  @on-page-number-change="handlePageChange"
+                  @on-page-size-change="handlePageSizeChange"
+                  layout="prev, pager, next"
+                />
               </b-col>
-    
             </b-row>
           </div>
 
-
         </b-card>
-
        
     </div>
 </template>
