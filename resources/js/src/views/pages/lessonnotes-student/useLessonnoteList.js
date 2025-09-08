@@ -131,14 +131,15 @@ export default function useLessonnoteList() {
 
     const handlePageChange = (value) => {
         currentPage.value = value;
-        console.log("Cal: " + filters.value.calendarId);
+        //  console.log("Cal: " + filters.value.calendarId);
         filters.value.calendarId = userData.value.cal_id;
         fetchLessonnotes();
     }
 
-    const handleChange = () => {
+    const handleChange = (mytype = "") => {
         //currentPage.value = 1;
         isLessonnoteSidebarActive.value = false;
+        filters.value.assessType = mytype;
         fetchLessonnotes();
     }
 

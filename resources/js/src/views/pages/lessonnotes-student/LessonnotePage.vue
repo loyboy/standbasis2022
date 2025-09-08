@@ -285,59 +285,52 @@
     
          </b-table>
 
-         <div class="m-2">    
-            <!-- Table Top -->
-            <b-row>    
-              <!-- Per Page -->
+         <div class="mx-2 mb-2">
+            <b-row>
+    
               <b-col
                 cols="12"
-                md="6"
-                class="d-flex align-items-center justify-content-start mb-1 mb-md-0"
+                sm="6"
+                class="d-flex align-items-center justify-content-center justify-content-sm-start"
               >
-                <label>Show</label>
-                <v-select
-                  v-model="perPage"
-                  :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                  :options="perPageOptions"
-                  :clearable="false"
-                  class="per-page-selector d-inline-block mx-50"
-                />
-                <label>entries</label>
+                <span class="text-muted">Showing {{ dataMeta.from }} to {{ dataMeta.to }} of {{ dataMeta.of }} entries</span>
+              </b-col>
+              <!-- Pagination -->
+              <b-col
+                cols="12"
+                sm="6"
+                class="d-flex align-items-center justify-content-center justify-content-sm-end"
+              >
+    
+                <b-pagination
+                  v-model="currentPage"
+                  :total-rows="totalLessonnotes"
+                  :per-page="perPage"
+                  first-number
+                  last-number
+                  class="mb-0 mt-1 mt-sm-0"
+                  prev-class="prev-item"
+                  next-class="next-item"
+                  @change="handlePageChange"
+                >
+                  <template #prev-text>
+                    <feather-icon
+                      icon="ChevronLeftIcon"
+                      size="18"
+                    />
+                  </template>
+                  <template #next-text>
+                    <feather-icon
+                      icon="ChevronRightIcon"
+                      size="18"
+                    />
+                  </template>
+                </b-pagination>
+    
               </b-col>
     
-              <!-- Search -->
-              <b-col
-                cols="12"
-                md="6"
-              >
-                <div class="d-flex align-items-center justify-content-end">
-                  <b-form-input
-                    v-model="searchQuery"
-                    @change="searchChange"
-                    class="d-inline-block mr-1"
-                    placeholder="Search..."
-                  />
-
-                  <b-button
-                    variant="success"
-                    @click="isLessonnoteSidebarActive = true"
-                  >
-                    <span class="text-nowrap">Advanced Filter</span>
-                  </b-button>
-
-                  <b-button
-                    variant="danger"
-                    @click="reset"
-                  >
-                    <span class="text-nowrap">Reset</span>
-                  </b-button>
-
-                </div>
-
-              </b-col>
             </b-row>
-
-         </div>
+          </div>
           
         </b-card>
        
@@ -974,7 +967,7 @@
                     variant: 'success',
                   },
                 });               
-                sef.handleChange();
+                sef.handleChange('clw');
 
             }).catch((exception) => {               
                
@@ -1031,7 +1024,7 @@
                   variant: 'success',
                   },
                 });  
-                sef.handleChange();
+                sef.handleChange('hwk');
             }).catch((exception) => { 
                 sef.$toast({
                   component: ToastificationContent,
@@ -1085,7 +1078,7 @@
                   variant: 'success'
                   },
                 });
-                sef.handleChange();  
+                sef.handleChange('tst');  
             }).catch((exception) => {  
                 sef.$toast({
                   component: ToastificationContent,
