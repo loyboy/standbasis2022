@@ -35,8 +35,6 @@ export default function useLessonnoteList() {
 
         { key: 'lsn.subject.name', label: 'Subject Name', sortable: true },
 
-        { key: '_date', label: "Date of Submission ", sortable: true },
-
         { key: 'score', label: "Percentage Score", sortable: true }
 
     ]
