@@ -248,36 +248,7 @@
               border-y
           />  
 
-          <div class="mx-2 mb-2">
-            <b-row>
-              <!-- Info text -->
-              <b-col
-                cols="12"
-                sm="6"
-                class="d-flex align-items-center justify-content-center justify-content-sm-start"
-              >
-                <span class="text-muted">
-                  Showing {{ dataMeta.from }} to {{ dataMeta.to }} of {{ dataMeta.of }} entries
-                </span>
-              </b-col>
-
-              <!-- vue-easytable Pagination -->
-              <b-col
-                cols="12"
-                sm="6"
-                class="d-flex align-items-center justify-content-center justify-content-sm-end"
-              >
-                <ve-pagination
-                  :total="totalLessonnotes"
-                  :page-index="currentPage"
-                  :page-size="perPage"
-                  @on-page-number-change="handlePageChange"
-                  @on-page-size-change="handlePageSizeChange"
-                  layout="prev, pager, next"
-                />
-              </b-col>
-            </b-row>
-          </div>
+          
 
         </b-card>
        
