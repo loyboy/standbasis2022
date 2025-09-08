@@ -882,6 +882,7 @@
       },
 
       startEditingCell(rowKey, colKey, defaultValue) {
+            console.log("Start editing cell " + rowKey + " __ " + colKey);
             this.$refs["refLessonnoteListTable"].startEditingCell({ rowKey, colKey, defaultValue });
       },
 
