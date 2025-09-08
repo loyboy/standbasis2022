@@ -239,7 +239,7 @@
             :busy="isLoading"
             responsive
             :fields="tableColumns"
-            primary-key="id"
+            primary-key="assessId"
             :sort-by.sync="sortBy"
             show-empty
             empty-text="No matching records found"
@@ -268,8 +268,7 @@
                   min="0"
                   max="100"
                   class="w-50"
-                  @blur=" data.item._type === 'clw' ? addScoresClasswork(data.item.id, data.item.score) : data.item._type === 'hwk' ? addScoresHomework(data.item.id, data.item.score) : addScoresTest(data.item.id, data.item.score) "
-                  @keyup.enter="data.item._type === 'clw' ? addScoresClasswork(data.item.id, data.item.score) : data.item._type === 'hwk' ? addScoresHomework(data.item.id, data.item.score) : addScoresTest(data.item.id, data.item.score)"
+                  @keyup.enter="data.item._type === 'clw' ? addScoresClasswork(data.item.assessId, data.item.score) : data.item._type === 'hwk' ? addScoresHomework(data.item.assessId, data.item.score) : addScoresTest(data.item.assessId, data.item.score)"
                 />
             </template>
 
