@@ -48,20 +48,20 @@ export default function useLessonnoteList() {
             edit: false
         },
         {
-            field: "enroll.student.name",
             key: "name",
             title: "Student Name",
             align: "left",
             width: "15%",
-            edit: false
+            edit: false,
+            renderBodyCell: ({ row }) => row.enroll.student.name || ""
         },
         {
-            field: "lsn.subject.name",
             key: "subject",
             title: "Subject Name",
             align: "left",
             width: "15%",
-            edit: false
+            edit: false,
+            renderBodyCell: ({ row }) => row.lsn.subject.name || ""
         },
         {
             field: "score",
