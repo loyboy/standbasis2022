@@ -29,52 +29,15 @@ export default function useLessonnoteList() {
 
         { key: 'actions' },*/
 
-        {
-            field: "",
-            key: "a",
-            title: "",
-            width: "10%",
-            align: "center",
-            renderBodyCell: ({ row, column, rowIndex }, h) => {
-                return ++rowIndex;
-            },
-        },
-        {
+        { key: '_type', label: "Assessment Type", sortable: true },
 
-            key: "_type",
-            title: "Assessment Type",
-            align: "center",
-            width: "15%",
-            edit: false,
-            renderBodyCell: ({ row }) => row._type === 'clw' ? 'classwork' : row._type === 'hwk' ? 'homework' : 'Test'
-        },
-        {
-            key: "name",
-            title: "Student Name",
-            align: "left",
-            width: "15%",
-            edit: false,
-            renderBodyCell: ({ row }) => row.enroll.student.name || ""
-        },
-        {
-            key: "subject",
-            title: "Subject Name",
-            align: "left",
-            width: "15%",
-            edit: false,
-            renderBodyCell: ({ row }) => row.lsn.subject.name || ""
-        },
-        {
-            field: "score",
-            key: "score",
-            title: "Scores",
-            align: "center",
-            width: "15%",
-            edit: true,
-            editRender: {
-                name: "input"
-            }
-        },
+        { key: 'enroll.student.name', label: "Student Name", sortable: true },
+
+        { key: 'lsn.subject.name', label: 'Subject Name', sortable: true },
+
+        { key: '_date', label: "Date of Submission ", sortable: true },
+
+        { key: 'score', label: "Percentage Score", sortable: true }
 
     ]
     const perPage = ref(50)

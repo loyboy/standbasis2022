@@ -232,24 +232,114 @@
           class="mb-0"
         >    
 
-         
+         <b-table
+            ref="refLessonnoteListTable"
+            class="position-relative"
+            :items="LessonnoteItems"
+            :busy="isLoading"
+            responsive
+            :fields="tableColumns"
+            primary-key="id"
+            :sort-by.sync="sortBy"
+            show-empty
+            empty-text="No matching records found"
+            :sort-desc.sync="isSortDirDesc"
+          >
 
-          <ve-table
-              ref="refLessonnoteListTable"
-              :max-height="500"
-              :fixed-header="true"
-              :columns="tableColumns"
-              :table-data="LessonnoteItems"
-              :editOption="editOption"
-              :row-style-option="rowStyleOption"
-              row-key-field-name="id"
-              :virtual-scroll-option="{enable:true}"
+              <template #table-busy>
+                <div class="text-center text-danger my-2">
+                  <b-spinner class="align-middle"></b-spinner>
+                  <strong>Loading...</strong>
+                </div>
+              </template>             
+    
+             <!-- Column: Date -->
+             <template #cell(_date)="data">
+               <div>
+                {{ data.item._date !== null ? String( data.item._date ).replace(".000+00:00","") : "Not Available" }}
+               </div>               
+             </template>
 
-              border-y
-          />  
+             <!-- Column: Score -->
+             <template #cell(score)="data">
+                <b-form-input
+                  v-model="data.item.score"
+                  type="number"
+                  min="0"
+                  max="100"
+                  class="w-50"
+                  @blur=" data.item._type === 'clw' ? addScoresClasswork(data.item.id, data.item.score) : data.item._type === 'hwk' ? addScoresHomework(data.item.id, data.item.score) : addScoresTest(data.item.id, data.item.score) "
+                  @keyup.enter="data.item._type === 'clw' ? addScoresClasswork(data.item.id, data.item.score) : data.item._type === 'hwk' ? addScoresHomework(data.item.id, data.item.score) : addScoresTest(data.item.id, data.item.score)"
+                />
+            </template>
 
+             <!-- Column: Type -->
+             <template #cell(_type)="data">
+              <b-badge
+                pill
+                :variant="`light-${resolveLessonnotetypeVariant(data.item._type)}`"
+                class="text-capitalize"
+              >
+              {{ dataOfType[data.item._type] }} 
+              </b-badge>
+            </template>
+    
+         </b-table>
+
+         <div class="m-2">    
+            <!-- Table Top -->
+            <b-row>    
+              <!-- Per Page -->
+              <b-col
+                cols="12"
+                md="6"
+                class="d-flex align-items-center justify-content-start mb-1 mb-md-0"
+              >
+                <label>Show</label>
+                <v-select
+                  v-model="perPage"
+                  :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                  :options="perPageOptions"
+                  :clearable="false"
+                  class="per-page-selector d-inline-block mx-50"
+                />
+                <label>entries</label>
+              </b-col>
+    
+              <!-- Search -->
+              <b-col
+                cols="12"
+                md="6"
+              >
+                <div class="d-flex align-items-center justify-content-end">
+                  <b-form-input
+                    v-model="searchQuery"
+                    @change="searchChange"
+                    class="d-inline-block mr-1"
+                    placeholder="Search..."
+                  />
+
+                  <b-button
+                    variant="success"
+                    @click="isLessonnoteSidebarActive = true"
+                  >
+                    <span class="text-nowrap">Advanced Filter</span>
+                  </b-button>
+
+                  <b-button
+                    variant="danger"
+                    @click="reset"
+                  >
+                    <span class="text-nowrap">Reset</span>
+                  </b-button>
+
+                </div>
+
+              </b-col>
+            </b-row>
+
+         </div>
           
-
         </b-card>
        
     </div>
@@ -382,41 +472,6 @@
          modalTitleMid,
          modalTitleFinal,
          assessmentPicked,
-
-         rowStyleOption: {
-                    clickHighlight: false,
-                    hoverHighlight: false,
-         },
-         editOption: {
-              // enable editing
-              showIcon: true,
-              // edit mode: 'cell' | 'row'
-              mode: 'cell',
-
-              afterCellValueChange: ({ row, column , value}) => {
-                  console.log("cellValueChange row::", row);
-                  console.log("cellValueChange column::", column);
-
-                  if (column.field !== 'score') {
-                    return;
-                  }
-
-                  const recordId = row.id;
-                  const newScore = value;
-
-                  if (this.filters.value.assessType === 'clw'){
-                      this.addScoresClasswork(recordId, newScore);
-                  }
-
-                  else if (this.filters.value.assessType === 'hwk'){
-                      this.addScoresHomework(recordId, newScore);
-                  }
-
-                  else if (this.filters.value.assessType === 'tst'){
-                      this.addScoresTest(recordId, newScore);
-                  }
-              },
-         },
 
          searchValuesCurrent: {
             teacher: "nil",
@@ -879,11 +934,6 @@
           this.searchValuesCurrent.assesstype = choiceText;
           this.searchValues.push(choiceText);
         }       
-      },
-
-      startEditingCell(rowKey, colKey, defaultValue) {
-            console.log("Start editing cell " + rowKey + " __ " + colKey);
-            this.$refs["refLessonnoteListTable"].startEditingCell({ rowKey, colKey, defaultValue });
       },
 
       ////---------------------------------------------Classwork Here
