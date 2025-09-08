@@ -70,6 +70,7 @@ export default function useLessonnoteList() {
             title: "Scores",
             align: "center",
             width: "15%",
+            edit: true,
             editRender: {
                 name: "input"
             }

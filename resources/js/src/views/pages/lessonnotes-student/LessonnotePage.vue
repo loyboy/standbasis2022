@@ -392,7 +392,7 @@
               showIcon: true,
               // edit mode: 'cell' | 'row'
               mode: 'cell',
-              
+
               afterCellValueChange: ({ row, column , value}) => {
                   console.log("cellValueChange row::", row);
                   console.log("cellValueChange column::", column);
@@ -444,6 +444,8 @@
                 this.loadOtherValues( this.teacherData.school.schId );
             },2000);        
         }
+
+        this.startEditingCell(0,4,null);
     },
 
     setup() {
@@ -879,6 +881,10 @@
         }       
       },
 
+      startEditingCell(rowKey, colKey, defaultValue) {
+            this.$refs["refLessonnoteListTable"].startEditingCell({ rowKey, colKey, defaultValue });
+      },
+
       ////---------------------------------------------Classwork Here
 
       showModalClasswork() {
@@ -1175,6 +1181,8 @@
       }
 
     }
+
+
 
 
   }
