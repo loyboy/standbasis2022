@@ -40,7 +40,6 @@ Vue.use(VeIcon);
 Vue.use(VeLoading);
 
 Vue.use(VuePlaceAutocomplete);
-Vue.use(VueEasytable);
 
 import VueGmaps from 'vue-gmaps'
 Vue.use(VueGmaps, {

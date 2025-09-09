@@ -4,10 +4,10 @@
       <b-form
                 v-if=" userData.role !== 'proprietor' && userData.role !== 'supervisor' "
                 class="p-2 myborder"
-                @submit.prevent="handleChange()"
+                @submit.prevent="handleChange();"
                 @reset.prevent="resetForm"
               >
-        <b-card-body>
+        <b-card-body> 
           <!-- Fixxx the issue with Propreitor here in Calendar -->        
 
           <b-row>
@@ -217,6 +217,11 @@
       <!-- Table Container Card -->
       <b-card-code title="Filtered M&E Results" class="my-4 mx-1" v-if=" userData.role !== 'proprietor' && userData.role !== 'supervisor' ">
 
+            <div>
+              <b-table :fields="legendFields" :items="legendItems" small bordered></b-table>
+            </div>
+            <br/><br/>
+
             <b-table            
               class="position-relative"
               :items="mnelistItems"
@@ -232,7 +237,7 @@
                   </div>
                 </template>
 
-                <template #head(d1)="data">
+               <!-- <template #head(d1)="data"> 
                   <th class="vertical-header">{{ data.label }}</th>
                 </template>
                 <template #head(d2)="data">
@@ -241,7 +246,7 @@
                 <template #head(d3)="data">
                   <th class="vertical-header">{{ data.label }}</th>
                 </template>
-                <template #head(d4)="data">
+                <template #head(d4)="data"> 
                   <th class="vertical-header">{{ data.label }}</th>
                 </template>
                 <template #head(d5)="data">
@@ -261,7 +266,7 @@
                 </template>
                 <template #head(d10)="data">
                   <th class="vertical-header">{{ data.label }}</th>
-                </template>
+                </template> -->
 
                 <template #cell(performance)="data">
                    <b> {{ data.item.performance }} % </b>
@@ -271,45 +276,25 @@
                    <b> {{ data.item.management }} % </b>
                 </template>
 
-                <template #cell(d1)="data">
-                   <b> {{ data.item.d1 }} % </b>
+              
+
+                <template #cell(D2)="data">
+                   <b> {{ data.item.D2 }} % </b>
                 </template>
 
-                <template #cell(d2)="data">
-                   <b> {{ data.item.d2 }} % </b>
+                <template #cell(D3)="data">
+                   <b> {{ data.item.D3 }} % </b>
                 </template>
 
-                <template #cell(d3)="data">
-                   <b> {{ data.item.d3 }} % </b>
+                <template #cell(D4)="data">
+                   <b> {{ data.item.D4 }} % </b>
                 </template>
 
-                <template #cell(d4)="data">
-                   <b> {{ data.item.d4 }} % </b>
+                <template #cell(D5)="data">
+                   <b> {{ data.item.D5 }} % </b>
                 </template>
 
-                <template #cell(d5)="data">
-                   <b> {{ data.item.d5 }} % </b>
-                </template>
-
-                <template #cell(d6)="data">
-                   <b> {{ data.item.d6 }} % </b>
-                </template>
-
-                <template #cell(d7)="data">
-                   <b> {{ data.item.d7 }} % </b>
-                </template>
-
-                <template #cell(d8)="data">
-                   <b> {{ data.item.d8 }} % </b>
-                </template>
-
-                <template #cell(d9)="data">
-                   <b> {{ data.item.d9 }} % </b>
-                </template>
-
-                <template #cell(d10)="data">
-                   <b> {{ data.item.d10 }} % </b>
-                </template>
+              
 
             </b-table>
 
@@ -352,21 +337,15 @@
     BFormRadioGroup,
     VBToggle
   } from 'bootstrap-vue';
-
+  import formValidation from '@core/comp-functions/forms/form-validation'
   import BCardCode from '@core/components/b-card-code'
   import StatisticCardHorizontal from "@core/components/statistics-cards/StatisticCardHorizontal.vue";
   import vSelect from 'vue-select'
-  import router from '@/router'
-  import axios from "axios";
   import store from '@/store'
-  import { ref, onUnmounted ,onMounted, watch, computed } from '@vue/composition-api'
-  import { avatarText } from '@core/utils/filter'
-  import formValidation from '@core/comp-functions/forms/form-validation'
+  import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
   import { $themeConfig } from "@themeConfig";
-
-  import useMne from './useMne'
-  import mneStoreModule from './mneStoreModule'
-
+  import useMne from './useMne';
+  import mneStoreModule from './mneStoreModule';
 
   export default {
     directives: {
@@ -432,9 +411,13 @@
         return {           
            weekOptions,          
            userOptions,
-
            week_drilldown,
-           cal_drilldown
+           cal_drilldown,
+           
+           legendFields: [
+              { key: 'key', label: 'Code' },
+              { key: 'label', label: 'Description' }
+           ],
         }
     },  
 
@@ -481,6 +464,8 @@
 
         mnelistItems,
 
+        legendItems,
+
         dynamicFields,
 
         handleChange,
@@ -499,10 +484,6 @@
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
           filters.value.supervisor  = (findIfSupervisorisPresent) &&  userData.value ? userData.value.code : null;
       } 
-
-      (async function () {       
-
-      })();
 
       onMounted(() => {
         setTimeout( async () => {
@@ -527,12 +508,12 @@
             });
         }
 
-        else if( findIfPropisPresent === true ){
-          const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { group : filters.value.schoolgroup });
-          let myval = resp.data.data;
-          myval.forEach(obj => { 
-            schoolOptions.value.push( { value: obj.schId , text: obj.name } )
-          });
+            else if( findIfPropisPresent === true ){
+              const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchSchools`, { group : filters.value.schoolgroup });
+              let myval = resp.data.data;
+              myval.forEach(obj => { 
+                schoolOptions.value.push( { value: obj.schId , text: obj.name } )
+              });
 
           handleChange();
         }         
@@ -547,6 +528,8 @@
         filters,
 
         mnelistItems,
+
+        legendItems,
 
         userData,
 
@@ -679,14 +662,5 @@
       white-space: nowrap;
       width: 10px !important; /* Adjust the width as per your requirement */
     }
-  /*th {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    white-space: nowrap; 
-    width: 30px;
-    text-align: left; 
-    padding: 0 5px; 
-    border: 1px solid #ccc; 
-  }*/
 
   </style>

@@ -71,14 +71,6 @@ export default [
         permission: [ "dashboarduser" ]
     },
 
-   /* {
-        title: 'Evaluation Trends',
-        route: 'evaluation-trending',
-        icon: 'TrendingUpIcon',
-        permission: ["evaluator"]
-    },*/
-
-
     {
         title: 'Activities',
         icon: 'ClipboardIcon',
@@ -182,13 +174,6 @@ export default [
            
         ],
     },
-
-  /*  {
-        title: 'Capacity Development',
-        route: 'capacity-home',
-        icon: 'CodepenIcon',
-        permission: ["teacher"]
-    },*/
 
     {
         title: 'School M&E',

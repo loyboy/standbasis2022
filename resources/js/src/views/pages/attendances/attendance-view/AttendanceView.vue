@@ -32,7 +32,7 @@
             </b-col>         
         </b-row>    
 
-        <event-list :schoolId="attendanceData.teacher.school.schId" :module="moduleName" />
+        <event-list :teacherId="attendanceData.teacher.teaId" :schoolId="attendanceData.teacher.school.schId" :module="moduleName" />
       </template>
   
     </div>
@@ -86,8 +86,8 @@
             
                 let response = await store.dispatch(`${ATTENDANCE_APP_STORE_MODULE_NAME}/fetchAttendance`, { id: router.currentRoute.params.id  })
                 if (response.data.data){
-                        this.attendanceData = response.data.data;
-                        this.attendanceId = router.currentRoute.params.id;                  
+                    this.attendanceData = response.data.data;
+                    this.attendanceId   = router.currentRoute.params.id;                  
                 }           
             }
         },

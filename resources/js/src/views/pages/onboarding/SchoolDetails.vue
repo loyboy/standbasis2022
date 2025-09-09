@@ -555,6 +555,7 @@
       </b-card>   
 
     </b-form>
+
   </validation-observer>
 </template>
 
@@ -800,8 +801,8 @@ export default {
       schGenderOptions,
       schResidenceOptions,
       ownerOptions
-    }
-  },
+    }      
+  },  
   mounted(){
     this.getOwners();
   },

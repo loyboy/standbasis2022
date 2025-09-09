@@ -16,6 +16,7 @@ export default function useEvaluation() {
 
   const changeFieldsTeacher = ref(false)
   const dyFieldsTeacher = ref([])
+  const legendItems = ref([])
 
   const filters = ref({  
     schoolId: null,
@@ -62,7 +63,7 @@ export default function useEvaluation() {
 
         mnelistItems.value = mnecolumndata;
         tableKey.value = tableKey.value++;
-        isLoading.value = false;
+        isLoading.value = false; 
         changeFieldsStudents.value = true;
         changeFieldsTeacher.value = false;
       })
@@ -78,7 +79,7 @@ export default function useEvaluation() {
       // For teachers MNE loading
       store.dispatch('app-MneLessonnote/fetchMneTeacher', { teacher: filters.value.typetwo_teacher, calendar: filters.value.typefour, week: filters.value.typethree  })
       .then(response => {
-        
+         
         const { mnecolumndata, mnecolumns } = response.data;
 
         dyFieldsTeacher.value = mnecolumns
@@ -115,32 +116,48 @@ export default function useEvaluation() {
         isLoading.value = false;   
       })
   } 
- 
+
+  const generateLegend  = (ctx) => {
+      legendItems.value = dynamicFields.value
+      .filter(field => field.key !== 'teacher_name') 
+      .map(field => {
+        return {
+          "key": field.key,
+          "label": field.label
+        }
+      });
+      console.log("generateLegend....." + JSON.stringify(legendItems.value))
+  } 
 
   const handleChange = (ctx) => {
  
     if (  filters.value.typeone === "student" && filters.value.typetwo_student && filters.value.typefour ) {
       fetchMneVariant();
+      generateLegend();
       window.scrollBy(0, 200);
     } 
 
     else if ( filters.value.typeone === "teacher_me" && filters.value.typetwo_teacher && filters.value.typefour ) {
       fetchMneVariant2();
+      generateLegend();
       window.scrollBy(0, 200);
     }
 
     else if ( filters.value.typeone === "principal_me" && filters.value.typetwo_teacher === null && filters.value.typefour ) {
       fetchMneVariant2();
+      generateLegend();
       window.scrollBy(0, 200);
     }
     
     else if (  filters.value.typeone === "teacher" && filters.value.typetwo_teacher && filters.value.typefour ) {
       fetchMneVariant2();
+      generateLegend();
       window.scrollBy(0, 200);
     }
 
     else if ( userData.value.role === "proprietor" && filters.value.schoolgroup  ) {
       fetchMneVariant3();
+      generateLegend();
       window.scrollBy(0, 200);
     }
 
@@ -153,6 +170,8 @@ export default function useEvaluation() {
       window.alert(" Please select all appropriate options before beginning the search. ")
     }    
   }
+
+ 
 
   /**
    * Use this as the table data object: 
@@ -222,6 +241,8 @@ export default function useEvaluation() {
     handleChange,
 
     mnelistItems,
+
+    legendItems,
 
     headTotal,
 

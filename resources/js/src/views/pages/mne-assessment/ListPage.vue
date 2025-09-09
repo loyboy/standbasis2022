@@ -8,19 +8,20 @@
                 @reset.prevent="resetForm"
               >
         <b-card-body>
-          <!-- Fixxx the issue with Propreitor here in Calendar -->      
+          <!-- Fixxx the issue with Propreitor here in Calendar -->       
           <b-row>
                   <b-col cols="12" md="12"  >
                     <b-form-group label=" Select School Calendar" >
                       <b-form-select
                         v-model="filters.typefour"
-                        :options="calendarOptions"                       
-                      />
+                        :options="calendarOptions"
+                        @change="changeCalendar"
+                      /> 
                     </b-form-group>
                   </b-col> 
           </b-row>
 
-          <b-row v-if-=" filters.typefour !== null ">
+          <b-row v-if=" filters.typefour !== null ">
                   <b-col cols="12" md="12"  >
                     <b-form-group label=" Select Week " >
                       <b-form-select
@@ -31,7 +32,18 @@
                   </b-col>
           </b-row>
 
-          <b-row v-if-=" filters.typefour !== null ">
+          <b-row v-if=" filters.typefour !== null ">
+                  <b-col cols="12" md="12"  >
+                    <b-form-group label=" Select Type of Assessment " >
+                      <b-form-select
+                        v-model="filters.typeassess"
+                        :options="assessOptions"
+                      />
+                    </b-form-group>
+                  </b-col>
+          </b-row>
+
+          <b-row v-if=" filters.typefour !== null ">
                   <b-col cols="12" md="3">
                     <span> <b> <h3> Choose a Category: </h3> </b> </span>
                   </b-col>
@@ -59,7 +71,7 @@
                       <b-form-radio v-model="filters.typeone" @change="changeType" name="principalpick" value="principal">Principal</b-form-radio>
                     </b-form-group>
                   </b-col>
-          </b-row>
+          </b-row> 
 
           <b-row>
                   <b-col cols="12" md="12" v-if=" filters.typeone === 'student' " >
@@ -142,7 +154,8 @@
                     <b-form-group label=" Select School Calendar" >
                       <b-form-select
                         v-model="filters.typefour"
-                        :options="calendarOptions"                       
+                        :options="calendarOptions" 
+                        @change="changeCalendar"                      
                       />
                     </b-form-group>
                   </b-col>
@@ -272,45 +285,6 @@
                    <b> {{ data.item.management }} % </b>
                 </template>
 
-                <template #cell(d1)="data">
-                   <b> {{ data.item.d1 }} % </b>
-                </template>
-
-                <template #cell(d2)="data">
-                   <b> {{ data.item.d2 }} % </b>
-                </template>
-
-                <template #cell(d3)="data">
-                   <b> {{ data.item.d3 }} % </b>
-                </template>
-
-                <template #cell(d4)="data">
-                   <b> {{ data.item.d4 }} % </b>
-                </template>
-
-                <template #cell(d5)="data">
-                   <b> {{ data.item.d5 }} % </b>
-                </template>
-
-                <template #cell(d6)="data">
-                   <b> {{ data.item.d6 }} % </b>
-                </template>
-
-                <template #cell(d7)="data">
-                   <b> {{ data.item.d7 }} % </b>
-                </template>
-
-                <template #cell(d8)="data">
-                   <b> {{ data.item.d8 }} % </b>
-                </template>
-
-                <template #cell(d9)="data">
-                   <b> {{ data.item.d9 }} % </b>
-                </template>
-
-                <template #cell(d10)="data">
-                   <b> {{ data.item.d10 }} % </b>
-                </template>
 
             </b-table>
 
@@ -427,12 +401,20 @@
             { value: 11, text: "Week 11" },
             { value: 12, text: "Week 12" }
         ]
+
+        let assessOptions = [
+            { value: null, text: "Select Type of Assessment" },
+            { value: "clw", text: "Classwork" },
+            { value: "hwk", text: "Homework" },
+            { value: "tst", text: "Test" },
+        ]
         
         let cal_drilldown = false
         let week_drilldown = false
         return {           
            weekOptions,          
            userOptions,
+           assessOptions,
 
            week_drilldown,
            cal_drilldown
@@ -496,12 +478,7 @@
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolId = (findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
-          filters.value.supervisor  = (findIfSupervisorisPresent) &&  userData.value ? userData.value.code : null;
-      } 
-
-      (async function () {       
-
-      })();
+      }
 
       onMounted(() => {
         setTimeout( async () => {
@@ -519,8 +496,10 @@
           const resp = await store.dispatch(`${Mne_APP_STORE_MODULE_NAME}/fetchCalendars`, { id : filters.value.schoolId });
           let myval = resp.data.data;
           myval.forEach(obj => { 
-            let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";       
-            calendarOptions.value.push( { value: obj.CalendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+            let isActive = obj.status === 1 ? "ACTIVE" : "INACTIVE";
+          //  if (Number(obj.term) !== -99){
+                calendarOptions.value.push( { value: obj.calendarId , text: obj.session + "---" + "Term " + obj.term + "---" + isActive } )
+          //  }            
           });
         }
 
@@ -571,7 +550,7 @@
 
     methods: {  
 
-        changeType(value){
+        changeType(value){ 
             const sef = this;  
          //   let userid = this.userData.id;            
             sef.userOptions = [];
@@ -582,7 +561,7 @@
                 .then(response => { 
                     let myval = response.data.data;
                     myval.forEach(obj => {
-                      sef.userOptions.push( { value: obj.student.pupId , text: obj.classstream.title + "----" + obj.student.name } )
+                      sef.userOptions.push( { value: obj.enrolId , text: obj.classstream.title + "----" + obj.student.name } )
                     }); 
                     sef.isLoading = false;
                 });
@@ -639,6 +618,10 @@
                     sef.isLoading = false;
             });
 
+        },
+
+        changeCalendar(value){
+          console.log("Value is here: " + value)
         }
        
     }

@@ -9,9 +9,8 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     scrollBehavior() {
         return { x: 0, y: 0 }
-    }, 
-    routes: [
-        {
+    },
+    routes: [{
             path: '/',
             name: 'home',
             component: () =>
@@ -55,10 +54,9 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Teacher Dashboard',
                 breadcrumb: [{
-                        text: 'Dashboard',
-                        active: true,
-                    },
-                ]
+                    text: 'Dashboard',
+                    active: true,
+                }, ]
             },
         },
 
@@ -108,7 +106,7 @@ const router = new VueRouter({
 
                 ]
             },
-        },        
+        },
 
         {
             path: '/schools-edit/:id',
@@ -191,8 +189,8 @@ const router = new VueRouter({
             },
         },
 
-         //Teacher begins
-         {
+        //Teacher begins
+        {
             path: '/teachers-list/:school?',
             name: 'teachers-home',
             component: () =>
@@ -240,8 +238,8 @@ const router = new VueRouter({
             },
         },
 
-         //Enrollment begins
-         {
+        //Enrollment begins
+        {
             path: '/enrollments-list/:school?',
             name: 'enrollments-home',
             component: () =>
@@ -289,8 +287,8 @@ const router = new VueRouter({
             },
         },
 
-         //Classroom begins
-         {
+        //Classroom begins
+        {
             path: '/classrooms-list/:school?',
             name: 'classrooms-home',
             component: () =>
@@ -338,8 +336,8 @@ const router = new VueRouter({
             },
         },
 
-          //Calendars begins
-          {
+        //Calendars begins
+        {
             path: '/calendars-list/:school?',
             name: 'calendars-home',
             component: () =>
@@ -390,7 +388,7 @@ const router = new VueRouter({
         //Timetables begins
         {
             path: '/timetables-list/:school?/teacher/:teacher?',
-            name: 'timetables-home',     
+            name: 'timetables-home',
             component: () =>
                 import ('@/views/pages/timetables/TimetablesPage.vue'),
             meta: {
@@ -436,8 +434,8 @@ const router = new VueRouter({
             },
         },
 
-         //Users begins
-         {
+        //Users begins
+        {
             path: '/users-list',
             name: 'users-home',
             component: () =>
@@ -494,10 +492,9 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Attendances',
                 breadcrumb: [{
-                        text: 'List Attendances',
-                        active: true
-                    }
-                ]
+                    text: 'List Attendances',
+                    active: true
+                }]
             },
         },
 
@@ -526,16 +523,15 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Teacher Take Attendance',
                 breadcrumb: [{
-                        text: 'Take Attendance',
-                        active: true
-                    }
-                ]
+                    text: 'Take Attendance',
+                    active: true
+                }]
             },
         },
-       
 
-         //Attendances student begin here
-         {
+
+        //Attendances student begin here
+        {
             path: '/attendances-student-list/:attendance?',
             name: 'attendances-student-home',
             component: () =>
@@ -543,10 +539,9 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Rowcalls',
                 breadcrumb: [{
-                        text: 'List Student Attendances',
-                        active: true
-                    }
-                ]
+                    text: 'List Student Attendances',
+                    active: true
+                }]
             },
         },
 
@@ -575,10 +570,9 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Attendances Status',
                 breadcrumb: [{
-                        text: 'List Attendance Status',
-                        active: true
-                    }
-                ]
+                    text: 'List Attendance Status',
+                    active: true
+                }]
             },
         },
 
@@ -602,10 +596,9 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Lessonnotes',
                 breadcrumb: [{
-                        text: 'List Lessonnotes',
-                        active: true
-                    }
-                ]
+                    text: 'List Lessonnotes',
+                    active: true
+                }]
             },
         },
 
@@ -618,13 +611,12 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Submit Lessonnotes',
                 breadcrumb: [{
-                        text: 'Submit Lessonnotes',
-                        active: true
-                    }
-                ]
+                    text: 'Submit Lessonnotes',
+                    active: true
+                }]
             },
         },
-        
+
         {
             path: '/lessonnotes-view/:id',
             name: 'lessonnotes-home-view',
@@ -642,20 +634,19 @@ const router = new VueRouter({
         },
 
         //Lessonnotes student begin here
-       {
-            path: '/lessonnotes-student-list/:id?',
+        {
+            path: '/lessonnotes-student-list/:id?/:type?',
             name: 'lessonnotes-student-home',
             component: () =>
                 import ('@/views/pages/lessonnotes-student/LessonnotePage.vue'),
             meta: {
                 pageTitle: 'Student Assessment',
                 breadcrumb: [{
-                        text: 'List Student Assessment',
-                        active: true
-                    }
-                ]
+                    text: 'List Student Assessment',
+                    active: true
+                }]
             },
-        },        
+        },
 
         //Lessonnotes Activity begin here
         {
@@ -666,15 +657,14 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Lessonnotes Activity',
                 breadcrumb: [{
-                        text: 'List Lessonnotes Activity',
-                        active: true
-                    }
-                ]
+                    text: 'List Lessonnotes Activity',
+                    active: true
+                }]
             },
         },
-        
-         //Attendances Flags begin here
-         {
+
+        //Attendances Flags begin here
+        {
             path: '/flag-attendances-list',
             name: 'flag-attendances-home',
             component: () =>
@@ -682,10 +672,9 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Flags Attendances',
                 breadcrumb: [{
-                        text: 'Filter & View',
-                        active: true
-                    }
-                ]
+                    text: 'Filter & View',
+                    active: true
+                }]
             }
         },
 
@@ -698,15 +687,14 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Flags Lessonnotes',
                 breadcrumb: [{
-                        text: 'Filter & View',
-                        active: true
-                    }
-                ]
+                    text: 'Filter & View',
+                    active: true
+                }]
             }
         },
 
-         //Attendances M&E begin here
-         {
+        //Attendances M&E begin here
+        {
             path: '/mne-attendances-list',
             name: 'mne-attendances-home',
             component: () =>
@@ -714,10 +702,9 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'M&E Attendances',
                 breadcrumb: [{
-                        text: 'Filter & View',
-                        active: true
-                    }
-                ]
+                    text: 'Filter & View',
+                    active: true
+                }]
             }
         },
 
@@ -730,15 +717,14 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'M&E Lessonnotes',
                 breadcrumb: [{
-                        text: 'Filter & View',
-                        active: true
-                    }
-                ]
+                    text: 'Filter & View',
+                    active: true
+                }]
             }
         },
 
-         //Assessments M&E begin here
-         {
+        //Assessments M&E begin here
+        {
             path: '/mne-assessments-list',
             name: 'mne-assessments-home',
             component: () =>
@@ -746,14 +732,13 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'M&E Assessments',
                 breadcrumb: [{
-                        text: 'Filter & View',
-                        active: true
-                    }
-                ]
+                    text: 'Filter & View',
+                    active: true
+                }]
             }
         },
 
-         //Evaluation begin here
+        //Evaluation begin here
         {
             path: '/evaluation-home',
             name: 'evaluation-home',
@@ -762,10 +747,9 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'School Evaluation',
                 breadcrumb: [{
-                        text: 'Home',
-                        active: true
-                    }
-                ]
+                    text: 'Home',
+                    active: true
+                }]
             }
         },
 
@@ -778,10 +762,9 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'School Evaluation',
                 breadcrumb: [{
-                        text: 'Evaluation Round',
-                        active: true
-                    }
-                ]
+                    text: 'Evaluation Round',
+                    active: true
+                }]
             }
         },
 
@@ -794,10 +777,9 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'School Evaluation',
                 breadcrumb: [{
-                        text: 'Evaluation List',
-                        active: true
-                    }
-                ]
+                    text: 'Evaluation List',
+                    active: true
+                }]
             }
         },
 
@@ -810,15 +792,14 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'School Evaluation',
                 breadcrumb: [{
-                        text: 'Evaluation Trends',
-                        active: true
-                    }
-                ]
+                    text: 'Evaluation Trends',
+                    active: true
+                }]
             }
         },
 
         //Data analytics screen
-        {            
+        {
             path: '/data-analytics-sample',
             name: 'data-analytics-sample-home',
             component: () =>
@@ -830,78 +811,78 @@ const router = new VueRouter({
         },
 
         //
-        {            
+        {
             path: '/data-analytics-user',
             name: 'data-analytics-user-home',
             component: () =>
                 import ('@/views/pages/data-analytics-user/User.vue'),
             meta: {
-                    pageTitle: 'Data Dashboard',
-                    breadcrumb: []
+                pageTitle: 'Data Dashboard',
+                breadcrumb: []
             }
         },
 
-         //
-        {            
+        //
+        {
             path: '/data-analytics-user-upload',
             name: 'data-analytics-user-home-upload',
             component: () =>
                 import ('@/views/pages/data-analytics-user/User_upload.vue'),
-                meta: {
-                    pageTitle: 'Data Upload Into Dashboard',
-                    breadcrumb: []
-                }
+            meta: {
+                pageTitle: 'Data Upload Into Dashboard',
+                breadcrumb: []
+            }
         },
 
-        {            
+        {
             path: '/data-analytics-user-new',
             name: 'data-analytics-user-home-new',
             component: () =>
                 import ('@/views/pages/data-analytics-user/User_new.vue'),
-                meta: {
-                    pageTitle: 'Data Visualization',
-                    breadcrumb: []
-                }
+            meta: {
+                pageTitle: 'Data Visualization',
+                breadcrumb: []
+            }
         },
 
-         //
-        {            
+        //
+        {
             path: '/data-analytics-faq',
             name: 'data-analytics-user-faq',
             component: () =>
                 import ('@/views/pages/data-analytics-user/Faq.vue'),
             meta: {
-                    pageTitle: 'Data Dashboard',
-                    breadcrumb: []
+                pageTitle: 'Data Dashboard',
+                breadcrumb: []
             }
         },
 
-        {            
+        {
             path: '/data-analytics-forum',
             name: 'data-analytics-user-forum',
             beforeEnter() {
                 window.open('https://forum.standbasis.com/', '_blank')
             },
             meta: {
-                    pageTitle: 'Data Dashboard',
-                    breadcrumb: []
+                pageTitle: 'Data Dashboard',
+                breadcrumb: []
             }
         },
 
-        {            
+        {
             path: '/data-analytics-data-upload',
             name: 'data-analytics-user-data-upload',
             beforeEnter() {
                 window.open('https://forms.gle/LrdReCjS4eoudPR47', '_blank')
             },
             meta: {
-                    pageTitle: 'Data Dashboard',
-                    breadcrumb: []
+                pageTitle: 'Data Dashboard',
+                breadcrumb: []
             }
         },
 
-         //Parent dashboard begin here
-         {
+        //Parent dashboard begin here
+        {
             path: '/parent',
             name: 'parent-window',
             component: () =>
@@ -909,13 +890,12 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'Parent Window',
                 breadcrumb: [{
-                        text: 'Parent Window',
-                        active: true
-                    }
-                ]
+                    text: 'Parent Window',
+                    active: true
+                }]
             }
         },
-        
+
         //Capacity Development begin here
         {
             path: '/capacity-home',
@@ -925,13 +905,12 @@ const router = new VueRouter({
             meta: {
                 pageTitle: 'School Capacity Development',
                 breadcrumb: [{
-                        text: 'Home',
-                        active: true
-                    }
-                ]
+                    text: 'Home',
+                    active: true
+                }]
             }
         },
-      
+
         {
             path: '/login',
             name: 'auth-login',
@@ -953,7 +932,7 @@ const router = new VueRouter({
                 pageTitle: 'Change Password'
             },
         },
-      
+
         {
             path: '/verified',
             name: 'verify-me',
@@ -964,7 +943,7 @@ const router = new VueRouter({
                 resource: 'Auth',
             },
         },
-        
+
         {
             path: '/not-authorized',
             name: 'misc-not-authorized',

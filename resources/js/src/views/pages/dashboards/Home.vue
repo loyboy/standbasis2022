@@ -230,47 +230,7 @@
 
           </b-card-body>
         </b-card>
-      </b-col>  
-
-      <b-col lg="4" v-if=" userData.role !== 'dashboarduser' && userData.role !== 'proprietor' && userData.role !== 'supervisor' ">        
-         <b-card bg-variant="primary" no-body>
-          <b-card-body class="d-flex justify-content-between align-items-center">
-           
-              <b-avatar
-                :variant="`light-primary`"
-                size="65"
-              >
-                <feather-icon
-                  size="26"
-                  icon="PackageIcon"                  
-                />
-              </b-avatar>             
-
-            <div class="text-column">
-              <h2> <b> Resources </b> </h2>             
-             
-             <b-row class="match-height">
-               <b-col lg="6"> 
-                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Notices</router-link>
-                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Reports</router-link>
-                  <router-link to = "#">Bulletins</router-link>
-               </b-col> 
-               <b-col lg="6">      
-                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Teaching</router-link> 
-                  <router-link v-if=" userData.role !== 'guardian' " to = "#">Administration</router-link>
-                 
-               </b-col> 
-               <b-col lg="12">
-                 <router-link v-if=" userData.role !== 'guardian' " to = "#">Continuous Capacity Development </router-link>
-               </b-col>
-
-              </b-row>
-
-            </div>
-
-          </b-card-body>
-        </b-card>
-      </b-col> 
+      </b-col>   
 
       <b-col lg="8" v-if=" userData.role === 'proprietor' || userData.role === 'supervisor' || userData.role === 'guardian' ">        
          <b-card bg-variant="primary" no-body>
@@ -300,6 +260,95 @@
           </b-card-body>
         </b-card>
       </b-col>
+      
+      <b-col lg="4" v-if=" userData.role !== 'dashboarduser' ">        
+         <b-card bg-variant="primary" no-body>
+          <b-card-body class="d-flex justify-content-between align-items-center">
+           
+              <b-avatar
+                :variant="`light-primary`"
+                size="65"
+              >
+                <feather-icon
+                  size="26"
+                  icon="PackageIcon"                  
+                />
+              </b-avatar>             
+
+            <div class="text-column">
+              <h2> <b> Resources </b> </h2>             
+             
+             <b-row class="match-height">
+               <b-col lg="6"> 
+                <a 
+                  href="#" 
+                  @click="handleNoticesClick"
+                  v-if=" userData.role !== 'guardian' "
+                >
+                  Notices
+                </a>
+                <a 
+                  href="#" 
+                  @click="handleReportsClick"
+                  v-if=" userData.role !== 'guardian' "
+                >
+                  Reports
+                </a>
+                <a 
+                  href="#" 
+                  @click="handleBulletinsClick"
+                >
+                  Bulletins
+                </a>
+                 <!-- <router-link  @click="handleNoticesClick" v-if=" userData.role !== 'guardian' " to = "#">Notices</router-link>
+                  <router-link  @click="handleReportsClick"  v-if=" userData.role !== 'guardian' " to = "#">Reports</router-link>
+                  <router-link @click="handleBulletinsClick" to = "#">Bulletins</router-link> -->
+               </b-col> 
+
+               <b-col lg="6">      
+                 <!-- <router-link @click="handleTeachingClick" v-if=" userData.role !== 'guardian' " to = "#">Teaching</router-link> 
+                  <router-link @click="handleAdminClick" v-if=" userData.role !== 'guardian' " to = "#">Administration</router-link>  --> 
+                  <a 
+                    href="#" 
+                    @click="handleTeachingClick"
+                    v-if=" userData.role !== 'guardian' "
+                  >
+                   Teaching
+                  </a>
+                  <a 
+                    href="#" 
+                    @click="handleAdminClick"
+                    v-if=" userData.role !== 'guardian' "
+                  >
+                  Administration
+                  </a>                              
+               </b-col> 
+
+               <b-col lg="12">
+                 <router-link v-if=" userData.role !== 'guardian' " to = "#">Continuous Capacity Development </router-link>
+               </b-col>
+
+              </b-row>
+
+            </div>
+
+          </b-card-body>
+        </b-card>
+      </b-col>
+
+      <!-- Revenue Report Card -->
+     <!-- <b-col lg="6">
+        <revenue-report :data="data.revenue" :charts="charts" />
+      </b-col> -->
+      <!--/ Revenue Report Card -->
+<!-- <bottom-table /> -->
+     <!--   
+      <b-col cols="12">       
+        <event-list :teacherId="filters.teacherId" v-if=" userData.role === 'teacher'  "/>
+        <event-list :schoolId="filters.schoolId" v-if=" userData.role === 'principal'  "/>
+        <event-list :schoolgroupId="filters.schoolgroup" v-if=" userData.role === 'proprietor'  "/>
+      </b-col>  -->
+
     </b-row>
   </section>
 </template>
@@ -438,9 +487,30 @@
           fetchAttendances,
           fetchLessonnotes
         }
+    },
+
+    methods: {
+      handleNoticesClick() { 
+        alert('You are being redirected to Notices File Manager. \n\n Your username is: notice.viewer\nYour Password is: 12345');
+        this.$router.push('/filemanager');
+      },
+      handleReportsClick(){
+        alert('You are being redirected to Reports File Manager. \n\n Your username is: reports.viewer\nYour Password is: 23456');
+        this.$router.push('/filemanager');
+      },
+      handleBulletinsClick(){
+        alert('You are being redirected to Bulletins File Manager. \n\n Your username is: bulletin.viewer\nYour Password is: 34567');
+        this.$router.push('/filemanager');
+      },
+      handleTeachingClick(){
+        alert('You are being redirected to Teaching Documents File Manager. \n\n Your username is: teaching.viewer\nYour Password is: 45678');
+        this.$router.push('/filemanager');
+      },
+      handleAdminClick(){
+        alert('You are being redirected to Administration Documents File Manager. \n\n Your username is: administration.viewer\nYour Password is: 56789');
+        this.$router.push('/filemanager');
+      }
     }
-
-
   };
   </script>
   <style scoped>      

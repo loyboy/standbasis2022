@@ -231,67 +231,14 @@
           no-body
           class="mb-0"
         >    
-          <div class="m-2">    
-            <!-- Table Top -->
-            <b-row>    
-              <!-- Per Page -->
-              <b-col
-                cols="12"
-                md="6"
-                class="d-flex align-items-center justify-content-start mb-1 mb-md-0"
-              >
-                <label>Show</label>
-                <v-select
-                  v-model="perPage"
-                  :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                  :options="perPageOptions"
-                  :clearable="false"
-                  class="per-page-selector d-inline-block mx-50"
-                />
-                <label>entries</label>
-              </b-col>
-    
-              <!-- Search -->
-              <b-col
-                cols="12"
-                md="6"
-              >
-                <div class="d-flex align-items-center justify-content-end">
-                  <b-form-input
-                    v-model="searchQuery"
-                    @change="searchChange"
-                    class="d-inline-block mr-1"
-                    placeholder="Search..."
-                  />
 
-                  <b-button
-                    variant="success"
-                    @click="isLessonnoteSidebarActive = true"
-                  >
-                    <span class="text-nowrap">Advanced Filter</span>
-                  </b-button>
-
-                  <b-button
-                    variant="danger"
-                    @click="reset"
-                  >
-                    <span class="text-nowrap">Reset</span>
-                  </b-button>
-
-                </div>
-              </b-col>
-            </b-row>
-
-          </div>
-    
-          <b-table
+         <b-table
             ref="refLessonnoteListTable"
             class="position-relative"
             :items="LessonnoteItems"
-            :busy="isLoading"
             responsive
             :fields="tableColumns"
-            primary-key="id"
+            primary-key="assessId"
             :sort-by.sync="sortBy"
             show-empty
             empty-text="No matching records found"
@@ -303,14 +250,7 @@
                   <b-spinner class="align-middle"></b-spinner>
                   <strong>Loading...</strong>
                 </div>
-              </template>
-
-             <!-- Column: Class -->
-             <template #cell(lsn.class_index)="data">
-               <div>
-                <b> {{  data.item.lsn.class_index === 7 ? "JSS1" : data.item.lsn.class_index === 8 ? "JSS2" : data.item.lsn.class_index === 9 ? "JSS3" : data.item.lsn.class_index === 10 ? "SS1" : data.item.lsn.class_index === 11 ? "SS2" : data.item.lsn.class_index === 12 ? "SS3" : "Nil"  }} </b>
-               </div>               
-             </template>
+              </template>             
     
              <!-- Column: Date -->
              <template #cell(_date)="data">
@@ -321,13 +261,16 @@
 
              <!-- Column: Score -->
              <template #cell(score)="data">
-              <b-badge
-                pill
-                :variant="`light-${resolveLessonnotestatusVariant(data.item.score)}`"
-                class="text-capitalize"
-              >
-              {{ data.item.score }} %
-              </b-badge>
+                <b-form-input
+                  :ref="`score-input-${data.item.assessId}`"
+                  v-model="data.item.score"
+                  type="number"
+                  min=""
+                  max="100"
+                  class="w-50"
+                  @keyup.enter="handleEnterKeyAndSave(data.index, data.item)"
+                  @keydown.enter.prevent
+                />
             </template>
 
              <!-- Column: Type -->
@@ -341,62 +284,9 @@
               </b-badge>
             </template>
     
-            <!-- Column: Actions -->
-            <template #cell(actions)="data">
-              <b-dropdown
-                variant="link"
-                no-caret
-                :right="$store.state.appConfig.isRTL"
-              >    
-                <template #button-content>
-                  <feather-icon
-                    icon="MoreVerticalIcon"
-                    size="16"
-                    class="align-middle text-body"
-                  />
-                </template>
-                  
-                <b-dropdown-item v-if=" data.item._type === 'clw' " @click= " triggerClasswork( data.item.assessId, data.item.lsn.title, data.item.enroll.student.name ) ">
-                  <feather-icon icon="EditIcon" />
-                  <span class="align-middle ml-50">Add Classwork Scores</span>
-                </b-dropdown-item> 
-                
-                <b-dropdown-item v-if=" data.item._type === 'hwk' "  @click= " triggerHomework( data.item.assessId, data.item.lsn.title, data.item.enroll.student.name ) ">
-                  <feather-icon icon="EditIcon" />
-                  <span class="align-middle ml-50">Add Homework Scores</span>
-                </b-dropdown-item> 
+         </b-table>
 
-                <b-dropdown-item v-if=" data.item._type === 'tst' "  @click= " triggerTest( data.item.assessId, data.item.lsn.title, data.item.enroll.student.name ) ">
-                  <feather-icon icon="EditIcon" />
-                  <span class="align-middle ml-50">Add Test Scores</span>
-                </b-dropdown-item> 
-
-                <b-dropdown-item v-if=" data.item._type === 'mid' "  @click= " triggerMid( data.item.assessId, data.item.lsn.title, data.item.enroll.student.name ) ">
-                  <feather-icon icon="EditIcon" />
-                  <span class="align-middle ml-50">Add Mid-Term Scores</span>
-                </b-dropdown-item> 
-
-                <b-dropdown-item v-if=" data.item._type === 'final' "  @click= " triggerFinal( data.item.assessId, data.item.lsn.title, data.item.enroll.student.name ) ">
-                  <feather-icon icon="EditIcon" />
-                  <span class="align-middle ml-50">Add Final Exam Scores</span>
-                </b-dropdown-item> 
-                
-                <b-dropdown-item :to="{ name: 'lessonnotes-home-view', params: { id: data.item.lsn.lessonnoteId } }">
-                  <feather-icon icon="FileTextIcon" />
-                  <span class="align-middle ml-50">View Lessonnote Details</span>
-                </b-dropdown-item>   
-
-                <b-dropdown-item :to="{ name: 'schools-home-view', params: { id: data.item.lsn.teacher.school.schId } }">
-                  <feather-icon icon="Maximize2Icon" />
-                  <span class="align-middle ml-50"> View School </span>
-                </b-dropdown-item>  
-
-              </b-dropdown>
-            </template>
-    
-          </b-table>
-
-          <div class="mx-2 mb-2">
+         <div class="mx-2 mb-2">
             <b-row>
     
               <b-col
@@ -442,297 +332,9 @@
     
             </b-row>
           </div>
-
+          
         </b-card>
-
-         <!-- modal Classwork -->
-         <b-modal
-          ref="my-modal-add-classwork"
-          hide-footer
-          :title="modalTitleClasswork"
-          no-close-on-backdrop
-          content-class="shadow"
-        >      
-          <b-form>
-            <b-form-group
-              label="Choose The Maximum Score"
-              label-for="max-input"
-            >             
-              <b-form-input             
-                v-model="classwork_max"
-                placeholder="Maximum Score"
-                type="number"
-                value="100"
-                disabled
-                autofocus
-                autocomplete="off"/>
-            </b-form-group>
-
-            <b-form-group
-              label="Choose The Actual Score"
-              label-for="actual-input"
-            >
-            <b-form-input             
-                v-model="classwork_actual"
-                placeholder="Actual Score"
-                type="number"
-                autofocus
-                autocomplete="off"/>
-            </b-form-group>           
-          </b-form>
-
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            class="mt-3"
-            variant="outline-secondary"
-            block
-            @click="hideModalClasswork"
-          >
-            Cancel
-          </b-button>
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            class="mt-2"
-            variant="outline-success"
-            block
-            @click=" addScoresClasswork( assessmentPicked ) "
-          >
-            Add Scores to Classwork
-          </b-button>
-
-        </b-modal>
-
-        <!-- modal Homework -->
-        <b-modal
-          ref="my-modal-add-homework"
-          hide-footer
-          :title="modalTitleHomework"
-          no-close-on-backdrop
-          content-class="shadow"
-        >      
-          <b-form>
-            <b-form-group
-              label="Choose The Maximum Score"
-              label-for="max-input"
-            >             
-              <b-form-input             
-                v-model="homework_max"
-                placeholder="Maximum Score"
-                type="number"
-                value="100"
-                disabled
-                autofocus
-                autocomplete="off"/>
-            </b-form-group>
-
-            <b-form-group
-              label="Choose The Actual Score"
-              label-for="actual-input"
-            >
-            <b-form-input             
-                v-model="homework_actual"
-                placeholder="Actual Score"
-                type="number"
-                autofocus
-                autocomplete="off"/>
-            </b-form-group>           
-          </b-form>
-
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            class="mt-3"
-            variant="outline-secondary"
-            block
-            @click="hideModalHomework"
-          >
-            Cancel
-          </b-button>
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            class="mt-2"
-            variant="outline-success"
-            block
-            @click=" addScoresHomework( assessmentPicked ) "
-          >
-            Add Scores to Homework
-          </b-button>
-          
-        </b-modal>
-
-        <!-- modal Test -->
-        <b-modal
-          ref="my-modal-add-test"
-          hide-footer
-          :title="modalTitleTest"
-          no-close-on-backdrop
-          content-class="shadow"
-        >      
-          <b-form>
-            <b-form-group
-              label="Choose The Maximum Score"
-              label-for="max-input"
-            >             
-              <b-form-input             
-                v-model="test_max"
-                placeholder="Maximum Score"
-                type="number"
-                value="100"
-                disabled
-                autofocus
-                autocomplete="off"/>
-            </b-form-group>
-
-            <b-form-group
-              label="Choose The Actual Score"
-              label-for="actual-input"
-            >
-              <b-form-input             
-                  v-model="test_actual"
-                  placeholder="Actual Score"
-                  type="number"
-                  autofocus
-                  autocomplete="off"/>
-
-            </b-form-group>           
-          </b-form>
-
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            class="mt-3"
-            variant="outline-secondary"
-            block
-            @click="hideModalTest"
-          >
-            Cancel
-          </b-button>
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            class="mt-2"
-            variant="outline-success"
-            block
-            @click=" addScoresTest( assessmentPicked ) "
-          >
-            Add Scores to Test
-          </b-button>
-          
-        </b-modal>
-
-        <!-- modal Mid -->
-        <b-modal
-          ref="my-modal-add-mid"
-          hide-footer
-          :title="modalTitleMid"
-          no-close-on-backdrop
-          content-class="shadow"
-        >      
-          <b-form>
-            <b-form-group
-              label="Choose The Maximum Score"
-              label-for="max-input"
-            >             
-              <b-form-input             
-                v-model="mid_max"
-                placeholder="Maximum Score"
-                type="number"
-                value="100"
-                disabled
-                autofocus
-                autocomplete="off"/>
-            </b-form-group>
-
-            <b-form-group
-              label="Choose The Actual Score"
-              label-for="actual-input"
-            >
-              <b-form-input             
-                  v-model="mid_actual"
-                  placeholder="Actual Score"
-                  type="number"
-                  autofocus
-                  autocomplete="off"/>
-                  
-            </b-form-group>           
-          </b-form>
-
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            class="mt-3"
-            variant="outline-secondary"
-            block
-            @click="hideModalMid"
-          >
-            Cancel
-          </b-button>
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            class="mt-2"
-            variant="outline-success"
-            block
-            @click=" addScoresMid( assessmentPicked ) "
-          >
-            Add Scores to Mid
-          </b-button>
-          
-        </b-modal>
-
-        <!-- modal Final -->
-        <b-modal
-          ref="my-modal-add-final"
-          hide-footer
-          :title="modalTitleFinal"
-          no-close-on-backdrop
-          content-class="shadow"
-        >      
-          <b-form>
-            <b-form-group
-              label="Choose The Maximum Score"
-              label-for="max-input"
-            >             
-              <b-form-input             
-                v-model="final_max"
-                placeholder="Maximum Score"
-                type="number"
-                value="100"
-                disabled
-                autofocus
-                autocomplete="off"/>
-            </b-form-group>
-
-            <b-form-group
-              label="Choose The Actual Score"
-              label-for="actual-input"
-            >
-              <b-form-input             
-                  v-model="final_actual"
-                  placeholder="Actual Score"
-                  type="number"
-                  autofocus
-                  autocomplete="off"/>
-                  
-            </b-form-group>           
-          </b-form>
-
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            class="mt-3"
-            variant="outline-secondary"
-            block
-            @click="hideModalFinal"
-          >
-            Cancel
-          </b-button>
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            class="mt-2"
-            variant="outline-success"
-            block
-            @click=" addScoresFinal( assessmentPicked ) "
-          >
-            Add Scores to Final Exam
-          </b-button>
-          
-        </b-modal>
-
+       
     </div>
 </template>
   
@@ -763,7 +365,7 @@
   } from 'bootstrap-vue';
   import StatisticCardHorizontal from "@core/components/statistics-cards/StatisticCardHorizontal.vue";
   import vSelect from 'vue-select'
-  import router from '@/router'
+  import router from '@/router' 
   import store from '@/store'
   import { ref, onUnmounted ,onMounted, watch } from '@vue/composition-api'
 
@@ -890,12 +492,15 @@
                 this.loadOtherValues( this.teacherData.school.schId );
             },2000);        
         }
+
+        this.startEditingCell(0,4,null);
     },
 
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
       const Lessonnote_APP_STORE_MODULE_NAME = 'app-LessonnoteStudent';
       const lessonnote =  router.currentRoute.params.id ? router.currentRoute.params.id : null;
+      const type_of_assessment =  router.currentRoute.params.type ? router.currentRoute.params.type : null;
 
       // Register module
       if (!store.hasModule(Lessonnote_APP_STORE_MODULE_NAME)) store.registerModule(Lessonnote_APP_STORE_MODULE_NAME, lessonnoteStoreModule)
@@ -942,7 +547,7 @@
         isLessonnoteSidebarActive,
         
         isLoading,
-
+ 
         refetchData,
         handlePageChange,
         handleChange,
@@ -961,13 +566,17 @@
 
       if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent ){
           filters.value.teacherId = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
-          filters.value.school = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
+          filters.value.schoolId = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent)  && teacherData.value ? teacherData.value.school.owner.id : null;
           filters.value.calendarId = (findIfPrinisPresent || findIfTeacherisPresent) && userData.value ? userData.value.cal_id : null;
       }
 
       if (lessonnote){
         filters.value.lsnId = lessonnote;
+      }
+
+      if (type_of_assessment){
+        filters.value.assessType = type_of_assessment === "classwork" ? "clw" : type_of_assessment === "homework" ? "hwk" : type_of_assessment === "test" ? "tst" : "null" ;
       }
 
       (async function () {
@@ -1320,6 +929,54 @@
         }       
       },
 
+      handleEnterKeyAndSave(currentIndex, currentItem) {
+        // First, save the current item based on its type
+        this.saveScoreByType(currentItem);
+        
+        // Then move to the next input
+        this.focusNextInput(currentIndex);
+      },
+
+      saveScoreByType(item) {
+        if (item._type === 'clw') {
+          this.addScoresClasswork(item.assessId, item.score);
+        } else if (item._type === 'hwk') {
+          this.addScoresHomework(item.assessId, item.score);
+        } else if (item._type === 'tst') {
+          this.addScoresTest(item.assessId, item.score);
+        }
+      },
+
+      focusNextInput(currentIndex) {
+        try {
+          const nextIndex = currentIndex + 1;
+          
+          if (nextIndex < this.LessonnoteItems.length) {
+            const nextItem = this.LessonnoteItems[nextIndex];
+            const nextInputRef = `score-input-${nextItem.assessId}`;
+            
+            this.$nextTick(() => {
+              this.focusInput(nextInputRef);
+            });
+          } else {
+            // Reached the end - blur current input
+            this.$nextTick(() => {
+              document.activeElement.blur();
+            });
+          }
+        } catch (error) {
+          console.error('Error focusing next input:', error);
+        }
+      },
+
+      focusInput(refName) {
+        const nextInput = this.$refs[refName];
+        if (nextInput && nextInput[0]) {
+          nextInput[0].focus();
+          nextInput[0].select();
+        }
+      },
+
       ////---------------------------------------------Classwork Here
 
       showModalClasswork() {
@@ -1334,44 +991,35 @@
         this.showModalClasswork();
       },
 
-      addScoresClasswork(id){
-         if (this.classwork_max == 0 || this.classwork_max == null){
-          alert("Please pick the maximum score for this classwork assessment ");
-          return;
-         }
-
-         if (this.classwork_actual == 0 || this.classwork_actual == null){
+      addScoresClasswork(id, input){
+        
+         if (Number(input) == 0 || Number(input) == null){
           alert("Please pick the actual score for this classwork assessment ");
           return;
          }
 
-         if ( Number(this.classwork_actual) > Number(this.classwork_max) ){
+         if ( Number(input) > Number(this.classwork_max) ){
           alert("Please enter an actual score that is less than the maximum score ");
           return;
          }
          const Lessonnote_APP_STORE_MODULE_NAME = 'app-LessonnoteStudent';
          //change to percentage then input it
-          let percent = Math.round( (this.classwork_actual/this.classwork_max) * 100 )
+          let percent = Math.round( (Number(input)/this.classwork_max) * 100 )
             const sef = this;          
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteAssessment`, { score: percent, actual: this.classwork_actual, max: this.classwork_max, assessId: id  } )
-            .then(response => { 
-                sef.modalTitleClasswork = "";
-               
-                sef.classwork_actual = 0;                
+            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteAssessment`, { score: percent, actual: Number(input), max: this.classwork_max, assessId: id  } )
+            .then(response => {                            
                 sef.$toast({
                   component: ToastificationContent,
                   props: {
-                  title: 'Classwork scores have been added.',
-                  icon: 'AlertTriangleIcon',
-                  variant: 'success',
+                    title: 'Classwork scores have been added.',
+                    icon: 'AlertTriangleIcon',
+                    variant: 'success',
                   },
-                });  
-                sef.hideModalClasswork();
-                sef.handleChange();
-            }).catch((exception) => { 
-                sef.modalTitleClasswork = "";
-              
-                sef.classwork_actual = 0; 
+                });               
+                sef.handleChange('clw');
+
+            }).catch((exception) => {               
+               
                 sef.$toast({
                   component: ToastificationContent,
                   props: {
@@ -1380,7 +1028,7 @@
                     variant: 'danger'
                   }
                 }); 
-                sef.hideModalClasswork();
+                
 		        }); 
          
       },
@@ -1399,32 +1047,24 @@
         this.showModalHomework();
       },
 
-      addScoresHomework(id){
-         if (this.homework_max == 0 || this.homework_max == null){
-            alert("Please pick the maximum score for this homework assessment ");
-            return;
-         }
+      addScoresHomework(id, input){
 
-         if (this.homework_actual == 0 || this.homework_actual == null){
+         if (Number(input) == 0 || input == null){
             alert("Please pick the actual score for this homework assessment ");
             return;
          }
 
-         if ( Number(this.homework_actual) > Number(this.homework_max) ){
+         if ( Number(input) > Number(this.homework_max) ){
             alert("Please enter an actual score that is less than the maximum score ");
             return;
          }
 
             const Lessonnote_APP_STORE_MODULE_NAME = 'app-LessonnoteStudent';
             //change to percentage then input it
-            let percent = Math.round( (this.homework_actual/this.homework_max) * 100 )
+            let percent = Math.round( (Number(input)/this.homework_max) * 100 )
             const sef = this; 
-
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteAssessment`, { score: percent, actual: this.homework_actual, max: this.homework_max, assessId: id  } )
-            .then(response => { 
-                sef.modalTitleHomework = "";
-                
-                sef.homework_actual = 0;                
+            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteAssessment`, { score: percent, actual: Number(input), max: this.homework_max, assessId: id  } )
+            .then(response => {                
                 sef.$toast({
                   component: ToastificationContent,
                   props: {
@@ -1433,12 +1073,8 @@
                   variant: 'success',
                   },
                 });  
-                sef.hideModalHomework();
-                sef.handleChange();
+                sef.handleChange('hwk');
             }).catch((exception) => { 
-                sef.modalTitleHomework = "";
-               
-                sef.homework_actual = 0; 
                 sef.$toast({
                   component: ToastificationContent,
                   props: {
@@ -1465,32 +1101,24 @@
         this.showModalTest();
       },
 
-      addScoresTest(id){
-         if (this.test_max == 0 || this.test_max == null){
-            alert("Please pick the maximum score for this test assessment ");
-            return;
-         }
-
-         if (this.test_actual == 0 || this.test_actual == null){
+      addScoresTest(id, input){
+         if (Number(input) == 0 || input == null){
             alert("Please pick the actual score for this test assessment ");
             return;
          }
 
-         if ( Number(this.test_actual) > Number(this.test_max) ){
+         if ( Number(input) > Number(this.test_max) ){
             alert("Please enter an actual score that is less than the maximum score ");
             return;
          }
 
             const Lessonnote_APP_STORE_MODULE_NAME = 'app-LessonnoteStudent';
             //change to percentage then input it
-            let percent = Math.round( (this.test_actual/this.test_max) * 100 )
+            let percent = Math.round( (Number(input)/this.test_max) * 100 )
             const sef = this; 
 
-            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteAssessment`, { score: percent, actual: this.test_actual, max: this.test_max, assessId: id  } )
-            .then(response => { 
-                sef.modalTitleTest = "";
-                
-                sef.test_actual = 0;                
+            store.dispatch( `${Lessonnote_APP_STORE_MODULE_NAME}/updateLessonnoteAssessment`, { score: percent, actual: Number(input), max: this.test_max, assessId: id  } )
+            .then(response => {              
                 sef.$toast({
                   component: ToastificationContent,
                   props: {
@@ -1499,12 +1127,8 @@
                   variant: 'success'
                   },
                 });
-                sef.hideModalTest();
-                sef.handleChange();  
-            }).catch((exception) => { 
-                sef.modalTitleTest = "";
-               
-                sef.test_actual = 0; 
+                sef.handleChange('tst');  
+            }).catch((exception) => {  
                 sef.$toast({
                   component: ToastificationContent,
                   props: {
@@ -1513,8 +1137,7 @@
                     variant: 'danger'
                   }
                 }); 
-		        }); 
-         
+		        });         
       },
 
        ////---------------------------------------------Mid Here
@@ -1650,6 +1273,8 @@
       }
 
     }
+
+
 
 
   }
