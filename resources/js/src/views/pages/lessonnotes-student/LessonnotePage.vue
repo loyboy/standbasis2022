@@ -236,7 +236,6 @@
             ref="refLessonnoteListTable"
             class="position-relative"
             :items="LessonnoteItems"
-            :busy="isLoading"
             responsive
             :fields="tableColumns"
             primary-key="assessId"
@@ -263,12 +262,14 @@
              <!-- Column: Score -->
              <template #cell(score)="data">
                 <b-form-input
+                  :ref="`score-input-${data.item.assessId}`"
                   v-model="data.item.score"
                   type="number"
-                  min="0"
+                  min=""
                   max="100"
                   class="w-50"
-                  @keyup.enter="data.item._type === 'clw' ? addScoresClasswork(data.item.assessId, data.item.score) : data.item._type === 'hwk' ? addScoresHomework(data.item.assessId, data.item.score) : addScoresTest(data.item.assessId, data.item.score)"
+                  @keyup.enter="handleEnterKeyAndSave(data.index, data.item)"
+                  @keydown.enter.prevent
                 />
             </template>
 
@@ -926,6 +927,54 @@
           this.searchValuesCurrent.assesstype = choiceText;
           this.searchValues.push(choiceText);
         }       
+      },
+
+      handleEnterKeyAndSave(currentIndex, currentItem) {
+        // First, save the current item based on its type
+        this.saveScoreByType(currentItem);
+        
+        // Then move to the next input
+        this.focusNextInput(currentIndex);
+      },
+
+      saveScoreByType(item) {
+        if (item._type === 'clw') {
+          this.addScoresClasswork(item.assessId, item.score);
+        } else if (item._type === 'hwk') {
+          this.addScoresHomework(item.assessId, item.score);
+        } else if (item._type === 'tst') {
+          this.addScoresTest(item.assessId, item.score);
+        }
+      },
+
+      focusNextInput(currentIndex) {
+        try {
+          const nextIndex = currentIndex + 1;
+          
+          if (nextIndex < this.LessonnoteItems.length) {
+            const nextItem = this.LessonnoteItems[nextIndex];
+            const nextInputRef = `score-input-${nextItem.assessId}`;
+            
+            this.$nextTick(() => {
+              this.focusInput(nextInputRef);
+            });
+          } else {
+            // Reached the end - blur current input
+            this.$nextTick(() => {
+              document.activeElement.blur();
+            });
+          }
+        } catch (error) {
+          console.error('Error focusing next input:', error);
+        }
+      },
+
+      focusInput(refName) {
+        const nextInput = this.$refs[refName];
+        if (nextInput && nextInput[0]) {
+          nextInput[0].focus();
+          nextInput[0].select();
+        }
       },
 
       ////---------------------------------------------Classwork Here
