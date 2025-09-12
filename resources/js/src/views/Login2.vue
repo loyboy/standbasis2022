@@ -192,7 +192,7 @@ export default {
                             }]
                         };                        
                         const resp =  res.data_id !== null ? (await axios.get( sef.baseURL + "/teacher/"+ res.data_id )) : null                        
-                       
+                        console.log("Step 1......" + JSON.stringify(resp));
                         const responseData = {
                             userData,                          
                             accessToken,
@@ -214,6 +214,7 @@ export default {
                       useJwt.setToken(response.accessToken);  
         
                       localStorage.setItem("userData", JSON.stringify(userData));
+                      console.log("Step 2......" + JSON.stringify(teacherData))
                       localStorage.setItem("teacherData", JSON.stringify(teacherData));
 
                       sef.$ability.update(userData.ability);
