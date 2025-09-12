@@ -6,7 +6,7 @@
         <!-- User Info: Left col -->
         <b-col
           cols="21"
-          xl="6"
+          xl="4"
           class="d-flex justify-content-between flex-column"
         >
           <!-- User Avatar & Action Buttons -->
@@ -85,7 +85,7 @@
         <!-- Right Col: Table -->
         <b-col
           cols="12"
-          xl="6"
+          xl="4"
         >
           <table class="mt-2 mt-xl-0 w-100">
             <tr>
@@ -150,6 +150,53 @@
             </tr>
           </table>
         </b-col>
+
+        <!-- Right Col: Table 2 -->
+        <b-col
+          cols="12"
+          xl="4"
+        >
+          <table class="mt-2 mt-xl-0 w-100">
+            <tr>
+              <th class="pb-50">
+                <feather-icon
+                  icon="UserIcon"
+                  class="mr-75"
+                />
+                <span class="font-weight-bold">Town</span>
+              </th>
+              <td class="pb-50">
+                {{ schoolData.town }}
+              </td>
+            </tr>
+            <tr>
+              <th class="pb-50">
+                <feather-icon
+                  icon="CheckIcon"
+                  class="mr-75"
+                />
+                <span class="font-weight-bold">Zone</span>
+              </th>
+              <td class="pb-50 text-capitalize">
+                {{ schoolData.zone }}
+              </td>
+            </tr>
+            <tr>
+              <th class="pb-50">
+                <feather-icon
+                  icon="StarIcon"
+                  class="mr-75"
+                />
+                <span class="font-weight-bold">Local Government Area</span>
+              </th>
+              <td class="pb-50 text-capitalize">
+                {{ schoolData.lga }}
+              </td>
+            </tr>
+           
+          </table>
+        </b-col>
+
       </b-row>
     </b-card>
   </template>
