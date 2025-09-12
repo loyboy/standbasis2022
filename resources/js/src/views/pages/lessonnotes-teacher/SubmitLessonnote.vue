@@ -389,7 +389,7 @@
                                             sef.isLoading = false; 
                                               setTimeout(() => {
                                                   window.location.reload();
-                                              },1200);
+                                              },600);
                                     })                        
                         
                     });
@@ -421,7 +421,7 @@
                                             sef.isLoading = false; 
                                               setTimeout(() => {
                                                   window.location.reload();
-                                              },1200);
+                                              },600);
                                     }) 
                         
                     });
