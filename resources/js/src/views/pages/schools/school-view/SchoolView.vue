@@ -26,9 +26,9 @@
         <b-row>
             <b-col
                 cols="12"
-                xl="9"
-                lg="8"
-                md="7"
+                xl="12"
+                lg="12"
+                md="12"
             >
                 <school-view-info-card :t-count="teacherCount" :s-count="studentCount" :school-data="schoolData" />
             </b-col>         
