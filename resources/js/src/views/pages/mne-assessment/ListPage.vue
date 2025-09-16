@@ -263,7 +263,7 @@
       <!-- Table Container Card -->
       <b-card-code title="Filtered M&E Results" class="my-4 mx-1" v-if=" userData.role !== 'proprietor' && userData.role !== 'supervisor' ">
 
-            <b-table            
+           <!-- <b-table            
               class="position-relative"
               :items="mnelistItems"
               :busy="isLoading"
@@ -271,7 +271,21 @@
               :fields="dynamicFields"
               :tbody-tr-class="rowClass"
             >
-                <template #table-busy>
+                
+
+
+            </b-table>-->
+
+            <!-- Normal rows -->
+            <b-table 
+              v-if="normalItems.length > 0"
+              :busy="isLoading"
+              :items="normalItems" 
+              :fields="dynamicFields" 
+              responsive
+              class="mb-0"
+            >
+              <template #table-busy>
                   <div class="text-center text-danger my-2">
                     <b-spinner class="align-middle"></b-spinner>
                     <strong>Loading...</strong>
@@ -285,8 +299,20 @@
                 <template #cell(management)="data">
                    <b> {{ data.item.management }} % </b>
                 </template>
+            </b-table>
 
-
+            <b-table 
+              v-if="placeholderItems.length > 0"
+              :items="placeholderItems" 
+              :fields="placeholderFields" 
+              responsive
+              class="border-top-0"
+            >
+              <template #cell(message)="">
+                <div class="text-muted fst-italic text-center py-3">
+                  No performance data available
+                </div>
+              </template>
             </b-table>
 
       </b-card-code>
@@ -421,6 +447,20 @@
            cal_drilldown
         }
     },  
+
+    computed: {
+      normalItems() {
+        return this.mnelistItems.filter(item => Number(item.performance) !== 0);
+      },
+      placeholderItems() {
+        return this.mnelistItems.filter(item => Number(item.performance) === 0);
+      },
+      placeholderFields() {
+        return [
+          { key: 'message', label: '' }
+        ];
+      }
+    },
 
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
