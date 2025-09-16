@@ -270,11 +270,13 @@
               responsive
               :fields="dynamicFields"
               :tbody-tr-class="rowClass"
-            >
-                
-
-
+            >             
             </b-table>-->
+
+            <div class="text-center text-danger my-2" v-if="isLoading === true">
+              <b-spinner class="align-middle"></b-spinner>
+              <strong>Loading...</strong>
+            </div>
 
             <!-- Normal rows -->
             <b-table 
