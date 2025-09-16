@@ -277,6 +277,20 @@
                   </div>
                 </template>
 
+                <template #row="row">
+                  <tr v-if="row.item.performance === 0">
+                    <td :colspan="dynamicFields.length" class="text-center text-danger">
+                      No performance data available for
+                      {{ row.item.student_name || row.item.teacher_name || "Unknown" }}
+                    </td>
+                  </tr>
+                  <tr v-else>
+                    <td v-for="field in row.fields" :key="field.key">
+                      {{ row.item[field.key] }}
+                    </td>
+                  </tr>
+                </template>
+
                 <template #cell(performance)="data">
                    <b> {{ data.item.performance }} % </b>
                 </template>
