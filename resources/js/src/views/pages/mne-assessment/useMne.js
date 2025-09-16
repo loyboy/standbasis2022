@@ -122,6 +122,8 @@ export default function useEvaluation() {
 
                 mnelistItems.value = normalizeData(mnecolumndata);
 
+                console.log("MNEColumnData " + JSON.stringify(mnelistItems.value));
+
                 isLoading.value = false;
                 changeFieldsStudents.value = true;
                 changeFieldsTeacher.value = false;
