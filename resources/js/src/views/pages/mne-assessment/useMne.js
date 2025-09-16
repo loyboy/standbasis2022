@@ -3,11 +3,84 @@ import store from '@/store'
 
 export default function useEvaluation() {
 
-    const mnelistItems = ref([])
+    const mnelistItems = ref([{
+        "d4": 0,
+        "student_name": "esu marcus",
+        "d5": 0,
+        "d6": 0,
+        "d10": 0,
+        "d7": 0,
+        "performance": 0.0,
+        "d8": 0,
+        "d9": 0,
+        "d1": 0,
+        "d2": 0,
+        "d3": 0
+    }])
     const userData = ref({});
     const isLoading = ref(false)
     const changeFieldsStudents = ref(false)
-    const dyFieldsStudents = ref([])
+    const dyFieldsStudents = ref([{
+            "label": "Student Name",
+            "sortable": true,
+            "key": "student_name"
+        },
+        {
+            "label": "Performance",
+            "sortable": true,
+            "key": "performance"
+        },
+        {
+            "label": "English Language",
+            "sortable": true,
+            "key": "d1"
+        },
+        {
+            "label": "Literature-in-English",
+            "sortable": true,
+            "key": "d2"
+        },
+        {
+            "label": "Chemistry",
+            "sortable": true,
+            "key": "d3"
+        },
+        {
+            "label": "Physics",
+            "sortable": true,
+            "key": "d4"
+        },
+        {
+            "label": "Mathematics",
+            "sortable": true,
+            "key": "d5"
+        },
+        {
+            "label": "Civic Education",
+            "sortable": true,
+            "key": "d6"
+        },
+        {
+            "label": "Christian Religious Knowledge",
+            "sortable": true,
+            "key": "d7"
+        },
+        {
+            "label": "Visual Art",
+            "sortable": true,
+            "key": "d8"
+        },
+        {
+            "label": "Economics",
+            "sortable": true,
+            "key": "d9"
+        },
+        {
+            "label": "Biology",
+            "sortable": true,
+            "key": "d10"
+        }
+    ]);
 
     const headTotal = ref(0);
     const teacherTotal = ref(0);
@@ -64,9 +137,9 @@ export default function useEvaluation() {
 
                 const { mnecolumndata, mnecolumns } = response.data;
 
-                dyFieldsStudents.value = mnecolumns
+                //   dyFieldsStudents.value = mnecolumns
 
-                mnelistItems.value = mnecolumndata;
+                //   mnelistItems.value = mnecolumndata;
 
                 isLoading.value = false;
                 changeFieldsStudents.value = true;
@@ -124,11 +197,11 @@ export default function useEvaluation() {
 
 
     const handleChange = (ctx) => {
-        console.log("Click on Teacher Me : " + filters.value.typeone + " : " + filters.value.typetwo_teacher + " :  " + filters.value.typefour);
+        // console.log("Click on Teacher Me : " + filters.value.typeone + " : " + filters.value.typetwo_teacher + " :  " + filters.value.typefour);
         if (filters.value.typeone === "student" && filters.value.typetwo_student && filters.value.typefour) {
             fetchMneVariant();
             window.scrollBy(0, 200);
-        } else if (filters.value.typeone === "teacher_me" && filters.value.typetwo_teacher && filters.value.typefour) {
+        } else if (filters.value.typeone === "teacher_me" && filters.value.typetwo_teacher === null && filters.value.typefour) {
             fetchMneVariant2();
             window.scrollBy(0, 200);
         } else if (filters.value.typeone === "teacher" && filters.value.typetwo_teacher && filters.value.typefour) {
