@@ -5,7 +5,7 @@ export default function useEvaluation() {
 
     const mnelistItems = ref([{
         "d4": 0,
-        "student_name": "esu marcus",
+        "student_name": "\nesu marcus",
         "d5": 0,
         "d6": 0,
         "d10": 0,
