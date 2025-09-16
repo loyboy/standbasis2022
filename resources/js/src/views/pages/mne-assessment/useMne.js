@@ -221,8 +221,6 @@ export default function useEvaluation() {
 
         dynamicFields,
 
-        dynamicColumnData,
-
         filters,
 
         handleChange,

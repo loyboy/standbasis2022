@@ -454,7 +454,7 @@
       
       const findIfPropisPresent = ( userData.value.role === "proprietor"  );
       const findIfTeacherisPresent = ( userData.value.role === "teacher" );
-      const findIfPrinisPresent = ( userData.value.role === "principal" ); 
+      const findIfPrinisPresent = ( userData.value.role === "principal" ); //
       const findIfSupervisorisPresent = ( userData.value.role === "supervisor" );
 
       const {     
@@ -466,8 +466,6 @@
         mnelistItems,
 
         dynamicFields,
-
-        dynamicColumnData,
 
         handleChange,
 
@@ -536,8 +534,6 @@
         baseURL,
 
         dynamicFields,
-
-        dynamicColumnData,
 
         handleChange,
 
