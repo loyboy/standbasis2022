@@ -65,7 +65,7 @@ export default function useEvaluation() {
         }
 
         return mnelistItems.value.map(item => {
-            const performance = Number(item ? .performance);
+            const performance = Number(item.performance);
 
             if (performance === 0) {
                 return {
