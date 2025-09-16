@@ -120,7 +120,7 @@ export default function useEvaluation() {
 
                 dyFieldsStudents.value = mnecolumns
 
-                mnelistItems.value = normalizeData(mnecolumndata);
+                mnelistItems.value = mnecolumndata;
 
                 console.log("MNEColumnData " + JSON.stringify(mnelistItems.value));
 
