@@ -38,12 +38,41 @@ export default function useEvaluation() {
         let fields = [];
 
         if (changeFieldsStudents.value === true) {
-            fields = dyFieldsStudents.value
+            fields = [...dyFieldsStudents.value, {
+                key: 'performanceMessage',
+                label: '',
+                class: 'text-center text-muted',
+                thClass: 'd-none',
+                tdClass: 'py-4'
+            }];
+
         } else if (changeFieldsTeacher.value === true) {
-            fields = dyFieldsTeacher.value
+            fields = [...dyFieldsTeacher.value, {
+                key: 'performanceMessage',
+                label: '',
+                class: 'text-center text-muted',
+                thClass: 'd-none',
+                tdClass: 'py-4'
+            }];
         }
 
         return fields;
+    })
+
+    const dynamicColumnData = computed(() => {
+        return mnelistItems.map(item => {
+            if (Number(item.performance) === 0) {
+                return {
+                    // This "fake" item will show only the message
+                    _showDetails: true, // used by b-table to render details
+                    performanceMessage: 'No performance data available',
+                    // Set all other fields to null/empty so they don't appear
+                    // Or just use a special flag
+                    isPlaceholder: true
+                };
+            }
+            return item;
+        });
     })
 
     /*  const normalizeData = (apiData) => {
@@ -65,50 +94,6 @@ export default function useEvaluation() {
           });
       }*/
 
-    const normalizeData = (apiData) => {
-        const expectedKeys = [
-            "student_name", "performance",
-            "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9", "d10"
-        ];
-
-        return apiData.map(item => {
-            let normalized = {};
-            expectedKeys.forEach(key => {
-                if (key === "student_name") {
-                    // trim in case API sends extra spaces/newline
-                    normalized[key] = (item[key] || item[key.toUpperCase()] || "").trim();
-                } else {
-                    // handle both lowercase and uppercase API keys
-                    normalized[key] = item[key] ? item[key.toUpperCase()] : 0;
-                }
-            });
-
-            return normalized;
-        });
-    }
-
-    const normalizeDataT = (apiData) => {
-        const expectedKeys = [
-            "teacher_name", "performance",
-            "d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9", "d10"
-        ];
-
-        return apiData.map(item => {
-            let normalized = {};
-            expectedKeys.forEach(key => {
-                if (key === "teacher_name") {
-                    // trim in case API sends extra spaces/newline
-                    normalized[key] = (item[key] || item[key.toUpperCase()] || "").trim();
-                } else {
-                    // handle both lowercase and uppercase API keys
-                    normalized[key] = item[key] ? item[key.toUpperCase()] : 0;
-                }
-            });
-
-            return normalized;
-        });
-    }
-
     // For student assessment
     const fetchMneVariant = () => {
         isLoading.value = true;
@@ -121,8 +106,6 @@ export default function useEvaluation() {
                 dyFieldsStudents.value = mnecolumns
 
                 mnelistItems.value = mnecolumndata;
-
-                console.log("MNEColumnData " + JSON.stringify(mnelistItems.value));
 
                 isLoading.value = false;
                 changeFieldsStudents.value = true;
@@ -265,6 +248,8 @@ export default function useEvaluation() {
         filters,
 
         dynamicFields,
+
+        dynamicColumnData,
 
         filters,
 

@@ -265,7 +265,7 @@
 
             <b-table            
               class="position-relative"
-              :items="mnelistItems"
+              :items="dynamicColumnData"
               :busy="isLoading"
               responsive
               :fields="dynamicFields"
@@ -277,18 +277,10 @@
                   </div>
                 </template>
 
-                <template #row="row">
-                  <tr v-if="Number(row.item.performance) === 0">
-                    <td :colspan="dynamicFields.length" class="text-center text-danger">
-                      No performance data available for
-                      {{ row.item.student_name || row.item.teacher_name || "Unknown" }}
-                    </td>
-                  </tr>
-                  <tr v-else>
-                    <td v-for="field in row.fields" :key="field.key">
-                      {{ row.item[field.key] }}
-                    </td>
-                  </tr>
+                <template #cell(performanceMessage)="row">
+                  <div v-if="row.item.isPlaceholder" class="w-100 text-center py-3">
+                    <em>No performance data available</em>
+                  </div>
                 </template>
 
                 <template #cell(performance)="data">
@@ -480,6 +472,8 @@
 
         dynamicFields,
 
+        dynamicColumnData,
+
         handleChange,
 
         headTotal,
@@ -547,6 +541,8 @@
         baseURL,
 
         dynamicFields,
+
+        dynamicColumnData,
 
         handleChange,
 
