@@ -60,21 +60,24 @@ export default function useEvaluation() {
     })
 
     const dynamicColumnData = computed(() => {
+        if (!Array.isArray(mnelistItems.value)) {
+            return [];
+        }
 
         return mnelistItems.value.map(item => {
-            if (Number(item.performance) === 0) {
+            const performance = Number(item ? .performance);
+
+            if (performance === 0) {
                 return {
-                    // This "fake" item will show only the message
-                    _showDetails: true, // used by b-table to render details
+                    ...item,
+                    _showDetails: true,
                     performanceMessage: 'No performance data available',
-                    // Set all other fields to null/empty so they don't appear
-                    // Or just use a special flag
                     isPlaceholder: true
                 };
             }
             return item;
         });
-    })
+    });
 
     /*  const normalizeData = (apiData) => {
           return apiData.map(item => {
