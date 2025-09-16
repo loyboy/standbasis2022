@@ -60,7 +60,8 @@ export default function useEvaluation() {
     })
 
     const dynamicColumnData = computed(() => {
-        return mnelistItems.map(item => {
+
+        return mnelistItems.value.map(item => {
             if (Number(item.performance) === 0) {
                 return {
                     // This "fake" item will show only the message
