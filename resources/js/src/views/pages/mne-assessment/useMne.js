@@ -38,46 +38,14 @@ export default function useEvaluation() {
         let fields = [];
 
         if (changeFieldsStudents.value === true) {
-            fields = [...dyFieldsStudents.value, {
-                key: 'performanceMessage',
-                label: '',
-                class: 'text-center text-muted',
-                thClass: 'd-none',
-                tdClass: 'py-4'
-            }];
+            fields = dyFieldsStudents.value
 
         } else if (changeFieldsTeacher.value === true) {
-            fields = [...dyFieldsTeacher.value, {
-                key: 'performanceMessage',
-                label: '',
-                class: 'text-center text-muted',
-                thClass: 'd-none',
-                tdClass: 'py-4'
-            }];
+            fields = dyFieldsTeacher.value
         }
 
         return fields;
     })
-
-    const dynamicColumnData = computed(() => {
-        if (!Array.isArray(mnelistItems.value)) {
-            return [];
-        }
-
-        return mnelistItems.value.map(item => {
-            const performance = Number(item.performance);
-
-            if (performance === 0) {
-                return {
-                    ...item,
-                    _showDetails: true,
-                    performanceMessage: 'No performance data available',
-                    isPlaceholder: true
-                };
-            }
-            return item;
-        });
-    });
 
     /*  const normalizeData = (apiData) => {
           return apiData.map(item => {

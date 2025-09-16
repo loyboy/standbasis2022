@@ -265,21 +265,16 @@
 
             <b-table            
               class="position-relative"
-              :items="dynamicColumnData"
+              :items="mnelistItems"
               :busy="isLoading"
               responsive
               :fields="dynamicFields"
+              :tbody-tr-class="rowClass"
             >
                 <template #table-busy>
                   <div class="text-center text-danger my-2">
                     <b-spinner class="align-middle"></b-spinner>
                     <strong>Loading...</strong>
-                  </div>
-                </template>
-
-                <template #cell(performanceMessage)="row">
-                  <div v-if="row.item.isPlaceholder" class="w-100 text-center py-3">
-                    <em>No performance data available</em>
                   </div>
                 </template>
 
@@ -560,6 +555,14 @@
 
     methods: {  
 
+        rowClass(item, type) {
+          if (!item || type !== 'row') return;
+          if (Number(item.performance) === 0) {
+            return 'performance-zero-row';
+          }
+          return '';
+        },
+
         changeType(value){ 
             const sef = this;  
          //   let userid = this.userData.id;            
@@ -643,4 +646,31 @@
   .myborder{
     border: 1px darkgray dotted;
   }
+
+  .performance-zero-row {
+    position: relative;
+  }
+
+  .performance-zero-row td {
+    padding: 0 !important;
+    height: 60px;
+    position: relative;
+  }
+
+  .performance-zero-row td:not(:first-child) {
+    display: none;
+  }
+
+  .performance-zero-row td:first-child::after {
+    content: 'No performance data available';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #6c757d;
+    font-style: italic;
+    width: 100%;
+    text-align: center;
+  }
+
   </style>
