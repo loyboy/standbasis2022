@@ -35,6 +35,21 @@ export default function useLessonnoteList() {
 
         { key: 'lsn.subject.name', label: 'Subject Name', sortable: true },
 
+        {
+            key: 'enroll.classtream.title',
+            label: 'Class Stream',
+            sortable: true,
+            formatter: (value, key, item) => {
+                const title = value || '';
+                const ext = item.enroll.classtream.ext || '';
+
+                if (ext) {
+                    return `${title} (${ext})`;
+                }
+                return title;
+            }
+        },
+
         { key: 'score', label: "Percentage Score", sortable: true }
 
     ]

@@ -284,7 +284,7 @@
               </b-badge>
             </template>
     
-         </b-table>
+         </b-table> 
 
          <div class="mx-2 mb-2">
             <b-row>
