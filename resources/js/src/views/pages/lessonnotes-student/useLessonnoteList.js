@@ -36,12 +36,12 @@ export default function useLessonnoteList() {
         { key: 'lsn.subject.name', label: 'Subject Name', sortable: true },
 
         {
-            key: 'enroll.classtream.title',
+            key: 'enroll.classstream.title',
             label: 'Class Stream',
             sortable: true,
             formatter: (value, key, item) => {
                 const title = value || '';
-                const ext = item.enroll.classtream.ext || '';
+                const ext = item.enroll.classstream.ext || '';
 
                 if (ext) {
                     return `${title} (${ext})`;
