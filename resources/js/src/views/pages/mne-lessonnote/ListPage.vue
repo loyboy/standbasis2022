@@ -227,7 +227,7 @@
               :items="mnelistItems"
               :busy="isLoading"
               responsive
-              :fields="dynamicFields"
+              :fields="dynamicFieldsNew"
               :key="tableKey"
             >
                 <template #table-busy>
@@ -421,6 +421,49 @@
         }
     },  
 
+    computed: {
+      dynamicFieldsNew() {
+        // Define your preferred order
+        const priorityOrder = [
+          'teacher_name',
+          'classwork_performance',
+          'homework_performance',
+          'test_performance',
+          'management'
+        ];
+        
+        // Get all keys from your data
+        const allKeys = new Set();
+        this.mnelistItems.forEach(item => {
+          Object.keys(item).forEach(key => allKeys.add(key));
+        });
+
+         // Sort keys according to priority, then alphabetically for the rest
+          const sortedKeys = Array.from(allKeys).sort((a, b) => {
+          const indexA = priorityOrder.indexOf(a);
+          const indexB = priorityOrder.indexOf(b);
+          
+          // If both are in priority list, sort by priority
+          if (indexA !== -1 && indexB !== -1) {
+            return indexA - indexB;
+          }
+          
+          // Priority items come first
+          if (indexA !== -1) return -1;
+          if (indexB !== -1) return 1;
+          
+          // Sort remaining alphabetically
+          return a.localeCompare(b);
+        });
+        
+        return sortedKeys.map(key => ({
+          key: key,
+          label: this.formatLabel(key),
+          sortable: true
+        }));
+      }
+    },
+
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
       const Mne_APP_STORE_MODULE_NAME = 'app-MneLessonnote';
@@ -555,6 +598,13 @@
     },
 
     methods: {  
+
+       formatLabel(key) {
+          // Convert snake_case to Title Case
+          return key
+            .replace(/_/g, ' ')
+            .replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+        },
 
         changeType(value){
             const sef = this;  
