@@ -5,159 +5,160 @@ import store from '@/store'
 import { useToast } from 'vue-toastification/composition'
 //import ToastificationContent from '@core/components/toastification/ToastificationContent.vue'
 
-export default function useSchoolList( Owner = null ) {
-  // Use toast
-  const toast = useToast();
+export default function useSchoolList(Owner = null) {
+    // Use toast
+    const toast = useToast();
 
-  const refSchoolListTable = ref(null)
+    const refSchoolListTable = ref(null)
 
-  // Table Handlers
-  const tableColumns = [
-    { key: 'name', label: 'School Name', sortable: true },
-    { key: 'owner.name',label: 'School Owner',  sortable: true },
-    { key: 'type_of', label: 'School Type',  sortable: true },
-    {
-      key: 'gender',
-      label: 'Gender of Students',
-      sortable: true
-    },
+    // Table Handlers
+    const tableColumns = [
+        { key: 'name', label: 'School Name', sortable: true },
+        { key: 'owner.name', label: 'School Owner', sortable: true },
+        { key: 'type_of', label: 'School Type', sortable: true },
+        {
+            key: 'gender',
+            label: 'Gender of Students',
+            sortable: true
+        },
 
-    {
-      key: 'passwordchange',
-      label: 'Dashboard Password',
-      sortable: true,
-    },
+        {
+            key: 'passwordchange',
+            label: 'Dashboard Password',
+            sortable: true,
+        },
 
-    {
-      key: 'dashboarduser',
-      label: 'Is DashboardUser?',
-      sortable: true,
-    },
-    
-    { key: 'status', label: 'School Status',  sortable: true },
+        {
+            key: 'dashboarduser',
+            label: 'Is DashboardUser?',
+            sortable: true,
+        },
 
-    { key: 'actions' },
-  ]
-  const perPage = ref(10)
-  const totalSchools = ref(0)
-  const currentPage = ref(1)
-  const perPageOptions = [10, 25, 50, 100]
-  const searchQuery = ref('')
-  const sortBy = ref('id')
-  const isSortDirDesc = ref(true)
-  const totalSeniorSecondarySchools = ref(0)
-  const totalJuniorSecondarySchools = ref(0)
-  const totalBothSchools = ref(0)
+        { key: 'status', label: 'School Status', sortable: true },
 
-  const filters = ref({
-    schoolgroup: null,
-    schoolid: null,
-    supervisor: null
-  });
+        { key: 'actions' },
+    ]
+    const perPage = ref(10)
+    const totalSchools = ref(0)
+    const currentPage = ref(1)
+    const perPageOptions = [10, 25, 50, 100]
+    const searchQuery = ref('')
+    const sortBy = ref('id')
+    const isSortDirDesc = ref(true)
+    const totalSeniorSecondarySchools = ref(0)
+    const totalJuniorSecondarySchools = ref(0)
+    const totalBothSchools = ref(0)
 
-  const dataMeta = computed(() => {
-    const localItemsCount = refSchoolListTable.value ? refSchoolListTable.value.localItems.length : 0
+    const filters = ref({
+        schoolgroup: null,
+        schoolid: null,
+        supervisor: null,
+        admin: null
+    });
+
+    const dataMeta = computed(() => {
+        const localItemsCount = refSchoolListTable.value ? refSchoolListTable.value.localItems.length : 0
+        return {
+            from: perPage.value * (currentPage.value - 1) + (localItemsCount ? 1 : 0),
+            to: perPage.value * (currentPage.value - 1) + localItemsCount,
+            of: totalSchools.value,
+        } //
+    })
+
+    const refetchData = () => {
+        refSchoolListTable.value.refresh()
+    }
+
+    watch([currentPage, perPage, searchQuery], () => {
+        refetchData()
+    })
+
+    const fetchSchools = (ctx, callback) => {
+        store
+            .dispatch('app-school/fetchSchools', {
+                size: perPage.value,
+                page: currentPage.value - 1,
+                q: searchQuery.value,
+                owner: Owner ? Owner : filters.value.schoolgroup,
+                supervisor: filters.value.admin ? filters.value.admin : filters.value.supervisor
+            })
+            .then(async response => {
+                const { schools, totalItems, totalSeniorSecondary, totalJuniorSecondary, totalBothSchool } = response.data
+
+                for (let i = 0; i < schools.length; i++) {
+                    let eventres = await store.dispatch('app-school/getSchoolDashboard', { id: schools[i].schId });
+                    // console.log("Event pull: "+ JSON.stringify(eventres))
+                    let event = eventres.data.data;
+                    schools[i]["passwordchange"] = event !== null ? true : false;
+                }
+
+                callback(schools);
+                totalSchools.value = totalItems
+                totalSeniorSecondarySchools.value = totalSeniorSecondary
+                totalJuniorSecondarySchools.value = totalJuniorSecondary
+                totalBothSchools.value = totalBothSchool
+
+                //   console.log(">>> " + totalJuniorSecondarySchools.value );
+
+            })
+            .catch((e) => {
+                console.log("Fetch schools error: " + e);
+            })
+    }
+
+    const handlePageChange = (value) => {
+        currentPage.value = value;
+        fetchSchools();
+    }
+
+    // *===============================================---*
+    // *--------- UI ---------------------------------------*
+    // *===============================================---*
+
+    const resolveUserStatusVariant = status => {
+        if (status === 'pending') return 'warning'
+        if (status === 'active') return 'success'
+        if (status === 'inactive') return 'secondary'
+        return 'primary'
+    }
+
+    const resolveDashboardVariant = status => {
+        if (status === 0) return 'warning'
+        if (status === 1) return 'success'
+
+        return 'primary'
+    }
+
+    const resolvePasswordVariant = status => {
+        if (status === false) return 'warning'
+        if (status === true) return 'success'
+        return 'primary'
+    }
+
     return {
-      from: perPage.value * (currentPage.value - 1) + (localItemsCount ? 1 : 0),
-      to: perPage.value * (currentPage.value - 1) + localItemsCount,
-      of: totalSchools.value,
-    }//
-  })
+        fetchSchools,
+        handlePageChange,
+        totalSchools,
 
-  const refetchData = () => {
-    refSchoolListTable.value.refresh()
-  }
+        totalSeniorSecondarySchools,
+        totalJuniorSecondarySchools,
+        totalBothSchools,
 
-  watch([currentPage, perPage, searchQuery], () => {
-    refetchData()
-  })
+        tableColumns,
+        perPage,
+        currentPage,
+        dataMeta,
+        perPageOptions,
+        searchQuery,
+        sortBy,
+        isSortDirDesc,
+        refSchoolListTable,
+        filters,
 
-  const fetchSchools = (ctx, callback) => {
-    store
-      .dispatch('app-school/fetchSchools', {
-        size: perPage.value,
-        page: currentPage.value - 1,
-        q: searchQuery.value,
-        owner: Owner ? Owner : filters.value.schoolgroup,
-        supervisor: filters.value.supervisor
-      })
-      .then(async response => {
-        const { schools, totalItems, totalSeniorSecondary, totalJuniorSecondary, totalBothSchool } = response.data
+        resolveUserStatusVariant,
+        resolveDashboardVariant,
+        resolvePasswordVariant,
+        refetchData
 
-        for(let i = 0; i < schools.length; i++) {
-            let eventres = await store.dispatch('app-school/getSchoolDashboard', { id: schools[i].schId });
-           // console.log("Event pull: "+ JSON.stringify(eventres))
-            let event = eventres.data.data;
-            schools[i]["passwordchange"] = event !== null ? true : false;
-        }
- 
-        callback(schools);
-        totalSchools.value = totalItems
-        totalSeniorSecondarySchools.value = totalSeniorSecondary
-        totalJuniorSecondarySchools.value = totalJuniorSecondary
-        totalBothSchools.value = totalBothSchool
-        
-     //   console.log(">>> " + totalJuniorSecondarySchools.value );
-
-      })
-      .catch((e) => {
-        console.log("Fetch schools error: " + e);
-      })
-  }
-
-  const handlePageChange = (value) => {
-    currentPage.value = value;
-    fetchSchools();
-  }
-
-  // *===============================================---*
-  // *--------- UI ---------------------------------------*
-  // *===============================================---*
-
-  const resolveUserStatusVariant = status => {
-    if (status === 'pending') return 'warning'
-    if (status === 'active') return 'success'
-    if (status === 'inactive') return 'secondary'
-    return 'primary'
-  }
-
-  const resolveDashboardVariant = status => {
-    if (status === 0) return 'warning'
-    if (status === 1) return 'success'
-    
-    return 'primary'
-  }
-
-  const resolvePasswordVariant = status => {
-    if (status === false) return 'warning'
-    if (status === true) return 'success'    
-    return 'primary'
-  }
-
-  return {
-    fetchSchools,
-    handlePageChange,
-    totalSchools,
-
-    totalSeniorSecondarySchools,
-    totalJuniorSecondarySchools,
-    totalBothSchools,
-   
-    tableColumns,
-    perPage,
-    currentPage,
-    dataMeta,
-    perPageOptions,
-    searchQuery,
-    sortBy,
-    isSortDirDesc,
-    refSchoolListTable,
-    filters,
-
-    resolveUserStatusVariant,
-    resolveDashboardVariant,
-    resolvePasswordVariant,
-    refetchData
-
-  }
+    }
 }

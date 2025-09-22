@@ -217,11 +217,6 @@
       <!-- Table Container Card -->
       <b-card-code title="Filtered M&E Results" class="my-4 mx-1" v-if=" userData.role !== 'proprietor' && userData.role !== 'supervisor' ">
 
-            <div>
-              <b-table :fields="legendFields" :items="legendItems" small bordered></b-table>
-            </div>
-            <br/><br/>
-
             <b-table            
               class="position-relative"
               :items="mnelistItems"

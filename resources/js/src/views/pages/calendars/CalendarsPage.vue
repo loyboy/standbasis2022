@@ -324,6 +324,7 @@
       const findIfTeacherisPresent = ( userData.value.role === "teacher" );
       const findIfPrinisPresent = ( userData.value.role === "principal" );
       const findIfSupervisorisPresent = ( userData.value.role === "supervisor" );
+      const findIfAdminisPresent = ( userData.value.role === "admin"  ); 
   
       const {
         fetchCalendars,
@@ -350,10 +351,11 @@
 
       } = useCalendarList( school );
 
-      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent ){
+      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent || findIfAdminisPresent){
           filters.value.schoolid    = (findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
           filters.value.supervisor  = (findIfSupervisorisPresent) && userData.value ? userData.value.code : null;
+          filters.value.admin = (findIfAdminisPresent) && userData.value ? userData.value.code : null; 
       }
   
       return {

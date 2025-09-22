@@ -310,6 +310,7 @@
       const findIfTeacherisPresent = ( userData.value.role === "teacher" );
       const findIfPrinisPresent = ( userData.value.role === "principal" ); 
       const findIfSupervisorisPresent = ( userData.value.role === "supervisor" );  
+      const findIfAdminisPresent = ( userData.value.role === "admin"  );
   
       const {
         fetchTimetables,
@@ -339,11 +340,12 @@
 
       } = useTimetableList( school, teacher );
 
-      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent){
+      if( findIfPropisPresent || findIfTeacherisPresent || findIfPrinisPresent || findIfSupervisorisPresent || findIfAdminisPresent){
           filters.value.teacherid = findIfTeacherisPresent && teacherData.value ? teacherData.value.teaId : null;
           filters.value.schoolid = findIfPrinisPresent && teacherData.value ? teacherData.value.school.schId : null;
           filters.value.schoolgroup = (findIfPropisPresent || findIfPrinisPresent || findIfTeacherisPresent) && teacherData.value ? teacherData.value.school.owner.id : null;
           filters.value.supervisor = (findIfSupervisorisPresent) && userData.value ? userData.value.code : null;
+          filters.value.admin = (findIfAdminisPresent) && userData.value ? userData.value.code : null;
       }
   
       return {
