@@ -352,7 +352,7 @@
         required: true,
       },
       classOptions:{
-        type: Array,
+        type: Array, 
         required: true,
       },
       subjectOptions:{

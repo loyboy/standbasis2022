@@ -349,7 +349,7 @@
 
       if( findIfGuardianisPresent ){
           
-          filters.value.guardianId = userData.value ? userData.value.guardian_id : null;
+          filters.value.guardianId = userData.value ? userData.value.code : null;
          
       } 
 

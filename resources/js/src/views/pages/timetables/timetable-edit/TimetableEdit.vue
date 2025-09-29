@@ -107,7 +107,7 @@
             }           
         },
 
-        getClasses(){
+        /*getClasses(){
           this.$loading(true);
           const sef = this;
           this.classOptions.push({ value:  new String(""), text: "Please select your School's Timetable class. " });
@@ -120,7 +120,54 @@
                     sef.classOptions.push( { value: Number(contents[i].clsId), text: contents[i].title + " " + contents[i].ext } )
                 }
           }); 
-       },
+
+
+       }*/
+       getClasses() {
+            this.$loading(true);
+            const sef = this;
+            this.classOptions = []; // Clear existing options first
+            this.classOptions.push({ value: "", text: "Please select your School's Timetable class." });
+            
+            axios.get(this.baseURL + "/misc/allClasses/" + sef.timetableData.class_stream.school.schId)
+            .then(function (response) {  
+                sef.$loading(false);
+                let data = response.data;
+                let contents = data.data;
+                
+                // Get current class category (e.g., "SS3", "JSS1", etc.)
+                let currentClassCategory = "";
+                if (sef.timetableData.class_stream.clsId) {
+                    // Find the current class text to determine category
+                    const currentClass = contents.find(cls => cls.clsId == sef.timetableData.class_stream.clsId);
+                    if (currentClass) {
+                        // Extract the class category (first part before the space)
+                        currentClassCategory = currentClass.title.split(' ')[0]; // Gets "SS3", "JSS1", etc.
+                    }
+                }
+                
+                // Filter classes based on current category
+                let filteredContents = contents;
+                if (currentClassCategory) {
+                    filteredContents = contents.filter(cls => {
+                        const classTitle = cls.title + " " + cls.ext;
+                        return classTitle.includes(currentClassCategory);
+                    });
+                }
+                
+                for (let i = 0; i < filteredContents.length; ++i) {
+                    sef.classOptions.push({ 
+                        value: Number(filteredContents[i].clsId), 
+                        text: filteredContents[i].title + " " + filteredContents[i].ext 
+                    });
+                }
+            })
+            .catch(function (error) {
+                sef.$loading(false);
+                console.error('Error fetching classes:', error);
+            });
+        }     
+       ,
 
        getTeachers(){
           this.$loading(true);
