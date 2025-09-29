@@ -141,8 +141,9 @@
                     // Find the current class text to determine category
                     const currentClass = contents.find(cls => cls.clsId == sef.timetableData.class_stream.clsId);
                     if (currentClass) {
-                        // Extract the class category (first part before the space)
-                        currentClassCategory = currentClass.title.split(' ')[0]; // Gets "SS3", "JSS1", etc.
+                        // Clean the title by removing leading/trailing whitespace and newline characters
+                        const cleanTitle = currentClass.title.trim();
+                        currentClassCategory = cleanTitle; // This will be "SS1", "SS2", "SS3", etc.
                     }
                 }
                 
@@ -150,15 +151,18 @@
                 let filteredContents = contents;
                 if (currentClassCategory) {
                     filteredContents = contents.filter(cls => {
-                        const classTitle = cls.title + " " + cls.ext;
-                        return classTitle.includes(currentClassCategory);
+                        const cleanTitle = cls.title.trim(); // Remove leading/trailing whitespace and newline
+                        const cleanExt = cls.ext.trim(); // Remove leading/trailing spaces from extension
+                        return cleanTitle === currentClassCategory;
                     });
                 }
                 
                 for (let i = 0; i < filteredContents.length; ++i) {
+                    const cleanTitle = filteredContents[i].title.trim();
+                    const cleanExt = filteredContents[i].ext.trim();
                     sef.classOptions.push({ 
                         value: Number(filteredContents[i].clsId), 
-                        text: filteredContents[i].title + " " + filteredContents[i].ext 
+                        text: cleanTitle + " " + cleanExt 
                     });
                 }
             })
@@ -166,9 +170,8 @@
                 sef.$loading(false);
                 console.error('Error fetching classes:', error);
             });
-        }     
+        }
        ,
-
        getTeachers(){
           this.$loading(true);
         //  console.log('Teacher timetable panel here..........' + JSON.stringify(this.timetableData) )
