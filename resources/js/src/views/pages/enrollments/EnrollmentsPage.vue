@@ -3,6 +3,120 @@
     <div>  
         <div class="row">
 
+          <b-sidebar
+            id="add-new-user-sidebar"
+            :visible="isEnollmentAdditionSidebarActive"
+            bg-variant="white"
+            sidebar-class="sidebar-lg"
+            shadow
+            backdrop
+            no-header
+            right
+            no-close-on-backdrop
+          >
+            <template >
+              <!-- Header -->
+              <div
+                class="
+                  d-flex 
+                  justify-content-between
+                  align-items-center
+                  content-sidebar-header
+                  px-2
+                  py-1
+                "
+              >
+                <h5 class="mb-0"> Enroll new student(s)</h5>
+
+                <feather-icon
+                  class="ml-1 cursor-pointer"
+                  icon="XIcon"
+                  size="16"
+                  @click="isAttendanceSidebarActive = false"
+                />
+              </div>
+
+              <b-col lg="12">
+                <b-card-code title="Uploaded Student Data Display" no-body>
+                      
+                      <!-- sort and filter-->
+                      <b-card-body>
+                          <div class="d-flex justify-content-between  flex-wrap">
+
+                              <!-- sorting  -->
+                              <b-form-group label="Sort" label-size="sm" label-align-sm="left" label-cols-sm="2"
+                                  label-for="sortBySelect" class="mr-1 mb-md-0 bolden">
+                                  <b-input-group size="sm">
+                                      <b-form-select id="sortBySelect" v-model="sortBy" :options="sortOptions">
+                                          <template #first>
+                                              <option value="">
+                                                  none
+                                              </option>
+                                          </template>
+                                      </b-form-select>
+                                      <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy">
+                                          <option :value="false">
+                                              Asc
+                                          </option>
+                                          <option :value="true">
+                                              Desc
+                                          </option>
+                                      </b-form-select>
+                                  </b-input-group>
+                              </b-form-group>
+
+                              <!-- filter -->
+                              <b-form-group label="Filter" label-cols-sm="2" label-align-sm="left" label-size="sm"
+                                  label-for="filterInput" class="mb-0">
+                                  <b-input-group size="sm">
+                                      <b-form-input id="filterInput" v-model="filter" type="search"
+                                          placeholder="Type to Search" />
+                                      <b-input-group-append>
+                                          <b-button :disabled="!filter" @click="filter = ''">
+                                              Clear
+                                          </b-button>
+                                      </b-input-group-append>
+                                  </b-input-group>
+                              </b-form-group>
+                          </div>
+                      </b-card-body>
+
+                      <b-table striped hover responsive class="position-relative" :per-page="perPageT"
+                          :current-page="currentPageT" :items="itemsT" :fields="fieldsT" :sort-by.sync="sortByT"
+                          :sort-desc.sync="sortDescT" :sort-direction="sortDirectionT" :filter="filterT"
+                          :filter-included-fields="filterOnT" @filtered="onFilteredT">
+                      
+                      </b-table>
+
+                      <!--- Pagination -->
+                      <b-card-body class="d-flex justify-content-between flex-wrap pt-0">
+
+                          <!-- page length -->
+                          <b-form-group label="Per Page" label-cols="6" label-align="left" label-size="sm"
+                              label-for="sortBySelect" class="text-nowrap mb-md-0 mr-1">
+                              <b-form-select id="perPageSelect" v-model="perPageT" size="sm" inline :options="pageOptionsT" />
+                          </b-form-group>
+
+                          <!-- pagination -->
+                          <div>
+                              <b-pagination v-model="currentPageT" :total-rows="totalRowsT" :per-page="perPageT" first-number
+                                  last-number prev-class="prev-item" next-class="next-item" class="mb-0">
+                                  <template #prev-text>
+                                      <feather-icon icon="ChevronLeftIcon" size="18" />
+                                  </template>
+                                  <template #next-text>
+                                      <feather-icon icon="ChevronRightIcon" size="18" />
+                                  </template>
+                              </b-pagination>
+                          </div>
+                      </b-card-body> 
+
+                </b-card-code>
+              </b-col>
+
+            </template>
+          </b-sidebar>
+
           <b-col lg="4" sm="6">
             <statistic-card-horizontal
               icon="UsersIcon"
@@ -172,6 +286,15 @@
                   >
                     <span class="text-nowrap">Add User</span>
                   </b-button>-->
+
+                  <b-button
+                    variant="success"
+                    @click="isAddNewUserSidebarActive = true"
+                  >
+                    <span class="text-nowrap">Upload New students</span>
+                  </b-button>
+
+              
 
                 </div>
               </b-col>
@@ -388,9 +511,149 @@
       vSelect,
     },
 
+    methods:{
+      onFiltered(filteredItems) {
+        // Trigger pagination to update the number of buttons/pages due to filtering
+        this.totalRowsT = filteredItems.length
+        this.currentPageT = 1
+      },
+      arraysEqual(a,b) { 
+          return Array.isArray(a) &&
+          Array.isArray(b) &&
+          a.length === b.length &&
+          a.every((val, index) => val === b[index]);
+      },
+      loadData(file) {
+       // console.log("Reading a file ");
+        this.itemsT = [];
+        let myitems = [];
+        let reader = new FileReader();
+         reader.readAsText(file);
+         reader.onload = (evt) => {
+           
+            let csvHeaders = [ 'Student Name', 'Student Class','Class Arm', 'Gender of Student', 'Registration Number' ];
+            var content = evt.target.result;
+            //split csv file using "\n" for new line ( each row)
+            let lines = content.split("\r");
+            let firstRow = lines[0].split(",");
+            
+            //loop all rows except the firt row
+            if ( this.arraysEqual( csvHeaders.sort() , firstRow.sort() ) === false ) {
+                alert("Please make sure the Column names are exactly as the Template for Teacher we gave is.")
+                return false;
+            }
+
+            delete lines[0];
+
+            this.itemsT = lines.map((line,index) => {
+                    var rowContent = line.split(","); 
+                    let innerContent = {};
+                    innerContent[ 'id' ] = index;
+                    innerContent[ "student_name" ] = rowContent[0]; 
+                    innerContent[ "student_class" ] = rowContent[1];
+                    innerContent[ "class_arm" ] = rowContent[2];
+                    innerContent[ "student_gender" ] = rowContent[3];
+                    innerContent[ "student_reg_no" ] = rowContent[4];
+
+                    return innerContent
+            });
+
+            this.itemsT = this.itemsT.filter(n => n && n['student_class'] );
+
+            let classTitleExpected = [];
+
+            let the_type_of_school = this.schoolDetails.schType;
+            
+            if(the_type_of_school == 'subeb' || the_type_of_school == 'fctubeb'){
+                classTitleExpected = [ "jss1", "jss2", "jss3" ];
+            }
+            else if(the_type_of_school == 'semb' || the_type_of_school == 'fctseb'){
+                classTitleExpected = [ "ss1", "ss2", "ss3" ];
+            }
+            else if(the_type_of_school == 'subeb+semb'){
+                classTitleExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
+            }   
+            else if(the_type_of_school == 'tveb'){
+                classNameExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
+            }  
+
+            let genderExpected = [ "m", "f" ];
+            let classTitleError, genderError = false;
+
+            for (let i = 0; i < this.items.length; ++i) {
+                let tempLine = this.items[i];
+                let rc =  String(tempLine["student_class"]).toLowerCase().trim();
+                let rc2 =  String(tempLine["student_gender"]).toLowerCase().trim();
+
+                if ( genderExpected.indexOf(rc2) === -1 ) {
+                   // console.log(" Gender >>> " + rc2 + " >>" + genderExpected.indexOf(rc2) ) 
+                    this.items = [];
+                    genderError = true; 
+                    break;                   
+                }
+
+                if ( classTitleExpected.indexOf(rc) === -1 ) {
+                 //   console.log(" Class title >>> " + rc + " >>" + classTitleExpected.indexOf(rc) ) 
+                    this.items = [];
+                    classTitleError = true;    
+                    break;                
+                }
+
+               
+            }
+
+            if (classTitleError) {
+                this.file = null;
+                alert("Check that the Student Class column has the correct values/correct spelling.");
+                return;
+            }
+            if (genderError) {
+                this.file = null;
+                alert("Check that the Gender column has the correct values i.e 'M' / 'F' ");
+                return;
+            }
+
+            this.totalRows = this.items.length;
+           // console.log(  " Final " + JSON.stringify( this.items ) );   
+
+         };
+    },
+
+    handleOnChange(e) {
+      this.file = e.target.files[0];
+      if (!this.file || this.file.type.indexOf("text/csv") !== 0) { alert("This is not a CSV file."); return; };  
+      this.loadData(this.file);    
+    },
+    },
+
     data() {
       return {  
-       // userData: JSON.parse(localStorage.getItem('userData'))
+          file: null,
+          isFilled: false,
+          perPageT: 5,
+          pageOptionsT: [3, 5, 10],
+          totalRowsT: 1,
+          currentPageT: 1,
+          sortByT: '',
+          sortDescT: false,
+          sortDirectionT: 'asc',
+          filterT: null,
+          filterOnT: [],
+          infoModalT: {
+            id: 'info-modal-student',
+            title: '',
+            content: ''
+          },
+          fieldsT: [
+            { key: 'id', label: 'Id' },
+            { key: 'student_name', label: 'Student Name' },
+            { key: 'student_class', label: 'Student Class', sortable: true },
+            { key: 'class_arm', label: 'Class Arm', sortable: true },
+            { key: 'student_gender', label: 'Gender of Student', sortable: true },       
+            { key: 'student_reg_no', label: 'Registration Number', sortable: true }
+          ],
+
+          itemsT: []
       }
     },
 
@@ -450,6 +713,7 @@
         refEnrollmentListTable,
         refetchData,
         handlePageChange,
+        isEnollmentAdditionSidebarActive,
         filters,
         // UI       
         resolveUserStatusVariant,
@@ -466,7 +730,7 @@
       }
   
       return { 
-        // Sidebar
+        // Sidebar 
         isSearchSchoolSidebarActive,
         userData,
         teacherData,
@@ -490,6 +754,7 @@
         sortBy,
         isSortDirDesc,
         refEnrollmentListTable,
+        isEnollmentAdditionSidebarActive,
 
         refetchData,
         handlePageChange,

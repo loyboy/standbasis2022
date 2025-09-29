@@ -10,8 +10,8 @@ export default function useEnrollmentList(School = null) {
     const toast = useToast()
 
     const refEnrollmentListTable = ref(null)
-
-    // Table Handlers
+    const isEnollmentAdditionSidebarActive = ref(false)
+        // Table Handlers
     const tableColumns = [
         { key: 'student.name', label: 'Student Name', sortable: true },
         { key: 'student.gender', label: 'Student Gender', sortable: true },
@@ -136,6 +136,7 @@ export default function useEnrollmentList(School = null) {
 
         refEnrollmentListTable,
         filters,
+        isEnollmentAdditionSidebarActive,
 
         resolveUserStatusVariant,
         resolveUserTermVariant,
