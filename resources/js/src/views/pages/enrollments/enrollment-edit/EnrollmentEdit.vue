@@ -121,9 +121,9 @@
                 
                 // Get current class category (e.g., "SS3", "JSS1", etc.)
                 let currentClassCategory = "";
-                if (sef.timetableData.class_stream.clsId) {
+                if (sef.enrollmentData.classstream.clsId) {
                     // Find the current class text to determine category
-                    const currentClass = contents.find(cls => cls.clsId == sef.timetableData.class_stream.clsId);
+                    const currentClass = contents.find(cls => cls.clsId == sef.enrollmentData.classstream.clsId);
                     if (currentClass) {
                         // Clean the title by removing leading/trailing whitespace and newline characters
                         const cleanTitle = currentClass.title.trim();
