@@ -109,11 +109,12 @@
         },*/
         getClasses() {
             this.$loading(true);
+            const { baseURL } = $themeConfig.app;
             const sef = this;
             this.classOptions = []; // Clear existing options first
-            this.classOptions.push({ value: "", text: "Please select your School's Timetable class." });
+            this.classOptions.push({ value: "", text: "Please select your Class for the Enrollment student. " });
             
-            axios.get(this.baseURL + "/misc/allClasses/" + this.enrollmentData.classstream.school.schId)
+            axios.get(baseURL + "/misc/allClasses/" + this.enrollmentData.classstream.school.schId)
             .then(function (response) {  
                 sef.$loading(false);
                 let data = response.data;
