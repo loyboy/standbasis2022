@@ -37,6 +37,26 @@
               </div>
 
               <b-col lg="12">
+                  <b-card-code title="Student Data">
+                      <b-card-text class="mb-2 bolden">
+                          Upload your School's Student Data in the format we had instructed you to arrange it in.
+                      </b-card-text>
+
+                      <div>
+                          <!-- Styled -->
+                          <b-form-file v-model="fileT" placeholder="Choose a file or drop it here..."
+                              drop-placeholder="Drop file here..." @change="handleOnChange" />
+
+                          <b-card-text class="my-1 bolden">
+                              Selected file: <strong>{{ fileT ? fileT.name : '' }}</strong>
+                          </b-card-text>
+
+                      </div>
+                  </b-card-code>
+              </b-col>
+
+
+              <b-col lg="12">
                 <b-card-code title="Uploaded Student Data Display" no-body>
                       
                       <!-- sort and filter-->
@@ -110,6 +130,26 @@
                               </b-pagination>
                           </div>
                       </b-card-body> 
+
+                       <!-- Form Actions -->
+                      <div class="d-flex mt-2">
+                        <b-button
+                          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+                          variant="primary"
+                          class="mr-2"
+                          @click="finish"
+                        >
+                          Upload students
+                        </b-button>
+                        <b-button
+                          v-ripple.400="'rgba(186, 191, 199, 0.15)'"
+                          type="button"
+                          variant="outline-secondary"
+                          @click="isEnollmentAdditionSidebarActive = false"
+                        >
+                          Cancel
+                        </b-button>
+                      </div>  
 
                 </b-card-code>
               </b-col>
@@ -675,6 +715,16 @@
                   },
                   });
               });
+      }
+      else {
+         this.$toast({
+                    component: ToastificationContent,
+                    props: {
+                    title: 'You have not uploaded any Student template file yet',
+                    icon: 'AlertTriangleIcon',
+                    variant: 'danger',
+                  },
+          });
       }
     }
 
