@@ -36,7 +36,7 @@
                 />
               </div>
 
-              <b-col lg="12">
+              <b-col lg="12" class="m-3">
                   <b-card-code title="Student Data">
                       <b-card-text class="mb-2 bolden">
                           Upload your School's Student Data in the format we had instructed you to arrange it in.
@@ -56,8 +56,8 @@
               </b-col>
 
 
-              <b-col lg="12">
-                <b-card-code title="Uploaded Student Data Display" no-body>
+              <b-col lg="12" class="mt-3">
+                <b-card-code title="Uploaded Student Data Display" no-body class="d-flex flex-column h-100">
                       
                       <!-- sort and filter-->
                       <b-card-body>
@@ -502,6 +502,7 @@
     BRow,
     BCol,
     BFormInput,
+    BFormFile,
     BButton,
     BTable,
     BSidebar,
@@ -535,6 +536,7 @@
       BRow,
       BCol,
       BFormInput,
+      BFormFile,
       BButton,
       BTable,
       BSidebar,
