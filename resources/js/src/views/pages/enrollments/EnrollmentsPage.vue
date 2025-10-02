@@ -870,11 +870,6 @@
         resolveUserTermVariant
       
       }
-    },
-    methods: {
-      handleSubmit() { 
-
-      }
     }
   }
   </script>
