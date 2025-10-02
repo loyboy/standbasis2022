@@ -424,11 +424,12 @@ export default {
         sef.$toast({
 				  component: ToastificationContent,
 				  props: {
-					title: 'Thank you for Onboarding Your School',
-					icon: 'AlertTriangleIcon',
-					variant: 'success',
+            title: 'Thank you for Onboarding Your School',
+            icon: 'AlertTriangleIcon',
+            variant: 'success',
 				  },
-			  });           
+			  }); 
+
           }).catch((exception) => { 
             sef.$toast({
               component: ToastificationContent,
@@ -438,7 +439,8 @@ export default {
               variant: 'danger',
             },
             });
-		    });        
+		    });
+                
       } 
     }
   },

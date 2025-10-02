@@ -32,7 +32,7 @@
                   class="ml-1 cursor-pointer"
                   icon="XIcon"
                   size="16"
-                  @click="isAttendanceSidebarActive = false"
+                  @click="isEnollmentAdditionSidebarActive = false"
                 />
               </div>
 
@@ -47,14 +47,14 @@
                               <b-form-group label="Sort" label-size="sm" label-align-sm="left" label-cols-sm="2"
                                   label-for="sortBySelect" class="mr-1 mb-md-0 bolden">
                                   <b-input-group size="sm">
-                                      <b-form-select id="sortBySelect" v-model="sortBy" :options="sortOptions">
+                                      <b-form-select id="sortBySelect" v-model="sortByT" :options="sortOptionsT">
                                           <template #first>
                                               <option value="">
                                                   none
                                               </option>
                                           </template>
                                       </b-form-select>
-                                      <b-form-select v-model="sortDesc" size="sm" :disabled="!sortBy">
+                                      <b-form-select v-model="sortDescT" size="sm" :disabled="!sortByT">
                                           <option :value="false">
                                               Asc
                                           </option>
@@ -69,10 +69,10 @@
                               <b-form-group label="Filter" label-cols-sm="2" label-align-sm="left" label-size="sm"
                                   label-for="filterInput" class="mb-0">
                                   <b-input-group size="sm">
-                                      <b-form-input id="filterInput" v-model="filter" type="search"
+                                      <b-form-input id="filterInput" v-model="filterT" type="search"
                                           placeholder="Type to Search" />
                                       <b-input-group-append>
-                                          <b-button :disabled="!filter" @click="filter = ''">
+                                          <b-button :disabled="!filterT" @click="filter = ''">
                                               Clear
                                           </b-button>
                                       </b-input-group-append>
@@ -478,6 +478,7 @@
   } from 'bootstrap-vue';
   import StatisticCardHorizontal from "@core/components/statistics-cards/StatisticCardHorizontal.vue";
   import vSelect from 'vue-select'
+  import { $themeConfig } from "@themeConfig";
   import router from '@/router'
   import store from '@/store'
   import { ref, onUnmounted } from '@vue/composition-api'
@@ -511,6 +512,15 @@
       vSelect,
     },
 
+    computed: {
+      sortOptionsT() {
+        // Create an options list from our fields
+        return this.fieldsT
+          .filter(f => f.sortable)
+          .map(f => ({ text: f.label, value: f.key }))
+      },
+    },
+
     methods:{
       onFiltered(filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering
@@ -524,9 +534,7 @@
           a.every((val, index) => val === b[index]);
       },
       loadData(file) {
-       // console.log("Reading a file ");
         this.itemsT = [];
-        let myitems = [];
         let reader = new FileReader();
          reader.readAsText(file);
          reader.onload = (evt) => {
@@ -562,7 +570,7 @@
 
             let classTitleExpected = [];
 
-            let the_type_of_school = this.schoolDetails.schType;
+            let the_type_of_school = this.userData.schType;
             
             if(the_type_of_school == 'subeb' || the_type_of_school == 'fctubeb'){
                 classTitleExpected = [ "jss1", "jss2", "jss3" ];
@@ -574,32 +582,29 @@
                 classTitleExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
             }   
             else if(the_type_of_school == 'tveb'){
-                classNameExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
+                classTitleExpected = [ "jss1", "jss2", "jss3", "ss1", "ss2", "ss3" ];
             }  
 
             let genderExpected = [ "m", "f" ];
             let classTitleError, genderError = false;
 
-            for (let i = 0; i < this.items.length; ++i) {
-                let tempLine = this.items[i];
+            for (let i = 0; i < this.itemsT.length; ++i) {
+                let tempLine = this.itemsT[i];
                 let rc =  String(tempLine["student_class"]).toLowerCase().trim();
                 let rc2 =  String(tempLine["student_gender"]).toLowerCase().trim();
 
                 if ( genderExpected.indexOf(rc2) === -1 ) {
                    // console.log(" Gender >>> " + rc2 + " >>" + genderExpected.indexOf(rc2) ) 
-                    this.items = [];
+                    this.itemsT = [];
                     genderError = true; 
                     break;                   
                 }
 
                 if ( classTitleExpected.indexOf(rc) === -1 ) {
-                 //   console.log(" Class title >>> " + rc + " >>" + classTitleExpected.indexOf(rc) ) 
-                    this.items = [];
+                    this.itemsT = [];
                     classTitleError = true;    
                     break;                
-                }
-
-               
+                }               
             }
 
             if (classTitleError) {
@@ -607,16 +612,17 @@
                 alert("Check that the Student Class column has the correct values/correct spelling.");
                 return;
             }
+
             if (genderError) {
                 this.file = null;
                 alert("Check that the Gender column has the correct values i.e 'M' / 'F' ");
                 return;
             }
 
-            this.totalRows = this.items.length;
-           // console.log(  " Final " + JSON.stringify( this.items ) );   
+            this.totalRowsT = this.itemsT.length;
 
-         };
+           
+          };
     },
 
     handleOnChange(e) {
@@ -624,6 +630,54 @@
       if (!this.file || this.file.type.indexOf("text/csv") !== 0) { alert("This is not a CSV file."); return; };  
       this.loadData(this.file);    
     },
+
+    finish(){
+      if (this.itemsT.length > 0){
+              let transformStudent = this.itemsT.map( (o) => {
+                  return {
+                    "name": o.student_name,
+                    "class_name": o.student_class,
+                    "arm": o.class_arm,
+                    "gender": o.student_gender,
+                    "regno": o.student_reg_no
+                  }
+              }).filter((o) => {
+                return o && o.class_name
+              });
+            
+              const pupRequest = transformStudent;
+
+              const sef = this;
+              const { baseURL } = $themeConfig.app;
+              const formPayload = { pupRequest };
+              this.$loading(true);
+              axios.post( baseURL + "/auth/onboardnewstudents/"+ this.userData.cal_id, formPayload)
+              .then(function (response) {         
+                sef.$loading(false);                
+                sef.isEnollmentAdditionSidebarActive = false;
+                sef.$toast({
+                  component: ToastificationContent,
+                  props: {
+                    title: 'Thank you for onboarding some new Students.',
+                    icon: 'AlertTriangleIcon',
+                    variant: 'success',
+                  },
+                }); 
+
+                }).catch((exception) => { 
+                  sef.isEnollmentAdditionSidebarActive = false;
+                  sef.$toast({
+                    component: ToastificationContent,
+                    props: {
+                    title: 'There is an issue with the Onboarding process, please check your form details',
+                    icon: 'AlertTriangleIcon',
+                    variant: 'danger',
+                  },
+                  });
+              });
+      }
+    }
+
     },
 
     data() {
