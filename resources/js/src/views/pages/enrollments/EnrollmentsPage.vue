@@ -329,12 +329,10 @@
 
                   <b-button
                     variant="success"
-                    @click="isAddNewUserSidebarActive = true"
+                    @click="isEnollmentAdditionSidebarActive = true"
                   >
                     <span class="text-nowrap">Upload New students</span>
-                  </b-button>
-
-              
+                  </b-button>             
 
                 </div>
               </b-col>
