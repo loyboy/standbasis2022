@@ -183,7 +183,7 @@
           
           return lsnoption ? String(lsnoption.text).toLowerCase().includes("reverted") : false;  
       },
-    },
+    },    
 
     setup() {
       const { refFormObserver, getValidationState, resetForm } = formValidation(() => {})
@@ -256,9 +256,9 @@
 
       filters.value.week = weekCalculated
 
-      onMounted(async () => {
-          /*fetchLessonnotes();
-          setTimeout(() => {
+      onMounted(() => {
+          fetchLessonnotes();
+          /*setTimeout(() => {
 
               const newLsn = LessonnoteItems.value.filter( o => {
                   const expiry_date_of_submission = new Date(o.expected_submission).getTime();
@@ -275,74 +275,50 @@
                   let valuetosee =  obj.lessonnoteId 
                   lessonnoteOptions.value.push( { value: valuetosee , text: labeltosee } )
               });
-          }, 2000);     */
-          try {
-              // 1. Fetch data and WAIT for it
-              await fetchLessonnotes();
-
-              // 2. DEBUG: Log raw data
-              console.log('Raw LessonnoteItems:', LessonnoteItems.value.length);
-
-              // 3. Guard against missing data
-              if (!Array.isArray(LessonnoteItems.value)) {
-                console.error('LessonnoteItems is not an array!');
-                return;
-              }
-
-              // 4. Filter valid, non-expired items
-              const now = Date.now();
-              const validItems = LessonnoteItems.value.filter(o => {
-                if (!o.expected_submission) return false;
-                const expiry = new Date(o.expected_submission).getTime();
-                return !isNaN(expiry) && now < expiry;
-              });
-
-              console.log('Valid (non-expired) items:', validItems);
-
-              // 5. Map to options safely
-              const options = validItems.map(obj => {
-                // Safely access nested properties
-                const subjectName = obj.subject?.name || 'Unknown Subject';
-                const week = obj.week || '??';
-                const term = obj.calendar?.term || '??';
-                const session = obj.calendar?.session || '??';
-                const classLabel = classIndexData.value[obj.class_index] || 'Unknown Class';
-
-                // Determine status
-                let status = "NOT DONE";
-                if (obj.submission !== null) {
-                  if (obj.resubmission !== null) {
-                    status = "RE-SUBMITTED";
-                  } else if (obj.revert !== null) {
-                    status = "REVERTED";
-                  } else {
-                    status = "SUBMITTED";
-                  }
-                }
-
-                const delayed = obj.delaythis === 1 ? `${status}-DELAYED` : status;
-
-                const text = `${subjectName}-Week-${week}Term-${term}-${session}-${classLabel}-${delayed}`;
-                const value = obj.lessonnoteId;
-
-                // Skip if no value
-                if (value == null) {
-                  console.warn('Skipping item with no lessonnoteId:', obj);
-                  return null;
-                }
-
-                return { value, text };
-              }).filter(Boolean); // Remove any nulls
-
-              console.log('Final lessonnoteOptions:', options);
-
-              // 6. ASSIGN (don't push!)
-              lessonnoteOptions.value = options;
-
-            } catch (error) {
-              console.error('Failed to load lesson note options:', error);
-            }       
+          }, 2000);*/
+               
       })
+
+      watch(() => LessonnoteItems.value, (newVal) => {
+          if (!Array.isArray(newVal) || newVal.length === 0) return;
+
+          console.log('LessonnoteItems updated! Processing...');
+
+          const now = Date.now();
+          const validItems = newVal.filter(o => {
+            if (!o.expected_submission) return false;
+            const expiry = new Date(o.expected_submission).getTime();
+            return !isNaN(expiry) && now < expiry;
+          });
+
+          const options = validItems.map(obj => {
+            const subjectName = obj.subject?.name || 'Unknown';
+            const week = obj.week || '??';
+            const term = obj.calendar?.term || '??';
+            const session = obj.calendar?.session || '??';
+            const classLabel = classIndexData.value[obj.class_index] || 'Class?';
+
+            let status = "NOT DONE";
+            if (obj.submission !== null) {
+              status = obj.resubmission !== null
+                ? "RE-SUBMITTED"
+                : obj.revert !== null
+                  ? "REVERTED"
+                  : "SUBMITTED";
+            }
+            const delayed = obj.delaythis === 1 ? `${status}-DELAYED` : status;
+
+            return {
+              value: obj.lessonnoteId,
+              text: `${subjectName}-Week-${week}Term-${term}-${session}-${classLabel}-${delayed}`
+            };
+          }).filter(opt => opt.value != null);
+
+          lessonnoteOptions.value = options;
+          console.log('✅ lessonnoteOptions set:', options.length, 'items');
+        },
+        { immediate: true }
+      );
       
       return {       
        
