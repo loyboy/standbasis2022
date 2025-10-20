@@ -255,8 +255,8 @@
 
       filters.value.week = weekCalculated
 
-      onMounted(() => {
-          fetchLessonnotes();
+      onMounted(async () => {
+          /*fetchLessonnotes();
 
           setTimeout(() => {
 
@@ -275,7 +275,32 @@
                   let valuetosee =  obj.lessonnoteId 
                   lessonnoteOptions.value.push( { value: valuetosee , text: labeltosee } )
               });
-          }, 2000);      
+          }, 2000); */
+          await fetchLessonnotes(); // wait until data is loaded
+
+          const newLsn = LessonnoteItems.value.filter(o => {
+            const expiry = new Date(o.expected_submission).getTime();
+            const now = Date.now();
+            return now < expiry;
+          });
+
+          lessonnoteOptions.value = newLsn.map(obj => {
+            const status = obj.submission === null
+              ? "NOT DONE"
+              : obj.resubmission !== null
+                ? "RE-SUBMITTED"
+                : obj.revert !== null
+                  ? "REVERTED"
+                  : "SUBMITTED";
+
+            const delayed = obj.delaythis === 1 ? `${status}-DELAYED` : status;
+            const label = `${obj.subject.name}-Week-${obj.week}Term-${obj.calendar.term}-${obj.calendar.session}-${classIndexData.value[obj.class_index]}-${delayed}`;
+            
+            return {
+              value: obj.lessonnoteId,
+              text: label
+            };
+          });     
       })
       
       return {       
