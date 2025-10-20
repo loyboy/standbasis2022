@@ -473,7 +473,7 @@
         } 
     
         if ( findIfPrinisPresent ){         
-            filters.value.schoolId = teacherData.value ? teacherData.value.school.schId : null;
+            filters.value.schoolId = userData.value ? userData.value.sch_id : null;
         }
         if( findIfTeacherisPresent ){
             filters.value.teacherId = teacherData.value ? teacherData.value.teaId : null;
