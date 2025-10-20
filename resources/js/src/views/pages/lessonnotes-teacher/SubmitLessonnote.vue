@@ -181,7 +181,7 @@
       selectedLessonnoteOption: function() {
           const lsnoption = this.lessonnoteOptions.find(option => option.value === this.filters.lsn);
           
-          return String(lsnoption.text).toLowerCase().includes("reverted");  
+          return lsnoption ? String(lsnoption.text).toLowerCase().includes("reverted") : false;  
       },
     },
 
