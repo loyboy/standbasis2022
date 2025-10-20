@@ -8,6 +8,7 @@
         <b-card-body>
         
           <b-row>
+            <div>Debug: {{ lessonnoteOptions.length }} options loaded</div>
                   <b-col cols="6" md="12">
                     <b-form-group label="Select Lesson Note" label-for="lessonnote">
                       <b-form-select
@@ -300,7 +301,9 @@
               value: obj.lessonnoteId,
               text: label
             };
-          });     
+          });
+          console.log('Filtered lesson notes:', newLsn);
+          console.log('Final options:', lessonnoteOptions.value);     
       })
       
       return {       
