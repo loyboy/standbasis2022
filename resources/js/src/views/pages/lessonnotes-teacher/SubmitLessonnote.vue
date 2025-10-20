@@ -8,7 +8,6 @@
         <b-card-body>
         
           <b-row>
-            <div>Debug: {{ lessonnoteOptions.length }} options loaded</div>
                   <b-col cols="6" md="12">
                     <b-form-group label="Select Lesson Note" label-for="lessonnote">
                       <b-form-select
@@ -282,7 +281,7 @@
       watch(() => LessonnoteItems.value, (newVal) => {
           if (!Array.isArray(newVal) || newVal.length === 0) return;
 
-          console.log('LessonnoteItems updated! Processing...');
+         // console.log('LessonnoteItems updated! Processing...');
 
           const now = Date.now();
           const validItems = newVal.filter(o => {
