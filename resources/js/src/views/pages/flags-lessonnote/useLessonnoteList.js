@@ -65,7 +65,7 @@ export default function useLessonnoteList() {
         school: filters.value.schoolId,  
         week: filters.value.week,
         schoolyear: filters.value.schoolyear,
-        schoolterm: filters.value.schoolterm,
+        schoolterm: filters.value.schoolterm, 
         
         class: filters.value.classId,
         teacher: filters.value.teacherId,
@@ -91,6 +91,12 @@ export default function useLessonnoteList() {
       ];
         
         isLoading.value = false;   
+
+      })
+      .catch((e) => {
+        console.log("Fetch Lessonnotes M&E error: " + e);
+        isLoading.value = false;   
+      })
 
       store
         .dispatch('app-LessonnoteMNE/fetchLessonnotesStudents', {
@@ -125,12 +131,6 @@ export default function useLessonnoteList() {
           console.log("Fetch Lessonnotes M&E error: " + e);
           isLoading.value = false;   
         })
-
-      })
-      .catch((e) => {
-        console.log("Fetch Lessonnotes M&E error: " + e);
-        isLoading.value = false;   
-      })
 
      
   }
