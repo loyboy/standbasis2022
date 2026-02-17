@@ -31,6 +31,10 @@ export default function useLessonnoteList() {
 
         { key: '_type', label: "Assessment Type", sortable: true },
 
+        { key: 'lsn.title', label: 'Lessonnote Name', sortable: true },
+
+        { key: '_date', label: "Date",  sortable: true },   
+
         { key: 'enroll.student.name', label: "Student Name", sortable: true },
 
         { key: 'lsn.subject.name', label: 'Subject Name', sortable: true },

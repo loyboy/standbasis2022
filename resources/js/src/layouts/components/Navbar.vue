@@ -116,7 +116,7 @@ export default {
       default: () => {},
     }
   },
-   data() {
+  data() {
     return {
       userData: JSON.parse(localStorage.getItem('userData')),
       avatarText,
