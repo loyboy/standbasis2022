@@ -168,7 +168,8 @@ export default [
             },
             {
                 title: 'Assessments',
-                route: 'lessonnotes-student-home'
+                route: 'lessonnotes-student-home',
+                
                 
             }          
            

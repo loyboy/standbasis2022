@@ -1,5 +1,5 @@
 <template>
-    <div>  
+    <div v-if="userData.role === 'teacher'">  
         <div class="row">        
 
           <b-sidebar
@@ -336,6 +336,32 @@
         </b-card>
        
     </div>
+    <div v-else class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">    
+      <!-- Message Board Card -->
+      <div class="card border-danger shadow" style="max-width: 500px; width: 100%;">
+        <div class="card-header bg-danger text-white text-center">
+          <h4 class="mb-0">Access Denied</h4>
+        </div>
+        <div class="card-body text-center p-5">
+          <!-- Optional Icon (using Bootstrap Icons class, remove if not installed) -->
+          <div class="mb-3 text-danger">
+            <i class="bi bi-lock-fill" style="font-size: 3rem;"></i>
+          </div>
+          
+          <!-- The Requested Message -->
+          <h5 class="card-title text-dark">Permission Restricted</h5>
+          <p class="card-text lead mt-3">
+            As a Principal, you dont have access to this Page
+          </p>
+          
+          <!-- Optional Action Button -->
+          <button class="btn btn-outline-danger mt-4" @click="$router.push('/')">
+            Return Home
+          </button>
+        </div>
+      </div>
+    </div>
+    
 </template>
   
   <script>
